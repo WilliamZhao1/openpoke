@@ -4,6 +4,7 @@ import json
 import os
 import threading
 from datetime import datetime
+from pathlib import Path
 from typing import Any, Dict, Optional
 
 from fastapi import status
@@ -22,6 +23,7 @@ _PROFILE_CACHE: Dict[str, Dict[str, Any]] = {}
 _PROFILE_CACHE_LOCK = threading.Lock()
 _ACTIVE_USER_ID_LOCK = threading.Lock()
 _ACTIVE_USER_ID: Optional[str] = None
+_ACTIVE_USER_ID_PATH = Path(__file__).resolve().parents[2] / "data" / "gmail" / "active_user_id.txt"
 
 
 def _normalized(value: Optional[str]) -> str:
@@ -33,11 +35,37 @@ def _set_active_gmail_user_id(user_id: Optional[str]) -> None:
     with _ACTIVE_USER_ID_LOCK:
         global _ACTIVE_USER_ID
         _ACTIVE_USER_ID = sanitized or None
+        try:
+            if sanitized:
+                _ACTIVE_USER_ID_PATH.parent.mkdir(parents=True, exist_ok=True)
+                _ACTIVE_USER_ID_PATH.write_text(sanitized, encoding="utf-8")
+            else:
+                _ACTIVE_USER_ID_PATH.unlink(missing_ok=True)
+        except OSError:
+            logger.exception("Failed to persist active Gmail user")
 
 
 def get_active_gmail_user_id() -> Optional[str]:
     with _ACTIVE_USER_ID_LOCK:
+        global _ACTIVE_USER_ID
+        if _ACTIVE_USER_ID is None:
+            try:
+                _ACTIVE_USER_ID = _normalized(_ACTIVE_USER_ID_PATH.read_text(encoding="utf-8")) or None
+            except FileNotFoundError:
+                pass
+            except OSError:
+                logger.exception("Failed to restore active Gmail user")
         return _ACTIVE_USER_ID
+
+
+def _connected_account_items(response: Any) -> list[Any]:
+    if isinstance(response, dict):
+        items = response.get("items", response.get("data", []))
+    else:
+        items = getattr(response, "items", None)
+        if not isinstance(items, list):
+            items = getattr(response, "data", [])
+    return items if isinstance(items, list) else []
 
 
 def _gmail_import_client():
@@ -213,11 +241,10 @@ def initiate_connect(payload: GmailConnectPayload, settings: Settings) -> JSONRe
         )
 
     user_id = payload.user_id or f"web-{os.getpid()}"
-    _set_active_gmail_user_id(user_id)
     _clear_cached_profile(user_id)
     try:
         client = _get_composio_client(settings)
-        req = client.connected_accounts.initiate(user_id=user_id, auth_config_id=auth_config_id)
+        req = client.connected_accounts.link(user_id=user_id, auth_config_id=auth_config_id)
         data = {
             "ok": True,
             "redirect_url": getattr(req, "redirect_url", None) or getattr(req, "redirectUrl", None),
@@ -257,17 +284,12 @@ def fetch_status(payload: GmailStatusPayload) -> JSONResponse:
                 except Exception:
                     account = None
         if account is None and user_id:
-            try:
-                items = client.connected_accounts.list(
-                    user_ids=[user_id], toolkit_slugs=["GMAIL"], statuses=["ACTIVE"]
-                )
-                data = getattr(items, "data", None)
-                if data is None and isinstance(items, dict):
-                    data = items.get("data")
-                if data:
-                    account = data[0]
-            except Exception:
-                account = None
+            items = client.connected_accounts.list(
+                user_ids=[user_id], toolkit_slugs=["gmail"], statuses=["ACTIVE"]
+            )
+            data = _connected_account_items(items)
+            if data:
+                account = data[0]
         status_value = None
         email = None
         connected = False
@@ -285,7 +307,7 @@ def fetch_status(payload: GmailStatusPayload) -> JSONResponse:
             elif isinstance(account, dict):
                 account_user_id = account.get("user_id")
 
-        if not user_id and account_user_id:
+        if account_user_id:
             user_id = _normalized(account_user_id)
 
         if connected and user_id:
@@ -303,7 +325,10 @@ def fetch_status(payload: GmailStatusPayload) -> JSONResponse:
         elif user_id:
             _clear_cached_profile(user_id)
 
-        _set_active_gmail_user_id(user_id)
+        if connected and user_id:
+            _set_active_gmail_user_id(user_id)
+        elif user_id and get_active_gmail_user_id() == user_id:
+            _set_active_gmail_user_id(None)
 
         return JSONResponse(
             {
@@ -379,10 +404,8 @@ def disconnect_account(payload: GmailDisconnectPayload) -> JSONResponse:
         _delete_connection(connection_id)
     else:
         try:
-            items = client.connected_accounts.list(user_ids=[user_id], toolkit_slugs=["GMAIL"])
-            data = getattr(items, "data", None)
-            if data is None and isinstance(items, dict):
-                data = items.get("data")
+            items = client.connected_accounts.list(user_ids=[user_id], toolkit_slugs=["gmail"])
+            data = _connected_account_items(items)
         except Exception as exc:  # pragma: no cover - dependent on SDK
             logger.exception("Failed to list Gmail connections", extra={"user_id": user_id})
             return error_response(
@@ -394,19 +417,14 @@ def disconnect_account(payload: GmailDisconnectPayload) -> JSONResponse:
         if data:
             for entry in data:
                 candidate = None
-                candidate_user_id = None
                 if hasattr(entry, "id"):
                     candidate = getattr(entry, "id", None)
-                    candidate_user_id = getattr(entry, "user_id", None)
                 if candidate is None and isinstance(entry, dict):
                     candidate = entry.get("id")
-                    candidate_user_id = entry.get("user_id")
                 if candidate:
-                    if candidate_user_id:
-                        affected_user_ids.add(_normalized(candidate_user_id))
                     _delete_connection(candidate)
 
-    if user_id:
+    if user_id and not errors:
         affected_user_ids.add(user_id)
 
     for uid in list(affected_user_ids):
@@ -485,7 +503,10 @@ def execute_gmail_tool(
             user_id=composio_user_id,
             arguments=prepared_arguments,
         )
-        return _normalize_tool_response(result)
+        normalized_result = _normalize_tool_response(result)
+        if normalized_result.get("successful") is False or normalized_result.get("error"):
+            raise RuntimeError(normalized_result.get("error") or "Composio reported an unsuccessful Gmail tool result")
+        return normalized_result
     except Exception as exc:
         logger.exception(
             "gmail tool execution failed",

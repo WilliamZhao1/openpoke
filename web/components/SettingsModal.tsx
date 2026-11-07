@@ -353,9 +353,9 @@ export default function SettingsModal({
   }, [settings]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open && !readStoredUserId() && !readStoredConnectionRequestId()) return;
     void refreshGmailStatus();
-  }, [open, refreshGmailStatus]);
+  }, [open, readStoredUserId, readStoredConnectionRequestId, refreshGmailStatus]);
 
   if (!open) return null;
 

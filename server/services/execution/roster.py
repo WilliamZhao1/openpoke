@@ -1,11 +1,40 @@
 """Simple agent roster management - just a list of agent names."""
 
+import errno
 import json
-import fcntl
+import os
 import time
 from pathlib import Path
+from typing import TextIO
+
+if os.name == "nt":
+    import msvcrt
+else:
+    import fcntl
 
 from ...logging_config import logger
+
+
+def _lock_file(file: TextIO) -> None:
+    if os.name == "nt":
+        # Every writer locks the same byte, even when the file is empty.
+        file.seek(0)
+        try:
+            msvcrt.locking(file.fileno(), msvcrt.LK_NBLCK, 1)
+        except OSError as exc:
+            if exc.errno in {errno.EACCES, errno.EAGAIN, errno.EDEADLK}:
+                raise BlockingIOError(exc.errno, str(exc)) from exc
+            raise
+    else:
+        fcntl.flock(file.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+
+def _unlock_file(file: TextIO) -> None:
+    if os.name == "nt":
+        file.seek(0)
+        msvcrt.locking(file.fileno(), msvcrt.LK_UNLCK, 1)
+    else:
+        fcntl.flock(file.fileno(), fcntl.LOCK_UN)
 
 
 class AgentRoster:
@@ -20,7 +49,7 @@ class AgentRoster:
         """Load agent names from roster.json."""
         if self._roster_path.exists():
             try:
-                with open(self._roster_path, 'r') as f:
+                with open(self._roster_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
                     if isinstance(data, list):
                         self._agents = [str(name) for name in data]
@@ -40,14 +69,17 @@ class AgentRoster:
             try:
                 self._roster_path.parent.mkdir(parents=True, exist_ok=True)
 
-                # Open file and acquire exclusive lock
-                with open(self._roster_path, 'w') as f:
-                    fcntl.flock(f.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+                # Do not truncate an existing roster until we own the lock.
+                with open(self._roster_path, 'a+', encoding='utf-8') as f:
+                    _lock_file(f)
                     try:
+                        f.seek(0)
+                        f.truncate()
                         json.dump(self._agents, f, indent=2)
+                        f.flush()
                         return
                     finally:
-                        fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+                        _unlock_file(f)
 
             except BlockingIOError:
                 # Lock is held by another process

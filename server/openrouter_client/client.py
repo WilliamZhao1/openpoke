@@ -41,6 +41,8 @@ def _handle_response_error(exc: httpx.HTTPStatusError) -> None:
     try:
         payload = response.json()
         detail = payload.get("error") or payload.get("message") or json.dumps(payload)
+        if isinstance(detail, dict):
+            detail = detail.get("message") or json.dumps(detail)
     except Exception:
         detail = response.text
     raise OpenRouterError(f"OpenRouter request failed ({response.status_code}): {detail}") from exc
@@ -61,6 +63,7 @@ async def request_chat_completion(
         "model": model,
         "messages": _build_messages(messages, system),
         "stream": False,
+        "max_tokens": get_settings().openrouter_max_tokens,
     }
     if tools:
         payload["tools"] = tools

@@ -70,7 +70,7 @@ def gmail_fetch_emails(
         return {"error": "Gmail not connected. Please connect Gmail in settings first."}
     
     # Use the same composio integration as the public tools
-    return execute_gmail_tool("GMAIL_FETCH_EMAILS", composio_user_id, arguments)
+    return execute_gmail_tool("GMAIL_FETCH_EMAILS", composio_user_id, arguments=arguments)
 
 
 __all__ = [

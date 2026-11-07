@@ -8,6 +8,7 @@ from ...agents.interaction_agent.runtime import InteractionAgentRuntime
 from ...logging_config import logger
 from ...models import ChatMessage, ChatRequest
 from ...utils import error_response
+from .log import get_conversation_log
 
 
 # Extract the most recent user message from the chat request payload
@@ -35,14 +36,21 @@ async def handle_chat_request(payload: ChatRequest) -> Union[PlainTextResponse, 
         runtime = InteractionAgentRuntime()
     except ValueError as ve:
         # Missing API key error
-        logger.error("configuration error", extra={"error": str(ve)})
+        logger.error("configuration error: %s", ve)
         return error_response(str(ve), status_code=status.HTTP_400_BAD_REQUEST)
 
     async def _run_interaction() -> None:
         try:
-            await runtime.execute(user_message=user_content)
+            result = await runtime.execute(user_message=user_content)
+            if result.success:
+                return
+            logger.error("chat request failed: %s", result.error or "Unknown interaction agent error")
         except Exception as exc:  # pragma: no cover - defensive
-            logger.error("chat task failed", extra={"error": str(exc)})
+            logger.exception("chat task failed: %s", exc)
+
+        get_conversation_log().record_reply(
+            "I couldn't process your message. Please try again, or check the server logs for details."
+        )
 
     asyncio.create_task(_run_interaction())
 

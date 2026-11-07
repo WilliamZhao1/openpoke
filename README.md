@@ -28,6 +28,8 @@ OpenPoke is a simplified, open-source take on [Interaction Company’s](https://
    - Create an account at [openrouter.ai](https://openrouter.ai/)
    - Generate an API key
    - Replace `your_openrouter_api_key_here` with your actual key in `.env`
+   - The default model is `anthropic/claude-sonnet-4.6`. Set `OPENROUTER_MODEL` in `.env` to use another model that supports tool calling, then restart the backend.
+   - LLM requests allow up to 2,048 output tokens by default to avoid reserving the model's full output limit against your credits. Set `OPENROUTER_MAX_TOKENS` in `.env` to adjust this limit, then restart the backend.
    
    **Composio (Required for Gmail)**
    - Sign in at [composio.dev](https://composio.dev/)

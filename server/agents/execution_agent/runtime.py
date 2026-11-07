@@ -231,6 +231,10 @@ class ExecutionAgentRuntime:
             result = tool_func(**arguments)
             if inspect.isawaitable(result):
                 result = await result
+            if isinstance(result, dict) and (
+                result.get("error") or result.get("status") == "error" or result.get("successful") is False
+            ):
+                return False, result
             return True, result
         except Exception as e:
             return False, {"error": str(e)}
