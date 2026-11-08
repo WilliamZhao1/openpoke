@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 from ...agents.interaction_agent.runtime import InteractionAgentRuntime
 from ...logging_config import logger
 from ...models import ChatMessage, ChatRequest
+from ...observability import record_event, traced
 from ...utils import error_response
 from .log import get_conversation_log
 
@@ -20,12 +21,14 @@ def _extract_latest_user_message(payload: ChatRequest) -> Optional[ChatMessage]:
 
 
 # Process incoming chat requests by routing them to the interaction agent runtime
+@traced(origin="chat", new_request=True)
 async def handle_chat_request(payload: ChatRequest) -> Union[PlainTextResponse, JSONResponse]:
     """Handle a chat request using the InteractionAgentRuntime."""
 
     # Extract user message
     user_message = _extract_latest_user_message(payload)
     if user_message is None:
+        record_event("chat.rejected", component="interaction", outcome="failed", failure_category="invalid_request")
         return error_response("Missing user message", status_code=status.HTTP_400_BAD_REQUEST)
 
     user_content = user_message.content.strip()  # Already checked in _extract_latest_user_message
@@ -37,12 +40,14 @@ async def handle_chat_request(payload: ChatRequest) -> Union[PlainTextResponse, 
     except ValueError as ve:
         # Missing API key error
         logger.error("configuration error: %s", ve)
+        record_event("chat.rejected", component="interaction", outcome="failed", failure_category="configuration")
         return error_response(str(ve), status_code=status.HTTP_400_BAD_REQUEST)
 
     async def _run_interaction() -> None:
         try:
             result = await runtime.execute(user_message=user_content)
             if result.success:
+                record_event("chat.completed", component="interaction", outcome="succeeded")
                 return
             logger.error("chat request failed: %s", result.error or "Unknown interaction agent error")
         except Exception as exc:  # pragma: no cover - defensive
@@ -51,7 +56,9 @@ async def handle_chat_request(payload: ChatRequest) -> Union[PlainTextResponse, 
         get_conversation_log().record_reply(
             "I couldn't process your message. Please try again, or check the server logs for details."
         )
+        record_event("chat.completed", component="interaction", outcome="failed", failure_category="interaction_error")
 
+    record_event("chat.accepted", component="interaction")
     asyncio.create_task(_run_interaction())
 
     return PlainTextResponse("", status_code=status.HTTP_202_ACCEPTED)

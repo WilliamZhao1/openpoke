@@ -9,6 +9,7 @@ from typing import Optional, Set
 from ..agents.execution_agent.batch_manager import ExecutionBatchManager
 from ..agents.execution_agent.runtime import ExecutionResult
 from ..logging_config import logger
+from ..observability import record_event, trace_scope, traced
 from .triggers import TriggerRecord, get_trigger_service
 
 
@@ -77,7 +78,25 @@ class TriggerScheduler:
             self._in_flight.add(trigger.id)
             asyncio.create_task(self._execute_trigger(trigger), name=f"trigger-{trigger.id}")
 
+    @traced(origin="trigger", new_request=True)
     async def _execute_trigger(self, trigger: TriggerRecord) -> None:
+        with trace_scope(trigger_id=trigger.id):
+            record_event("trigger.dispatched", component="trigger_scheduler")
+            success = False
+            failure = "trigger_error"
+            try:
+                success = await self._execute_trigger_run(trigger)
+            except asyncio.CancelledError:
+                failure = "cancelled"
+                raise
+            finally:
+                record_event(
+                    "trigger.completed", component="trigger_scheduler",
+                    outcome="succeeded" if success else "failed",
+                    failure_category=None if success else failure,
+                )
+
+    async def _execute_trigger_run(self, trigger: TriggerRecord) -> bool:
         try:
             fired_at = _utc_now()
             instructions = self._format_instructions(trigger, fired_at)
@@ -96,6 +115,7 @@ class TriggerScheduler:
             )
             if result.success:
                 self._handle_success(trigger, fired_at)
+                return True
             else:
                 error_text = result.error or result.response
                 self._handle_failure(trigger, fired_at, error_text)
@@ -107,6 +127,7 @@ class TriggerScheduler:
             )
         finally:
             self._in_flight.discard(trigger.id)
+        return False
 
     def _handle_success(self, trigger: TriggerRecord, fired_at: datetime) -> None:
         logger.info(

@@ -10,6 +10,7 @@ from ...config import get_settings
 from ...services.conversation import get_conversation_log, get_working_memory_log
 from ...openrouter_client import request_chat_completion
 from ...logging_config import logger
+from ...observability import observe_tool, record_event, traced
 
 
 @dataclass
@@ -62,6 +63,7 @@ class InteractionAgentRuntime:
             )
 
     # Main entry point for processing user messages through the LLM interaction loop
+    @traced(origin="chat")
     async def execute(self, user_message: str) -> InteractionResult:
         """Handle a user-authored message."""
 
@@ -97,9 +99,11 @@ class InteractionAgentRuntime:
             )
 
     # Handle incoming messages from execution agents and generate appropriate responses
+    @traced(new_turn=True)
     async def handle_agent_message(self, agent_message: str) -> InteractionResult:
         """Process a status update emitted by an execution agent."""
 
+        record_event("callback.received", component="interaction")
         try:
             transcript_before = self._load_conversation_transcript()
             self.conversation_log.record_agent_message(agent_message)
@@ -117,6 +121,7 @@ class InteractionAgentRuntime:
             if final_response and not summary.user_messages:
                 self.conversation_log.record_reply(final_response)
 
+            record_event("callback.completed", component="interaction", outcome="succeeded")
             return InteractionResult(
                 success=True,
                 response=final_response,
@@ -125,6 +130,7 @@ class InteractionAgentRuntime:
 
         except Exception as exc:
             logger.exception("Interaction agent (agent message) failed: %s", exc)
+            record_event("callback.completed", component="interaction", outcome="failed", failure_category="interaction_error")
             return InteractionResult(
                 success=False,
                 response="",
@@ -211,6 +217,7 @@ class InteractionAgentRuntime:
             extra={"model": self.model, "tools": len(self.tool_schemas)},
         )
         return await request_chat_completion(
+            component="interaction",
             model=self.model,
             messages=messages,
             system=system_prompt,
@@ -285,6 +292,14 @@ class InteractionAgentRuntime:
 
     # Execute tool calls with error handling and logging, returning standardized results
     def _execute_tool(self, tool_call: _ToolCall) -> ToolResult:
+        known_tools = {schema["function"]["name"] for schema in self.tool_schemas}
+        name = tool_call.name if tool_call.name in known_tools else "unknown"
+        with observe_tool("interaction", name) as observation:
+            result = self._execute_tool_impl(tool_call)
+            observation.success = result.success
+            return result
+
+    def _execute_tool_impl(self, tool_call: _ToolCall) -> ToolResult:
         """Execute a tool call and convert low-level errors into structured results."""
 
         if "__invalid_arguments__" in tool_call.arguments:

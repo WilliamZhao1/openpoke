@@ -5,6 +5,7 @@ from typing import List, Optional, TYPE_CHECKING
 
 from ....config import get_settings
 from ....logging_config import logger
+from ....observability import traced
 from ....openrouter_client import OpenRouterError, request_chat_completion
 from .prompt_builder import SummaryPrompt, build_summarization_prompt
 from .state import LogEntry, SummaryState
@@ -32,6 +33,7 @@ async def _call_openrouter(prompt: SummaryPrompt, model: str, api_key: Optional[
     for attempt in range(2):
         try:
             response = await request_chat_completion(
+                component="summarizer",
                 model=model,
                 messages=prompt.messages,
                 system=prompt.system_prompt,
@@ -70,6 +72,7 @@ async def _call_openrouter(prompt: SummaryPrompt, model: str, api_key: Optional[
     raise OpenRouterError("Conversation summarization failed")
 
 
+@traced()
 async def summarize_conversation() -> bool:
     settings = get_settings()
     if not settings.summarization_enabled:

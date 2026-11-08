@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import asyncio
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
+from time import perf_counter
 from typing import Dict, List, Optional
 
 from .runtime import ExecutionAgentRuntime, ExecutionResult
 from ...logging_config import logger
+from ...observability import TraceContext, get_trace_context, record_event, trace_scope, traced
 
 
 @dataclass
@@ -31,6 +33,7 @@ class _BatchState:
     created_at: datetime = field(default_factory=datetime.now)
     pending: int = 0
     results: List[ExecutionResult] = field(default_factory=list)
+    traces: List[TraceContext] = field(default_factory=list)
 
 
 class ExecutionBatchManager:
@@ -44,6 +47,7 @@ class ExecutionBatchManager:
         self._batch_state: Optional[_BatchState] = None
 
     # Run execution agent with timeout handling and batch coordination for interaction agent
+    @traced()
     async def execute_agent(
         self,
         agent_name: str,
@@ -57,36 +61,53 @@ class ExecutionBatchManager:
 
         batch_id = await self._register_pending_execution(agent_name, instructions, request_id)
 
-        try:
-            logger.info(f"[{agent_name}] Execution started")
-            runtime = ExecutionAgentRuntime(agent_name=agent_name)
-            result = await asyncio.wait_for(
-                runtime.execute(instructions),
-                timeout=self.timeout_seconds,
-            )
-            status = "SUCCESS" if result.success else "FAILED"
-            logger.info(f"[{agent_name}] Execution finished: {status}")
-        except asyncio.TimeoutError:
-            logger.error(f"[{agent_name}] Execution timed out after {self.timeout_seconds}s")
-            result = ExecutionResult(
-                agent_name=agent_name,
-                success=False,
-                response=f"Execution timed out after {self.timeout_seconds} seconds",
-                error="Timeout",
-            )
-        except Exception as exc:  # pragma: no cover - defensive
-            logger.exception(f"[{agent_name}] Execution failed unexpectedly")
-            result = ExecutionResult(
-                agent_name=agent_name,
-                success=False,
-                response=f"Execution failed: {exc}",
-                error=str(exc),
-            )
-        finally:
-            self._pending.pop(request_id, None)
+        with trace_scope(batch_id=batch_id, run_id=request_id):
+            started = perf_counter()
+            result = None
+            failure = None
+            record_event("execution.dispatched", component="execution")
+            try:
+                logger.info(f"[{agent_name}] Execution started")
+                runtime = ExecutionAgentRuntime(agent_name=agent_name)
+                result = await asyncio.wait_for(
+                    runtime.execute(instructions),
+                    timeout=self.timeout_seconds,
+                )
+                status = "SUCCESS" if result.success else "FAILED"
+                logger.info(f"[{agent_name}] Execution finished: {status}")
+            except asyncio.TimeoutError:
+                failure = "timeout"
+                logger.error(f"[{agent_name}] Execution timed out after {self.timeout_seconds}s")
+                result = ExecutionResult(
+                    agent_name=agent_name,
+                    success=False,
+                    response=f"Execution timed out after {self.timeout_seconds} seconds",
+                    error="Timeout",
+                )
+            except asyncio.CancelledError:
+                failure = "cancelled"
+                raise
+            except Exception as exc:  # pragma: no cover - defensive
+                failure = "internal"
+                logger.exception(f"[{agent_name}] Execution failed unexpectedly")
+                result = ExecutionResult(
+                    agent_name=agent_name,
+                    success=False,
+                    response=f"Execution failed: {exc}",
+                    error=str(exc),
+                )
+            finally:
+                self._pending.pop(request_id, None)
+                success = result is not None and result.success
+                record_event(
+                    "execution.completed", component="execution",
+                    outcome="succeeded" if success else "failed",
+                    failure_category=None if success else failure or "execution_error",
+                    elapsed_ms=(perf_counter() - started) * 1000,
+                )
 
-        await self._complete_execution(batch_id, result, agent_name)
-        return result
+            await self._complete_execution(batch_id, result, agent_name)
+            return result
 
     # Add execution request to current batch or create new batch if none exists
     async def _register_pending_execution(
@@ -124,6 +145,7 @@ class ExecutionBatchManager:
         """Record the execution result and dispatch when the batch drains."""
 
         dispatch_payload: Optional[str] = None
+        dispatch_traces: List[TraceContext] = []
 
         async with self._batch_lock:
             state = self._batch_state
@@ -132,16 +154,33 @@ class ExecutionBatchManager:
                 return
 
             state.results.append(result)
+            context = get_trace_context()
+            if context is not None:
+                state.traces.append(context)
             state.pending -= 1
 
             if state.pending == 0:
                 dispatch_payload = self._format_batch_payload(state.results)
+                dispatch_traces = list(state.traces)
                 agent_names = [entry.agent_name for entry in state.results]
                 logger.info(f"Execution batch completed: {', '.join(agent_names)}")
                 self._batch_state = None
 
         if dispatch_payload:
-            await self._dispatch_to_interaction_agent(dispatch_payload)
+            # The legacy batch may contain several requests. Link every origin
+            # instead of attributing the combined callback to the last finisher.
+            mixed_requests = len({trace.request_id for trace in dispatch_traces}) > 1
+            context = dispatch_traces[0] if dispatch_traces and not mixed_requests else None
+            with trace_scope(
+                context=context, new_request=mixed_requests,
+                origin="batch" if mixed_requests else None,
+                batch_id=batch_id, run_id=None,
+            ):
+                record_event(
+                    "callback.dispatched", component="execution",
+                    parents=[asdict(trace) for trace in dispatch_traces],
+                )
+                await self._dispatch_to_interaction_agent(dispatch_payload)
 
     # Return list of currently pending execution requests for monitoring purposes
     def get_pending_executions(self) -> List[Dict[str, str]]:

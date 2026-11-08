@@ -93,6 +93,10 @@ replaces integration credentials with test values. Use this runner instead of
 bare unittest discovery, which imports stores using your runtime configuration.
 Tests use mocked providers and do not require live Gmail or model calls.
 
+Runtime logs also include `telemetry` JSON events for model usage/timing and
+request, worker, and callback correlation. See [Runtime telemetry](docs/observability.md)
+for fields, examples, and content boundaries.
+
 ## Project Layout
 - `server/` – FastAPI application and agents
 - `web/` – Next.js app

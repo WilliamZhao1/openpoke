@@ -10,6 +10,7 @@ from .tools import get_tool_schemas, get_tool_registry
 from ...config import get_settings
 from ...openrouter_client import request_chat_completion
 from ...logging_config import logger
+from ...observability import observe_tool, traced
 
 
 @dataclass
@@ -40,6 +41,7 @@ class ExecutionAgentRuntime:
             raise ValueError("OpenRouter API key not configured. Set OPENROUTER_API_KEY environment variable.")
 
     # Main execution loop for running agent with LLM calls and tool execution
+    @traced()
     async def execute(self, instructions: str) -> ExecutionResult:
         """Execute the agent with given instructions."""
         try:
@@ -154,6 +156,7 @@ class ExecutionAgentRuntime:
         tools_to_send = self.tool_schemas if with_tools else None
         logger.info(f"[{self.agent.name}] Calling LLM with model: {self.model}, tools: {len(tools_to_send) if tools_to_send else 0}")
         return await request_chat_completion(
+            component="execution",
             model=self.model,
             messages=messages,
             system=system_prompt,
@@ -222,6 +225,13 @@ class ExecutionAgentRuntime:
 
     # Execute tool function from registry with error handling and async support
     async def _execute_tool(self, tool_name: str, arguments: Dict) -> Tuple[bool, Any]:
+        name = tool_name if tool_name in self.tool_registry else "unknown"
+        with observe_tool("execution", name) as observation:
+            success, result = await self._execute_tool_impl(tool_name, arguments)
+            observation.success = success
+            return success, result
+
+    async def _execute_tool_impl(self, tool_name: str, arguments: Dict) -> Tuple[bool, Any]:
         """Execute a tool. Returns (success, result)."""
         tool_func = self.tool_registry.get(tool_name)
         if not tool_func:

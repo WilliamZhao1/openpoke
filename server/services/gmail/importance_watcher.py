@@ -12,6 +12,7 @@ from .seen_store import GmailSeenStore
 from .importance_classifier import classify_email_importance
 from ...data_paths import get_data_dir
 from ...logging_config import logger
+from ...observability import record_event, traced
 from ...utils.timezones import convert_to_user_timezone
 
 
@@ -99,7 +100,9 @@ class ImportantEmailWatcher:
         self._last_poll_timestamp = user_now
         self._has_seeded_initial_snapshot = True
 
+    @traced(origin="gmail", new_request=True)
     async def _poll_once(self) -> None:
+        record_event("gmail.poll.started", component="email_watcher")
         poll_started_at = datetime.now(timezone.utc)
         user_now = convert_to_user_timezone(poll_started_at)
         first_poll = not self._has_seeded_initial_snapshot
@@ -218,10 +221,12 @@ class ImportantEmailWatcher:
         )
         self._complete_poll(user_now)
 
+    @traced(origin="gmail")
     async def _dispatch_summary(self, summary: str) -> None:
         runtime = _resolve_interaction_runtime()
         try:
             contextualized = f"Important email watcher notification:\n{summary}"
+            record_event("callback.dispatched", component="email_watcher")
             await runtime.handle_agent_message(contextualized)
         except Exception as exc:  # pragma: no cover - defensive
             logger.error(

@@ -10,6 +10,7 @@ from ...config import get_settings
 from ...data_paths import get_data_dir
 from ...logging_config import logger
 from ...models import ChatMessage
+from ...observability import record_event
 from ...utils.timezones import now_in_user_timezone
 from typing import TYPE_CHECKING
 
@@ -144,6 +145,7 @@ class ConversationLog:
     def record_reply(self, content: str) -> None:
         timestamp = self._append("poke_reply", content)
         self._working_memory_log.append_entry("poke_reply", content, timestamp)
+        record_event("reply.recorded", component="interaction", outcome="succeeded")
 
     def record_wait(self, reason: str) -> None:
         """Record a wait marker that should not reach the user-facing chat history."""

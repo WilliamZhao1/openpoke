@@ -148,6 +148,7 @@ async def _run_email_search(
         
         # Get LLM response
         response = await request_chat_completion(
+            component="search_email",
             model=model,
             messages=messages,
             system=get_system_prompt(),

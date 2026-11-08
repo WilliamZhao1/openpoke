@@ -93,6 +93,7 @@ async def classify_email_importance(email: ProcessedEmail) -> Optional[str]:
 
     try:
         response = await request_chat_completion(
+            component="email_classifier",
             model=model,
             messages=messages,
             system=_SYSTEM_PROMPT,
