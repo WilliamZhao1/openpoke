@@ -110,7 +110,7 @@ gap below; Step 2b subsequently closed it. Phase 0 as a whole remains in progres
 | Phase 0 isolated storage | Aligned: helper, default compatibility, all existing stores, temporary test runner, restart/clear isolation tests. |
 | Phase 0 usage, timing, failures, and correlation | Implemented: all five model callers, chat, worker callbacks, triggers, and Gmail notifications. Routing and model/output-token configuration retain baseline behavior. |
 | Phase 0 explicit observation availability and mock/live provenance | Aligned after Step 2b: per-observation four-state availability, fixed reasons, provenance, and transport-bound mock/live labels are present in schema-2 log evidence. The evaluation harness will preserve them in reports. |
-| Expanded Phase 0 fixtures and controlled comparisons | Pending, as before; include the newly added topic-switch, genuine follow-up, stale-card, near-tie, and complete/partial/unavailable lookup cases. |
+| Expanded Phase 0 fixtures and controlled comparisons | Fixture inputs and comparison definitions implemented in Step 3, including topic switches, genuine follow-ups, stale cards, near ties, and complete/partial/unavailable lookups. Executing/scoring comparisons remains the harness step. |
 | Phase 1 activity records and rebuildable cards | Future work: use source-linked outcomes, explicit obligation transitions, and revisions when implementing storage/migration. |
 | Phase 2 intent isolation and enforced routing decisions | Future work: bind decisions to current intent, scope, generation, and revisions; recover or abstain on ambiguity/failure. Current trace IDs are not those decisions. |
 | Phase 7 graph retrieval experiment | Future work after Phases 0-5 and the frozen baseline; Phase 6 remains optional and independent. |
@@ -179,11 +179,61 @@ retroactively. This step supplies structured log evidence; preserving it in
 saved evaluation reports and labeling future scorers belong to the upcoming
 harness/adapters. Call success remains separate from end-task correctness.
 
-## Next steps in Phase 0
+## Step 3: Fixed catalogs and deterministic fake Gmail (complete)
 
-1. Add the fixed workflow catalogs and deterministic fake Gmail backend,
-   including the expanded routing/lookup scenarios in the revised plan.
-2. Add the executable evaluation harness, frozen manifest/inputs, and saved
+**Motivation:** Later discovery changes need reproducible known-owner,
+new-work, and ambiguous-owner inputs. Task correctness must be scored from
+actual tool effects rather than worker prose, including exact draft bodies,
+mailbox/thread identity, and uncertain or duplicate sends.
+
+**Old behavior:** Tests used small ad hoc mocks for individual Gmail calls.
+There was no shared, frozen retrieval catalog, labeled scenario set, or
+stateful mailbox for inspecting effects across several operations.
+
+**New behavior:** `server/tests/fixtures/` contains seven core workflows,
+deterministic catalogs of 100/1,000/10,000 records plus an empty catalog,
+fourteen labeled tuning/held-out cases, and predeclared one-factor comparison
+rows. Cases cover both Alice workflows, dormant ownership, genuinely new work,
+alternating topics, pronoun/draft follow-ups, competing drafts, stale cards,
+near ties, lookup failure/partial coverage, exact references, and multiple
+owners. Source inputs and generated catalogs have frozen SHA-256 checksums.
+
+The local Gmail backend supplies two account-qualified mailboxes, deliberately
+reused provider IDs, exact draft/body/recipient evidence, contacts, pagination,
+a fixed clock, deterministic new IDs, and before/after failure injection. It
+binds under the shared Composio service so the public Gmail tools and email
+search/parser use their actual adapters. Calls and effects explicitly record
+mock provenance. Runtime source files and routing behavior were not changed.
+
+**Why this approach:** A compact core plus deterministic distractors keeps
+large catalogs reviewable while frozen checksums detect input drift. Gold
+owners/actions stay separate from model metadata to prevent answer leakage.
+Scripted lookup/ranking inputs are labeled controls, not measured retrieval
+results. Comparison rows separate discovery, richer metadata, decision checks,
+and an optional ranker. Binding the fake below the service avoids duplicating
+adapter behavior, while recording requested effects without manufacturing
+approvals or deduplication exposes application mistakes. Unknown queries and
+resources fail visibly instead of masquerading as successful empty results.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed all
+70 tests, including the existing 49 and 21 new tests. Checks include fixed
+catalog hashes/IDs, case coverage, account-qualified resource mappings,
+separate gold labels, comparison controls, and the unchanged full-roster prompt.
+Fake Gmail tests exercise all nine public tools and internal search through
+real adapters; verify exact content/recipients, pagination, clock advancement,
+repeatable effects, cross-account isolation, error propagation, and uncertainty
+before/after writes. Socket connections are rejected in fake Gmail tests.
+No live email or model calls were used.
+
+**Remaining limits:** The fake implements the documented checkout tool subset,
+not all Gmail/Composio APIs or OAuth. Scenario labels do not prove current
+routing/approval/lifecycle correctness. Model-free evaluation execution,
+sanitized saved evidence, and provider/configuration manifests are the next
+step. Fixture use and examples are documented in `server/tests/fixtures/README.md`.
+
+## Next step in Phase 0
+
+1. Add the executable evaluation harness, frozen manifest/inputs, and saved
    full-roster baseline evidence. Predeclare comparisons that separate richer
    metadata, backend decision checks, and optional ranker effects; preserve
    availability/provenance in evidence and reports.

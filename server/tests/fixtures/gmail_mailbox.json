@@ -1,0 +1,36 @@
+{
+  "fixture_version": 1,
+  "fixed_now": "2026-11-08T12:00:00Z",
+  "accounts": [
+    {
+      "account_id": "fixture-gmail-a",
+      "profile_id": "fixture-profile-a",
+      "email": "owner-a@example.test",
+      "messages": [
+        {"id": "18fa000000000001", "threadId": "18fa000000000101", "subject": "Lunch at Cafe Etoile", "sender": "Alice Chen <alice@example.test>", "to": "owner-a@example.test", "textBody": "Can we have lunch at noon on Friday?", "messageTimestamp": "2026-11-08T11:55:00Z", "labelIds": ["INBOX"], "attachmentList": []},
+        {"id": "18fa000000000002", "threadId": "18fa000000000102", "subject": "Acme original services contract", "sender": "Alice Chen <alice@example.test>", "to": "owner-a@example.test", "textBody": "Please review the original services contract redline.", "messageTimestamp": "2026-11-08T11:50:00Z", "labelIds": ["INBOX"], "attachmentList": [{"filename": "services-contract.pdf"}]},
+        {"id": "18fa000000000003", "threadId": "18fa000000000103", "subject": "2023 tax filing documents", "sender": "Morgan <morgan@example.test>", "to": "owner-a@example.test", "textBody": "The 2023 return has been filed.", "messageTimestamp": "2023-04-30T09:00:00Z", "labelIds": ["ARCHIVE"], "attachmentList": []},
+        {"id": "18fa000000000004", "threadId": "18fa000000000104", "subject": "Your Uber trip receipt", "sender": "Uber <receipts@uber.example.test>", "to": "owner-a@example.test", "textBody": "Your trip total was CAD 18.50.", "messageTimestamp": "2026-11-08T11:45:00Z", "labelIds": ["INBOX"], "attachmentList": []},
+        {"id": "18fa000000000005", "threadId": "18fa000000000105", "subject": "Atlas authentication pull request", "sender": "GitHub <notifications@github.example.test>", "to": "owner-a@example.test", "textBody": "Please review the authentication pull request in Atlas.", "messageTimestamp": "2026-11-08T11:40:00Z", "labelIds": ["INBOX"], "attachmentList": []},
+        {"id": "18fa000000000006", "threadId": "18fa000000000106", "subject": "Acme renewal contract", "sender": "Alice Chen <alice@example.test>", "to": "owner-a@example.test", "textBody": "We will discuss next year's renewal terms separately.", "messageTimestamp": "2026-11-08T11:35:00Z", "labelIds": ["INBOX"], "attachmentList": []},
+        {"id": "18fa000000000007", "threadId": "18fa000000000107", "subject": "Acme amendment signed", "sender": "Alice Chen <alice@example.test>", "to": "owner-a@example.test", "textBody": "The amendment is signed; no signature reminder is outstanding.", "messageTimestamp": "2026-11-08T11:30:00Z", "labelIds": ["INBOX"], "attachmentList": []}
+      ],
+      "drafts": [
+        {"id": "r100000000000000001", "body": "Hi Alice,\nLunch at Café Étoile at 12:00?\n\nThanks!", "is_html": false, "message": {"id": "18fb000000000001", "threadId": "18fa000000000101", "subject": "Re: Lunch at Cafe Etoile", "sender": "owner-a@example.test", "to": "alice@example.test", "textBody": "Hi Alice,\nLunch at Café Étoile at 12:00?\n\nThanks!", "messageTimestamp": "2026-11-08T11:00:00Z", "labelIds": ["DRAFT"], "attachmentList": [], "cc": [], "bcc": [], "extra_recipients": []}},
+        {"id": "r100000000000000002", "body": "Hi Alice,\nThe original services contract redline is ready for your review.", "is_html": false, "message": {"id": "18fb000000000002", "threadId": "18fa000000000102", "subject": "Re: Acme original services contract", "sender": "owner-a@example.test", "to": "alice@example.test", "textBody": "Hi Alice,\nThe original services contract redline is ready for your review.", "messageTimestamp": "2026-11-08T10:50:00Z", "labelIds": ["DRAFT"], "attachmentList": [], "cc": [], "bcc": [], "extra_recipients": []}}
+      ],
+      "contacts": [
+        {"resourceName": "people/fixture-alice", "names": [{"displayName": "Alice Chen"}], "emailAddresses": [{"value": "alice@example.test"}]},
+        {"resourceName": "people/fixture-morgan", "names": [{"displayName": "Morgan"}], "emailAddresses": [{"value": "morgan@example.test"}]}
+      ]
+    },
+    {
+      "account_id": "fixture-gmail-b",
+      "profile_id": "fixture-profile-b",
+      "email": "owner-b@example.test",
+      "messages": [{"id": "18fa000000000001", "threadId": "18fa000000000101", "subject": "Different account lunch", "sender": "Bob <bob@example.test>", "to": "owner-b@example.test", "textBody": "This message belongs only to account B.", "messageTimestamp": "2026-11-08T11:55:00Z", "labelIds": ["INBOX"], "attachmentList": []}],
+      "drafts": [{"id": "r100000000000000001", "body": "Account B draft for Bob.", "is_html": false, "message": {"id": "18fb000000000001", "threadId": "18fa000000000101", "subject": "Re: Different account lunch", "sender": "owner-b@example.test", "to": "bob@example.test", "textBody": "Account B draft for Bob.", "messageTimestamp": "2026-11-08T11:00:00Z", "labelIds": ["DRAFT"], "attachmentList": [], "cc": [], "bcc": [], "extra_recipients": []}}],
+      "contacts": [{"resourceName": "people/fixture-bob", "names": [{"displayName": "Bob"}], "emailAddresses": [{"value": "bob@example.test"}]}]
+    }
+  ]
+}

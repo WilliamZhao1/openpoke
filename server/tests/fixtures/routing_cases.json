@@ -1,0 +1,41 @@
+{
+  "fixture_version": 1,
+  "cases": [
+    {"id": "alice-lunch", "split": "tuning", "catalog": "main", "turns": [{"role": "user", "content": "Continue arranging lunch with Alice."}], "expected": {"action": "reuse", "owner_numbers": [1]}, "lookup": {"status": "complete", "candidate_numbers": [1, 2]}},
+    {"id": "alice-contract", "split": "held_out", "catalog": "main", "turns": [{"role": "user", "content": "Check Alice's original Acme services contract, not the lunch invitation."}], "expected": {"action": "reuse", "owner_numbers": [2]}, "lookup": {"status": "complete", "candidate_numbers": [2, 1, 6]}},
+    {"id": "dormant-owner", "split": "held_out", "catalog": "main", "turns": [{"role": "user", "content": "Find Morgan's correspondence from the 2023 tax filing."}], "expected": {"action": "reuse", "owner_numbers": [3]}, "lookup": {"status": "complete", "candidate_numbers": [3]}},
+    {"id": "empty-catalog", "split": "tuning", "catalog": "empty", "turns": [{"role": "user", "content": "Start planning a new garden."}], "expected": {"action": "create_new", "owner_numbers": []}, "lookup": {"status": "complete", "candidate_numbers": []}},
+    {"id": "genuinely-new", "split": "held_out", "catalog": "main", "turns": [{"role": "user", "content": "Start a new workflow to plan a garden."}], "expected": {"action": "create_new", "owner_numbers": []}, "lookup": {"status": "complete", "candidate_numbers": []}},
+    {"id": "alternating-topics", "split": "held_out", "catalog": "main", "turns": [
+      {"role": "user", "content": "Find my Uber receipts."},
+      {"role": "assistant", "content": "The Uber receipts workflow has the trip emails."},
+      {"role": "user", "content": "Review the Atlas authentication pull request on GitHub."},
+      {"role": "assistant", "content": "The GitHub review workflow owns the Atlas review."},
+      {"role": "user", "content": "Check the next Uber receipt too."},
+      {"role": "assistant", "content": "The receipt is in the expense thread."},
+      {"role": "user", "content": "Now review the Atlas authentication pull request on GitHub."}
+    ], "expected": {"action": "reuse", "owner_numbers": [5]}, "lookup": {"status": "complete", "candidate_numbers": [4, 5]}},
+    {"id": "pronoun-draft", "split": "tuning", "catalog": "main", "turns": [
+      {"role": "user", "content": "Draft the lunch invitation to Alice."},
+      {"role": "assistant", "content": "The lunch draft r100000000000000001 is ready for review."},
+      {"role": "user", "content": "I approve that lunch draft. Send it."}
+    ], "bindings": [{"provider": "gmail", "account_id": "fixture-gmail-a", "resource_type": "draft", "resource_id": "r100000000000000001"}], "expected": {"action": "reuse", "owner_numbers": [1], "draft_id": "r100000000000000001"}, "lookup": {"status": "complete", "candidate_numbers": [1]}},
+    {"id": "competing-drafts", "split": "held_out", "catalog": "main", "turns": [
+      {"role": "assistant", "content": "Both Alice's lunch invitation and original-contract reply are ready for review."},
+      {"role": "user", "content": "Send it."}
+    ], "expected": {"action": "abstain", "owner_numbers": [], "required_recovery": "resolve_draft_referent"}, "lookup": {"status": "complete", "candidate_numbers": [1, 2]}},
+    {"id": "stale-card", "split": "held_out", "catalog": "main", "turns": [{"role": "user", "content": "Is the Acme amendment still waiting for Alice's signature?"}], "expected": {"action": "reuse", "owner_numbers": [7], "required_recovery": "refresh_card", "expected_open_obligations": []}, "lookup": {"status": "complete", "candidate_numbers": [7]}},
+    {"id": "near-tied-owners", "split": "tuning", "catalog": "main", "turns": [{"role": "user", "content": "Continue Alice's Acme contract work."}], "expected": {"action": "abstain", "owner_numbers": [], "required_recovery": "distinguish_original_from_renewal"}, "lookup": {"status": "complete", "candidate_numbers": [2, 6], "ranking": {"source_mode": "mock", "score_kind": "fixture_heuristic", "scores": [0.501, 0.5]}}},
+    {"id": "partial-lookup", "split": "held_out", "catalog": "main", "turns": [{"role": "user", "content": "Find earlier Acme work with Alice."}], "expected": {"action": "abstain", "owner_numbers": [], "required_recovery": "complete_lookup"}, "lookup": {"status": "partial", "candidate_numbers": [1], "reason": "history_index_unavailable"}},
+    {"id": "lookup-unavailable", "split": "held_out", "catalog": "main", "turns": [{"role": "user", "content": "Find my earlier Alice contract workflow."}], "expected": {"action": "abstain", "owner_numbers": [], "required_recovery": "retry_or_recover_lookup"}, "lookup": {"status": "unavailable", "candidate_numbers": [], "reason": "lookup_failed"}},
+    {"id": "explicit-old-thread", "split": "tuning", "catalog": "main", "turns": [{"role": "user", "content": "Resume work for Gmail thread 18fa000000000103."}], "bindings": [{"provider": "gmail", "account_id": "fixture-gmail-a", "resource_type": "thread", "resource_id": "18fa000000000103"}], "expected": {"action": "reuse", "owner_numbers": [3]}, "lookup": {"status": "complete", "candidate_numbers": [3]}},
+    {"id": "two-owners", "split": "held_out", "catalog": "main", "turns": [{"role": "user", "content": "Check both Alice's lunch invitation and the original Acme services contract."}], "expected": {"action": "reuse", "owner_numbers": [1, 2]}, "lookup": {"status": "complete", "candidate_numbers": [1, 2, 6]}}
+  ],
+  "comparisons": [
+    {"id": "legacy_full_roster", "metadata": "names_only", "discovery": "full_roster", "decision_checks": "legacy", "semantic_ranker": "disabled"},
+    {"id": "lexical_names", "metadata": "names_only", "discovery": "lexical_lookup", "decision_checks": "legacy", "semantic_ranker": "disabled"},
+    {"id": "lexical_cards", "metadata": "cards_v1", "discovery": "lexical_lookup", "decision_checks": "legacy", "semantic_ranker": "disabled"},
+    {"id": "lexical_cards_checked", "metadata": "cards_v1", "discovery": "lexical_lookup", "decision_checks": "validated", "semantic_ranker": "disabled"},
+    {"id": "semantic_cards_checked", "metadata": "cards_v1", "discovery": "lexical_lookup", "decision_checks": "validated", "semantic_ranker": "optional"}
+  ]
+}

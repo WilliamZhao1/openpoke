@@ -97,6 +97,9 @@ Runtime logs also include `telemetry` JSON events for model usage/timing and
 request, worker, and callback correlation. See [Runtime telemetry](docs/observability.md)
 for fields, examples, and content boundaries.
 
+Frozen workflow catalogs and the local Gmail test backend are documented in
+[Agent overload fixtures](server/tests/fixtures/README.md).
+
 ## Project Layout
 - `server/` – FastAPI application and agents
 - `web/` – Next.js app
