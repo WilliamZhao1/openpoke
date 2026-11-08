@@ -110,6 +110,10 @@ See the [evaluation harness](evals/agent_overload/README.md) and the
 [saved baseline report](evals/agent_overload/baseline/report.md). The runner uses
 disposable storage and mocked providers; live model quality/cost remain unmeasured.
 
+The new [workflow storage foundation](server/services/workflows/README.md)
+documents stable identities, revision checks, SQLite behavior, and API examples.
+It is not yet connected to live routing; migration and adoption are later steps.
+
 ## Project Layout
 - `server/` – FastAPI application and agents
 - `web/` – Next.js app

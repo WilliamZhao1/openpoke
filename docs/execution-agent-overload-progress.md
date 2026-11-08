@@ -4,7 +4,8 @@ Updated: 2026-11-08
 
 The implementation follows `execution-agent-overload-implementation-plan.md`
 in separately reviewable steps. Phase 0's model-free baseline and infrastructure
-are complete; model-backed release comparisons remain in Phase 5.
+are complete. Phase 1's storage foundation is implemented; migration and runtime
+adoption remain pending. Model-backed release comparisons remain in Phase 5.
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -294,11 +295,80 @@ harness follow-ups are now covered by this step.
 The saved report is `evals/agent_overload/baseline/report.md`; harness design,
 commands, artifact semantics, and limitations are in `evals/agent_overload/README.md`.
 
+## Step 5: Stable workflow identities and SQLite foundation (complete)
+
+This completes the first slice of Phase 1, not the whole migration phase.
+
+**Motivation:** Discovery, migration, and recall need identities that survive
+renames and restarts. Names can share a filename slug, while revisions and
+history generations are needed to reject stale writes and later callbacks.
+The revised plan also requires explicit unknown historical state and storage
+failure handling before the database becomes authoritative.
+
+**Old behavior:** The roster is a list of names; worker log filenames derive
+from those names. `Alice / Lunch` and `Alice - Lunch`, for example, normalize
+to the same slug. Existing stores have no shared workflow UUID, workflow
+revision, or data-generation contract. These legacy runtime paths remain in
+use during this preparatory step.
+
+**New behavior:** `server/services/workflows/` adds frozen workflow/alias models
+and an explicitly opened `WorkflowStore`, defaulting to the isolated data-root
+helper's `workflows.db`. Version 1 stores immutable UUIDs, scope, exact aliases,
+purpose/summary, workflow state, UTC timestamps, archive metadata, and revision.
+Renaming preserves previous aliases. Unknown historical status is nullable;
+it is not inferred to be completed or archived. Run failure is not a workflow
+state. No history is imported in this slice.
+
+Schema initialization is atomic and repeatable. Connections enable foreign
+keys; short write transactions use WAL and a bounded busy timeout. Missing,
+corrupt, incompatible, or busy storage raises explicit errors rather than
+becoming an empty catalog. Reads through an existing handle do not recreate a
+removed database. Updates and alias additions require the inspected revision;
+all operations verify the handle's cached generation. Metadata, aliases,
+compact search documents, and FTS5 updates commit or roll back together. An
+explicit rebuild regenerates the index from stored metadata.
+
+**Why this approach:** UUIDs separate identity from names without guessing
+semantic ownership. Exact scoped aliases retain legacy spelling and reject
+conflicts instead of silently merging unrelated work. Revision checks prevent
+lost updates; generation checks prepare for a later history-clear boundary.
+Transactional index maintenance avoids metadata/search divergence, while
+rebuildable documents keep the index a projection. Per-operation connections
+close deterministically, and bounded SQLite contention handling avoids retry
+storms. The in-memory FTS5 probe runs before persistent initialization and gives
+an actionable error when unavailable. Explicit construction keeps migration
+and live adoption independently reviewable.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+all 104 tests: 78 existing and 26 new. The new checks cover persistence/reopen,
+exact aliases, legacy slug collisions, scope boundaries, workflow statuses,
+bounded paging, stale revisions and concurrent writers, foreign keys, search
+rebuilds, index-error rollback, lock timeout/retry, transactional schema failure,
+incompatible schemas, corruption/missing storage, changed generations, absent
+FTS5, and import/data-root isolation. SQLite FTS5 was exercised locally, with
+the unsupported-runtime path simulated. All storage was temporary; no live
+model or Gmail calls were made. `git diff --check` passed for tracked changes.
+
+**Remaining limits / plan alignment:** The new package is not wired into app
+startup, agents, schedulers, or existing stores. Its `create` method is a
+persistence primitive, not the future model-visible creation/admission handler.
+Source/event import, consistent backups, reconciliation/checkpoints, trigger
+IDs, summary mappings, activity records/cards, authoritative adapters, and
+feature-gated startup remain Phase 1 work. The archived field and generation
+guard do not themselves implement archive or history-clear operations. Phase 2
+will add public search and richer indexed metadata; this step makes no routing
+quality claim. Existing baseline evidence is preserved.
+
+Design details and executable API examples are in
+`server/services/workflows/README.md`.
+
 ## Next implementation step
 
-Begin Phase 1 with the stable workflow models and local SQLite store, retaining
-the isolated data root. Migration, compatibility adapters, and lifecycle
-integration will follow as separate reviewable changes.
+Add a non-destructive migration dry-run and reconciliation report that inventories
+the legacy roster, logs, conversation state, and triggers; surfaces collisions,
+orphans, and unresolved owners; and leaves all input files untouched. Source/event
+storage and verified apply mode will follow before compatibility adapters or
+background dispatch use the new database.
 
-Phases 1–7 remain pending; Phase 6 is optional, and Phase 7 follows the baseline
-release rather than being a prerequisite for it.
+Phase 1 is in progress; Phases 2–7 remain pending. Phase 6 is optional, and
+Phase 7 follows the baseline release rather than being a prerequisite for it.
