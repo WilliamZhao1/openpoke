@@ -75,6 +75,24 @@ OpenPoke is a simplified, open-source take on [Interaction Company’s](https://
 
 The web app proxies API calls to the Python server using the values in `.env`, so keeping both processes running is required for end-to-end flows.
 
+## Runtime data and backend tests
+
+Persistent state defaults to `server/data/`. Set `OPENPOKE_DATA_DIR` in the
+environment or `.env` before starting the backend to use another directory.
+Relative paths resolve from the process working directory; `~` is expanded.
+Restart the backend after changing this setting. Existing files are not moved.
+
+Run the backend tests from the repository root with:
+
+```bash
+python server/tests/run_tests.py
+```
+
+The runner sets a temporary data directory before importing the application and
+replaces integration credentials with test values. Use this runner instead of
+bare unittest discovery, which imports stores using your runtime configuration.
+Tests use mocked providers and do not require live Gmail or model calls.
+
 ## Project Layout
 - `server/` – FastAPI application and agents
 - `web/` – Next.js app

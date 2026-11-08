@@ -4,13 +4,13 @@ import json
 import os
 import threading
 from datetime import datetime
-from pathlib import Path
 from typing import Any, Dict, Optional
 
 from fastapi import status
 from fastapi.responses import JSONResponse
 
 from ...config import Settings, get_settings
+from ...data_paths import get_data_dir
 from ...logging_config import logger
 from ...models import GmailConnectPayload, GmailDisconnectPayload, GmailStatusPayload
 from ...utils import error_response
@@ -23,7 +23,7 @@ _PROFILE_CACHE: Dict[str, Dict[str, Any]] = {}
 _PROFILE_CACHE_LOCK = threading.Lock()
 _ACTIVE_USER_ID_LOCK = threading.Lock()
 _ACTIVE_USER_ID: Optional[str] = None
-_ACTIVE_USER_ID_PATH = Path(__file__).resolve().parents[2] / "data" / "gmail" / "active_user_id.txt"
+_ACTIVE_USER_ID_PATH = get_data_dir() / "gmail" / "active_user_id.txt"
 
 
 def _normalized(value: Optional[str]) -> str:

@@ -12,6 +12,7 @@ if os.name == "nt":
 else:
     import fcntl
 
+from ...data_paths import get_data_dir
 from ...logging_config import logger
 
 
@@ -113,8 +114,7 @@ class AgentRoster:
             logger.warning(f"Failed to clear roster.json: {exc}")
 
 
-_DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
-_ROSTER_PATH = _DATA_DIR / "execution_agents" / "roster.json"
+_ROSTER_PATH = get_data_dir() / "execution_agents" / "roster.json"
 
 _agent_roster = AgentRoster(_ROSTER_PATH)
 

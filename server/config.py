@@ -40,6 +40,15 @@ def _env_int(name: str, fallback: int) -> int:
         return fallback
 
 
+def _data_dir_from_env() -> Path:
+    configured = os.getenv("OPENPOKE_DATA_DIR")
+    if configured is None:
+        return Path(__file__).resolve().parent / "data"
+    if not configured.strip():
+        raise ValueError("OPENPOKE_DATA_DIR must be a non-empty path")
+    return Path(configured)
+
+
 class Settings(BaseModel):
     """Application settings with lightweight env fallbacks."""
 
@@ -50,6 +59,7 @@ class Settings(BaseModel):
     # Server runtime
     server_host: str = Field(default=os.getenv("OPENPOKE_HOST", "0.0.0.0"))
     server_port: int = Field(default=_env_int("OPENPOKE_PORT", 8001))
+    data_dir: Path = Field(default_factory=_data_dir_from_env)
 
     # LLM model selection
     openrouter_max_tokens: int = Field(default=_env_int("OPENROUTER_MAX_TOKENS", 2048), gt=0)
