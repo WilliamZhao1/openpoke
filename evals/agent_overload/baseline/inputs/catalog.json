@@ -1,0 +1,249 @@
+{
+  "fixture_version": 1,
+  "fixed_now": "2026-11-08T12:00:00Z",
+  "namespace": "bd79d537-9fea-4d3b-8a8f-834802431bfa",
+  "catalog_sizes": [
+    100,
+    1000,
+    10000
+  ],
+  "core_workflows": [
+    {
+      "workflow_id": "00000000-0000-4000-8000-000000000001",
+      "display_name": "Alice lunch",
+      "purpose": "Arrange lunch with Alice Chen at Cafe Etoile.",
+      "entities": [
+        "Alice Chen",
+        "alice@example.test",
+        "Cafe Etoile"
+      ],
+      "status": "waiting_for_approval",
+      "archived": false,
+      "created_at": "2026-10-01T09:00:00Z",
+      "last_activity_at": "2026-11-08T11:00:00Z",
+      "revision": 1,
+      "card": {
+        "revision": 1,
+        "summary": "Lunch invitation drafted; waiting for review.",
+        "obligations": [
+          {
+            "id": "obligation-lunch",
+            "state": "open"
+          }
+        ]
+      },
+      "resource_refs": [
+        {
+          "provider": "gmail",
+          "account_id": "fixture-gmail-a",
+          "resource_type": "thread",
+          "resource_id": "18fa000000000101"
+        },
+        {
+          "provider": "gmail",
+          "account_id": "fixture-gmail-a",
+          "resource_type": "draft",
+          "resource_id": "r100000000000000001"
+        }
+      ]
+    },
+    {
+      "workflow_id": "00000000-0000-4000-8000-000000000002",
+      "display_name": "Alice Acme contract",
+      "purpose": "Review the original Acme services contract with Alice Chen.",
+      "entities": [
+        "Alice Chen",
+        "alice@example.test",
+        "Acme",
+        "services contract"
+      ],
+      "status": "waiting_for_approval",
+      "archived": false,
+      "created_at": "2026-09-02T09:00:00Z",
+      "last_activity_at": "2026-11-08T10:50:00Z",
+      "revision": 3,
+      "card": {
+        "revision": 3,
+        "summary": "Original services contract redline ready for Alice.",
+        "obligations": [
+          {
+            "id": "obligation-contract",
+            "state": "open"
+          }
+        ]
+      },
+      "resource_refs": [
+        {
+          "provider": "gmail",
+          "account_id": "fixture-gmail-a",
+          "resource_type": "thread",
+          "resource_id": "18fa000000000102"
+        },
+        {
+          "provider": "gmail",
+          "account_id": "fixture-gmail-a",
+          "resource_type": "draft",
+          "resource_id": "r100000000000000002"
+        }
+      ]
+    },
+    {
+      "workflow_id": "00000000-0000-4000-8000-000000000003",
+      "display_name": "2023 tax documents",
+      "purpose": "Recover the 2023 tax filing correspondence with Morgan.",
+      "entities": [
+        "Morgan",
+        "morgan@example.test",
+        "2023 tax filing"
+      ],
+      "status": "completed",
+      "archived": true,
+      "created_at": "2023-02-01T09:00:00Z",
+      "last_activity_at": "2023-04-30T09:00:00Z",
+      "revision": 2,
+      "card": {
+        "revision": 2,
+        "summary": "2023 documents filed; original thread retained.",
+        "obligations": []
+      },
+      "resource_refs": [
+        {
+          "provider": "gmail",
+          "account_id": "fixture-gmail-a",
+          "resource_type": "thread",
+          "resource_id": "18fa000000000103"
+        }
+      ]
+    },
+    {
+      "workflow_id": "00000000-0000-4000-8000-000000000004",
+      "display_name": "Uber receipts",
+      "purpose": "Collect Uber receipts for expense reimbursement.",
+      "entities": [
+        "Uber",
+        "receipts",
+        "expenses"
+      ],
+      "status": "open",
+      "archived": false,
+      "created_at": "2026-11-01T09:00:00Z",
+      "last_activity_at": "2026-11-08T11:50:00Z",
+      "revision": 4,
+      "card": {
+        "revision": 4,
+        "summary": "Collecting this week's trip receipts.",
+        "obligations": []
+      },
+      "resource_refs": [
+        {
+          "provider": "gmail",
+          "account_id": "fixture-gmail-a",
+          "resource_type": "thread",
+          "resource_id": "18fa000000000104"
+        }
+      ]
+    },
+    {
+      "workflow_id": "00000000-0000-4000-8000-000000000005",
+      "display_name": "GitHub review",
+      "purpose": "Review the authentication pull request in the Atlas repository.",
+      "entities": [
+        "GitHub",
+        "Atlas",
+        "authentication",
+        "pull request"
+      ],
+      "status": "open",
+      "archived": false,
+      "created_at": "2026-11-02T09:00:00Z",
+      "last_activity_at": "2026-11-08T10:30:00Z",
+      "revision": 1,
+      "card": {
+        "revision": 1,
+        "summary": "Review authentication changes in Atlas.",
+        "obligations": []
+      },
+      "resource_refs": [
+        {
+          "provider": "gmail",
+          "account_id": "fixture-gmail-a",
+          "resource_type": "thread",
+          "resource_id": "18fa000000000105"
+        }
+      ]
+    },
+    {
+      "workflow_id": "00000000-0000-4000-8000-000000000006",
+      "display_name": "Alice Acme renewal",
+      "purpose": "Negotiate next year's Acme renewal with Alice Chen, separate from the original contract.",
+      "entities": [
+        "Alice Chen",
+        "alice@example.test",
+        "Acme",
+        "renewal contract"
+      ],
+      "status": "waiting_for_external_event",
+      "archived": false,
+      "created_at": "2026-11-03T09:00:00Z",
+      "last_activity_at": "2026-11-08T10:45:00Z",
+      "revision": 2,
+      "card": {
+        "revision": 2,
+        "summary": "Waiting on Alice's renewal terms.",
+        "obligations": [
+          {
+            "id": "obligation-renewal",
+            "state": "open"
+          }
+        ]
+      },
+      "resource_refs": [
+        {
+          "provider": "gmail",
+          "account_id": "fixture-gmail-a",
+          "resource_type": "thread",
+          "resource_id": "18fa000000000106"
+        }
+      ]
+    },
+    {
+      "workflow_id": "00000000-0000-4000-8000-000000000007",
+      "display_name": "Acme amendment",
+      "purpose": "Track the Acme amendment already signed by Alice.",
+      "entities": [
+        "Alice Chen",
+        "Acme",
+        "amendment"
+      ],
+      "status": "completed",
+      "archived": false,
+      "created_at": "2026-11-04T09:00:00Z",
+      "last_activity_at": "2026-11-08T11:40:00Z",
+      "revision": 2,
+      "card": {
+        "revision": 1,
+        "summary": "Amendment awaiting signature.",
+        "obligations": [
+          {
+            "id": "obligation-amendment",
+            "state": "open"
+          }
+        ]
+      },
+      "current_obligations": [
+        {
+          "id": "obligation-amendment",
+          "state": "resolved"
+        }
+      ],
+      "resource_refs": [
+        {
+          "provider": "gmail",
+          "account_id": "fixture-gmail-a",
+          "resource_type": "thread",
+          "resource_id": "18fa000000000107"
+        }
+      ]
+    }
+  ]
+}

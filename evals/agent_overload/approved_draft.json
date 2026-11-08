@@ -1,0 +1,32 @@
+{
+  "fixture_version": 1,
+  "id": "approved_draft_trace_v1",
+  "source_mode": "mock",
+  "input": {
+    "review": "To: alice@example.test\nSubject: Re: Lunch at Cafe Etoile\nDraft: r100000000000000001\n\nHi Alice,\nLunch at Café Étoile at 12:00?\n\nThanks!",
+    "request": "I approve lunch draft r100000000000000001 exactly as shown. Send it."
+  },
+  "responses": {
+    "interaction_initial": {"content": "", "tool_calls": [{"id": "fixture-dispatch", "type": "function", "function": {"name": "send_message_to_agent", "arguments": "{\"agent_name\":\"Alice lunch\",\"instructions\":\"Send the approved lunch draft r100000000000000001 exactly as reviewed.\"}"}}]},
+    "interaction_after_tools": {"content": "The fixture request was accepted."},
+    "execution_initial": {"content": "", "tool_calls": [{"id": "fixture-send", "type": "function", "function": {"name": "gmail_execute_draft", "arguments": "{\"draft_id\":\"r100000000000000001\"}"}}]},
+    "execution_after_tools": {"content": "The approved lunch draft was sent."},
+    "interaction_callback": {"content": "Sent the approved lunch draft."}
+  },
+  "expected": {
+    "action": "reuse",
+    "workflow_ids": ["00000000-0000-4000-8000-000000000001"],
+    "account_id": "fixture-gmail-a",
+    "draft_id": "r100000000000000001",
+    "thread_id": "18fa000000000101",
+    "recipient": "alice@example.test",
+    "subject": "Re: Lunch at Cafe Etoile",
+    "cc": [],
+    "bcc": [],
+    "extra_recipients": [],
+    "attachments": [],
+    "is_html": false,
+    "body": "Hi Alice,\nLunch at Café Étoile at 12:00?\n\nThanks!",
+    "reply": "Sent the approved lunch draft."
+  }
+}

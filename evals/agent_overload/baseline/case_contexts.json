@@ -1,0 +1,1154 @@
+[
+  {
+    "case_id": "empty-catalog",
+    "split": "tuning",
+    "catalog_size": 0,
+    "request_sha256": "bb85ae906a467d04bc7324e00576dcda7393f39546806a2ab6dfbdd55d84bcd9",
+    "prompt_text_characters": {
+      "value": 10583,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": "prompts/catalog-00000.json",
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 0,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "create_new",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "alice-lunch",
+    "split": "tuning",
+    "catalog_size": 100,
+    "request_sha256": "72e4e30f51dbf7a96945918cf46e80e73ce51ff080f8b74b03ddc74a420d6453",
+    "prompt_text_characters": {
+      "value": 15289,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": "prompts/catalog-00100.json",
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 1,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    }
+  },
+  {
+    "case_id": "alice-contract",
+    "split": "held_out",
+    "catalog_size": 100,
+    "request_sha256": "a15375d4f7b556a7b4820076ec5fd0a7a67cfc0197facac09221a6c035d8f34d",
+    "prompt_text_characters": {
+      "value": 15325,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 2,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000002"
+      ]
+    }
+  },
+  {
+    "case_id": "dormant-owner",
+    "split": "held_out",
+    "catalog_size": 100,
+    "request_sha256": "47905913fefa61a0e5f915f812fdcfc43b2c49ec6c714f938b75721f53d3c983",
+    "prompt_text_characters": {
+      "value": 15307,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 3,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000003"
+      ]
+    }
+  },
+  {
+    "case_id": "genuinely-new",
+    "split": "held_out",
+    "catalog_size": 100,
+    "request_sha256": "1d8bb2f8384bb05dd0e102266ea661d180978c57d0fd460b812aab9ba54b912e",
+    "prompt_text_characters": {
+      "value": 15291,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 4,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "create_new",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "alternating-topics",
+    "split": "held_out",
+    "catalog_size": 100,
+    "request_sha256": "fed164bed048b1c2e60ac986df000a28bb2bffa0e9f77137bb2aa12de21f8144",
+    "prompt_text_characters": {
+      "value": 15717,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 5,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000005"
+      ]
+    }
+  },
+  {
+    "case_id": "pronoun-draft",
+    "split": "tuning",
+    "catalog_size": 100,
+    "request_sha256": "010a9b488c40ca25b347bfc1f04a0dbe84af206edc1445a08e420a83c1b20d5b",
+    "prompt_text_characters": {
+      "value": 15432,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 6,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "draft_id": "r100000000000000001",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    }
+  },
+  {
+    "case_id": "competing-drafts",
+    "split": "held_out",
+    "catalog_size": 100,
+    "request_sha256": "9d1580763accc546c6729b3dba4389358e2609a0ce6578f3372ebcaf620e31b0",
+    "prompt_text_characters": {
+      "value": 15361,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 7,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "resolve_draft_referent",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "stale-card",
+    "split": "held_out",
+    "catalog_size": 100,
+    "request_sha256": "8716307316450a9ec3e8fbd4c679de946b097d385effd07f2810293822f7022e",
+    "prompt_text_characters": {
+      "value": 15311,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 8,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "required_recovery": "refresh_card",
+      "expected_open_obligations": [],
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000007"
+      ]
+    }
+  },
+  {
+    "case_id": "near-tied-owners",
+    "split": "tuning",
+    "catalog_size": 100,
+    "request_sha256": "6e417815dc2dc6c32499a455a420266f30943ebf7c50d760202c16bffc24048d",
+    "prompt_text_characters": {
+      "value": 15289,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 9,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "distinguish_original_from_renewal",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "partial-lookup",
+    "split": "held_out",
+    "catalog_size": 100,
+    "request_sha256": "5bd727294686336643c7c449de817f574510781690c08bdb59a4f17e317499ff",
+    "prompt_text_characters": {
+      "value": 15287,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 10,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "complete_lookup",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "lookup-unavailable",
+    "split": "held_out",
+    "catalog_size": 100,
+    "request_sha256": "8d1ce2c35543b90100f908a14753438b7576207b402380ef08408381cd6ead3e",
+    "prompt_text_characters": {
+      "value": 15293,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 11,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "retry_or_recover_lookup",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "explicit-old-thread",
+    "split": "tuning",
+    "catalog_size": 100,
+    "request_sha256": "0af59bde47a533905fb30257b4f3981547e1c5a2a5d603ef6bba8db388d9a012",
+    "prompt_text_characters": {
+      "value": 15299,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 12,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000003"
+      ]
+    }
+  },
+  {
+    "case_id": "two-owners",
+    "split": "held_out",
+    "catalog_size": 100,
+    "request_sha256": "a1a6e2341bbdb257843184017395bf51cd665c9fe146db91e85adc1df70c8d89",
+    "prompt_text_characters": {
+      "value": 15329,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 13,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000001",
+        "00000000-0000-4000-8000-000000000002"
+      ]
+    }
+  },
+  {
+    "case_id": "alice-lunch",
+    "split": "tuning",
+    "catalog_size": 1000,
+    "request_sha256": "4c5eb665b5a16816afdc82cd7e975ead6ebdf2f3b92e962125cb8539f613eb53",
+    "prompt_text_characters": {
+      "value": 58534,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": "prompts/catalog-01000.json",
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 14,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    }
+  },
+  {
+    "case_id": "alice-contract",
+    "split": "held_out",
+    "catalog_size": 1000,
+    "request_sha256": "73ec451dbc8cef22ed81314f46ee8ba22571f0944452ecb85534df916d563b61",
+    "prompt_text_characters": {
+      "value": 58570,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 15,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000002"
+      ]
+    }
+  },
+  {
+    "case_id": "dormant-owner",
+    "split": "held_out",
+    "catalog_size": 1000,
+    "request_sha256": "377679efd7c99cd577cb197045e9c78ef499d08840b7f95cbdac0a210080593f",
+    "prompt_text_characters": {
+      "value": 58552,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 16,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000003"
+      ]
+    }
+  },
+  {
+    "case_id": "genuinely-new",
+    "split": "held_out",
+    "catalog_size": 1000,
+    "request_sha256": "4a3fb5b21a56c847a2846785456e2d8334898c04602bb7658f2b874700f941b8",
+    "prompt_text_characters": {
+      "value": 58536,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 17,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "create_new",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "alternating-topics",
+    "split": "held_out",
+    "catalog_size": 1000,
+    "request_sha256": "de6bcdd1a49bd584017c5775c8d4f4cf1535edd9c55f6b714a9a861e6cc4d35a",
+    "prompt_text_characters": {
+      "value": 58962,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 18,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000005"
+      ]
+    }
+  },
+  {
+    "case_id": "pronoun-draft",
+    "split": "tuning",
+    "catalog_size": 1000,
+    "request_sha256": "11498e109b06e16a4825f62b702785ff64cb823ad63e688e1a93be8685eacc48",
+    "prompt_text_characters": {
+      "value": 58677,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 19,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "draft_id": "r100000000000000001",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    }
+  },
+  {
+    "case_id": "competing-drafts",
+    "split": "held_out",
+    "catalog_size": 1000,
+    "request_sha256": "39176e4f162eccc193b7745c6feef3540b5765073c4aedb66768fd830ed6568f",
+    "prompt_text_characters": {
+      "value": 58606,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 20,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "resolve_draft_referent",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "stale-card",
+    "split": "held_out",
+    "catalog_size": 1000,
+    "request_sha256": "8906b2638913172c0dda47dd3275fd69e406a28780ad56d17b2ef023dc08cafd",
+    "prompt_text_characters": {
+      "value": 58556,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 21,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "required_recovery": "refresh_card",
+      "expected_open_obligations": [],
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000007"
+      ]
+    }
+  },
+  {
+    "case_id": "near-tied-owners",
+    "split": "tuning",
+    "catalog_size": 1000,
+    "request_sha256": "eb04f5ca9131fac46c791b183af19b058c087cb692b25bf75ff78e95b4a8fb77",
+    "prompt_text_characters": {
+      "value": 58534,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 22,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "distinguish_original_from_renewal",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "partial-lookup",
+    "split": "held_out",
+    "catalog_size": 1000,
+    "request_sha256": "c327b7c14c0d457ecd1b9f22b3384fb8e018e43a942de11f87f5f53fea0ac788",
+    "prompt_text_characters": {
+      "value": 58532,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 23,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "complete_lookup",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "lookup-unavailable",
+    "split": "held_out",
+    "catalog_size": 1000,
+    "request_sha256": "5d46a6542d5cc1b0ca3fa75d842f90aed3fd82ff421e2c742f9d73851ec9e4de",
+    "prompt_text_characters": {
+      "value": 58538,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 24,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "retry_or_recover_lookup",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "explicit-old-thread",
+    "split": "tuning",
+    "catalog_size": 1000,
+    "request_sha256": "1a5516503f6b93bd6acb5cc859a164dc01cccac16efc582eeeadd11980ebe02a",
+    "prompt_text_characters": {
+      "value": 58544,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 25,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000003"
+      ]
+    }
+  },
+  {
+    "case_id": "two-owners",
+    "split": "held_out",
+    "catalog_size": 1000,
+    "request_sha256": "67a1a48546c5a5a155c126b34e6123fd35910e8a496e3923a64ea28c7a8d2812",
+    "prompt_text_characters": {
+      "value": 58574,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 26,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000001",
+        "00000000-0000-4000-8000-000000000002"
+      ]
+    }
+  },
+  {
+    "case_id": "alice-lunch",
+    "split": "tuning",
+    "catalog_size": 10000,
+    "request_sha256": "aa4e982d194824e9d720b8c636aa2a3798501c1d20c15b85ec9a4ba0e820b103",
+    "prompt_text_characters": {
+      "value": 490984,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": "prompts/catalog-10000.json",
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 27,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    }
+  },
+  {
+    "case_id": "alice-contract",
+    "split": "held_out",
+    "catalog_size": 10000,
+    "request_sha256": "0a7fb778f647a2734ca6449146c715e9422464cb777fc7bc178d526a1d0fb823",
+    "prompt_text_characters": {
+      "value": 491020,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 28,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000002"
+      ]
+    }
+  },
+  {
+    "case_id": "dormant-owner",
+    "split": "held_out",
+    "catalog_size": 10000,
+    "request_sha256": "eee092b536af32a612c2c6c9635e70a9b8e47c274aee12f45768fd2c438d9327",
+    "prompt_text_characters": {
+      "value": 491002,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 29,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000003"
+      ]
+    }
+  },
+  {
+    "case_id": "genuinely-new",
+    "split": "held_out",
+    "catalog_size": 10000,
+    "request_sha256": "6a66044cc004db630f13f60f1cb36f30ea5a2ab656c6aa76ce4dcd0c9a8dd233",
+    "prompt_text_characters": {
+      "value": 490986,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 30,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "create_new",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "alternating-topics",
+    "split": "held_out",
+    "catalog_size": 10000,
+    "request_sha256": "80252d89a220f1843b6018158ae1aee1365c205bda31629259dfae831d0cb3f8",
+    "prompt_text_characters": {
+      "value": 491412,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 31,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000005"
+      ]
+    }
+  },
+  {
+    "case_id": "pronoun-draft",
+    "split": "tuning",
+    "catalog_size": 10000,
+    "request_sha256": "946bad1ed3654afa423d7f6d30b054a1e66aa6a187ef5f5430e160e9485f9be6",
+    "prompt_text_characters": {
+      "value": 491127,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 32,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "draft_id": "r100000000000000001",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000001"
+      ]
+    }
+  },
+  {
+    "case_id": "competing-drafts",
+    "split": "held_out",
+    "catalog_size": 10000,
+    "request_sha256": "b78bdf4b15171aa1163d17a16e95361ab3411a9f7abdd9edc3199cf440079e48",
+    "prompt_text_characters": {
+      "value": 491056,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 33,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "resolve_draft_referent",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "stale-card",
+    "split": "held_out",
+    "catalog_size": 10000,
+    "request_sha256": "19facc5d83c72e36bd87b3f272c0d3b3c04694a2cad8f84c808b09c31c0f7600",
+    "prompt_text_characters": {
+      "value": 491006,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 34,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "required_recovery": "refresh_card",
+      "expected_open_obligations": [],
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000007"
+      ]
+    }
+  },
+  {
+    "case_id": "near-tied-owners",
+    "split": "tuning",
+    "catalog_size": 10000,
+    "request_sha256": "a0f7946badd9786eeb0a6afb446ee4afe8dd1d6af5bf908b51ca7ca371315805",
+    "prompt_text_characters": {
+      "value": 490984,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 35,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "distinguish_original_from_renewal",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "partial-lookup",
+    "split": "held_out",
+    "catalog_size": 10000,
+    "request_sha256": "8438b4fbf39eb445255eceff3a21ba5cf46c5840d224c217e198d27de3280eab",
+    "prompt_text_characters": {
+      "value": 490982,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 36,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "complete_lookup",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "lookup-unavailable",
+    "split": "held_out",
+    "catalog_size": 10000,
+    "request_sha256": "89d938e362e2c31d854a7a65b7fa54586af6d05c098b3b8a370f43db8b6a00c9",
+    "prompt_text_characters": {
+      "value": 490988,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 37,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "abstain",
+      "required_recovery": "retry_or_recover_lookup",
+      "workflow_ids": []
+    }
+  },
+  {
+    "case_id": "explicit-old-thread",
+    "split": "tuning",
+    "catalog_size": 10000,
+    "request_sha256": "24d155f19227c46b275b2c048f02e64761e215ffee938d7ab48820e8613ee9b3",
+    "prompt_text_characters": {
+      "value": 490994,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 38,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000003"
+      ]
+    }
+  },
+  {
+    "case_id": "two-owners",
+    "split": "held_out",
+    "catalog_size": 10000,
+    "request_sha256": "72dbdb23f966f9379cfda535d8b1dc9ce6a2d405dce67e50f2311ee01f58c66a",
+    "prompt_text_characters": {
+      "value": 491024,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "representative_payload": null,
+    "payload_archive": "case_requests.jsonl.gz",
+    "payload_line": 39,
+    "routing_grade": {
+      "availability": "unavailable",
+      "reason": "routing_not_executed",
+      "source_mode": "local",
+      "actual": null
+    },
+    "expected": {
+      "action": "reuse",
+      "workflow_ids": [
+        "00000000-0000-4000-8000-000000000001",
+        "00000000-0000-4000-8000-000000000002"
+      ]
+    }
+  }
+]

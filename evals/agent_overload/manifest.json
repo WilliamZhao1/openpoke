@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "profile": "legacy_baseline_v1",
+  "run_mode": "model-free",
+  "strategy": "legacy_full_roster",
+  "provider": "openrouter",
+  "provider_endpoint": "https://openrouter.ai/api/v1",
+  "runtime_settings": {
+    "interaction_agent_model": "anthropic/claude-sonnet-4.6",
+    "execution_agent_model": "anthropic/claude-sonnet-4.6",
+    "execution_agent_search_model": "anthropic/claude-sonnet-4.6",
+    "summarizer_model": "anthropic/claude-sonnet-4.6",
+    "email_classifier_model": "anthropic/claude-sonnet-4.6",
+    "openrouter_max_tokens": 2048,
+    "conversation_summary_threshold": 100,
+    "conversation_summary_tail_size": 10
+  },
+  "catalog_sizes": [0, 100, 1000, 10000],
+  "smoke_catalog_size": 100,
+  "smoke_sha256": "83cd7d64013b2a0d9348f7c34c44673228cb7273642ff05fbd50bcea19da422c",
+  "fixture_checksums": {
+    "fixture_version": 1,
+    "catalogs": {
+      "0": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "100": "4ba294187e1ea7685d5a4c30962e308d28028e7af8195c0a9b111a36f03911aa",
+      "1000": "d30f8a3f000cb92d8cfd45e0b4f92b2bd9e328b81fb38eb8f8c52bc9481d293d",
+      "10000": "827d02d5f1a12652ce92b70a505e1aabaae8d2ee0e74fd7e21e91eb136b03561"
+    },
+    "routing_cases": "f3df90582528ed79c1f986ab6669a060fdba8c6411e8dd97875280783e2c8324",
+    "gmail_mailbox": "e08d517810df1a72308af28873dc13f9a4780b173062baf6499d876a0c183a50"
+  },
+  "smoke_deadline_seconds": 10,
+  "request_options": {"stream": false, "timeout_seconds": 60, "sampling_parameters": "provider_default"},
+  "loop_limits": {"interaction": 8, "execution": 8, "search_email": 8, "batch_timeout_seconds": 90}
+}

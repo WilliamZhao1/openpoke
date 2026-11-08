@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-08T22:50:27.224101+00:00",
+  "run_mode": "model-free",
+  "provider_mode": "mock",
+  "strategy": "legacy_full_roster",
+  "provider_contract": "openrouter",
+  "checks_passed": true,
+  "case_context_count": 40,
+  "catalog_sizes": [
+    0,
+    100,
+    1000,
+    10000
+  ],
+  "measurements": {
+    "routing_accuracy": {
+      "value": null,
+      "availability": "unavailable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "requires_model_backed_evaluation",
+      "evidence_refs": []
+    },
+    "incorrect_reuse_rate": {
+      "value": null,
+      "availability": "unavailable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "requires_model_backed_evaluation",
+      "evidence_refs": []
+    },
+    "end_task_success_rate": {
+      "value": null,
+      "availability": "unavailable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "requires_model_backed_evaluation",
+      "evidence_refs": []
+    },
+    "live_provider_cost": {
+      "value": null,
+      "availability": "unavailable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "requires_model_backed_evaluation",
+      "evidence_refs": []
+    },
+    "live_provider_latency": {
+      "value": null,
+      "availability": "unavailable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "requires_model_backed_evaluation",
+      "evidence_refs": []
+    },
+    "candidate_recall_at_5": {
+      "value": null,
+      "availability": "not_applicable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "legacy_has_no_ranked_shortlist",
+      "evidence_refs": []
+    }
+  },
+  "smoke_checks": {
+    "http_accepted": true,
+    "five_mock_calls": true,
+    "mock_provenance": true,
+    "original_provider_payload": true,
+    "correlated_trace": true,
+    "exact_fake_effect": true,
+    "exact_fixture_owner": true,
+    "roster_unchanged": true,
+    "user_reply_stored": true,
+    "provider_usage_unknown": true
+  },
+  "unexecuted_comparisons": [
+    "lexical_names",
+    "lexical_cards",
+    "lexical_cards_checked",
+    "semantic_cards_checked"
+  ]
+}

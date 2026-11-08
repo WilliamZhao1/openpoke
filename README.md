@@ -100,6 +100,16 @@ for fields, examples, and content boundaries.
 Frozen workflow catalogs and the local Gmail test backend are documented in
 [Agent overload fixtures](server/tests/fixtures/README.md).
 
+Capture the model-free full-roster baseline with:
+
+```bash
+python evals/agent_overload/run.py
+```
+
+See the [evaluation harness](evals/agent_overload/README.md) and the
+[saved baseline report](evals/agent_overload/baseline/report.md). The runner uses
+disposable storage and mocked providers; live model quality/cost remain unmeasured.
+
 ## Project Layout
 - `server/` – FastAPI application and agents
 - `web/` – Next.js app

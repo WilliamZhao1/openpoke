@@ -1,0 +1,2 @@
+# Evidence hashes cover exact captured bytes, across checkout platforms.
+baseline/** -text

@@ -1,0 +1,174 @@
+[
+  {
+    "catalog_size": 0,
+    "visible_workflows": {
+      "value": 0,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_characters": {
+      "value": 4,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_utf8_bytes": {
+      "value": 4,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_tokens": {
+      "value": null,
+      "availability": "unavailable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "tokenizer_not_configured",
+      "evidence_refs": []
+    },
+    "all_names_rendered": {
+      "value": true,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    }
+  },
+  {
+    "catalog_size": 100,
+    "visible_workflows": {
+      "value": 100,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_characters": {
+      "value": 4702,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_utf8_bytes": {
+      "value": 4702,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_tokens": {
+      "value": null,
+      "availability": "unavailable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "tokenizer_not_configured",
+      "evidence_refs": []
+    },
+    "all_names_rendered": {
+      "value": true,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    }
+  },
+  {
+    "catalog_size": 1000,
+    "visible_workflows": {
+      "value": 1000,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_characters": {
+      "value": 47947,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_utf8_bytes": {
+      "value": 47947,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_tokens": {
+      "value": null,
+      "availability": "unavailable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "tokenizer_not_configured",
+      "evidence_refs": []
+    },
+    "all_names_rendered": {
+      "value": true,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    }
+  },
+  {
+    "catalog_size": 10000,
+    "visible_workflows": {
+      "value": 10000,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_characters": {
+      "value": 480397,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_utf8_bytes": {
+      "value": 480397,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    },
+    "roster_tokens": {
+      "value": null,
+      "availability": "unavailable",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": "tokenizer_not_configured",
+      "evidence_refs": []
+    },
+    "all_names_rendered": {
+      "value": true,
+      "availability": "available",
+      "source": "runtime",
+      "source_mode": "local",
+      "reason": null,
+      "evidence_refs": []
+    }
+  }
+]

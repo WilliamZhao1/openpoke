@@ -3,7 +3,8 @@
 Updated: 2026-11-08
 
 The implementation follows `execution-agent-overload-implementation-plan.md`
-in separately reviewable steps. Phase 0 is in progress.
+in separately reviewable steps. Phase 0's model-free baseline and infrastructure
+are complete; model-backed release comparisons remain in Phase 5.
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -110,7 +111,7 @@ gap below; Step 2b subsequently closed it. Phase 0 as a whole remains in progres
 | Phase 0 isolated storage | Aligned: helper, default compatibility, all existing stores, temporary test runner, restart/clear isolation tests. |
 | Phase 0 usage, timing, failures, and correlation | Implemented: all five model callers, chat, worker callbacks, triggers, and Gmail notifications. Routing and model/output-token configuration retain baseline behavior. |
 | Phase 0 explicit observation availability and mock/live provenance | Aligned after Step 2b: per-observation four-state availability, fixed reasons, provenance, and transport-bound mock/live labels are present in schema-2 log evidence. The evaluation harness will preserve them in reports. |
-| Expanded Phase 0 fixtures and controlled comparisons | Fixture inputs and comparison definitions implemented in Step 3, including topic switches, genuine follow-ups, stale cards, near ties, and complete/partial/unavailable lookups. Executing/scoring comparisons remains the harness step. |
+| Expanded Phase 0 fixtures and controlled comparisons | Fixtures/comparison definitions implemented in Step 3. Step 4 captures the legacy baseline and scripted trace with explicit availability/provenance. Actual comparisons against later routing strategies remain unexecuted. |
 | Phase 1 activity records and rebuildable cards | Future work: use source-linked outcomes, explicit obligation transitions, and revisions when implementing storage/migration. |
 | Phase 2 intent isolation and enforced routing decisions | Future work: bind decisions to current intent, scope, generation, and revisions; recover or abstain on ambiguity/failure. Current trace IDs are not those decisions. |
 | Phase 7 graph retrieval experiment | Future work after Phases 0-5 and the frozen baseline; Phase 6 remains optional and independent. |
@@ -231,12 +232,73 @@ routing/approval/lifecycle correctness. Model-free evaluation execution,
 sanitized saved evidence, and provider/configuration manifests are the next
 step. Fixture use and examples are documented in `server/tests/fixtures/README.md`.
 
-## Next step in Phase 0
+## Step 4: Executable harness and saved baseline evidence (complete)
 
-1. Add the executable evaluation harness, frozen manifest/inputs, and saved
-   full-roster baseline evidence. Predeclare comparisons that separate richer
-   metadata, backend decision checks, and optional ranker effects; preserve
-   availability/provenance in evidence and reports.
+**Motivation:** Later changes need a reproducible reference and evidence that
+the measurement/grading pipeline observes actual requests, identities, and tool
+effects. A scripted success cannot establish real routing quality, and missing
+usage/cost must not make a baseline look artificially efficient.
+
+**Old behavior:** Frozen fixtures and tracing existed, but there was no
+standalone evaluation command, pinned public model/configuration manifest,
+saved input/trace bundle, or durable record of full-roster prompt growth.
+
+**New behavior:** `evals/agent_overload/run.py` bootstraps disposable storage
+and dummy credentials before importing the application, blocks network connects,
+and writes a new evidence directory without overwriting earlier runs. The
+manifest pins the inspected shared `anthropic/claude-sonnet-4.6` model, 2,048
+output tokens, provider contract, summary settings, loop/batch limits, fixture
+digests, and explicit mock script. Runtime production files were not changed.
+
+The default run captures 40 contexts from 14 cases: 13 main-catalog cases at
+100/1,000/10,000 workflows and one empty-catalog case. It saves representative
+payloads and every rendered request in a reproducible compressed archive,
+independent fixture snapshots/recipe, source/dependency fingerprints, raw
+schema-2 telemetry, a stored conversation, fake-mail effects, and separate
+routing/effect grades for one scripted approved-draft trace. All observation
+states and mock/live/local provenance survive into evidence and reports.
+
+**Why this approach:** Fresh-process bootstrap avoids import-time stores using
+the wrong data root. A public settings allowlist prevents exporting credentials
+or unrelated environment data. Actual prompt helpers and runtime/tool adapters
+preserve the baseline behavior; full payloads and hashes make input drift
+reviewable. Expected owners stay outside model input, and the mock response
+script is explicitly separate from gold labels. Graders inspect observed
+legacy aliases and exact recorded sends rather than trusting worker prose.
+The compressed archive keeps every case inspectable without repeating large
+rosters as uncompressed files. Evidence byte hashes are preserved across Git
+checkouts, while source hashes normalize line endings.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+all 78 tests (70 existing plus 8 new). New checks cover fresh-process data/key
+isolation, fixture drift rejection, overwrite prevention, archive/input
+reproducibility, saved recipe reuse, artifact hashes, all four observation
+states, multi-owner routing grades, and rejection of altered content,
+recipients, drafts, accounts, threads, attachments, or duplicate sends.
+
+Ran `.venv\Scripts\python.exe evals/agent_overload/run.py --output
+evals/agent_overload/baseline`; all structural and scripted trace/effect checks
+passed. Independently verified all 18 indexed artifacts and every recorded
+runtime source fingerprint. The measured full-roster character counts are
+4 for the empty `None` roster, 4,702 at 100 workflows, 47,947 at 1,000, and
+480,397 at 10,000. These are character counts, not token estimates. No live
+provider or email calls were made.
+
+**Remaining limits:** This is a model-free infrastructure/input baseline.
+Real routing accuracy, incorrect reuse, end-task success rates, live cost, and
+provider latency are unavailable. Recall@5 is inapplicable to the unranked
+legacy roster. Later strategies and longitudinal/model-backed comparisons are
+unexecuted. Phase 5 must supply their release evidence. The earlier Step 2b/3
+harness follow-ups are now covered by this step.
+
+The saved report is `evals/agent_overload/baseline/report.md`; harness design,
+commands, artifact semantics, and limitations are in `evals/agent_overload/README.md`.
+
+## Next implementation step
+
+Begin Phase 1 with the stable workflow models and local SQLite store, retaining
+the isolated data root. Migration, compatibility adapters, and lifecycle
+integration will follow as separate reviewable changes.
 
 Phases 1–7 remain pending; Phase 6 is optional, and Phase 7 follows the baseline
 release rather than being a prerequisite for it.
