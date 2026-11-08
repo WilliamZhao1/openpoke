@@ -107,10 +107,7 @@ class AgentTraceTests(unittest.IsolatedAsyncioTestCase):
             "type": "function", "function": {"name": "test_lookup", "parameters": {"type": "object"}},
         }]))
         self.payloads = []
-        async_client = httpx.AsyncClient
-        self.stack.enter_context(patch.object(client.httpx, "AsyncClient", side_effect=lambda: async_client(
-            transport=httpx.MockTransport(self.provider)
-        )))
+        self.stack.enter_context(client.use_mock_provider(httpx.MockTransport(self.provider)))
 
     def provider(self, request):
         payload = json.loads(request.content)
@@ -190,6 +187,8 @@ class AgentTraceTests(unittest.IsolatedAsyncioTestCase):
         model_events = [event for event in events if event["event"] == "model_call.completed"]
         self.assertEqual(len(model_events), 5)
         self.assertEqual({event["component"] for event in model_events}, {"interaction", "execution"})
+        self.assertEqual({event["provider_mode"] for event in model_events}, {"mock"})
+        self.assertTrue(all(event["observations"]["input_tokens"]["source_mode"] == "mock" for event in model_events))
         self.assertTrue(all(payload["max_tokens"] == 777 for payload in self.payloads))
         self.assertTrue(all("request_id" not in payload and "component" not in payload for payload in self.payloads))
         self.assertNotIn("private", json.dumps(events))

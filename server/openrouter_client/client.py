@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import asyncio
+from contextlib import contextmanager
+from contextvars import ContextVar
 import json
 from time import perf_counter
 from typing import Any, Dict, List, Optional
@@ -9,9 +11,33 @@ from uuid import uuid4
 import httpx
 
 from ..config import get_settings
-from ..observability import record_event, traced
+from ..observability import (
+    Availability, EvidenceMode, Observation, ObservationReason, ObservationSource,
+    record_event, traced,
+)
 
 OpenRouterBaseURL = "https://openrouter.ai/api/v1"
+_mock_transport: ContextVar[Optional[httpx.MockTransport]] = ContextVar("openrouter_mock_transport", default=None)
+
+
+@contextmanager
+def use_mock_provider(transport: httpx.MockTransport):
+    """Bind a local provider transport and its mock provenance together.
+
+    Tasks inherit this binding. Mock failure propagates through normal error
+    handling; it never selects a live transport as an automatic fallback.
+    """
+    if not isinstance(transport, httpx.MockTransport):
+        raise TypeError("Mock provider requires httpx.MockTransport")
+    token = _mock_transport.set(transport)
+    try:
+        yield
+    finally:
+        _mock_transport.reset(token)
+
+
+def get_provider_mode() -> EvidenceMode:
+    return EvidenceMode.MOCK if _mock_transport.get() is not None else EvidenceMode.LIVE
 
 
 class OpenRouterError(RuntimeError):
@@ -52,9 +78,26 @@ def _handle_response_error(exc: httpx.HTTPStatusError) -> None:
     raise OpenRouterError(f"OpenRouter request failed ({response.status_code}): {detail}") from exc
 
 
-def _usage_count(usage: Any, key: str) -> Optional[int]:
-    value = usage.get(key) if isinstance(usage, dict) else None
-    return value if type(value) is int and value >= 0 else None
+def _usage_observation(
+    usage: Any, key: str, *, request_started: bool, failure: Optional[str], mode: EvidenceMode,
+) -> Observation:
+    source = ObservationSource.PROVIDER_USAGE
+    if not request_started:
+        return Observation(None, Availability.NOT_APPLICABLE, source, mode, ObservationReason.REQUEST_NOT_SENT)
+    if isinstance(usage, dict) and key in usage:
+        value = usage[key]
+        if type(value) is int and value >= 0:
+            return Observation(value, Availability.AVAILABLE, source, mode)
+        reason = ObservationReason.USAGE_VALUE_INVALID
+    elif failure:
+        reason = ObservationReason.RESPONSE_INVALID if failure == "invalid_response" else ObservationReason.REQUEST_FAILED
+    elif usage is None:
+        reason = ObservationReason.USAGE_MISSING
+    elif not isinstance(usage, dict):
+        reason = ObservationReason.USAGE_INVALID
+    else:
+        reason = ObservationReason.USAGE_FIELD_MISSING
+    return Observation(None, Availability.UNAVAILABLE, source, mode, reason)
 
 
 def _http_failure(status_code: int) -> str:
@@ -83,6 +126,9 @@ async def request_chat_completion(
     status_code = None
     failure = None
     stage = "configuration"
+    request_started = False
+    transport = _mock_transport.get()
+    mode = get_provider_mode()
     try:
         payload: Dict[str, object] = {
             "model": model,
@@ -95,7 +141,9 @@ async def request_chat_completion(
         url = f"{base_url.rstrip('/')}/chat/completions"
         headers = _headers(api_key=api_key)
         stage = "internal"
-        async with httpx.AsyncClient() as client:
+        client_options = {"transport": transport} if transport is not None else {}
+        async with httpx.AsyncClient(**client_options) as client:
+            request_started = True
             response = await client.post(
                 url,
                 headers=headers,
@@ -128,15 +176,33 @@ async def request_chat_completion(
         raise
     finally:
         usage = result.get("usage") if isinstance(result, dict) else None
-        input_tokens = _usage_count(usage, "prompt_tokens")
-        output_tokens = _usage_count(usage, "completion_tokens")
+        input_tokens = _usage_observation(usage, "prompt_tokens", request_started=request_started, failure=failure, mode=mode)
+        output_tokens = _usage_observation(usage, "completion_tokens", request_started=request_started, failure=failure, mode=mode)
+        if status_code is not None:
+            status = Observation(status_code, Availability.AVAILABLE, ObservationSource.HTTP_RESPONSE, mode)
+        else:
+            status = Observation(
+                None, Availability.UNAVAILABLE if request_started else Availability.NOT_APPLICABLE,
+                ObservationSource.HTTP_RESPONSE, mode,
+                ObservationReason.NO_HTTP_RESPONSE if request_started else ObservationReason.REQUEST_NOT_SENT,
+            )
+        coverage = Observation(
+            input_tokens.availability == Availability.AVAILABLE and output_tokens.availability == Availability.AVAILABLE,
+            Availability.INFERRED, ObservationSource.DERIVED,
+            evidence=("input_tokens", "output_tokens"),
+        )
         record_event(
             "model_call.completed", component=component, model=model, call_id=call_id,
             outcome="failed" if failure else "succeeded", failure_category=failure,
-            elapsed_ms=(perf_counter() - started) * 1000, status_code=status_code,
-            input_tokens=input_tokens, output_tokens=output_tokens,
-            usage_complete=input_tokens is not None and output_tokens is not None,
+            elapsed_ms=(perf_counter() - started) * 1000, provider_mode=mode,
+            observations={
+                "input_tokens": input_tokens, "output_tokens": output_tokens,
+                "status_code": status, "usage_complete": coverage,
+            },
         )
 
 
-__all__ = ["OpenRouterError", "request_chat_completion", "OpenRouterBaseURL"]
+__all__ = [
+    "OpenRouterError", "request_chat_completion", "OpenRouterBaseURL",
+    "use_mock_provider", "get_provider_mode",
+]

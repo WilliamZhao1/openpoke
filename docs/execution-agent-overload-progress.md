@@ -48,10 +48,10 @@ test verifies two independent roots and clearing one without affecting the
 other; it rejects socket connections. No live Gmail or model calls were used.
 `git diff --check` passed for the tracked changes.
 
-## Step 2: Observability and correlation IDs (revision follow-up pending)
+## Step 2: Observability and correlation IDs (complete)
 
-The original step was implemented and verified. The revised plan adds an
-observation-availability/provenance contract that requires the follow-up below.
+The original step was implemented and verified. Step 2b below completes the
+observation-availability/provenance contract added in the revised plan.
 
 **Motivation:** Later routing/context changes need a comparable baseline. We
 must account for work in inner agents and callbacks, distinguish a successful
@@ -102,20 +102,20 @@ were used. `git diff --check` passed.
 ## Alignment review against the revised plan
 
 Reviewed on 2026-11-08. The completed work remains compatible with the revised
-architecture and delivery order. It does not yet satisfy every newly added
-Phase 0 observation requirement.
+architecture and delivery order. The initial audit identified the observation
+gap below; Step 2b subsequently closed it. Phase 0 as a whole remains in progress.
 
 | Plan requirement | Current alignment |
 | --- | --- |
 | Phase 0 isolated storage | Aligned: helper, default compatibility, all existing stores, temporary test runner, restart/clear isolation tests. |
 | Phase 0 usage, timing, failures, and correlation | Implemented: all five model callers, chat, worker callbacks, triggers, and Gmail notifications. Routing and model/output-token configuration retain baseline behavior. |
-| Phase 0 explicit observation availability and mock/live provenance | Follow-up required: token values can be `null` and `usage_complete` is recorded, but there is no explicit four-state availability contract or machine-readable mock/live evidence label. |
+| Phase 0 explicit observation availability and mock/live provenance | Aligned after Step 2b: per-observation four-state availability, fixed reasons, provenance, and transport-bound mock/live labels are present in schema-2 log evidence. The evaluation harness will preserve them in reports. |
 | Expanded Phase 0 fixtures and controlled comparisons | Pending, as before; include the newly added topic-switch, genuine follow-up, stale-card, near-tie, and complete/partial/unavailable lookup cases. |
 | Phase 1 activity records and rebuildable cards | Future work: use source-linked outcomes, explicit obligation transitions, and revisions when implementing storage/migration. |
 | Phase 2 intent isolation and enforced routing decisions | Future work: bind decisions to current intent, scope, generation, and revisions; recover or abstain on ambiguity/failure. Current trace IDs are not those decisions. |
 | Phase 7 graph retrieval experiment | Future work after Phases 0-5 and the frozen baseline; Phase 6 remains optional and independent. |
 
-**Required Step 2 follow-up:** Add `available`, `inferred`, `unavailable`, and
+**Follow-up identified by the audit (completed in Step 2b):** Add `available`, `inferred`, `unavailable`, and
 `not_applicable` observation states, with safe reasons/provenance and separate
 mock/live labels. Attach availability to individual observations: elapsed time
 can be directly available while provider usage is missing in the same event.
@@ -130,13 +130,60 @@ tests verify the implemented behavior; they do not establish compliance with
 the new availability/provenance contract. No runtime code was changed in this
 alignment review. The implementation-plan document was preserved.
 
+## Step 2b: Explicit observation availability and provenance (complete)
+
+**Motivation:** A missing measurement, an observed zero, a derived value, and a
+metric that does not apply have different meanings in comparisons. A fabricated
+provider response cannot support a claim about real provider usage or latency.
+The revised Phase 0 requires these distinctions in recorded evidence.
+
+**Old behavior:** Telemetry included scalar usage values, `null` for unknown
+counts, and a `usage_complete` boolean. It had no explicit availability or
+source mode. Tests patched the HTTP client independently of telemetry.
+
+**New behavior:** Schema-2 events preserve the original scalar fields and add
+typed observations with `available`, `inferred`, `unavailable`, or
+`not_applicable` availability; fixed source/reason enums; source mode; and
+derivation evidence. Missing/invalid counts remain null and actual zero counts
+remain zero. `usage_complete` is explicitly derived from both token
+observations. Timing can be available even when usage is unavailable; an
+observed provider-error payload can also contain available usage.
+
+`use_mock_provider(httpx.MockTransport(...))` binds a provider transport and its
+mock label together. The normal transport is labeled live; clock/runtime
+observations are local. Tasks inherit mock scope, nested scopes restore it,
+and a mock failure does not select a live transport. Existing model-response
+tests now use this interface.
+
+**Why this approach:** Availability belongs to each measurement because an
+event can contain several evidence states. Immutable typed observations reject
+unsupported inferences and arbitrary reason text; named evidence must refer to
+metrics in the same event. Transport selection determines the provider label,
+avoiding a loose global flag that could mislabel a mixed evaluation. The
+existing task-local scope mechanism handles asynchronous propagation. Keeping
+the scalar fields supports current consumers while the schema version makes
+the richer contract explicit. Provider payloads, configured output limits,
+routing, and retry behavior retain their baseline contracts.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed all
+49 tests, including the existing 41 and 8 additional tests. Checks cover JSON
+serialization of all four states, zero and partial usage, safe missing-data
+reasons, derivation constraints, available usage on failed calls, nested/task
+mock scopes, rejection of invalid mock transports, and no live fallback. The
+existing callback, provider failure, cancellation, content-exclusion, and
+payload/limit checks also pass. `git diff --check` passed. No live provider or
+email calls were made.
+
+**Remaining limits:** Historical schema-1 logs cannot gain missing provenance
+retroactively. This step supplies structured log evidence; preserving it in
+saved evaluation reports and labeling future scorers belong to the upcoming
+harness/adapters. Call success remains separate from end-task correctness.
+
 ## Next steps in Phase 0
 
-1. Complete the observation-availability and mock/live provenance follow-up,
-   with tests for every state, missing-data reasons, and source labeling.
-2. Add the fixed workflow catalogs and deterministic fake Gmail backend,
+1. Add the fixed workflow catalogs and deterministic fake Gmail backend,
    including the expanded routing/lookup scenarios in the revised plan.
-3. Add the executable evaluation harness, frozen manifest/inputs, and saved
+2. Add the executable evaluation harness, frozen manifest/inputs, and saved
    full-roster baseline evidence. Predeclare comparisons that separate richer
    metadata, backend decision checks, and optional ranker effects; preserve
    availability/provenance in evidence and reports.
