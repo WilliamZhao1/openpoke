@@ -1,0 +1,157 @@
+{
+  "routing_cases": [
+    {
+      "id": "alice-contract",
+      "split": "held_out",
+      "catalog": "main",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Check Alice's original Acme services contract, not the lunch invitation."
+        }
+      ],
+      "expected": {
+        "action": "reuse",
+        "workflow_ids": [
+          "00000000-0000-4000-8000-000000000002"
+        ]
+      },
+      "lookup": {
+        "status": "complete",
+        "candidate_ids": [
+          "00000000-0000-4000-8000-000000000002",
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000006"
+        ]
+      }
+    },
+    {
+      "id": "dormant-owner",
+      "split": "held_out",
+      "catalog": "main",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Find Morgan's correspondence from the 2023 tax filing."
+        }
+      ],
+      "expected": {
+        "action": "reuse",
+        "workflow_ids": [
+          "00000000-0000-4000-8000-000000000003"
+        ]
+      },
+      "lookup": {
+        "status": "complete",
+        "candidate_ids": [
+          "00000000-0000-4000-8000-000000000003"
+        ]
+      }
+    },
+    {
+      "id": "genuinely-new",
+      "split": "held_out",
+      "catalog": "main",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Start a new workflow to plan a garden."
+        }
+      ],
+      "expected": {
+        "action": "create_new",
+        "workflow_ids": []
+      },
+      "lookup": {
+        "status": "complete",
+        "candidate_ids": []
+      }
+    },
+    {
+      "id": "competing-drafts",
+      "split": "held_out",
+      "catalog": "main",
+      "turns": [
+        {
+          "role": "assistant",
+          "content": "Both Alice's lunch invitation and original-contract reply are ready for review."
+        },
+        {
+          "role": "user",
+          "content": "Send it."
+        }
+      ],
+      "expected": {
+        "action": "abstain",
+        "required_recovery": "resolve_draft_referent",
+        "workflow_ids": []
+      },
+      "lookup": {
+        "status": "complete",
+        "candidate_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ]
+      }
+    },
+    {
+      "id": "two-owners",
+      "split": "held_out",
+      "catalog": "main",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Check both Alice's lunch invitation and the original Acme services contract."
+        }
+      ],
+      "expected": {
+        "action": "reuse",
+        "workflow_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ]
+      },
+      "lookup": {
+        "status": "complete",
+        "candidate_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002",
+          "00000000-0000-4000-8000-000000000006"
+        ]
+      }
+    }
+  ],
+  "smoke_input": {
+    "review": "To: alice@example.test\nSubject: Re: Lunch at Cafe Etoile\nDraft: r100000000000000001\n\nHi Alice,\nLunch at Café Étoile at 12:00?\n\nThanks!",
+    "request": "I approve lunch draft r100000000000000001 exactly as shown. Send it."
+  },
+  "smoke_expected": {
+    "action": "reuse",
+    "workflow_ids": [
+      "00000000-0000-4000-8000-000000000001"
+    ],
+    "account_id": "fixture-gmail-a",
+    "draft_id": "r100000000000000001",
+    "thread_id": "18fa000000000101",
+    "recipient": "alice@example.test",
+    "subject": "Re: Lunch at Cafe Etoile",
+    "cc": [],
+    "bcc": [],
+    "extra_recipients": [],
+    "attachments": [],
+    "is_html": false,
+    "body": "Hi Alice,\nLunch at Café Étoile at 12:00?\n\nThanks!",
+    "reply": "Sent the approved lunch draft."
+  },
+  "fixture_checksums": {
+    "fixture_version": 1,
+    "catalogs": {
+      "0": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "100": "4ba294187e1ea7685d5a4c30962e308d28028e7af8195c0a9b111a36f03911aa",
+      "1000": "d30f8a3f000cb92d8cfd45e0b4f92b2bd9e328b81fb38eb8f8c52bc9481d293d",
+      "10000": "827d02d5f1a12652ce92b70a505e1aabaae8d2ee0e74fd7e21e91eb136b03561"
+    },
+    "routing_cases": "f3df90582528ed79c1f986ab6669a060fdba8c6411e8dd97875280783e2c8324",
+    "gmail_mailbox": "e08d517810df1a72308af28873dc13f9a4780b173062baf6499d876a0c183a50"
+  }
+}

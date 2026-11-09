@@ -110,6 +110,11 @@ See the [evaluation harness](evals/agent_overload/README.md) and the
 [saved baseline report](evals/agent_overload/baseline/report.md). The runner uses
 disposable storage and mocked providers; live model quality/cost remain unmeasured.
 
+The [paired comparison command](evals/agent_overload/README.md#phase-3-paired-comparison)
+now supports both scripted checks and live model decisions with fake Gmail.
+The [first live report](docs/agent-overload-comparison.md) records correct routing
+but a bounded draft-send failure; it does not support default promotion.
+
 The [reduced-scope implementation plan](docs/execution-agent-overload-implementation-plan.md)
 keeps name-based dispatch and local JSON/log storage.
 [Bounded worker discovery](docs/worker-discovery.md) is available with
@@ -135,7 +140,8 @@ now carry large bodies through Gmail creation, full user review, and confirmatio
 without repeating them in model arguments. [Inner model context](docs/inner-context.md)
 now bounds email search, classification, and streamed summarization, including
 cumulative source/result/recovery work. Phase 2 implementation is complete behind
-the opt-in setting; Phase 3 comparison and release checks remain ahead.
+the opt-in setting; Phase 3's first comparison is recorded, with its draft-send
+finding and remaining application release checks still to address.
 
 ## Project Layout
 - `server/` – FastAPI application and agents

@@ -10,21 +10,22 @@ and release. Revised Phase 1 discovery is implemented behind the development
 strategy setting. Phase 2 implementation is complete behind its opt-in setting:
 provider preflight, full-content capture, source recovery, bounded outer context,
 exact body references, and inner email-search/summarizer/classifier limits.
-Phase 3's comparison and release checks are next. No backup/import phase precedes
-them.
+Phase 3's first focused live comparison is recorded. It exposed a bounded
+draft-ID/reference confusion that must be addressed before release checks and
+default promotion. No backup/import phase precedes that work.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 218 tests.
+and removed from the active implementation. The active suite now has 225 tests.
 
 | Revised plan | Current position |
 | --- | --- |
 | Phase 0: retained preparation | Existing data paths, telemetry, fixtures/fake Gmail and model-free baseline retained. |
-| Phase 1: bounded discovery | Implemented behind `OPENPOKE_WORKER_DISCOVERY=bounded`; live model comparison remains Phase 3 work. |
-| Phase 2: bounded context/source recovery | Items 1–6 implemented behind `OPENPOKE_CONTEXT_STRATEGY=bounded`, including inner model builders and cumulative limits in this update. |
-| Phase 3: comparison/release | Model-backed comparison, final release checks/report and default promotion pending. Both strategies still default to legacy. |
+| Phase 1: bounded discovery | Implemented behind `OPENPOKE_WORKER_DISCOVERY=bounded`; selected live routing cases now measured. |
+| Phase 2: bounded context/source recovery | Items 1–6 implemented behind `OPENPOKE_CONTEXT_STRATEGY=bounded`. |
+| Phase 3: comparison/release | First live paired comparison and report complete; bounded draft task failed despite correct routing. Address that finding, complete application release checks, and rerun before default promotion. Both defaults remain legacy. |
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -987,12 +988,60 @@ assumes append-only logs and is not a universal manual-edit detector. The new
 code does not add retention, cross-process coordination, or durable recovery.
 See [inner-context.md](inner-context.md) for all limits and design examples.
 
+## Revised Phase 3: First paired comparison and report (complete)
+
+**Motivation:** The model-free baseline and scripted regressions show plumbing,
+but cannot establish actual model routing, task effects, or recovery overhead.
+A smaller prompt alone does not establish better task behavior or lower cost.
+
+**Old behavior:** The evaluation CLI supported only a frozen legacy prompt
+capture and one approved-draft script. Actual model decisions and a comparison
+with the production bounded strategies remained unavailable.
+
+**New behavior:** The same CLI now supports `--compare` with offline scripted
+or explicit live decisions, reusing the existing fixtures, agents, telemetry,
+fake Gmail, and graders. Each arm starts from identical synthetic state, keeps
+the pinned model/output settings, and runs in disposable storage. Paired arm
+ordering alternates by scenario, with bounded HTTP admission/pacing and a case
+deadline. Accepted routing is recorded separately from worker/task outcomes.
+The draft case executes chat acceptance, worker execution, callback, and exact
+fake Gmail effects. Usage/cost remain unknown when missing; errors and partial
+runs retain evidence. No approval, runtime telemetry, or storage framework was
+added, and the model-free baseline/checkpoint remain unchanged.
+
+**Why this approach:** Existing runtime paths and observable fake effects reveal
+model mistakes that a scripted answer can hide. Separate routing/effect grades
+prevent a correct owner or a worker's success message from masking a missing send.
+Equal model/output controls and paired ordering make the small comparison easier
+to assess without building a benchmark platform or claiming general accuracy.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+225 tests, including seven new comparison tests. An offline paired smoke run
+passed. The live paired run completed 46 model requests using the pinned model,
+five routing-only cases plus an approved-draft case per strategy. Both arms
+selected all six expected actions/owners, with zero incorrect reuse or
+unnecessary creation. Legacy used 21 calls and bounded 25. Returned input tokens
+were 106,344 versus 143,212; returned output tokens were 1,506 versus 2,092.
+Provider-reported cost was 0.341622 versus 0.461016. Local case time was 64.17 s
+versus 79.47 s including deliberate request pacing. These are observations from
+this sample, not a general performance claim.
+
+**Release finding:** Legacy sent the exact approved fake draft once. Bounded
+mode put a Gmail draft ID into `draft_reference`, then `read_result`, and asked
+to recreate the draft after the backend rejected those invalid references. It
+made no Gmail call/send, despite reporting worker success and completing its
+callback. Effect grading failed the live comparison (exit 1). No reference
+validation was weakened and no product default was changed. Two other bounded
+lookup/dispatch errors recovered successfully and remain included in call and
+tool-error totals. The [short report](agent-overload-comparison.md) retains
+compressed full traces, exact settings, usage/effects, source provenance, and
+artifact hashes. Live decisions and mock mailbox effects are labeled separately.
+
 ## Next implementation step under the revised plan
 
-Phase 2 implementation items 1–6 are complete behind the opt-in setting. Begin
-revised Phase 3's focused comparison using the existing fixtures/harness and
-actual model decisions with equal model/output settings. Record routing and
-draft/tool effects, calls, available usage, latency and failures. Complete the
-application release checks and short report before promoting defaults. Both
-strategies remain `legacy` by default; scripted tests do not establish live
-quality or cost.
+Address the live-detected Gmail draft-ID versus saved-reference confusion with
+focused schema/prompt guidance and a regression case, then rerun the affected
+live scenario. Complete the remaining application release checks for triggers,
+callbacks, full large-draft review, chat acceptance, and clearing before promoting
+defaults. Phase 3 remains in progress; Phase 2 implementation items 1–6 remain
+complete behind the opt-in setting, and both defaults remain `legacy`.

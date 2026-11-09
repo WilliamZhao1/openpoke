@@ -18,8 +18,8 @@ The frozen profile preserves the inspected configuration:
 
 The model name is retained in request payloads, but all completions in this
 runner come from `httpx.MockTransport`. All Gmail operations use the fixture
-backend. Live mode is deliberately unsupported at this stage; the release
-evaluation still requires the separate model-backed runs in Phase 5.
+backend. This default path remains model-free. Revised Phase 3 now adds the
+paired comparison below without changing or regenerating the frozen baseline.
 
 ## Run
 
@@ -131,5 +131,106 @@ and independent routing/effect grader tests.
 
 The saved [model-free baseline](baseline/report.md) preserves the initial
 default-size capture. It completes the Phase 0 infrastructure baseline.
-Migration, routing/context changes, lifecycle work, and model-backed release
-comparisons remain later phases.
+The reduced-scope plan supersedes the old migration roadmap. Discovery and
+bounded-context implementation are complete behind opt-in flags; release checks
+and default promotion remain separate work.
+
+## Phase 3: Paired comparison
+
+`run.py --compare` uses the existing agents, fixed catalog/cases, fake Gmail,
+telemetry, and graders. It compares the combined production `legacy` and
+`bounded` discovery/context strategies with the same pinned model and 2,048-token
+output reservation. It does not implement the old proposed ranker/card ablations.
+The existing `manifest.json`, fixture checksums, and saved baseline stay intact.
+
+Check the comparison's local plumbing without network calls:
+
+```powershell
+.\.venv\Scripts\python.exe evals/agent_overload/run.py --compare --context-window 65536
+```
+
+Offline comparison defaults to `alice-lunch` plus the approved-draft trace in
+both arms. It reuses the frozen approved-draft responses; it does not choose
+responses from gold labels. Passing these four scripted rows establishes
+integration behavior, not live routing quality. No live fallback occurs.
+
+Run actual model decisions while keeping every Gmail operation synthetic:
+
+```powershell
+.\.venv\Scripts\python.exe evals/agent_overload/run.py --compare --mode live --context-window 65536 --sizes 100 --max-calls 64
+```
+
+Live mode reads only `OPENROUTER_API_KEY` from the environment, or `.env` when
+the environment does not define it. It uses the pinned OpenRouter endpoint and
+can incur provider charges. Every application store is initialized under a new
+temporary root before importing the server. Composio credentials are dummy and
+Gmail is bound to the fixture backend. The process never loads the runtime
+mailbox/history, and exports no authentication headers, environment dump, or
+provider error text. Public evidence contains synthetic prompts and decisions.
+
+`--context-window` is required: choose an explicit allowance for the pinned model,
+as described in [context configuration](../../docs/context-budgets.md). The
+example is an evaluation allowance, not a provider capacity assertion. The
+default input cap is 32,768 with 1,024 headroom. Both arms preserve the model and
+output settings; bounded mode performs the production input preflight.
+Both arms also have a 256 KiB evaluation request-size ceiling.
+
+Live comparison defaults to five routing cases: original Alice contract,
+dormant tax owner, genuinely new garden work, competing drafts, and two owners.
+It then runs the approved-draft case. Each scenario resets to identical synthetic
+catalog/history/metadata/mailbox state before each arm. Arms are paired, and
+which strategy goes first alternates by scenario. This limits ordering bias.
+Metadata is seeded from frozen public purpose/activity fields in both arms;
+only the production bounded strategy exposes its metadata through discovery.
+Gold owner IDs, expected actions, and scripted lookup candidates never enter
+provider payloads. `find_worker` executes the real lexical implementation.
+
+Routing-only cases execute the real Interaction Agent and public dispatch
+tool, including lookup/registration checks, then record accepted dispatches in
+place of running workers. They measure routing, not completion of those tasks.
+The approved-draft case runs actual chat acceptance, workers, batch callbacks,
+and Gmail adapters, grading the exact recorded fake send separately. A downstream
+failure does not erase an observed route, and a recoverable tool error does not
+by itself mean the final task failed. Model/tool errors remain counted.
+
+Controls:
+
+- `--cases` selects unique frozen IDs from the five defaults, `alice-lunch`,
+  `alternating-topics`, and `empty-catalog`. Empty-catalog requires `--sizes 0`.
+  This first comparison excludes cases requiring deferred card/resource-index
+  behavior and simulated lookup-failure conditions.
+- `--sizes` supports the existing 0/100/1,000/10,000 catalogs; comparison defaults
+  to 100. Large legacy requests may hit the evaluation ceiling; that is recorded
+  as failure rather than silently enabling bounded behavior in the legacy arm.
+- `--max-calls` caps actual HTTP requests across both arms (default 64, maximum
+  128). Unrun cases stay unavailable. There is no automatic replay of an
+  uncertain external action.
+- `--case-timeout` caps each case including background work (default 180 seconds,
+  range 10–300). Existing agent iteration/batch limits remain unchanged.
+- `--request-interval` serializes HTTP admission at a minimum interval (default
+  3.1 seconds live, zero offline; range 0–10). It reduces rate-limit pressure but
+  cannot guarantee provider admission. Timing includes this deliberate pacing.
+- `--output` must name a new directory, as in the baseline command.
+
+Each comparison writes public settings, separate inputs/labels, per-case requests
+and responses, accepted dispatches, telemetry, fake effects, a numeric summary,
+source hashes, a short report, and artifact hashes. Partial results are saved
+after each case. Usage/cost totals remain unknown if any request lacks valid
+provider values; available subtotals are labeled separately. Actual zero stays
+zero. Routing counts include their graded/attempted denominators, and a live
+run with no completed decisions has unavailable routing quality. Request totals
+and model-call attempts are separate because preflight/admission can reject an
+attempt without HTTP. Elapsed time is local end-to-end time, not isolated provider
+latency. All Gmail effects retain mock provenance even in live-model runs.
+
+Exit 0 means the selected routing and draft/callback checks passed, 1 records
+failed checks/provider/runtime errors, and 2 means invalid configuration or an
+existing destination. A failed comparison still retains its evidence. The
+runner never changes product defaults. A small live sample is not a general
+accuracy estimate or proof of release readiness; application checks for triggers,
+large full review, callbacks, chat acceptance, and clearing remain Phase 3 work.
+
+The [first live comparison report](../../docs/agent-overload-comparison.md)
+records a bounded draft-ID/reference confusion and a failed effect check despite
+correct routing. Its compressed traces and numeric evidence are retained under
+`comparisons/2026-11-09/`. Address the finding before default promotion.
