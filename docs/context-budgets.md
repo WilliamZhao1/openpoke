@@ -22,11 +22,18 @@ already use that client, so their inner iterations pass through the same guard.
 
 ## Configuration
 
-The default remains `legacy` during development, preserving the comparison
-request path. To opt in, configure these before startup and restart:
+The default is `bounded`. When `OPENPOKE_MODEL_CONTEXT_WINDOWS` is unset, the
+bundled `anthropic/claude-sonnet-4.6` profile has a 65,536 application planning
+allowance, using the policy exercised by the live release checks. This is not
+a published provider capacity or automatic model discovery. The default input
+cap remains 32,768, output reservation 2,048, and headroom 1,024.
+
+For a custom model, configure its exact ID and every selected model's allowance
+before startup, then restart:
 
 ```dotenv
 OPENPOKE_CONTEXT_STRATEGY=bounded
+OPENROUTER_MODEL=your-model-id
 OPENPOKE_MODEL_CONTEXT_WINDOWS={"your-model-id":65536}
 OPENPOKE_CONTEXT_INPUT_TOKENS=32768
 OPENPOKE_CONTEXT_HEADROOM_TOKENS=1024
@@ -34,7 +41,9 @@ OPENPOKE_CONTEXT_HEADROOM_TOKENS=1024
 
 Replace the placeholder with every selected model's exact ID and an independently
 verified context allowance. It can be lower than the provider's capacity.
-There is no built-in capacity guess, automatic model lookup, or inference from
+An explicit map replaces the shipped map, including when it is empty; missing
+selected IDs cause startup failure. Custom IDs never inherit the bundled
+allowance. There is no automatic model-capacity lookup or inference from
 `OPENROUTER_MAX_TOKENS`. Model metadata includes the published context length
 and tokenizer family; inspect the relevant provider/model constraints using
 [OpenRouter's model metadata](https://openrouter.ai/docs/api/api-reference/models/list-all-models-and-their-properties).
@@ -45,8 +54,14 @@ after output reservation and headroom. Invalid JSON/numbers are rejected rather
 than replaced with defaults. A dynamically requested model without an allowance
 also fails preflight; it does not inherit another model's capacity.
 
-`OPENPOKE_WORKER_DISCOVERY=bounded` is independent and remains useful for capping
-the roster. Context preflight does not automatically enable discovery. The
+Set `OPENPOKE_CONTEXT_STRATEGY=legacy` and restart to use the original context
+path without deleting files. Discovery is independent; set
+`OPENPOKE_WORKER_DISCOVERY=legacy` as well to restore the full-roster strategy.
+Existing explicit legacy settings remain effective after promotion. Invalid
+configuration is not replaced with a legacy fallback.
+
+`OPENPOKE_WORKER_DISCOVERY=bounded` independently defaults to capping the roster.
+Selecting one strategy does not change the other. The
 existing evaluation command and test runner pin the legacy strategy and budget
 settings before application imports, even if the caller's environment enables
 bounded mode or contains incompatible budget configuration.
@@ -113,7 +128,7 @@ context builders without adding a new observation framework.
 
 ## Verification and remaining work
 
-`python server/tests/run_tests.py` passes all 218 tests, including 16 context
+`python server/tests/run_tests.py` passes all 241 tests, including 16 context
 budget tests. Checks cover every input section, exact boundaries, output/headroom
 arithmetic, multilingual text, configuration failures, unsupported media, no-HTTP
 rejection, immutable wire bytes, unchanged accepted content/output, provider-usage
@@ -123,7 +138,7 @@ required oversized input before the provider call. The existing baseline CLI tes
 also run with conflicting bounded settings in the caller environment to verify
 legacy isolation. All data and provider responses are temporary or mocked.
 
-Phase 2 implementation is complete behind the opt-in setting. [Full-content capture](content-capture.md) saves
+Phase 2 implementation is complete and enabled by default. [Full-content capture](content-capture.md) saves
 oversized live content in a small owner/account-qualified file store, with
 backend paging and history-clear invalidation. [Model-visible recovery](context-recovery.md)
 now exposes bounded result/history reads with per-turn limits.
@@ -131,6 +146,7 @@ now exposes bounded result/history reads with per-turn limits.
 rebuilding requests. [Exact draft/body references](draft-references.md) now keep
 large bodies out of model arguments while preserving full review. [Inner model
 builders and cumulative limits](inner-context.md) now handle email search,
-classification, and streamed summarization. Phase 3 comparison/release remains.
+classification, and streamed summarization. Phase 3 comparison, application
+checks, and default promotion are complete; see the [release findings](agent-overload-release-checks.md).
 No source is deleted or shortened by this preflight, and it does not establish routing quality, native
-token accuracy, or completion of the full bounded-context release.
+token accuracy, or deterministic model compliance.

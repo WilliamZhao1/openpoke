@@ -6,28 +6,29 @@ The reduced-scope revision of
 [`execution-agent-overload-implementation-plan.md`](execution-agent-overload-implementation-plan.md)
 supersedes the earlier storage/migration roadmap. Phase 1 now means bounded worker
 discovery; Phase 2 means bounded context/recovery; Phase 3 means focused comparison
-and release. Revised Phase 1 discovery is implemented behind the development
-strategy setting. Phase 2 implementation is complete behind its opt-in setting:
+and release. The reduced-scope first release is implemented. Phase 1 discovery
+and Phase 2 context/source recovery now default to bounded:
 provider preflight, full-content capture, source recovery, bounded outer context,
 exact body references, and inner email-search/summarizer/classifier limits.
 Phase 3's first focused live comparison is recorded. Its bounded draft-ID versus
 saved-reference confusion has focused guidance/validation fixes and a passing
-live recheck. Application release checks and final findings now pass; default
-promotion is the next separate step. No backup/import phase precedes that work.
+live recheck. Application checks, final findings and default promotion are
+complete. Explicit legacy opt-outs and custom-model allowance validation remain
+available; no history migration or backup/import phase was introduced.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 234 backend
+and removed from the active implementation. The active suite now has 241 backend
 tests, plus five frontend checks.
 
 | Revised plan | Current position |
 | --- | --- |
 | Phase 0: retained preparation | Existing data paths, telemetry, fixtures/fake Gmail and model-free baseline retained. |
-| Phase 1: bounded discovery | Implemented behind `OPENPOKE_WORKER_DISCOVERY=bounded`; selected live routing cases now measured. |
-| Phase 2: bounded context/source recovery | Items 1–6 implemented behind `OPENPOKE_CONTEXT_STRATEGY=bounded`. |
-| Phase 3: comparison/release | First comparison, focused draft fix/recheck, application checks, and final findings complete. Default promotion is next; both defaults remain legacy. |
+| Phase 1: bounded discovery | Complete and default; selected live routing cases measured, with explicit legacy opt-out. |
+| Phase 2: bounded context/source recovery | Items 1–6 complete and default; shipped bundled-model allowance and explicit custom-model coverage. |
+| Phase 3: comparison/release | Comparison/report, focused draft fix/recheck, application checks and default promotion complete. Limitations and opt-out are documented. |
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -1146,11 +1147,63 @@ automated and do not simulate browser clicks or measure visual scroll speed.
 The [final release findings](agent-overload-release-checks.md) include exact
 commands/results, live-evidence limits, configuration and data-preserving opt-out.
 
-## Next implementation step under the revised plan
+## Revised Phase 3: Default promotion (complete)
 
-Promote the checked bounded discovery/context strategies, retaining the explicit
-legacy opt-out, per-model allowance validation, and existing data. Verify the
-default/configuration paths and document the final release state. Phase 3 remains
-in progress until that separate promotion step is implemented; both defaults
-remain `legacy` in this change. The focused live sample and scripted application
-checks do not establish deterministic model compliance or general cost savings.
+**Motivation:** The checked discovery/context behavior still required opt-in.
+The final plan item was to make it the normal application path while retaining
+legacy comparison/rollback and strict budget validation. Default startup also
+needed a usable allowance policy without inventing capacities for custom models.
+
+**Old behavior:** Both flags defaulted to `legacy`, and the default allowance
+map was empty. Turning on bounded mode required every allowance to be supplied
+explicitly. A flag-only promotion would therefore break normal bundled-model
+startup before any request could be processed.
+
+**New behavior:** Unset discovery and context flags select `bounded`. An unset
+allowance map supplies the release-tested 65,536 application allowance for the
+bundled `anthropic/claude-sonnet-4.6` only; input cap/output/headroom remain
+32,768/2,048/1,024. This is a planning policy, not a native provider-capacity
+claim. Custom model selections still require explicit coverage for every
+component. An explicit map replaces the bundled map, including an empty map,
+and invalid/missing coverage or incompatible reservations fail without a
+legacy fallback. Explicit legacy flags and constructor values keep precedence.
+
+The existing test runner and evaluation bootstrap still pin their legacy
+controls. Actual `.env` files, histories, sources, roster names and trigger
+ownership are not rewritten. Restarting applies the defaults only where a flag
+has not already been explicitly configured; existing legacy choices remain
+effective until intentionally changed.
+
+**Why this approach:** Shipping the already-exercised bundled profile makes
+the normal default install usable without assigning an unverified allowance
+to every possible model. Treating custom maps as complete configuration keeps
+omissions visible. Keeping the two flags independent supports explicit rollback
+without data conversion or automatic unbounded fallback in a bounded request.
+
+**Verification:** The isolated backend suite passed **241 tests**, including
+seven new settings/fresh-process checks. Fresh default startup advertises
+lookup/recovery tools, renders at most five of 100 workers, resolves an older
+worker through the actual loop, and preflights each mocked model request at the
+shared provider boundary. Unknown custom models fail startup before any store
+is created and succeed with an explicit map. Tests cover all five model fields,
+invalid/empty maps, output reservation, independent opt-outs and settings
+precedence. Separate restarts to legacy and back preserve every seeded profile
+file hash and the original saved reference. No live provider/Gmail calls or
+baseline regeneration were needed for this promotion.
+
+**Example and limits:** For the bundled model, no strategy or allowance setting
+is required. A custom `OPENROUTER_MODEL=custom/model` needs a complete
+`OPENPOKE_MODEL_CONTEXT_WINDOWS` map. To return to the original strategies, set
+both flags to `legacy` and restart with the same data root; no history clear is
+needed. The [release findings](agent-overload-release-checks.md) retain the
+measured routing/call/cost results, application checks, configuration, rollback,
+and remaining limitations. Promotion does not establish universal routing
+accuracy, deterministic model compliance or general token/cost savings.
+
+## Final position under the revised plan
+
+Phases 0–3 of the reduced-scope first release are complete, including default
+promotion. There is no further scheduled implementation step in this plan.
+Future execution-pressure, migration/lifecycle, retrieval or deployment work
+should follow the plan's demonstrated-need triggers and a separately scoped
+request. Deferred storage infrastructure remains preserved and inactive.

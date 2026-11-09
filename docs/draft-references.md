@@ -4,7 +4,7 @@ This fifth slice of revised Phase 2 connects immutable content to the existing
 Gmail and draft-review adapters. It is available under
 `OPENPOKE_CONTEXT_STRATEGY=bounded` with the model allowances described in
 [context-budgets.md](context-budgets.md). Restart after changing settings. The
-default remains `legacy`; existing inline tool schemas remain available there.
+default is `bounded`; existing inline tool schemas remain available in explicit legacy mode.
 
 ## Motivation, old behavior, and design
 
@@ -144,7 +144,7 @@ The legacy inline-ID schema and normal confirmation policy retain their behavior
 
 ## Verification and plan position
 
-`python server/tests/run_tests.py` passes 228 tests, including the 23 draft-reference tests.
+`python server/tests/run_tests.py` passes 241 tests, including the 23 draft-reference tests.
 The existing fake Gmail backend verifies actual create/reply/forward/send effects,
 full bodies and recipient options, UTF-8/CRLF/control/literal text, full review and
 compact history, overrides, wrong workers/accounts, unknown provenance, missing/
@@ -165,11 +165,11 @@ draft tests continue to cover genuine reference ownership/integrity and full
 review/confirmation. See the [comparison report](agent-overload-comparison.md)
 for separate live-model evidence and its limits.
 
-Phase 0 assets remain retained and Phase 1 discovery is implemented behind its
-flag. Phase 2 items 1–6 are implemented: shared preflight, bounded outer context,
+Phase 0 assets remain retained and Phase 1 discovery now defaults to bounded.
+Phase 2 items 1–6 are implemented: shared preflight, bounded outer context,
 full capture, recovery, exact body adapters, and [inner email-search, summarizer,
 and classifier limits](inner-context.md). Required oversized inputs can still
-fail explicitly. Phase 3 comparison,
-release checks, reporting, and default promotion remain pending. General giant
+fail explicitly. Phase 3 comparison, checks, reporting and default promotion are
+complete; see [release findings](agent-overload-release-checks.md). General giant
 current inputs/callbacks can still fail when required instructions cannot fit;
 this step handles referenced bodies, not every possible oversized request.

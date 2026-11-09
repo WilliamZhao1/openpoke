@@ -1,10 +1,10 @@
 # Bounded context for the two outer agents
 
 This fourth slice of revised Phase 2 connects source recovery to the Interaction
-Agent and Execution Agent prompt builders. Enable
+Agent and Execution Agent prompt builders. The default is
 `OPENPOKE_CONTEXT_STRATEGY=bounded` with the explicit model allowances described
-in [context-budgets.md](context-budgets.md), then restart. For large worker
-catalogs, also enable `OPENPOKE_WORKER_DISCOVERY=bounded`. The legacy discovery
+in [context-budgets.md](context-budgets.md); restart after changing settings.
+Discovery also defaults to `OPENPOKE_WORKER_DISCOVERY=bounded`. The legacy discovery
 roster is not silently shortened by this context builder.
 
 ## Motivation and old behavior
@@ -124,7 +124,7 @@ cross-process coordination remain outside this slice.
 
 ## Verification
 
-`python server/tests/run_tests.py` passes 218 tests, including the 16 context-builder tests.
+`python server/tests/run_tests.py` passes 241 tests, including the 16 context-builder tests.
 These cover bounded history tails and Unicode separators; previous
 draft retention and dispatch deduplication; existing summary/instruction
 preservation; exact result and episode recovery; parallel tool pairs; immutable

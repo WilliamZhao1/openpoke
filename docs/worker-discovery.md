@@ -12,18 +12,21 @@ dispatch created an unfamiliar name without checking whether earlier work was
 relevant. Roster read failures could become empty catalogs. The bounded strategy
 shows a small recent list and exposes lookup across the entire roster.
 
-Set this before starting the backend, then restart:
+This is now the default; an explicit setting is also supported. Restart the
+backend after changing strategies:
 
 ```dotenv
 OPENPOKE_WORKER_DISCOVERY=bounded
 ```
 
-The default remains `legacy` during development. That setting retains the full
+Set `OPENPOKE_WORKER_DISCOVERY=legacy` to opt out. That setting retains the full
 roster and original tool schemas for comparison. Invalid strategy values fail
 configuration validation. Bounded-mode failures produce an explicit unavailable
 state; they never fall back to the unbounded roster. The evaluation command and
 test runner pin `legacy` before imports; bounded tests select their mode explicitly.
-Default promotion and model-backed routing comparisons belong to Phase 3.
+Phase 3's focused model comparison, application checks, and default promotion
+are recorded in the [release findings](agent-overload-release-checks.md). The
+context strategy is independent and also defaults to bounded.
 
 ## Metadata and matching
 
@@ -107,7 +110,7 @@ history-clear/execution races; content-reference handling belongs to Phase 2.
 
 ## Verification
 
-`python server/tests/run_tests.py` passes 137 tests, including 20 discovery
+`python server/tests/run_tests.py` passes 241 tests, including 20 discovery
 tests. They cover catalog/output caps, dormant workers, exact names and separate
 topics, metadata persistence/rebuild, unknown activity, malformed storage,
 atomic-write failure, concurrent membership updates, collisions, history clearing,
@@ -128,6 +131,7 @@ an exact-name query for `Alice lunch` produced these model-free measurements:
 Lookup returned five candidates in each case. These verify rendering, lexical
 retrieval, and execution plumbing. Scripted tests and prompt-policy checks do
 not establish actual model routing quality for topic switches or ambiguous
-pronouns. That comparison remains in Phase 3. Conversation/result context is
-still handled by the legacy path; Phase 2 adds full input budgeting and source
-recovery.
+pronouns. The later [live comparison](agent-overload-comparison.md) supplies
+limited model-backed evidence without claiming general accuracy. Conversation
+and result context now use the bounded builders/source recovery by default;
+both legacy strategies remain selectable without changing stored data.

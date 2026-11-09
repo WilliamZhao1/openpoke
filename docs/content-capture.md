@@ -117,7 +117,7 @@ before retrying; it does not claim exactly-once external effects.
 
 ## Verification and next step
 
-`python server/tests/run_tests.py` passes all 218 tests, including the 23 capture
+`python server/tests/run_tests.py` passes all 241 tests, including the 23 capture
 tests. They cover full Unicode/CRLF/middle-content recovery, bounded byte pages,
 exact empty content, ordinary/fresh-process reloads, owner/account isolation,
 unknown provenance, corrupt/missing/truncated storage, atomic publication failure,
@@ -135,6 +135,7 @@ now connect owned saved content to Gmail adapters and full review.
 [Inner model context](inner-context.md) now captures background classifier and
 summary sources and bounds cumulative source/result/recovery work. Summary
 sources are linked from memory without feeding new records into its own input.
-Phase 2 implementation is complete behind the opt-in setting; Phase 3 comparison
-and release checks remain pending.
+Phase 2 implementation and Phase 3 comparison, checks and promotion are complete;
+capture is enabled by the default bounded context strategy. See the
+[release findings](agent-overload-release-checks.md) for limits and opt-out.
 No old history is imported or deleted as part of enabling capture.

@@ -132,8 +132,9 @@ and independent routing/effect grader tests.
 The saved [model-free baseline](baseline/report.md) preserves the initial
 default-size capture. It completes the Phase 0 infrastructure baseline.
 The reduced-scope plan supersedes the old migration roadmap. Discovery and
-bounded-context implementation are complete behind opt-in flags; release checks
-and default promotion remain separate work.
+bounded-context implementation, release checks and default promotion are now
+complete. The runner still selects its comparison controls explicitly rather
+than inheriting production defaults.
 
 ## Phase 3: Paired comparison
 
@@ -235,5 +236,6 @@ records a bounded draft-ID/reference confusion and a failed effect check despite
 correct routing. Its compressed traces and numeric evidence are retained under
 `comparisons/2026-11-09/`. A [focused guidance fix and passing live recheck](../../docs/agent-overload-comparison.md#follow-up-draft-id-guidance-and-live-recheck)
 are recorded separately under `comparisons/2026-11-09-draft-id-fix/`. The original
-failure remains preserved; broader application release checks still precede
-default promotion.
+failure remains preserved. Later [application and default-promotion checks](../../docs/agent-overload-release-checks.md)
+pass, and production now defaults to bounded strategies. The runner itself
+never promotes defaults or rewrites prior evidence.

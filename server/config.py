@@ -31,7 +31,15 @@ _load_env_file()
 
 DEFAULT_APP_NAME = "OpenPoke Server"
 DEFAULT_APP_VERSION = "0.3.0"
-DEFAULT_LLM_MODEL = os.getenv("OPENROUTER_MODEL") or "anthropic/claude-sonnet-4.6"
+BUNDLED_LLM_MODEL = "anthropic/claude-sonnet-4.6"
+DEFAULT_LLM_MODEL = os.getenv("OPENROUTER_MODEL") or BUNDLED_LLM_MODEL
+# Release-tested application allowance, not an inferred provider context capacity.
+DEFAULT_MODEL_CONTEXT_WINDOWS = {BUNDLED_LLM_MODEL: 65536}
+
+
+def _model_context_windows_from_env() -> Dict[str, int]:
+    configured = os.getenv("OPENPOKE_MODEL_CONTEXT_WINDOWS")
+    return json.loads(configured) if configured is not None else dict(DEFAULT_MODEL_CONTEXT_WINDOWS)
 
 
 def _env_int(name: str, fallback: int) -> int:
@@ -62,13 +70,13 @@ class Settings(BaseModel):
     server_port: int = Field(default=_env_int("OPENPOKE_PORT", 8001))
     data_dir: Path = Field(default_factory=_data_dir_from_env)
     worker_discovery_strategy: Literal["legacy", "bounded"] = Field(
-        default_factory=lambda: os.getenv("OPENPOKE_WORKER_DISCOVERY", "legacy"), validate_default=True,
+        default_factory=lambda: os.getenv("OPENPOKE_WORKER_DISCOVERY", "bounded"), validate_default=True,
     )
     context_strategy: Literal["legacy", "bounded"] = Field(
-        default_factory=lambda: os.getenv("OPENPOKE_CONTEXT_STRATEGY", "legacy"), validate_default=True,
+        default_factory=lambda: os.getenv("OPENPOKE_CONTEXT_STRATEGY", "bounded"), validate_default=True,
     )
     model_context_windows: Dict[str, StrictInt] = Field(
-        default_factory=lambda: json.loads(os.getenv("OPENPOKE_MODEL_CONTEXT_WINDOWS", "{}")), validate_default=True,
+        default_factory=_model_context_windows_from_env, validate_default=True,
     )
     context_input_tokens: int = Field(
         default_factory=lambda: int(os.getenv("OPENPOKE_CONTEXT_INPUT_TOKENS", "32768")),
@@ -109,7 +117,7 @@ class Settings(BaseModel):
             models = {self.interaction_agent_model, self.execution_agent_model, self.execution_agent_search_model,
                       self.summarizer_model, self.email_classifier_model}
             if not models.issubset(self.model_context_windows):
-                raise ValueError("OPENPOKE_MODEL_CONTEXT_WINDOWS must cover every configured model in bounded context mode")
+                raise ValueError("OPENPOKE_MODEL_CONTEXT_WINDOWS must cover every configured model in bounded context mode; set explicit allowances for custom models or select OPENPOKE_CONTEXT_STRATEGY=legacy")
             if any(self.model_context_windows[model] <= self.openrouter_max_tokens + self.context_headroom_tokens for model in models):
                 raise ValueError("Model context allowances must exceed output reservation plus headroom")
         return self

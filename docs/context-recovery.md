@@ -4,7 +4,7 @@ This third slice of revised Phase 2 makes source recovery executable in the
 Interaction Agent and Execution Agent. Enable it with
 `OPENPOKE_CONTEXT_STRATEGY=bounded` and the model allowances described in
 [context-budgets.md](context-budgets.md). Restart after changing settings. The
-default remains `legacy`; disabling the strategy preserves captured files.
+default is `bounded`; explicitly selecting `legacy` preserves captured files.
 
 ## Motivation, old behavior, and design
 
@@ -110,7 +110,7 @@ produce small explicit errors.
 
 ## Verification and remaining scope
 
-`python server/tests/run_tests.py` passes 218 tests, including the 18 recovery tests.
+`python server/tests/run_tests.py` passes 241 tests, including the 18 recovery tests.
 These cover exact Unicode/CRLF/middle-content paging; JSON escaping
 and actual runtime wrappers; owner selection and immutable mailbox labels;
 invalid offsets/paths/arguments; missing/empty content; streaming one selected
@@ -127,8 +127,8 @@ intact and fail explicitly if they cannot fit. [Exact body/draft references](dra
 now resolve full bodies in adapters and keep verified review references in history.
 [Inner email-search/classifier/summarizer loops](inner-context.md) now reuse the
 reader with operation-local references, executable handlers, and cumulative
-limits. Phase 2 implementation is complete behind its opt-in setting; Phase 3's
-comparison and release checks remain pending.
+limits. Phase 2 implementation and Phase 3's comparison/release are complete;
+bounded mode is the default. See the [release findings](agent-overload-release-checks.md).
 Existing full draft review and confirmation remain in force. Source
 recovery does not claim to fix all asynchronous legacy-journal clear races or
 cancel already-running external actions.

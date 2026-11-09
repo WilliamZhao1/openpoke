@@ -2,13 +2,13 @@
 
 The first focused live-model comparison is complete. **Release checks did not
 pass:** both strategies selected the expected routes, but bounded mode failed
-to send the approved draft. Both product defaults remain `legacy`.
+to send the approved draft. Both defaults were `legacy` at that checkpoint.
 The [focused follow-up](#follow-up-draft-id-guidance-and-live-recheck) below
 records a fix and a passing rerun of the affected scenario; broader release
 checks are tracked separately. The original results and evidence are preserved.
 The later [application release checks and final findings](agent-overload-release-checks.md)
-now pass; default promotion remains a separate step. Earlier status/metrics below
-describe their individual runs.
+now pass and bounded defaults have been promoted. Earlier status/metrics below
+describe their individual runs and remain unchanged as evidence.
 
 ## Motivation and implementation
 
@@ -202,8 +202,9 @@ and thread. No draft was recreated.
 
 This is a targeted recheck, not a rerun of all six original scenarios or a claim
 of general model compliance/performance. The original failed run remains above.
-Product defaults remain `legacy` until the remaining application release checks
-pass. Retained follow-up evidence:
+At this checkpoint product defaults remained `legacy` pending the application
+checks. The later [release findings](agent-overload-release-checks.md) record
+those passing checks and default promotion. Retained follow-up evidence:
 
 - [Public settings](../evals/agent_overload/comparisons/2026-11-09-draft-id-fix/comparison.json)
 - [Numeric summary](../evals/agent_overload/comparisons/2026-11-09-draft-id-fix/summary.json)

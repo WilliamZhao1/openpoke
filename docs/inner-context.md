@@ -2,8 +2,8 @@
 
 Revised Phase 2, item 6 is implemented behind `OPENPOKE_CONTEXT_STRATEGY=bounded`.
 It completes the implementation items in Phase 2. Phase 3's live comparison,
-application release checks, report, and default promotion remain pending. Both
-context and discovery still default to `legacy`; this step used no live calls.
+application checks, report and promotion are now complete, and both strategies
+default to bounded. The inner implementation tests themselves used no live calls.
 
 ## Motivation and previous behavior
 
@@ -129,8 +129,8 @@ edit. Required giant user entries can still block progress with an explicit erro
 
 ## Validation and remaining plan work
 
-`python server/tests/run_tests.py` passes 218 tests: 191 retained and 27 new inner
-context tests. New cases exercise actual model-calling paths with mocked HTTP
+`python server/tests/run_tests.py` passes 241 tests, including 27 inner-context
+tests. Those cases exercise actual model-calling paths with mocked HTTP
 and complete-request preflight, retained fake Gmail, and disposable data roots.
 They cover middle-content recovery, multilingual text, executable schemas/tool
 pairs, query/cache/source/read/message caps, qualified pagination/source indexes,
@@ -142,8 +142,9 @@ clearing. Mandatory oversized classifier headers now fail in its builder before
 the provider call; accepted classifier requests still pass the final guard.
 
 Scripted decisions do not establish live routing accuracy, cost, latency, or model
-compliance. Phase 3 must compare actual model decisions, check application flows,
-publish findings and known limits, and then promote defaults. The archived storage
+compliance. Phase 3's later [comparison](agent-overload-comparison.md) and
+[release findings](agent-overload-release-checks.md) document measured model
+decisions, application checks, promotion and remaining limits. The archived storage
 work, frozen baseline, and telemetry framework remain unchanged. Source retention,
 cross-process coordination, durable callback delivery, and existing asynchronous
 journal clear races are not expanded by this step.

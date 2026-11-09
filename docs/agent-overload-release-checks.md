@@ -1,8 +1,8 @@
 # Bounded strategy application release checks
 
-Updated: 2026-11-09. Phase 3's application checks pass. The focused comparison,
-draft-ID follow-up, and final findings are recorded; **default promotion is the
-next separate implementation step**. Both product defaults remain `legacy`.
+Updated: 2026-11-09. Phase 3 is complete: the focused comparison, draft-ID
+follow-up, application checks and findings are recorded, and **bounded discovery
+and context are now the defaults**. Explicit legacy settings remain supported.
 
 ## Motivation, old behavior, and changes
 
@@ -70,9 +70,11 @@ npm.cmd --prefix web run build
 git diff --check
 ```
 
-Results: **234 backend tests** (228 retained plus six application/resource
-checks), **5 frontend checks**, clean lint/type checking, and a successful
-production build. No live model or real Gmail request was made in this step.
+The application checkpoint passed **234 backend tests** (228 retained plus six
+application/resource checks), **5 frontend checks**, clean lint/type checking,
+and a successful production build. After promotion, the backend suite passes
+**241 tests**, including seven new default/configuration checks described below.
+No live model or real Gmail request was made in the application or promotion steps.
 Scripted checks establish integration behavior; the [separate live evidence](agent-overload-comparison.md)
 retains its actual model decisions and mock Gmail effects.
 
@@ -84,7 +86,7 @@ fix and live rerun passed; the original failed evidence remains preserved.
 The final application checks exposed the review-text rewrite and trigger
 connection leak above, and now pass with those fixes.
 
-These results support moving to the default-promotion step. They do not prove
+These results supported default promotion. They do not prove
 deterministic model compliance, universal routing accuracy, lower cost, or native
 token-count accuracy. The original 100-worker live sample used more total calls,
 tokens and reported cost in bounded mode, despite a smaller roster; the focused
@@ -104,19 +106,30 @@ agent-policy workflow, not a new durable approval ledger.
 
 ## Configuration and disabling without deleting data
 
-Bounded mode is still explicit before default promotion:
+Both strategies now default to `bounded` when their settings are absent. The
+bundled `anthropic/claude-sonnet-4.6` profile ships with the same **65,536 planning
+allowance** used in the release comparison; input cap remains 32,768 and headroom
+1,024. The shipped allowance is a local application policy, not a claim about
+the provider's published capacity or a guessed capacity for other models.
+
+The bundled model needs no extra budget setting. For custom models, configure
+the selected model and a complete allowance map before restarting:
 
 ```dotenv
 OPENPOKE_WORKER_DISCOVERY=bounded
 OPENPOKE_CONTEXT_STRATEGY=bounded
+OPENROUTER_MODEL=your-exact-model-id
 OPENPOKE_MODEL_CONTEXT_WINDOWS={"your-exact-model-id":65536}
 OPENPOKE_CONTEXT_INPUT_TOKENS=32768
 OPENPOKE_CONTEXT_HEADROOM_TOKENS=1024
 ```
 
 Supply independently chosen allowances for every configured model ID, not just
-the placeholder. Output reservation and headroom must also fit. The numbers
-above are example planning allowances, not provider specifications. See
+the placeholder. An explicit map replaces the bundled map instead of merging
+with it; an empty map does not restore defaults. Unknown/custom IDs without
+allowances fail startup, and invalid configuration never selects an unbounded
+fallback. Output reservation and headroom must also fit. The numbers above are
+example planning allowances, not provider specifications. See
 [context configuration](context-budgets.md) and [worker discovery](worker-discovery.md).
 
 To disable the new strategies, set these before startup and restart the backend:
@@ -134,6 +147,39 @@ mode intentionally restores its original prompt behavior and may exceed provider
 context limits on large inputs. There is no automatic fallback that loads a full
 unbounded roster/history into a bounded request.
 
-Default promotion must retain explicit allowance validation and this opt-out
-path. It remains separate from these application checks, as requested by the
-step-by-step implementation plan.
+If either flag was already explicitly set to `legacy`, that choice stays in
+effect after updating; remove it or set `bounded` to use the new default. Existing
+`.env` files and runtime data are not rewritten by promotion.
+
+## Default promotion validation and plan completion
+
+Previously both strategy defaults were legacy and the default model allowance
+map was empty. Simply flipping the flags would make normal bundled-model startup
+fail validation. Promotion therefore ships the previously exercised allowance
+only for the bundled model. It does not copy that value to an arbitrary
+`OPENROUTER_MODEL` or weaken per-model checks. An absent configuration can start
+with the tested bundled profile, while custom settings remain deliberate.
+
+Seven new backend checks verify:
+
+- bounded settings and independent per-instance bundled allowance maps;
+- explicit allowance coverage for each of the five model selections;
+- independent legacy opt-outs and constructor/environment precedence;
+- rejection of invalid/empty maps and incompatible reservations without fallback;
+- fresh default startup with bounded schemas, a capped 100-worker roster, a real
+  lookup loop, and final provider preflight on every mocked model request;
+- custom-model startup failing before store creation, then succeeding with its
+  explicit map;
+- fresh-process legacy opt-out and re-enable preserving every existing profile
+  file hash and saved source reference.
+
+Those subprocesses disable private `.env` loading, use disposable roots/dummy
+credentials, and reject network connections. The ordinary test runner and
+evaluation CLI still pin their legacy controls explicitly; promoting production
+defaults does not relabel or regenerate the frozen model-free baseline or live
+comparison artifacts. The earlier live results remain the measured evidence;
+no new quality/cost claim follows from changing a default.
+
+The reduced-scope plan's first release implementation is complete. Deferred
+infrastructure and remaining product limitations stay outside this release;
+future work should follow the plan's demonstrated-need triggers.
