@@ -9,14 +9,22 @@ discovery; Phase 2 means bounded context/recovery; Phase 3 means focused compari
 and release. Revised Phase 1 discovery is implemented behind the development
 strategy setting. Phase 2 has provider preflight, live full-content capture, and
 bounded model-visible source recovery, and bounded outer-agent context assembly.
-Exact draft/document body-by-reference adapters are next. No backup/import phase
+Exact body-by-reference adapters are implemented. Inner email-search,
+summarizer, and classifier context/work limits are next. No backup/import phase
 precedes them.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 171 tests.
+and removed from the active implementation. The active suite now has 191 tests.
+
+| Revised plan | Current position |
+| --- | --- |
+| Phase 0: retained preparation | Existing data paths, telemetry, fixtures/fake Gmail and model-free baseline retained. |
+| Phase 1: bounded discovery | Implemented behind `OPENPOKE_WORKER_DISCOVERY=bounded`; live model comparison remains Phase 3 work. |
+| Phase 2: bounded context/source recovery | Items 1–5 implemented, including exact body adapters in this update. Item 6 inner model builders/cumulative limits is next. |
+| Phase 3: comparison/release | Model-backed comparison, final release checks/report and default promotion pending. Both strategies still default to legacy. |
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -854,10 +862,65 @@ grow under the existing iteration limits; no retention/quota framework is added.
 Known asynchronous legacy-journal/clear limitations remain. Details and examples
 are in [`bounded-context.md`](bounded-context.md).
 
+## Revised Phase 2, step 5: Exact body/draft references (complete)
+
+**Motivation:** Saved large content should reach adapters without a model copying
+or reconstructing it. A complete user-visible review must remain available while
+the next confirmation turn avoids putting its full large body back in the prompt.
+
+**Old behavior:** Gmail body operations and draft display required inline model
+text. Workers were told to echo complete draft bodies in callbacks. A large last
+review could exceed the required-history budget. Legacy display encoding also
+interpreted literal backslash-n text as a newline.
+
+**New behavior:** Bounded Gmail creation/reply/forward schemas accept exact
+`body_reference` selectors. Backend code reads and hashes complete owned sources,
+validates the executed mailbox, and resolves an explicit JSON string field or a
+typed pure body. Large/referenced creations return an immutable complete draft
+reference with exact body/recipient metadata and the provider's ID when known.
+Missing IDs remain unavailable rather than being guessed.
+
+The Interaction Agent's existing `send_draft` tool can resolve that complete
+reference and record the full original body and recipients, with overrides
+rejected. Referenced reviews use lossless JSON-string log entries. A generation-
+checked review marker binds the reference to the exact display. Bounded history
+uses its verified metadata/reference while preserving the full UI/source files,
+including when the body extends beyond the tail window. Sending by reference
+resolves the original owned/account-qualified ID after the existing user review
+and confirmation workflow. References and review markers never imply approval.
+
+**Why this approach:** A small immutable draft record reuses the live content
+store and journals. Exact JSON field selection avoids echoing full saved email
+or document text through a model. Body hashes and owner/account checks prevent
+missing, changed, unknown-mailbox or another worker's content from being silently
+substituted. Backend source reads cap at 8 MiB and metadata at 64 KiB, with clear
+errors and no truncation. A display marker supplies the source needed for later
+context compaction without replacing the existing full chat review or adding an
+approval ledger, database migration, or standalone document service.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+191 tests: 171 retained and 20 new. The retained fake Gmail verifies actual tool
+effects and exact bodies/recipients/options. New cases cover large/small/empty
+bodies; JSON pointers and unavailable/ambiguous/truncated sources; all mailbox
+and worker boundaries; integrity and read limits; full review/lossless legacy-
+compatible history; marker bindings and stale writes; restart and clear; missing
+provider IDs; failure without replay; reply/forward resolution; and both actual
+agent loops through creation, callback, review, a separate confirmation turn and
+sending with every model request under preflight. All data/providers were
+temporary/mocked; no live model/Gmail calls occurred.
+
+**Remaining limits:** Confirmation is the existing agent-policy workflow, not a
+new durable authorization ledger. External Gmail edits after review are not
+revision-locked. The application has Gmail text/HTML body adapters rather than a
+separate document service. Arbitrary oversized current instructions/callbacks can
+still fail clearly. Inner model builders and cumulative work/growth limits remain
+unfinished, and their final preflight can still reject oversized input. Known
+legacy asynchronous history-clear races remain outside this slice. Details are
+in [`draft-references.md`](draft-references.md).
+
 ## Next implementation step under the revised plan
 
-Pass exact large draft/document bodies by reference through the relevant adapter,
-resolving them in backend code while preserving full user review, recipients,
-mailbox qualification and confirmation. Missing or historically truncated bodies
-must fail explicitly. Inner model builders follow; revised Phase 3 comparison
-and default promotion remain pending.
+Apply bounded context/source handling inside email search, summarization and
+classification. Reuse existing time/iteration bounds and cap cumulative result
+growth and recall work. Then complete revised Phase 3's focused model-backed
+comparison, release checks/reporting and default promotion.

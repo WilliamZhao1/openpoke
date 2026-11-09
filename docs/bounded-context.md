@@ -111,10 +111,11 @@ loop instead of encouraging a model retry of an already-completed external tool.
   as a substitute instruction. Combined callbacks and oversized required draft
   bodies receive the same explicit behavior.
 
-This slice deliberately uses clear errors for oversized required content. It
-does not implement draft/document body-by-reference adapters or split a giant
-callback into independently processed worker notices. Those exact-body adapters
-are next. Inner email-search, summarizer, and classifier builders/cumulative
+This slice uses clear errors for oversized required content.
+[Exact body/draft adapters](draft-references.md) now resolve saved large bodies
+and compact verified full-review displays without altering UI/source files.
+Generic giant callbacks are not split into independently processed worker notices.
+Inner email-search, summarizer, and classifier builders/cumulative
 growth limits also remain unfinished; their final provider preflight still
 rejects oversized input. Backend message copies and content-file storage can
 grow within existing iteration limits; this is a model-input bound, not a new
@@ -123,8 +124,8 @@ cross-process coordination remain outside this slice.
 
 ## Verification
 
-`python server/tests/run_tests.py` passes 171 tests: 155 retained and 16 new.
-New coverage includes bounded history tails and Unicode separators; previous
+`python server/tests/run_tests.py` passes 191 tests, including the 16 context-builder tests.
+These cover bounded history tails and Unicode separators; previous
 draft retention and dispatch deduplication; existing summary/instruction
 preservation; exact result and episode recovery; parallel tool pairs; immutable
 arguments and current messages; tiny/insufficient budgets; missing/corrupt/

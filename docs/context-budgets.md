@@ -113,7 +113,7 @@ context builders without adding a new observation framework.
 
 ## Verification and remaining work
 
-`python server/tests/run_tests.py` passes all 171 tests, including 16 context
+`python server/tests/run_tests.py` passes all 191 tests, including 16 context
 budget tests. Checks cover every input section, exact boundaries, output/headroom
 arithmetic, multilingual text, configuration failures, unsupported media, no-HTTP
 rejection, immutable wire bytes, unchanged accepted content/output, provider-usage
@@ -127,6 +127,8 @@ oversized live content in a small owner/account-qualified file store, with
 backend paging and history-clear invalidation. [Model-visible recovery](context-recovery.md)
 now exposes bounded result/history reads with per-turn limits.
 [Outer-agent context construction](bounded-context.md) uses those sources when
-rebuilding requests. Exact draft-by-reference adapters and inner model limits follow.
+rebuilding requests. [Exact draft/body references](draft-references.md) now keep
+large bodies out of model arguments while preserving full review. Inner model
+builders and cumulative growth limits remain next.
 No source is deleted or shortened by this preflight, and it does not establish routing quality, native
 token accuracy, or completion of the full bounded-context release.

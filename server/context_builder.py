@@ -7,6 +7,7 @@ import json
 from .content_store import ContentStoreError, capture_text, current_capture
 from .context_budget import ContextBudgetError, ContextBudgetExceeded, prepare_budgeted_request
 from .context_recovery import GUIDANCE, RECOVERY_NAMES
+from .draft_content import compact_review_lines
 from .services.execution import get_agent_roster
 from .services.execution.log_store import _slugify, _encode_payload, _decode_payload
 
@@ -20,7 +21,13 @@ Use read_result before relying on an omitted detail. Do not reconstruct exact bo
 recipients or confirmation from previews or summaries; recover the source or ask for it.
 Composite context snapshots have unknown mailbox provenance; prefer the qualified original
 source_references they contain. The current request, system instructions, working summary,
-and most recent history episode have been kept intact."""
+and most recent history instructions/draft references have been kept intact.
+In bounded mode, a tool's complete draft_reference replaces verbatim large-body
+echoing in worker final responses and callbacks. Forward that exact reference to
+Poke. Poke uses send_draft(draft_reference=...) so backend code displays the entire
+body and recipients, then asks the user to confirm before any sending. References
+and review markers are never approval. Use body_reference with an exact JSON
+Pointer for a saved account-qualified body; never rebuild it from a preview."""
 
 
 @dataclass
@@ -63,15 +70,24 @@ def load_recent_history(log, *, worker_name=None, summary_log=None, current_requ
     except UnicodeError as exc:
         raise ContextBudgetError("Selected history is not valid UTF-8") from exc
     start_tags = {"agent_request"} if worker_name is not None else {"user_message", "agent_message"}
-    end_tags = {"agent_response"} if worker_name is not None else {"poke_reply", "wait"}
+    end_tags = {"agent_response"} if worker_name is not None else {"poke_reply", "wait", "draft_review"}
+    lines = text.split("\n")
+    if worker_name is None:
+        lines = compact_review_lines(lines, log._parse_line, prefix_omitted=omitted)
     blocks, current, finished, started = [], [], False, False
-    for line in text.split("\n"):
+    for line in lines:
         if not line:
             continue
         parsed = log._parse_line(line)
         if parsed is None:
             raise ContextBudgetError("Selected history contains an incomplete or invalid entry; recover or repair it before continuing")
         tag = parsed[0]
+        if tag == "draft_review" and not current:
+            # A full display can exceed the tail window. Its verified immutable
+            # source is a review anchor, not a fabricated missing user request.
+            current, started = [line], True
+            finished = True
+            continue
         if tag in start_tags:
             if current:
                 blocks.append((current, finished))
@@ -98,7 +114,7 @@ def load_recent_history(log, *, worker_name=None, summary_log=None, current_requ
             current_recorded = True
     if omitted and not blocks:
         raise ContextBudgetError("Most recent prior history episode is unavailable within the bounded read window")
-    episodes = [f'<history_episode status="{"complete" if done else "unfinished"}">\n' + "\n".join(lines) + "\n</history_episode>"
+    episodes = [f'<history_episode status="{"reviewed_draft_source" if log._parse_line(lines[0])[0] == "draft_review" else "complete" if done else "unfinished"}">\n' + "\n".join(lines) + "\n</history_episode>"
                 for lines, done in blocks[-HISTORY_EPISODES:]]
     window = HistoryWindow(episodes, omitted or len(blocks) > HISTORY_EPISODES)
     window.current_recorded = current_recorded

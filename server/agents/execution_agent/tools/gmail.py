@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from typing import Any, Callable, Dict, List, Optional
 
 from server.services.execution import get_execution_agent_logs
 from server.services.execution.log_store import preserve_worker_content
 from server.content_store import ContentStoreError, current_capture
 from server.services.gmail import execute_gmail_tool, get_active_gmail_user_id
+from server.draft_content import (BODY_REFERENCE_SCHEMA, DRAFT_REFERENCE_SCHEMA, DraftReferenceError,
+                                  MAX_SOURCE_BYTES, load_draft, resolve_body, save_draft)
 
 _GMAIL_AGENT_NAME = "gmail-execution-agent"
 
@@ -317,10 +320,40 @@ _LOG_STORE = get_execution_agent_logs()
 
 
 # Return Gmail tool schemas
-def get_schemas() -> List[Dict[str, Any]]:
+def get_schemas(*, bounded=False) -> List[Dict[str, Any]]:
     """Return Gmail tool schemas."""
     
-    return _SCHEMAS
+    if not bounded:
+        return _SCHEMAS
+    schemas = deepcopy(_SCHEMAS)
+    for schema in schemas:
+        function = schema["function"]
+        parameters = function["parameters"]
+        name = function["name"]
+        field = {"gmail_create_draft": "body", "gmail_reply_to_thread": "message_body", "gmail_forward_email": "additional_text"}.get(name)
+        if field:
+            parameters["properties"]["body_reference"] = BODY_REFERENCE_SCHEMA
+            parameters["required"] = [key for key in parameters["required"] if key != field]
+            function["description"] += f" Supply exactly one of {field} or body_reference (forwarding may omit both). The backend resolves exact text; never copy a preview as the body."
+        if name == "gmail_execute_draft":
+            parameters["properties"]["draft_reference"] = DRAFT_REFERENCE_SCHEMA
+            parameters["required"] = []
+            function["description"] += " Supply exactly one of draft_id or draft_reference. A reference does not authorize sending; first obtain explicit user confirmation of the reviewed draft."
+    return schemas
+
+
+def _body(text, reference, account_id, *, optional=False):
+    if reference is not None:
+        if text is not None:
+            raise DraftReferenceError("Supply either inline body text or a body_reference, never both.")
+        return resolve_body(reference, account_id=account_id)
+    if text is None and optional:
+        return None
+    if not isinstance(text, str):
+        raise DraftReferenceError("Provide the exact inline body or a body_reference; a preview is insufficient.")
+    if current_capture() is not None and len(text.encode("utf-8")) > MAX_SOURCE_BYTES:
+        raise DraftReferenceError("Body exceeds the backend body-resolution limit; it was not shortened or sent.")
+    return text
 
 
 # Execute a Gmail tool and record the action for the execution agent journal
@@ -358,14 +391,21 @@ def _execute(tool_name: str, composio_user_id: str, arguments: Dict[str, Any]) -
 def gmail_create_draft(
     recipient_email: str,
     subject: str,
-    body: str,
+    body: Optional[str] = None,
     cc: Optional[List[str]] = None,
     bcc: Optional[List[str]] = None,
     extra_recipients: Optional[List[str]] = None,
     is_html: Optional[bool] = None,
     thread_id: Optional[str] = None,
     attachment: Optional[Dict[str, Any]] = None,
+    *, body_reference: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
+    composio_user_id = get_active_gmail_user_id()
+    if not composio_user_id:
+        return {"error": "Gmail not connected. Please connect Gmail in settings first."}
+    body = _body(body, body_reference, composio_user_id)
+    if current_capture() is not None and not current_capture().owner.startswith("worker:"):
+        raise DraftReferenceError("Draft creation requires the owning worker turn.")
     arguments: Dict[str, Any] = {
         "recipient_email": recipient_email,
         "subject": subject,
@@ -377,20 +417,41 @@ def gmail_create_draft(
         "thread_id": thread_id,
         "attachment": attachment,
     }
-    composio_user_id = get_active_gmail_user_id()
-    if not composio_user_id:
-        return {"error": "Gmail not connected. Please connect Gmail in settings first."}
-    return _execute("GMAIL_CREATE_EMAIL_DRAFT", composio_user_id, arguments)
+    result = _execute("GMAIL_CREATE_EMAIL_DRAFT", composio_user_id, arguments)
+    if (current_capture() is None or (body_reference is None and len(body.encode("utf-8")) <= 4096)
+            or not isinstance(result, dict) or result.get("error") or result.get("successful") is False or result.get("status") == "error"):
+        return result
+    data = result.get("data", result)
+    draft_id = data.get("id") if isinstance(data, dict) and isinstance(data.get("id"), str) and data["id"] else None
+    try:
+        selector = save_draft(to=recipient_email, subject=subject, body=body, account_id=composio_user_id,
+                              record_reference=lambda ref, kind: _LOG_STORE.record_content_reference(current_capture().owner[len("worker:"):], ref, kind),
+                              cc=cc, bcc=bcc, extra_recipients=extra_recipients, is_html=is_html, thread_id=thread_id,
+                              attachment=attachment, draft_id=draft_id)
+        draft = load_draft(selector)
+    except (DraftReferenceError, ContentStoreError, OSError) as exc:
+        raise ContentStoreError("Gmail returned a draft but exact draft-reference persistence failed; check the operation outcome before retrying") from exc
+    from server.draft_content import review_summary
+    return {"status": "draft_created" if draft_id is not None else "draft_id_unavailable", **review_summary(draft),
+            **({"limitation": "Provider returned no exact draft ID; inspect the operation before retrying or sending."} if draft_id is None else {})}
 
 
 # Send a previously created Gmail draft using Composio
 def gmail_execute_draft(
-    draft_id: str,
+    draft_id: Optional[str] = None,
+    *, draft_reference: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
-    arguments = {"draft_id": draft_id}
     composio_user_id = get_active_gmail_user_id()
     if not composio_user_id:
         return {"error": "Gmail not connected. Please connect Gmail in settings first."}
+    if draft_reference is not None:
+        if draft_id is not None:
+            raise DraftReferenceError("Supply either draft_id or draft_reference; overrides are not allowed.")
+        draft = load_draft(draft_reference, account_id=composio_user_id, for_action=True)
+        draft_id = draft.get("draft_id")
+    if not isinstance(draft_id, str) or not draft_id:
+        raise DraftReferenceError("An exact stored draft ID is unavailable; look up the draft instead of guessing.")
+    arguments = {"draft_id": draft_id}
     return _execute("GMAIL_SEND_DRAFT", composio_user_id, arguments)
 
 
@@ -399,15 +460,17 @@ def gmail_forward_email(
     message_id: str,
     recipient_email: str,
     additional_text: Optional[str] = None,
+    *, body_reference: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
+    composio_user_id = get_active_gmail_user_id()
+    if not composio_user_id:
+        return {"error": "Gmail not connected. Please connect Gmail in settings first."}
+    additional_text = _body(additional_text, body_reference, composio_user_id, optional=True)
     arguments = {
         "message_id": message_id,
         "recipient_email": recipient_email,
         "additional_text": additional_text,
     }
-    composio_user_id = get_active_gmail_user_id()
-    if not composio_user_id:
-        return {"error": "Gmail not connected. Please connect Gmail in settings first."}
     return _execute("GMAIL_FORWARD_MESSAGE", composio_user_id, arguments)
 
 
@@ -415,13 +478,18 @@ def gmail_forward_email(
 def gmail_reply_to_thread(
     thread_id: str,
     recipient_email: str,
-    message_body: str,
+    message_body: Optional[str] = None,
     cc: Optional[List[str]] = None,
     bcc: Optional[List[str]] = None,
     extra_recipients: Optional[List[str]] = None,
     is_html: Optional[bool] = None,
     attachment: Optional[Dict[str, Any]] = None,
+    *, body_reference: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
+    composio_user_id = get_active_gmail_user_id()
+    if not composio_user_id:
+        return {"error": "Gmail not connected. Please connect Gmail in settings first."}
+    message_body = _body(message_body, body_reference, composio_user_id)
     arguments = {
         "thread_id": thread_id,
         "recipient_email": recipient_email,
@@ -432,9 +500,6 @@ def gmail_reply_to_thread(
         "is_html": is_html,
         "attachment": attachment,
     }
-    composio_user_id = get_active_gmail_user_id()
-    if not composio_user_id:
-        return {"error": "Gmail not connected. Please connect Gmail in settings first."}
     return _execute("GMAIL_REPLY_TO_THREAD", composio_user_id, arguments)
 
 

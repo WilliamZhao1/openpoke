@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+from copy import deepcopy
 from dataclasses import dataclass
 from typing import Any, Optional
 
@@ -9,7 +10,8 @@ from ...logging_config import logger
 from ...services.conversation import get_conversation_log
 from ...services.execution import get_agent_roster, get_execution_agent_logs
 from ...services.execution.discovery import WorkerDiscoveryError, find_workers
-from ...content_store import capture_text
+from ...content_store import ContentStoreError, capture_text, current_capture
+from ...draft_content import DRAFT_REFERENCE_SCHEMA, DraftReferenceError, load_draft, render_draft, review_summary, save_draft
 from ...context_recovery import SCHEMAS as RECOVERY_SCHEMAS, RECOVERY_NAMES, handle_recovery_tool
 from ..execution_agent.batch_manager import ExecutionBatchManager
 
@@ -185,20 +187,39 @@ def send_message_to_user(message: str) -> ToolResult:
 
 # Format and record email draft for user review
 def send_draft(
-    to: str,
-    subject: str,
-    body: str,
+    to: Optional[str] = None,
+    subject: Optional[str] = None,
+    body: Optional[str] = None,
+    *, draft_reference=None,
 ) -> ToolResult:
     """Record a draft update in the conversation log for the interaction agent."""
     log = get_conversation_log()
 
-    reference = capture_text(body, kind="reviewed_draft_body", provider="gmail", account_id=None)
+    reference, draft = None, None
+    if draft_reference is not None:
+        if any(value is not None for value in (to, subject, body)):
+            raise DraftReferenceError("Supply a complete draft_reference without inline recipient, subject or body overrides.")
+        draft = load_draft(draft_reference)
+        to, subject, body = draft["to"], draft["subject"], draft["body"]
+        message = render_draft(draft)
+    else:
+        if not all(isinstance(value, str) for value in (to, subject, body)):
+            raise DraftReferenceError("Provide exact to, subject and body strings or one complete draft_reference.")
+        reference = capture_text(body, kind="reviewed_draft_body", provider="gmail", account_id=None)
+        message = f"To: {to}\nSubject: {subject}\n\n{body}"
+        if current_capture() is not None and reference is not None:
+            selector = save_draft(to=to, subject=subject, body=body, account_id=None,
+                                  body_reference=reference, record_reference=log.record_content_reference)
+            draft = load_draft(selector)
 
-    message = f"To: {to}\nSubject: {subject}\n\n{body}"
-
-    log.record_reply(message)
+    log.record_reply(message, exact=draft_reference is not None)
     if reference:
         log.record_content_reference(reference, "reviewed_draft_body")
+    if draft is not None:
+        try:
+            log.record_draft_review(draft["draft_reference"], message)
+        except OSError as exc:
+            raise ContentStoreError("Full draft review was recorded but its reference marker failed; check the displayed draft before retrying") from exc
     logger.info(f"Draft recorded for: {to}")
 
     return ToolResult(
@@ -207,6 +228,7 @@ def send_draft(
             "status": "draft_recorded",
             "to": to,
             "subject": subject,
+            **(review_summary(draft, reviewed=True) if draft is not None else {}),
         },
         recorded_reply=True,
     )
@@ -234,7 +256,13 @@ def wait(reason: str) -> ToolResult:
 # Return predefined tool schemas for LLM function calling
 def get_tool_schemas(*, bounded=False, recovery=False):
     """Return OpenAI-compatible tool schemas."""
-    return [*TOOL_SCHEMAS, *([FIND_WORKER_SCHEMA] if bounded else []), *(RECOVERY_SCHEMAS if recovery else [])]
+    schemas = deepcopy(TOOL_SCHEMAS) if recovery else TOOL_SCHEMAS
+    if recovery:
+        draft = next(schema["function"] for schema in schemas if schema["function"]["name"] == "send_draft")
+        draft["parameters"]["properties"]["draft_reference"] = DRAFT_REFERENCE_SCHEMA
+        draft["parameters"]["required"] = []
+        draft["description"] += " Supply either all inline fields or a complete draft_reference, without overrides. The backend displays the full exact body and recipients. Review is not send authorization."
+    return [*schemas, *([FIND_WORKER_SCHEMA] if bounded else []), *(RECOVERY_SCHEMAS if recovery else [])]
 
 
 def find_worker(query, limit=5, *, discovery=None):
@@ -282,6 +310,10 @@ def handle_tool_call(name: str, arguments: Any, *, discovery=None, recovery=None
         return ToolResult(success=False, payload={"error": "Invalid JSON"})
     except TypeError as exc:
         return ToolResult(success=False, payload={"error": f"Missing required arguments: {exc}"})
+    except ContentStoreError:
+        raise
+    except DraftReferenceError as exc:
+        return ToolResult(False, {"error": str(exc), "status": "unavailable"})
     except Exception as exc:  # pragma: no cover - defensive
         logger.error("tool call failed", extra={"tool": name, "error": str(exc)})
         return ToolResult(success=False, payload={"error": "Failed to execute"})

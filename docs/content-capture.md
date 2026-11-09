@@ -117,7 +117,7 @@ before retrying; it does not claim exactly-once external effects.
 
 ## Verification and next step
 
-`python server/tests/run_tests.py` passes all 171 tests, including the 23 capture
+`python server/tests/run_tests.py` passes all 191 tests, including the 23 capture
 tests. They cover full Unicode/CRLF/middle-content recovery, bounded byte pages,
 exact empty content, ordinary/fresh-process reloads, owner/account isolation,
 unknown provenance, corrupt/missing/truncated storage, atomic publication failure,
@@ -130,6 +130,8 @@ Bounded `read_result`/selected-history handlers now expose these sources with
 per-turn recovery budgets; see [context-recovery.md](context-recovery.md).
 [Outer-agent context builders](bounded-context.md) now use references for large
 results and omitted tool groups, carrying original captured source qualifications
-alongside composite snapshots. Background classification/summarization capture, inner model
-limits, and exact draft-by-reference adapters remain unfinished Phase 2 work.
+alongside composite snapshots. [Exact body/draft references](draft-references.md)
+now connect owned saved content to Gmail adapters and full review.
+Background classification/summarization capture and inner model/cumulative
+limits remain unfinished Phase 2 work.
 No old history is imported or deleted as part of enabling capture.

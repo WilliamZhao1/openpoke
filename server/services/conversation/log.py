@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 import json
+from hashlib import sha256
 import threading
 from html import escape, unescape
 from pathlib import Path
@@ -67,9 +68,10 @@ class ConversationLog:
         except Exception as exc:  # pragma: no cover - defensive
             logger.warning("conversation log directory creation failed", extra={"error": str(exc)})
 
-    def _append(self, tag: str, payload: str) -> str:
+    def _append(self, tag: str, payload: str, *, exact=False) -> str:
         timestamp = now_in_user_timezone("%Y-%m-%d %H:%M:%S")
-        entry = self._formatter(tag, timestamp, str(payload))
+        entry = (f'<{tag} timestamp="{timestamp}" encoding="json">{escape(json.dumps(str(payload), ensure_ascii=False), quote=False)}</{tag}>\n'
+                 if exact else self._formatter(tag, timestamp, str(payload)))
         with self._lock:
             try:
                 with self._path.open("a", encoding="utf-8") as handle:
@@ -107,12 +109,18 @@ class ConversationLog:
             match.group(1): match.group(2) for match in _ATTR_PATTERN.finditer(attr_string)
         }
         timestamp = attributes.get("timestamp", "")
-        return tag, timestamp, _decode_payload(payload)
+        if attributes.get("encoding") == "json":
+            try:
+                decoded = json.loads(unescape(payload))
+            except (ValueError, TypeError):
+                return None
+            return (tag, timestamp, decoded) if isinstance(decoded, str) else None
+        return tag, timestamp, unescape(payload) if tag == "draft_review" else _decode_payload(payload)
 
     def iter_entries(self) -> Iterator[Tuple[str, str, str]]:
         with self._lock:
             try:
-                lines = self._path.read_text(encoding="utf-8").splitlines()
+                lines = self._path.read_text(encoding="utf-8").split("\n")
             except FileNotFoundError:
                 lines = []
             except Exception as exc:  # pragma: no cover - defensive
@@ -143,10 +151,10 @@ class ConversationLog:
         timestamp = self._append("agent_message", content)
         self._working_memory_log.append_entry("agent_message", content, timestamp)
 
-    def record_reply(self, content: str) -> None:
+    def record_reply(self, content: str, *, exact=False) -> None:
         from ...content_store import capture_text
         reference = capture_text(content, kind="user_reply")
-        timestamp = self._append("poke_reply", content)
+        timestamp = self._append("poke_reply", content, exact=exact)
         self._working_memory_log.append_entry("poke_reply", content, timestamp)
         if reference:
             self.record_content_reference(reference, "user_reply")
@@ -161,6 +169,19 @@ class ConversationLog:
         payload = json.dumps({"reference": reference, "kind": kind})
         timestamp = self._append("content_reference", payload)
         self._working_memory_log.append_entry("content_reference", payload, timestamp)
+
+    def record_draft_review(self, draft_reference, display):
+        # JSON keeps its own escapes; the parser does not apply legacy newline
+        # decoding to this marker. UI messages remain full poke_reply entries.
+        from ...content_store import ContentStoreError, current_capture
+        context = current_capture()
+        if context is None or context.owner != "conversation":
+            raise ContentStoreError("Draft review markers require the owning bounded conversation turn")
+        payload = json.dumps({"draft_reference": draft_reference, "display_sha256": sha256(display.encode("utf-8")).hexdigest()}, ensure_ascii=True)
+        with context.store._lock:
+            context.store.assert_generation(context.generation)
+            timestamp = self._append("draft_review", payload)
+            self._working_memory_log.append_entry("draft_review", payload, timestamp)
 
     def _notify_summarization(self) -> None:
         settings = get_settings()

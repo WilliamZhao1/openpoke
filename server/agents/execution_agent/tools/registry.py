@@ -16,7 +16,7 @@ def get_tool_schemas(*, bounded_context=None) -> List[Dict[str, Any]]:
 
     bounded_context = get_settings().context_strategy == "bounded" if bounded_context is None else bounded_context
     return [
-        *gmail.get_schemas(),
+        *gmail.get_schemas(bounded=bounded_context),
         *get_task_schemas(),
         *triggers.get_schemas(),
         *(RECOVERY_SCHEMAS if bounded_context else []),

@@ -237,7 +237,7 @@ class WorkingMemoryLog:
             match = re.search(r'timestamp="([^"]*)"', attr_string)
             if match:
                 timestamp = match.group(1)
-        return tag, timestamp, _decode_payload(payload)
+        return tag, timestamp, unescape(payload) if tag == "draft_review" else _decode_payload(payload)
 
 
 _working_memory_log: Optional[WorkingMemoryLog] = None

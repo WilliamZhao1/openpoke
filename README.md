@@ -130,8 +130,9 @@ messages/results under owner-qualified references in the same bounded mode.
 and selected-history `recall_history` tools to both agents.
 [Bounded outer-agent context](docs/bounded-context.md) now keeps recent episodes
 and saves large tool results before previewing them. Required content that cannot
-fit fails explicitly; exact body-by-reference adapters and inner-agent builders
-remain in progress.
+fit fails explicitly. [Exact draft/body references](docs/draft-references.md)
+now carry large bodies through Gmail creation, full user review, and confirmation
+without repeating them in model arguments. Inner-agent builders remain next.
 
 ## Project Layout
 - `server/` – FastAPI application and agents

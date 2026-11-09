@@ -354,6 +354,8 @@ class InteractionAgentRuntime:
         try:
             self._log_tool_invocation(tool_call, stage="start")
             result = handle_tool_call(tool_call.name, tool_call.arguments, discovery=discovery, recovery=recovery)
+        except ContentStoreError:
+            raise  # Do not replay a visible review after persistence failure.
         except Exception as exc:  # pragma: no cover - defensive
             logger.error(
                 "Tool execution crashed",
