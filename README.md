@@ -110,11 +110,13 @@ See the [evaluation harness](evals/agent_overload/README.md) and the
 [saved baseline report](evals/agent_overload/baseline/report.md). The runner uses
 disposable storage and mocked providers; live model quality/cost remain unmeasured.
 
-The new [workflow storage foundation](server/services/workflows/README.md)
-documents stable identities, revision checks, SQLite behavior, and API examples.
-It is not yet connected to live routing. A standalone, read-only
-[migration dry-run](server/services/workflows/MIGRATION.md) reports legacy
-collisions and unresolved references; migration apply and adoption are later steps.
+The [reduced-scope implementation plan](docs/execution-agent-overload-implementation-plan.md)
+keeps name-based dispatch and local JSON/log storage. The next functional step
+is a bounded recent roster and explicit worker lookup. The unused workflow,
+migration, and event-storage work is preserved in a
+[verified deferred checkpoint](deferred/execution-agent-overload-storage-2026-11-08/README.md)
+and removed from the active code and test suite. See the
+[progress log](docs/execution-agent-overload-progress.md) for the scope change.
 
 ## Project Layout
 - `server/` – FastAPI application and agents

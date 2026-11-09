@@ -2,15 +2,24 @@
 
 Updated: 2026-11-08
 
-The implementation follows `execution-agent-overload-implementation-plan.md`
-in separately reviewable steps. Phase 0's model-free baseline and infrastructure
-are complete. Phase 1's storage foundation and migration dry-run are implemented;
-migration apply and runtime adoption remain pending. Model-backed release
-comparisons remain in Phase 5.
+The reduced-scope revision of
+[`execution-agent-overload-implementation-plan.md`](execution-agent-overload-implementation-plan.md)
+supersedes the earlier storage/migration roadmap. Phase 1 now means bounded worker
+discovery; Phase 2 means bounded context/recovery; Phase 3 means focused comparison
+and release. Discovery implementation is next. No backup/import phase precedes it.
+
+Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
+command, and saved model-free baseline remain in active use. The unused workflow,
+migration, and event-storage code from Steps 5–7 is preserved with its dedicated
+tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
+and removed from the active implementation. The retained suite has 78 tests.
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
-The alignment review below uses the 2026-11-08 revision of the plan.
+Steps 1–7 and the earlier alignment review below are historical records under
+the previous roadmap. Their phase numbers, next-step notes, test counts, and
+workflow-package paths describe that implementation at the time; they are not
+current delivery instructions. Deferred files are available inside the checkpoint.
 
 ## Step 1: Isolated data paths (complete)
 
@@ -425,12 +434,126 @@ adapters, and startup gating remain Phase 1 work. Live behavior and the saved
 baseline are unchanged. CLI usage and examples are in
 `server/services/workflows/MIGRATION.md`.
 
-## Next implementation step
+## Step 7: Immutable sources, events, and legacy-event mappings (complete)
 
-Add immutable source/event persistence and durable legacy-reference mappings to
-the SQLite foundation. This is needed before apply mode can preserve original
-content, resume imports without duplicates, or map summary indices to stable
-event references. Backups and verified apply will follow before live adoption.
+This completes the third slice of Phase 1; it does not apply legacy migration.
 
-Phase 1 is in progress; Phases 2–7 remain pending. Phase 6 is optional, and
-Phase 7 follows the baseline release rather than being a prerequisite for it.
+**Motivation:** Hashes and log positions alone cannot supply the original
+content when a summary omits it. Migration also needs durable per-entry mappings
+so retrying an interrupted import does not duplicate history and old summary
+indices can resolve to stable events after restart.
+
+**Old behavior:** Workflow metadata had stable UUIDs, while worker/conversation
+content remained in legacy text files. The dry-run reported hashes/locations
+without persisting source objects or event mappings. Worker responses could
+already be truncated; parsed-entry positions were not durable source IDs.
+
+**New behavior:** `WorkflowStore.history` adds immutable captured source bytes,
+event UUIDs, scoped event streams, and durable legacy references. Source metadata
+includes hash, size, media type, provenance, and explicit completeness. Event
+envelopes carry sequence/kind, source ID, workflow/conversation bindings, optional
+run/turn IDs, occurrence time when known, and capture time. Exact lookup and
+bounded event/byte paging recover stored content without returning entire
+histories. An observed empty source remains distinct from missing storage.
+
+Legacy capture stores decoded payload and exact raw record separately. It
+preserves original path/index, whole-file fingerprint, line/byte location, and
+timestamp text. Replays return the same event/source IDs; changed content,
+locators, frozen-file fingerprints, or owner bindings conflict. A legacy path
+is bound to one frozen input and stream per scope/generation. Known truncation
+and unknown completeness remain qualified; timezone-less timestamps are not
+converted into invented occurrence times.
+
+**Why this approach:** Canonical bytes remain recoverable independently of
+summaries and search text. Distinct captures keep their provenance even when
+their bytes match. Stream bindings prevent unrelated workflow history from
+sharing an owner accidentally; unique sequences and serialized writes preserve
+order under concurrency. One transaction commits source/event/legacy mappings
+and FTS5, preventing partial import entries. Hashing happens before the writer
+lock. Frozen models and SQL guards prevent ordinary update/delete/replace of
+history. Backend replay keys deduplicate local capture, not upstream sends.
+The FTS projection is explicitly supplied and rebuildable; it does not confer
+ownership or approval. Capturing history alone does not change workflow state.
+
+Schema version 2 validates version 1 before upgrading, then commits the added
+schema, migration record, and user version atomically. Failed upgrades roll back
+without changing existing workflow identities, aliases, revisions, generation,
+or search records. This is a workflow-database schema upgrade, not file import.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+all 143 tests: 119 existing and 24 new. Tests cover exact large/binary/empty
+content recovery; bounded pages; persistence through restart, rename, and summary
+changes; legacy raw records and qualified completeness; changed-input conflicts;
+cross-scope/owner rejection; concurrent replay/appends; SQL immutability and
+foreign keys; index rebuild; transactional write/index/mapping rollback;
+missing/corrupt data and generation changes; and successful, rejected, failed,
+and resumed schema upgrades. The empty-source test caught SQLite returning NULL
+for an empty-BLOB slice; the reader now preserves it explicitly as empty bytes.
+All state was temporary; no real data, model, or Gmail calls were used.
+`git diff --check` passed for tracked changes.
+
+**Remaining limits / plan alignment:** These are backend persistence APIs. The
+legacy primitive trusts its future importer to validate supplied bytes against
+the frozen source and resolve ownership; it reads no files and imports nothing
+automatically. Existing live writers, dry-run behavior, and saved baseline
+remain unchanged. Backups/validation manifests, durable workflow-import maps,
+resumable apply orchestration, trigger backfill, summary import, activity/card
+state transitions, adapters, and startup gating remain Phase 1 work. Public
+recall/search tools and lifecycle clearing are later work. Usage, examples, and
+design rationale are in `server/services/workflows/HISTORY.md`.
+
+## Reduced-scope alignment: checkpoint and cleanup (complete)
+
+**Motivation:** The release now needs bounded discovery and recoverable context
+through existing dispatch. Inactive workflow identities, migrations, universal
+events, and their schema machinery have no immediate runtime use under that
+scope. Keeping them on the critical path would add work the revised plan defers.
+
+**Old behavior:** Steps 5–7 added an inactive SQLite workflow/history package,
+migration inspector, 65 dedicated tests, and supporting docs. The old next step
+was a consistent backup/snapshot framework before import. Agents and schedulers
+still used name-based dispatch and the original stores.
+
+**New behavior:** Before cleanup, saved and verified an explicit named archive
+containing all 16 selected working-tree files, including the 4 untracked history
+files, plus the earlier plan and tracked working diff. The checkpoint is
+`deferred/execution-agent-overload-storage-2026-11-08/storage-checkpoint.zip`;
+its manifest records file hashes, byte sizes, tracking status, and origin commit.
+The revised plan and unrelated changes were excluded. No branch pointer was
+treated as a substitute for saving uncommitted files.
+
+Removed the unused workflow/migration/event package and its dedicated tests/docs
+from active source after checking imports. Updated README/current progress to
+describe the smaller roadmap. Kept historical progress entries and preserved
+the deferred checkpoint. Phase 0 code, fixtures, baseline artifacts, runtime
+data, and existing dispatch/history/confirmation behavior are retained.
+
+**Why this approach:** A source archive with exact byte/hash verification
+preserves tracked and untracked work without resetting the repository or
+rewriting history. Keeping code and tests together makes the deferred work
+recoverable. A separate cleanup step makes scope reduction reviewable before
+adding functional discovery changes. JSON metadata and lexical lookup will be
+added only where the live Interaction Agent uses them.
+
+**Verification:** Verified the archive checksum, ZIP integrity, every archived
+file's hash, and equality with its working-tree bytes before deletion. Import
+searches found no dependency from live agents/services/routes or retained tests
+on the workflow package. `.venv\Scripts\python.exe server/tests/run_tests.py`
+passed all 78 retained tests. The 65 archived tests account for the reduction
+from 143; retained tests were not removed or weakened. The retained evaluation
+checks exercise the existing baseline command and exact fake-mail effects.
+`git diff --check` passed. The revised implementation-plan bytes were preserved.
+
+**Remaining limits:** This cleanup introduces no bounded roster, lookup tool,
+context limits, or routing-quality claim. The previous backup/import next step
+is superseded. Deferred source paths in the historical entries are archive
+references now, not active modules.
+
+## Next implementation step under the revised plan
+
+Start revised Phase 1 with the small exact-name metadata sidecar, bounded recent
+roster, and `find_worker` wired through existing name-based dispatch. Include
+per-turn discovery-before-creation checks, explicit lookup failure handling,
+filename-collision protection, history clearing, and focused catalog/runtime
+regressions. Do not activate the deferred workflow database or add another
+preparation framework. Revised Phases 2 and 3 remain pending.
