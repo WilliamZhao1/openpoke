@@ -112,8 +112,9 @@ disposable storage and mocked providers; live model quality/cost remain unmeasur
 
 The [paired comparison command](evals/agent_overload/README.md#phase-3-paired-comparison)
 now supports both scripted checks and live model decisions with fake Gmail.
-The [first live report](docs/agent-overload-comparison.md) records correct routing
-but a bounded draft-send failure; it does not support default promotion.
+The [live report](docs/agent-overload-comparison.md) preserves the initial bounded
+draft-send failure and a passing focused recheck after clarifying draft IDs versus
+saved references. Broader application release checks still precede default promotion.
 
 The [reduced-scope implementation plan](docs/execution-agent-overload-implementation-plan.md)
 keeps name-based dispatch and local JSON/log storage.
@@ -140,8 +141,8 @@ now carry large bodies through Gmail creation, full user review, and confirmatio
 without repeating them in model arguments. [Inner model context](docs/inner-context.md)
 now bounds email search, classification, and streamed summarization, including
 cumulative source/result/recovery work. Phase 2 implementation is complete behind
-the opt-in setting; Phase 3's first comparison is recorded, with its draft-send
-finding and remaining application release checks still to address.
+the opt-in setting; Phase 3's first comparison and draft-ID follow-up are recorded.
+The remaining application release checks precede default promotion.
 
 ## Project Layout
 - `server/` – FastAPI application and agents

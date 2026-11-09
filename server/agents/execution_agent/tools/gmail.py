@@ -337,8 +337,12 @@ def get_schemas(*, bounded=False) -> List[Dict[str, Any]]:
             function["description"] += f" Supply exactly one of {field} or body_reference (forwarding may omit both). The backend resolves exact text; never copy a preview as the body."
         if name == "gmail_execute_draft":
             parameters["properties"]["draft_reference"] = DRAFT_REFERENCE_SCHEMA
+            parameters["properties"]["draft_id"]["description"] = (
+                "Original Gmail provider draft ID from the reviewed draft, kept unchanged. "
+                "Use this field when review/confirmation names a Gmail draft ID; a saved c1_ content reference belongs in draft_reference instead."
+            )
             parameters["required"] = []
-            function["description"] += " Supply exactly one of draft_id or draft_reference. A reference does not authorize sending; first obtain explicit user confirmation of the reviewed draft."
+            function["description"] += " Supply exactly one of draft_id (Gmail's original ID) or draft_reference (a saved c1_ reference returned by a tool). A reference does not authorize sending; first obtain explicit user confirmation of the reviewed draft."
     return schemas
 
 

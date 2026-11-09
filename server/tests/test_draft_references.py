@@ -4,6 +4,7 @@ from hashlib import sha256
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -11,6 +12,8 @@ import unittest
 from unittest.mock import AsyncMock, Mock, patch
 
 import httpx
+
+from evals.agent_overload.contracts import HERE, grade_draft_effects, read_json
 
 from server import content_store, context_builder as contexts, context_recovery, draft_content as drafts
 from server.config import Settings
@@ -314,6 +317,63 @@ print(json.dumps({'sha256': sha256(draft['body'].encode()).hexdigest(), 'to': dr
             self.assertEqual("body" in create["parameters"]["required"], not bounded)
             display = next(schema["function"] for schema in tools.get_tool_schemas(recovery=bounded) if schema["function"]["name"] == "send_draft")
             self.assertEqual("draft_reference" in display["parameters"]["properties"], bounded)
+            execute = next(schema["function"] for schema in schemas if schema["function"]["name"] == "gmail_execute_draft")
+            if bounded:
+                pattern = execute["parameters"]["properties"]["draft_reference"]["properties"]["reference"]["pattern"]
+                self.assertIsNone(re.fullmatch(pattern, "r100000000000000001"))
+                self.assertRegex("c1_" + "a" * 32 + "_" + "b" * 32, pattern)
+            else:
+                self.assertEqual(execute["parameters"]["required"], ["draft_id"])
+
+    def test_provider_id_in_a_draft_selector_is_an_argument_error_without_source_or_gmail_io(self):
+        with capture_scope(OWNER), use_fake_gmail(self.fake), patch.object(ContentStore, "read_source_page", side_effect=AssertionError("Malformed selectors must not read sources")):
+            for reference in ("r100000000000000001", "c1_incomplete"):
+                with self.subTest(reference=reference), self.assertRaises(drafts.DraftReferenceError) as caught:
+                    gmail.gmail_execute_draft(draft_reference={"reference": reference})
+                self.assertIn("draft_id", str(caught.exception))
+                self.assertIn("invalid selector", str(caught.exception))
+                self.assertNotIn("missing, incomplete, or unavailable", str(caught.exception))
+        self.assertEqual(self.fake.calls, [])
+        self.assertEqual(self.fake.effects, [])
+
+    async def _run_confirmed_provider_id_worker(self, *, mistaken_selector):
+        script = read_json(HERE / "approved_draft.json")
+        draft_id = script["expected"]["draft_id"]
+        self.logs.record_request("Alice lunch", "Arrange lunch with Alice")
+        self.logs.record_agent_response("Alice lunch", script["input"]["review"])
+        requests = []
+
+        def respond(request):
+            payload = json.loads(request.content)
+            prepare_budgeted_request(payload, context_window=200000, input_cap=32768, headroom=64)
+            requests.append(payload)
+            last = payload["messages"][-1]
+            if last["role"] == "tool":
+                result = json.loads(last["content"])
+                if result["status"] == "success":
+                    return httpx.Response(200, json={"choices": [{"message": {"content": "Sent the reviewed and confirmed Gmail draft."}}]})
+                self.assertTrue(mistaken_selector)
+                self.assertIn("draft_id", result["error"])
+                # An argument error must not silently send, probe Gmail, or recreate.
+                self.assertEqual(self.fake.calls, [])
+            arguments = {"draft_reference": {"reference": draft_id}} if mistaken_selector and len(requests) == 1 else {"draft_id": draft_id}
+            return httpx.Response(200, json={"choices": [{"message": {"tool_calls": [{
+                "id": f"send-{len(requests)}", "type": "function", "function": {"name": "gmail_execute_draft", "arguments": json.dumps(arguments)}
+            }]}}]})
+
+        with use_fake_gmail(self.fake), client.use_mock_provider(httpx.MockTransport(respond)), patch.object(ContentStore, "read_source_page", side_effect=AssertionError("A provider ID is not a saved source")):
+            result = await workers.ExecutionAgentRuntime("Alice lunch").execute(script["input"]["request"])
+        self.assertTrue(result.success, result.error)
+        self.assertEqual(len(requests), 3 if mistaken_selector else 2)
+        self.assertTrue(grade_draft_effects(script["expected"], self.fake.effects)["exact_approved_draft_sent_once"])
+        self.assertEqual([call["tool"] for call in self.fake.calls], ["GMAIL_SEND_DRAFT"])
+        self.assertEqual(self.fake.effects[0]["body"], script["expected"]["body"])
+
+    async def test_reviewed_provider_id_sends_directly_without_saved_source_resolution(self):
+        await self._run_confirmed_provider_id_worker(mistaken_selector=False)
+
+    async def test_wrong_saved_selector_can_be_corrected_by_an_explicit_provider_id_call(self):
+        await self._run_confirmed_provider_id_worker(mistaken_selector=True)
 
     def test_reply_and_forward_resolve_exact_referenced_text_without_changing_recipients(self):
         body = "Reviewed exact reply\r\n" + "旅🦉" * 1000

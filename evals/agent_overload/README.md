@@ -233,4 +233,7 @@ large full review, callbacks, chat acceptance, and clearing remain Phase 3 work.
 The [first live comparison report](../../docs/agent-overload-comparison.md)
 records a bounded draft-ID/reference confusion and a failed effect check despite
 correct routing. Its compressed traces and numeric evidence are retained under
-`comparisons/2026-11-09/`. Address the finding before default promotion.
+`comparisons/2026-11-09/`. A [focused guidance fix and passing live recheck](../../docs/agent-overload-comparison.md#follow-up-draft-id-guidance-and-live-recheck)
+are recorded separately under `comparisons/2026-11-09-draft-id-fix/`. The original
+failure remains preserved; broader application release checks still precede
+default promotion.

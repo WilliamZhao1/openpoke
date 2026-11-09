@@ -12,12 +12,14 @@ from .services.execution.discovery import WorkerDiscoveryError
 
 MAX_SOURCE_BYTES = 8 * 1024 * 1024  # Application read limit, not a Gmail/provider limit.
 MAX_DRAFT_BYTES = 64 * 1024
+DRAFT_REFERENCE_PATTERN = r"c1_[0-9a-f]{32}_[0-9a-f]{32}"
 BODY_REFERENCE_SCHEMA = {"type": "object", "properties": {
     "reference": {"type": "string", "description": "Opaque saved source reference, owned by this worker and qualified to the executed Gmail account."},
     "pointer": {"type": "string", "description": "Optional exact JSON Pointer to a string body inside a saved JSON result/arguments, e.g. /data/drafts/0/body. Omit only for a saved pure body."},
 }, "required": ["reference"], "additionalProperties": False}
 DRAFT_REFERENCE_SCHEMA = {"type": "object", "properties": {
-    "reference": {"type": "string", "description": "Opaque email_draft reference returned by Gmail draft creation or draft review. This is not send authorization."},
+    "reference": {"type": "string", "pattern": f"^{DRAFT_REFERENCE_PATTERN}$",
+                  "description": "Exact saved c1_ email_draft reference returned inside a tool's draft_reference field. Never put a Gmail provider draft ID here; that belongs in draft_id. Do not invent a saved reference. This is not send authorization."},
     "agent_name": {"type": "string", "description": "Exact owning worker name, required when the Interaction Agent selects a worker's draft. Workers cannot select another owner."},
 }, "required": ["reference"], "additionalProperties": False}
 
@@ -147,6 +149,12 @@ def save_draft(*, to, subject, body, account_id, record_reference, body_referenc
 
 def load_draft(selector, *, account_id=None, for_action=False):
     _selector(selector, {"reference", "agent_name"})
+    if re.fullmatch(DRAFT_REFERENCE_PATTERN, selector["reference"]) is None:
+        raise DraftReferenceError(
+            "draft_reference.reference requires the exact saved c1_ reference returned by a tool. "
+            "For an original Gmail provider draft ID, use gmail_execute_draft(draft_id=...) after user confirmation of the reviewed draft. "
+            "This invalid selector does not establish the Gmail draft's status; do not recreate it to repair this argument."
+        )
     context = _context()
     if for_action and not context.owner.startswith("worker:"):
         raise DraftReferenceError("Sending a referenced draft requires its owning worker turn.")

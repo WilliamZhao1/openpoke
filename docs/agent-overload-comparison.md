@@ -3,6 +3,9 @@
 The first focused live-model comparison is complete. **Release checks did not
 pass:** both strategies selected the expected routes, but bounded mode failed
 to send the approved draft. Both product defaults remain `legacy`.
+The [focused follow-up](#follow-up-draft-id-guidance-and-live-recheck) below
+records a fix and a passing rerun of the affected scenario; broader release
+checks remain pending. The original results and evidence are preserved.
 
 ## Motivation and implementation
 
@@ -91,11 +94,10 @@ It asked to recreate the draft rather than using `draft_id`. No Gmail SDK call
 or mutation occurred in that arm, although the worker returned a success status
 and the callback completed. Effect grading correctly failed the task.
 
-The next step is to address this ID/reference confusion with focused schema or
-prompt guidance and a regression case, then rerun the affected live scenario.
-Do not weaken reference validation or reconstruct an unavailable exact body.
-After that, complete relevant application checks for triggers, callbacks, full
-large-draft review, chat acceptance, and clearing before default promotion.
+This result motivated focused schema/prompt guidance, a regression case, and
+the affected-scenario rerun recorded below. Remaining application checks cover
+triggers, callbacks, full large-draft review, chat acceptance, and clearing before
+default promotion. Reference validation and exact-body requirements remain.
 
 This is one small sample of a combined discovery/context strategy, not a ranker
 or metadata ablation, a general accuracy estimate, or a live test of every inner
@@ -129,3 +131,86 @@ The primary run completed at 2026-11-09 16:54:51 UTC. Its retained evidence is:
 See [the harness instructions](../evals/agent_overload/README.md#phase-3-paired-comparison)
 for the reproducible command and controls. Repetition can produce different model
 decisions; keep new runs separate rather than overwriting this evidence.
+
+## Follow-up: Draft ID guidance and live recheck
+
+The observed failure came from treating two different identifiers as
+interchangeable. The old bounded schema called `draft_reference` opaque but did
+not state its `c1_` format or clearly distinguish it from `draft_id`. Invalid
+selectors reached the content reader and produced a generic missing-source
+error, which the model interpreted as a missing provider draft.
+
+The bounded schema now describes both fields explicitly and declares the saved
+reference format. The bounded context policy tells both agents to keep provider
+IDs and saved references separate. `load_draft` rejects malformed selectors
+before source IO with an argument-specific error explaining the correct field.
+It does not send, change fields, or recreate a draft automatically. Valid saved
+references still pass through the existing ownership, mailbox, generation,
+integrity, and exact-body checks. Both send paths retain user confirmation.
+
+For the reviewed provider ID, the correct call remains:
+
+```json
+{"draft_id": "r100000000000000001"}
+```
+
+A real `draft_reference` must instead be the exact `c1_...` reference returned
+by a tool. An invalid selector is not evidence that the Gmail draft expired.
+This small change clarifies the existing adapters; it adds no lookup fallback,
+approval ledger, or new identifier conversion layer.
+
+The isolated suite passed **228 tests**, including three new regressions for:
+
+- malformed saved selectors failing before source/Gmail IO;
+- directly sending a reviewed, confirmed provider ID without source resolution;
+- a mistaken selector followed by a separate explicit corrected call, with
+  exactly one original send and no recreation.
+
+The existing large-reference, full-review, cross-owner/account, integrity, and
+clear tests also pass. Scripted worker requests still go through complete-request
+preflight and real fake-Gmail adapters.
+
+The focused live recheck completed at 2026-11-09 17:17:10 UTC using the same model,
+2,048-token output limit, 100-worker catalog, synthetic review/approval, and
+3.1-second request pacing. It selected `alice-lunch` plus the approved-draft case
+in both arms, with a global 32-request cap. The comparison passed (exit 0), using
+22 requests across all four rows. Both strategies selected the expected owners,
+accepted chat, and completed callbacks. Every model response was live; every
+Gmail effect was mock.
+
+For the approved-draft rows only:
+
+| Observation | Legacy | Bounded |
+| --- | ---: | ---: |
+| Executed argument | `draft_id` | `draft_id` |
+| Exact original fake draft sent | Once | Once |
+| Duplicate sends / unexpected mutations | 0 / 0 | 0 / 0 |
+| Tool errors | 0 | 0 |
+| Model/HTTP calls | 8 | 7 |
+| Returned input tokens | 40,026 | 40,843 |
+| Returned output tokens | 541 | 445 |
+| Returned `cost` total | 0.128193 | 0.129204 |
+| Local case elapsed time including pacing | 24.79 s | 21.51 s |
+
+Bounded mode directly chose `gmail_execute_draft(draft_id=...)`; it did not attempt
+the invalid selector or call `read_result` for that provider ID. The SDK received
+one send of the original ID, preserving its account, body, recipients, subject,
+and thread. No draft was recreated.
+
+This is a targeted recheck, not a rerun of all six original scenarios or a claim
+of general model compliance/performance. The original failed run remains above.
+Product defaults remain `legacy` until the remaining application release checks
+pass. Retained follow-up evidence:
+
+- [Public settings](../evals/agent_overload/comparisons/2026-11-09-draft-id-fix/comparison.json)
+- [Numeric summary](../evals/agent_overload/comparisons/2026-11-09-draft-id-fix/summary.json)
+- [Separate inputs and grading labels](../evals/agent_overload/comparisons/2026-11-09-draft-id-fix/inputs.json)
+- [Complete compressed trace](../evals/agent_overload/comparisons/2026-11-09-draft-id-fix/results.json.gz)
+- [Executed source provenance](../evals/agent_overload/comparisons/2026-11-09-draft-id-fix/provenance.json)
+- [Artifact hashes](../evals/agent_overload/comparisons/2026-11-09-draft-id-fix/artifacts.json)
+
+Recheck command:
+
+```powershell
+.\.venv\Scripts\python.exe evals/agent_overload/run.py --compare --mode live --context-window 65536 --sizes 100 --cases alice-lunch --max-calls 32
+```

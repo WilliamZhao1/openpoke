@@ -27,7 +27,15 @@ echoing in worker final responses and callbacks. Forward that exact reference to
 Poke. Poke uses send_draft(draft_reference=...) so backend code displays the entire
 body and recipients, then asks the user to confirm before any sending. References
 and review markers are never approval. Use body_reference with an exact JSON
-Pointer for a saved account-qualified body; never rebuild it from a preview."""
+Pointer for a saved account-qualified body; never rebuild it from a preview.
+Keep Gmail provider IDs distinct from saved content references. A known reviewed
+Gmail draft ID goes directly in gmail_execute_draft(draft_id=...) after explicit
+user confirmation. draft_reference.reference is only an exact c1_ value returned
+inside a tool's draft_reference field. Never put a provider ID in draft_reference
+or read_result, or treat a saved c1_ reference as a provider ID. An invalid saved
+selector does not establish that the Gmail draft is missing or expired. Do not
+recreate a draft to repair an argument mistake; choose the field matching the
+original identifier. Both send paths still require the existing confirmation."""
 
 
 @dataclass

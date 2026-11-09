@@ -113,9 +113,38 @@ this slice. Ordinary body/reference validation occurs before an external action.
 Persistence failures after creation or visible review stop the model loop with
 outcome-check guidance, avoiding automatic replay of that operation.
 
+## Gmail draft IDs and saved references
+
+A Gmail provider draft ID and an OpenPoke saved-content reference are different
+identifiers. After the existing full review and explicit user confirmation:
+
+```text
+gmail_execute_draft(draft_id="r100000000000000001")
+```
+
+uses the original provider ID shown in that reviewed draft. It does not require
+resolving a content-store object. When a tool instead returns `draft_reference`,
+forward that exact object with its `c1_<generation>_<object>` reference; do not
+invent a reference or put a provider ID inside it. `read_result` also expects a
+saved-content reference rather than a Gmail ID.
+
+The first live comparison exposed this confusion: the model supplied a Gmail ID
+as `draft_reference.reference`, interpreted a generic missing-source error as an
+expired Gmail draft, and asked to recreate it. Bounded schemas and context now
+explain which field to use, and the saved-draft schema declares the opaque
+reference format. Backend validation rejects a malformed selector before source
+reads with an argument-specific error. That error does not establish provider
+draft status, automatically change fields, send, or recreate anything.
+
+The caller can explicitly retry using its original known provider `draft_id`
+when review/confirmation already covers it. A real saved reference still goes
+through the existing owner, mailbox, generation, hash, and complete-body checks;
+its failure is not permission to bypass those checks or reconstruct content.
+The legacy inline-ID schema and normal confirmation policy retain their behavior.
+
 ## Verification and plan position
 
-`python server/tests/run_tests.py` passes 218 tests, including the 20 draft-reference tests.
+`python server/tests/run_tests.py` passes 228 tests, including the 23 draft-reference tests.
 The existing fake Gmail backend verifies actual create/reply/forward/send effects,
 full bodies and recipient options, UTF-8/CRLF/control/literal text, full review and
 compact history, overrides, wrong workers/accounts, unknown provenance, missing/
@@ -127,6 +156,14 @@ creation, callback, full review, a separate user confirmation, exact worker reus
 and sending; every request passes the shared budget preflight. All storage and
 providers are temporary/mocked. Scripted model replies do not establish live
 routing quality, provider cost, latency, or compliance with instructions.
+
+Three focused regressions cover malformed selector rejection before source/Gmail
+IO, a confirmed provider ID sent directly, and a mistaken selector followed by
+an explicit corrected call. The worker tests use the real loop, mocked provider
+transport, full-request preflight, and exact fake Gmail effects. The retained
+draft tests continue to cover genuine reference ownership/integrity and full
+review/confirmation. See the [comparison report](agent-overload-comparison.md)
+for separate live-model evidence and its limits.
 
 Phase 0 assets remain retained and Phase 1 discovery is implemented behind its
 flag. Phase 2 items 1–6 are implemented: shared preflight, bounded outer context,

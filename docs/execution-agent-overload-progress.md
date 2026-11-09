@@ -10,22 +10,23 @@ and release. Revised Phase 1 discovery is implemented behind the development
 strategy setting. Phase 2 implementation is complete behind its opt-in setting:
 provider preflight, full-content capture, source recovery, bounded outer context,
 exact body references, and inner email-search/summarizer/classifier limits.
-Phase 3's first focused live comparison is recorded. It exposed a bounded
-draft-ID/reference confusion that must be addressed before release checks and
-default promotion. No backup/import phase precedes that work.
+Phase 3's first focused live comparison is recorded. Its bounded draft-ID versus
+saved-reference confusion has focused guidance/validation fixes and a passing
+live recheck. Remaining application release checks precede default promotion.
+No backup/import phase precedes that work.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 225 tests.
+and removed from the active implementation. The active suite now has 228 tests.
 
 | Revised plan | Current position |
 | --- | --- |
 | Phase 0: retained preparation | Existing data paths, telemetry, fixtures/fake Gmail and model-free baseline retained. |
 | Phase 1: bounded discovery | Implemented behind `OPENPOKE_WORKER_DISCOVERY=bounded`; selected live routing cases now measured. |
 | Phase 2: bounded context/source recovery | Items 1–6 implemented behind `OPENPOKE_CONTEXT_STRATEGY=bounded`. |
-| Phase 3: comparison/release | First live paired comparison and report complete; bounded draft task failed despite correct routing. Address that finding, complete application release checks, and rerun before default promotion. Both defaults remain legacy. |
+| Phase 3: comparison/release | First comparison/report complete; draft-ID/reference finding addressed with a passing focused live recheck. Remaining application release checks and default promotion pending. Both defaults remain legacy. |
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -1037,11 +1038,64 @@ tool-error totals. The [short report](agent-overload-comparison.md) retains
 compressed full traces, exact settings, usage/effects, source provenance, and
 artifact hashes. Live decisions and mock mailbox effects are labeled separately.
 
+## Revised Phase 3: Draft ID/reference guidance and focused recheck (complete)
+
+**Motivation:** The first live run routed to the correct worker but failed the
+actual send because the model confused a provider ID with a saved reference.
+This needed a focused correction before expanding release checks; a scripted
+success alone would not verify the model now chooses the right argument.
+
+**Old behavior:** The bounded send schema offered `draft_id` and an opaque
+`draft_reference` without spelling out their distinct formats. A provider ID
+inside the saved selector reached content-store reads and returned a generic
+missing-source error. The model inferred draft expiry and asked to recreate it.
+
+**New behavior:** Bounded schemas identify `draft_id` as Gmail's unchanged
+provider ID and `draft_reference.reference` as an exact tool-returned `c1_`
+saved reference, with an explicit schema pattern. The bounded context policy
+explains that provider IDs belong in `draft_id`, not `draft_reference` or
+`read_result`. Backend draft resolution rejects malformed selectors before source
+IO with an argument-specific error that explains the correct field without
+claiming the provider draft is missing. It never switches fields, sends, or
+recreates a draft automatically. Genuine saved references retain their existing
+owner/account/generation/hash/body checks, and both send paths keep the existing
+full review and confirmation policy. The legacy inline-ID schema stays intact.
+
+**Why this approach:** Clear field descriptions and a small format check fix
+the mistaken interpretation at its source. Automatically treating a malformed
+reference as a provider ID would hide model errors and weaken the reference
+boundary. Keeping correction as a separate explicit call preserves observable
+tool effects without adding an identifier-mapping service or approval state.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+228 tests, including three new focused regressions and the retained full draft
+suite. New worker-loop tests verify direct provider-ID sending and correction of
+the observed invalid-selector attempt, through real preflight and fake Gmail,
+with exactly one original send and no source lookup/recreation. A format error
+test verifies no source/Gmail IO. Valid reference, mailbox/owner isolation,
+integrity, clearing, and full review/confirmation tests continue to pass.
+
+The focused live comparison used the same model/output/fixture/pacing controls,
+selecting Alice lunch routing plus the approved-draft scenario in both arms.
+All four rows passed, with 22 total live requests. Both strategies selected the
+expected worker, accepted chat, completed callbacks, and sent the exact original
+fake draft once, with no duplicate send, unexpected mutation, or tool error.
+Bounded mode directly chose `draft_id`, using seven model calls for the draft
+case versus eight for legacy. This is targeted evidence, not a general accuracy
+or cost improvement claim, and the original failed comparison is preserved.
+See the [follow-up report and retained traces](agent-overload-comparison.md#follow-up-draft-id-guidance-and-live-recheck).
+
+**Example:** After full review and confirmation of provider draft
+`r100000000000000001`, call
+`gmail_execute_draft(draft_id="r100000000000000001")`. Use `draft_reference` only
+with the actual saved `c1_...` object returned by a tool. A failed format check
+does not establish that the provider draft expired or authorize a replacement.
+
 ## Next implementation step under the revised plan
 
-Address the live-detected Gmail draft-ID versus saved-reference confusion with
-focused schema/prompt guidance and a regression case, then rerun the affected
-live scenario. Complete the remaining application release checks for triggers,
-callbacks, full large-draft review, chat acceptance, and clearing before promoting
-defaults. Phase 3 remains in progress; Phase 2 implementation items 1–6 remain
-complete behind the opt-in setting, and both defaults remain `legacy`.
+Complete Phase 3's remaining application release checks for triggers, callbacks,
+full large-draft review, chat acceptance, and clearing, then publish the final
+release findings before default promotion. Phase 3 remains in progress; Phase 2
+implementation items 1–6 remain complete behind the opt-in setting, and both
+defaults remain `legacy`. The targeted draft recheck does not replace the full
+application release checks or prove deterministic model compliance.
