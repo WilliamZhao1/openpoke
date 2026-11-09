@@ -6,13 +6,15 @@ The reduced-scope revision of
 [`execution-agent-overload-implementation-plan.md`](execution-agent-overload-implementation-plan.md)
 supersedes the earlier storage/migration roadmap. Phase 1 now means bounded worker
 discovery; Phase 2 means bounded context/recovery; Phase 3 means focused comparison
-and release. Discovery implementation is next. No backup/import phase precedes it.
+and release. Revised Phase 1 discovery is implemented behind the development
+strategy setting; Phase 2 context budgeting/recovery is next. No backup/import
+phase precedes it.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The retained suite has 78 tests.
+and removed from the active implementation. The active suite now has 98 tests.
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -549,11 +551,80 @@ context limits, or routing-quality claim. The previous backup/import next step
 is superseded. Deferred source paths in the historical entries are archive
 references now, not active modules.
 
+## Revised Phase 1: Bounded roster and worker lookup (implemented)
+
+**Motivation:** A full roster makes prompt size grow with every worker, while
+unconditional creation can duplicate work that already has an owner. The smaller
+plan calls for a bounded recent list, lexical lookup over all names, and a local
+creation guard without replacing dispatch or migrating history.
+
+**Old behavior:** Every name appeared in the Interaction Agent prompt. Dispatch
+created unknown names without a discovery attempt. Roster read errors could be
+treated as empty state; name creation did not recheck filename collisions.
+
+**New behavior:** `OPENPOKE_WORKER_DISCOVERY=bounded` selects at most five entries
+within a 2,000-character roster budget, total/hidden counts, and lookup guidance.
+`find_worker` searches the entire authoritative roster and optional exact-name
+metadata. Queries are capped at 256 characters; result counts at five; JSON
+payloads at 3,500 characters; and formatted lookup responses at 4,000 characters.
+Descriptions shorten before exact names are omitted, with explicit limit flags.
+Unknown purpose/activity remains unknown. No lookup scans worker logs.
+
+The batch manager incrementally saves first/latest assignment snippets and
+activity time to `roster.metadata.json` under the configured root. Metadata is
+rebuildable and cannot create membership. History clearing removes it, and a
+late assignment for an absent worker cannot recreate it. Exact dispatch and
+trigger names retain their existing path. The prompt distinguishes unrelated
+topic switches from genuine follow-ups and preserves confirmation/draft rules.
+
+Each bounded interaction loop owns a small discovery-success flag. A successful
+lookup is required before creating a new name when older workers exist; failed
+or invalid lookup revokes it. Existing exact names remain reusable directly.
+Creation reloads/rechecks membership and filename collisions under a local lock,
+then atomically replaces roster JSON. Read/write failures are explicit. New
+names colliding with roster or orphan-log filenames are rejected; historical
+collisions are reported without merging histories.
+
+**Why this approach:** One small helper supplies metadata, lexical matching,
+and bounded rendering directly to live callers. The roster remains authoritative;
+there are no workflow IDs, migration, event schema, semantic ranker, or persistent
+routing decisions. Local loop state cannot leak into another turn or be forged
+through tool arguments. A shared in-process lock plus atomic writes makes local
+creation reviewable; cross-process writers remain deferred. Metadata failure
+does not authorize creation or prevent trusted exact-name background dispatch.
+
+The default strategy remains `legacy` during development; the evaluation command
+and isolated test runner explicitly pin that mode before imports. The original
+prompt/tool schema path remains available for comparison. Bounded failures never
+fall back to the full roster. Default promotion follows Phase 3 evidence.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+all 98 tests: 78 retained and 20 new. New checks cover 100/1,000/10,000-worker
+budgets; dormant and exact-name lookup; separate Alice topics; metadata persistence,
+rebuild and clearing; unknown times; corruption and atomic-write failures;
+concurrent creation; collisions; per-loop success/failure checks; forged/invalid
+arguments; exact history reuse; chat/callback prompt integration; and assignment
+metadata through the real batch manager. Existing fake draft effects, trigger
+ownership, telemetry, and legacy evaluation checks pass. The legacy evaluation
+is tested even when the caller's environment requests bounded discovery.
+
+Measured roster characters were 1,108 / 1,110 / 1,112 versus the legacy 4,702 /
+47,947 / 480,397 at the three catalog sizes. Each showed five workers; formatted
+lookup responses were 1,801 / 1,804 / 1,807 characters. These are model-free text
+measurements, not token counts or routing-quality results. Temporary state and
+mocked providers were used; no live Gmail/model calls occurred. The saved baseline
+and deferred checkpoint were preserved. `git diff --check` passed.
+
+**Remaining limits:** Lexical retrieval cannot establish semantic uniqueness.
+Metadata snippets are not authoritative task/approval state, and historical
+truncation/collisions remain historical limitations. Real routing decisions for
+topic switches and ambiguous follow-ups require the Phase 3 comparison. Whole
+model requests and large source bodies are not yet bounded by this step.
+Usage and examples are in [`worker-discovery.md`](worker-discovery.md).
+
 ## Next implementation step under the revised plan
 
-Start revised Phase 1 with the small exact-name metadata sidecar, bounded recent
-roster, and `find_worker` wired through existing name-based dispatch. Include
-per-turn discovery-before-creation checks, explicit lookup failure handling,
-filename-collision protection, history clearing, and focused catalog/runtime
-regressions. Do not activate the deferred workflow database or add another
-preparation framework. Revised Phases 2 and 3 remain pending.
+Begin revised Phase 2 with the shared input-budget helper and provider preflight,
+accounting for instructions, messages, tool schemas/results, output reservation,
+and headroom. Add only the content preservation/recovery needed by those callers,
+in reviewable slices. Revised Phase 3 comparison/default promotion remains pending.

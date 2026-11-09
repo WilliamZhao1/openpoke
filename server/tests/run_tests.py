@@ -17,6 +17,7 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="openpoke-tests-") as directory:
         with patch.dict(os.environ, {
             "OPENPOKE_DATA_DIR": directory,
+            "OPENPOKE_WORKER_DISCOVERY": "legacy",
             "OPENROUTER_API_KEY": "test-key",
             "COMPOSIO_API_KEY": "test-key",
             "COMPOSIO_GMAIL_AUTH_CONFIG_ID": "test-auth-config",

@@ -8,6 +8,7 @@ from typing import Any, Optional
 from ...logging_config import logger
 from ...services.conversation import get_conversation_log
 from ...services.execution import get_agent_roster, get_execution_agent_logs
+from ...services.execution.discovery import WorkerDiscoveryError, find_workers
 from ..execution_agent.batch_manager import ExecutionBatchManager
 
 
@@ -19,6 +20,24 @@ class ToolResult:
     payload: Any = None
     user_message: Optional[str] = None
     recorded_reply: bool = False
+
+
+@dataclass
+class DiscoveryState:
+    """Small per-loop backend state; never supplied through model arguments."""
+    successful: bool = False
+
+
+FIND_WORKER_SCHEMA = {
+    "type": "function", "function": {
+        "name": "find_worker",
+        "description": "Search all exact worker names, purposes and recent assignments. Use before creating a new worker; a failed lookup is not no matches.",
+        "parameters": {"type": "object", "properties": {
+            "query": {"type": "string", "description": "Current task, distinguishing topic, or exact worker name; capped at 256 characters."},
+            "limit": {"type": "integer", "description": "Result count, clamped to 1–5.", "default": 5},
+        }, "required": ["query"], "additionalProperties": False},
+    },
+}
 
 # Tool schemas for OpenRouter
 TOOL_SCHEMAS = [
@@ -109,15 +128,19 @@ _EXECUTION_BATCH_MANAGER = ExecutionBatchManager()
 
 
 # Create or reuse execution agent and dispatch instructions asynchronously
-def send_message_to_agent(agent_name: str, instructions: str) -> ToolResult:
+def send_message_to_agent(agent_name: str, instructions: str, *, discovery=None) -> ToolResult:
     """Send instructions to an execution agent."""
+    if not isinstance(instructions, str) or not instructions.strip():
+        return ToolResult(False, {"error": "instructions must be a nonempty string"})
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        return ToolResult(False, {"error": "No event loop available"})
     roster = get_agent_roster()
-    roster.load()
-    existing_agents = set(roster.get_agents())
-    is_new = agent_name not in existing_agents
-
-    if is_new:
-        roster.add_agent(agent_name)
+    try:
+        is_new = roster.register(agent_name, allow_creation=discovery is None or discovery.successful)
+    except (WorkerDiscoveryError, ValueError) as exc:
+        return ToolResult(False, {"error": str(exc)})
 
     get_execution_agent_logs().record_request(agent_name, instructions)
 
@@ -131,12 +154,6 @@ def send_message_to_agent(agent_name: str, instructions: str) -> ToolResult:
             logger.info(f"Agent '{agent_name}' completed: {status}")
         except Exception as exc:  # pragma: no cover - defensive
             logger.error(f"Agent '{agent_name}' failed: {str(exc)}")
-
-    try:
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-        logger.error("No running event loop available for async execution")
-        return ToolResult(success=False, payload={"error": "No event loop available"})
 
     loop.create_task(_execute_async())
 
@@ -209,14 +226,28 @@ def wait(reason: str) -> ToolResult:
 
 
 # Return predefined tool schemas for LLM function calling
-def get_tool_schemas():
+def get_tool_schemas(*, bounded=False):
     """Return OpenAI-compatible tool schemas."""
-    return TOOL_SCHEMAS
+    return [*TOOL_SCHEMAS, FIND_WORKER_SCHEMA] if bounded else TOOL_SCHEMAS
+
+
+def find_worker(query, limit=5, *, discovery=None):
+    if discovery is not None:
+        discovery.successful = False
+    try:
+        payload = find_workers(get_agent_roster(), query, limit)
+    except (WorkerDiscoveryError, ValueError) as exc:
+        return ToolResult(False, {"status": "unavailable", "error": str(exc)})
+    if discovery is not None:
+        discovery.successful = True
+    return ToolResult(True, payload)
 
 
 # Route tool calls to appropriate handlers with argument validation and error handling
-def handle_tool_call(name: str, arguments: Any) -> ToolResult:
+def handle_tool_call(name: str, arguments: Any, *, discovery=None) -> ToolResult:
     """Handle tool calls from interaction agent."""
+    if name == "find_worker" and discovery is not None:
+        discovery.successful = False
     try:
         if isinstance(arguments, str):
             args = json.loads(arguments) if arguments.strip() else {}
@@ -226,7 +257,9 @@ def handle_tool_call(name: str, arguments: Any) -> ToolResult:
             return ToolResult(success=False, payload={"error": "Invalid arguments format"})
 
         if name == "send_message_to_agent":
-            return send_message_to_agent(**args)
+            return send_message_to_agent(**args, discovery=discovery)
+        if name == "find_worker":
+            return find_worker(**args, discovery=discovery)
         if name == "send_message_to_user":
             return send_message_to_user(**args)
         if name == "send_draft":

@@ -11,6 +11,9 @@ from typing import Dict, List, Optional
 
 from .runtime import ExecutionAgentRuntime, ExecutionResult
 from ...logging_config import logger
+from ...config import get_settings
+from ...services.execution import get_agent_roster
+from ...services.execution.discovery import WorkerDiscoveryError
 from ...observability import TraceContext, get_trace_context, record_event, trace_scope, traced
 
 
@@ -58,6 +61,13 @@ class ExecutionBatchManager:
 
         if not request_id:
             request_id = str(uuid.uuid4())
+
+        if get_settings().worker_discovery_strategy == "bounded":
+            try:
+                get_agent_roster().record_assignment(agent_name, instructions)
+            except WorkerDiscoveryError:
+                # Metadata is a search aid, not permission or authoritative state.
+                logger.warning("Worker assignment metadata could not be updated")
 
         batch_id = await self._register_pending_execution(agent_name, instructions, request_id)
 

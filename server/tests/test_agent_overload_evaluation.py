@@ -106,6 +106,7 @@ class EvaluationCliTests(unittest.TestCase):
         self.real_data.mkdir()
         (self.real_data / "marker.txt").write_text("private-history-marker", encoding="utf-8")
         self.environment = dict(os.environ, OPENPOKE_DATA_DIR=str(self.real_data),
+                                OPENPOKE_WORKER_DISCOVERY="bounded",
                                 OPENROUTER_API_KEY="do-not-export-api-sentinel", COMPOSIO_API_KEY="do-not-export-gmail-sentinel",
                                 UNRELATED_PRIVATE_SETTING="do-not-export-environment-sentinel")
 

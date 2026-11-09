@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Set
 
 from .agent import build_system_prompt, prepare_message_with_history
-from .tools import ToolResult, get_tool_schemas, handle_tool_call
+from .tools import DiscoveryState, ToolResult, get_tool_schemas, handle_tool_call
 from ...config import get_settings
 from ...services.conversation import get_conversation_log, get_working_memory_log
 from ...openrouter_client import request_chat_completion
@@ -55,7 +55,8 @@ class InteractionAgentRuntime:
         self.settings = settings
         self.conversation_log = get_conversation_log()
         self.working_memory_log = get_working_memory_log()
-        self.tool_schemas = get_tool_schemas()
+        self.bounded_discovery = settings.worker_discovery_strategy == "bounded"
+        self.tool_schemas = get_tool_schemas(bounded=self.bounded_discovery)
 
         if not self.api_key:
             raise ValueError(
@@ -71,9 +72,9 @@ class InteractionAgentRuntime:
             transcript_before = self._load_conversation_transcript()
             self.conversation_log.record_user_message(user_message)
 
-            system_prompt = build_system_prompt()
+            system_prompt = build_system_prompt(bounded=self.bounded_discovery)
             messages = prepare_message_with_history(
-                user_message, transcript_before, message_type="user"
+                user_message, transcript_before, message_type="user", bounded=self.bounded_discovery,
             )
 
             logger.info("Processing user message through interaction agent")
@@ -108,9 +109,9 @@ class InteractionAgentRuntime:
             transcript_before = self._load_conversation_transcript()
             self.conversation_log.record_agent_message(agent_message)
 
-            system_prompt = build_system_prompt()
+            system_prompt = build_system_prompt(bounded=self.bounded_discovery)
             messages = prepare_message_with_history(
-                agent_message, transcript_before, message_type="agent"
+                agent_message, transcript_before, message_type="agent", bounded=self.bounded_discovery,
             )
 
             logger.info("Processing execution agent results")
@@ -146,6 +147,7 @@ class InteractionAgentRuntime:
         """Iteratively query the LLM until it issues a final response."""
 
         summary = _LoopSummary()
+        discovery = DiscoveryState() if self.bounded_discovery else None
 
         for iteration in range(self.MAX_TOOL_ITERATIONS):
             response = await self._make_llm_call(system_prompt, messages)
@@ -172,12 +174,12 @@ class InteractionAgentRuntime:
             for tool_call in parsed_tool_calls:
                 summary.tool_names.append(tool_call.name)
 
-                if tool_call.name == "send_message_to_agent":
+                result = self._execute_tool(tool_call, discovery=discovery)
+
+                if tool_call.name == "send_message_to_agent" and result.success:
                     agent_name = tool_call.arguments.get("agent_name")
                     if isinstance(agent_name, str) and agent_name:
                         summary.execution_agents.add(agent_name)
-
-                result = self._execute_tool(tool_call)
 
                 if result.user_message:
                     summary.user_messages.append(result.user_message)
@@ -291,25 +293,27 @@ class InteractionAgentRuntime:
         return {}, f"unsupported argument type: {type(raw_arguments).__name__}"
 
     # Execute tool calls with error handling and logging, returning standardized results
-    def _execute_tool(self, tool_call: _ToolCall) -> ToolResult:
+    def _execute_tool(self, tool_call: _ToolCall, *, discovery=None) -> ToolResult:
         known_tools = {schema["function"]["name"] for schema in self.tool_schemas}
         name = tool_call.name if tool_call.name in known_tools else "unknown"
         with observe_tool("interaction", name) as observation:
-            result = self._execute_tool_impl(tool_call)
+            result = self._execute_tool_impl(tool_call, discovery=discovery)
             observation.success = result.success
             return result
 
-    def _execute_tool_impl(self, tool_call: _ToolCall) -> ToolResult:
+    def _execute_tool_impl(self, tool_call: _ToolCall, *, discovery=None) -> ToolResult:
         """Execute a tool call and convert low-level errors into structured results."""
 
         if "__invalid_arguments__" in tool_call.arguments:
+            if tool_call.name == "find_worker" and discovery is not None:
+                discovery.successful = False
             error = tool_call.arguments["__invalid_arguments__"]
             self._log_tool_invocation(tool_call, stage="rejected", detail={"error": error})
             return ToolResult(success=False, payload={"error": error})
 
         try:
             self._log_tool_invocation(tool_call, stage="start")
-            result = handle_tool_call(tool_call.name, tool_call.arguments)
+            result = handle_tool_call(tool_call.name, tool_call.arguments, discovery=discovery)
         except Exception as exc:  # pragma: no cover - defensive
             logger.error(
                 "Tool execution crashed",
@@ -356,9 +360,15 @@ class InteractionAgentRuntime:
             },
         }
 
+        if tool_call.name == "find_worker":
+            # The model already supplied its query. Do not echo giant original
+            # arguments outside the search response budget.
+            payload["arguments"] = {}
+
         if result.payload is not None:
             key = "result" if result.success else "error"
-            payload[key] = result.payload
+            payload[key] = (result.payload if result.success or tool_call.name != "find_worker"
+                            else {"status": "unavailable", "error": str(result.payload)[:240]})
 
         return self._safe_json_dump(payload)
 

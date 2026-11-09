@@ -3,7 +3,7 @@
 import os
 from functools import lru_cache
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -60,6 +60,9 @@ class Settings(BaseModel):
     server_host: str = Field(default=os.getenv("OPENPOKE_HOST", "0.0.0.0"))
     server_port: int = Field(default=_env_int("OPENPOKE_PORT", 8001))
     data_dir: Path = Field(default_factory=_data_dir_from_env)
+    worker_discovery_strategy: Literal["legacy", "bounded"] = Field(
+        default_factory=lambda: os.getenv("OPENPOKE_WORKER_DISCOVERY", "legacy"), validate_default=True,
+    )
 
     # LLM model selection
     openrouter_max_tokens: int = Field(default=_env_int("OPENROUTER_MAX_TOKENS", 2048), gt=0)

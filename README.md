@@ -111,8 +111,11 @@ See the [evaluation harness](evals/agent_overload/README.md) and the
 disposable storage and mocked providers; live model quality/cost remain unmeasured.
 
 The [reduced-scope implementation plan](docs/execution-agent-overload-implementation-plan.md)
-keeps name-based dispatch and local JSON/log storage. The next functional step
-is a bounded recent roster and explicit worker lookup. The unused workflow,
+keeps name-based dispatch and local JSON/log storage.
+[Bounded worker discovery](docs/worker-discovery.md) is available with
+`OPENPOKE_WORKER_DISCOVERY=bounded`: at most five recent entries plus `find_worker`
+over all workers, using a small metadata sidecar. The default remains `legacy`
+during development; restart the backend after changing the setting. The unused workflow,
 migration, and event-storage work is preserved in a
 [verified deferred checkpoint](deferred/execution-agent-overload-storage-2026-11-08/README.md)
 and removed from the active code and test suite. See the

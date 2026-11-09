@@ -1,117 +1,87 @@
-"""Simple agent roster management - just a list of agent names."""
+"""Authoritative exact worker names, with a rebuildable metadata sidecar."""
 
-import errno
 import json
-import os
-import time
 from pathlib import Path
-from typing import TextIO
-
-if os.name == "nt":
-    import msvcrt
-else:
-    import fcntl
+import threading
 
 from ...data_paths import get_data_dir
-from ...logging_config import logger
-
-
-def _lock_file(file: TextIO) -> None:
-    if os.name == "nt":
-        # Every writer locks the same byte, even when the file is empty.
-        file.seek(0)
-        try:
-            msvcrt.locking(file.fileno(), msvcrt.LK_NBLCK, 1)
-        except OSError as exc:
-            if exc.errno in {errno.EACCES, errno.EAGAIN, errno.EDEADLK}:
-                raise BlockingIOError(exc.errno, str(exc)) from exc
-            raise
-    else:
-        fcntl.flock(file.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-
-
-def _unlock_file(file: TextIO) -> None:
-    if os.name == "nt":
-        file.seek(0)
-        msvcrt.locking(file.fileno(), msvcrt.LK_UNLCK, 1)
-    else:
-        fcntl.flock(file.fileno(), fcntl.LOCK_UN)
+from .discovery import WorkerDiscoveryError, assignment_metadata, atomic_json, load_metadata
+from .log_store import _slugify
 
 
 class AgentRoster:
-    """Simple roster that stores agent names in a JSON file."""
+    # One local writer process; share the short lock across roster handles.
+    _lock = threading.RLock()
 
     def __init__(self, roster_path: Path):
-        self._roster_path = roster_path
-        self._agents: list[str] = []
+        self._roster_path = Path(roster_path)
+        self.metadata_path = self._roster_path.with_suffix(".metadata.json")
         self.load()
 
-    def load(self) -> None:
-        """Load agent names from roster.json."""
-        if self._roster_path.exists():
-            try:
-                with open(self._roster_path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    if isinstance(data, list):
-                        self._agents = [str(name) for name in data]
-            except Exception as exc:
-                logger.warning(f"Failed to load roster.json: {exc}")
-                self._agents = []
-        else:
-            self._agents = []
-            self.save()
-
-    def save(self) -> None:
-        """Save agent names to roster.json with file locking."""
-        max_retries = 5
-        retry_delay = 0.1
-
-        for attempt in range(max_retries):
-            try:
-                self._roster_path.parent.mkdir(parents=True, exist_ok=True)
-
-                # Do not truncate an existing roster until we own the lock.
-                with open(self._roster_path, 'a+', encoding='utf-8') as f:
-                    _lock_file(f)
-                    try:
-                        f.seek(0)
-                        f.truncate()
-                        json.dump(self._agents, f, indent=2)
-                        f.flush()
-                        return
-                    finally:
-                        _unlock_file(f)
-
-            except BlockingIOError:
-                # Lock is held by another process
-                if attempt < max_retries - 1:
-                    time.sleep(retry_delay)
-                    retry_delay *= 2  # Exponential backoff
-                else:
-                    logger.warning("Failed to acquire lock on roster.json after retries")
-            except Exception as exc:
-                logger.warning(f"Failed to save roster.json: {exc}")
-                break
-
-    def add_agent(self, agent_name: str) -> None:
-        """Add an agent to the roster if not already present."""
-        if agent_name not in self._agents:
-            self._agents.append(agent_name)
-            self.save()
-
-    def get_agents(self) -> list[str]:
-        """Get list of all agent names."""
-        return list(self._agents)
-
-    def clear(self) -> None:
-        """Clear the agent roster."""
-        self._agents = []
+    def _read(self):
         try:
-            if self._roster_path.exists():
-                self._roster_path.unlink()
-            logger.info("Cleared agent roster")
-        except Exception as exc:
-            logger.warning(f"Failed to clear roster.json: {exc}")
+            with self._roster_path.open(encoding="utf-8") as handle:
+                names = json.load(handle)
+            if not isinstance(names, list) or any(not isinstance(name, str) for name in names):
+                raise ValueError()
+            return names
+        except FileNotFoundError:
+            return []
+        except (OSError, ValueError, UnicodeError) as exc:
+            raise WorkerDiscoveryError("Worker roster is unavailable; retry before creating a worker") from exc
+
+    def load(self):
+        with self._lock:
+            names = self._read()
+            if not self._roster_path.exists():
+                atomic_json(self._roster_path, names)
+
+    def get_agents(self):
+        with self._lock:
+            return self._read()
+
+    def add_agent(self, agent_name):
+        self.register(agent_name)
+
+    def register(self, agent_name, *, allow_creation=True):
+        """Recheck membership, discovery and slug ownership under the local lock."""
+        if not isinstance(agent_name, str):
+            raise ValueError("agent_name must be a string")
+        with self._lock:
+            names = self._read()
+            if agent_name in names:
+                return False
+            if not agent_name.strip() or len(agent_name) > 200:
+                raise ValueError("New worker names must contain 1–200 characters")
+            if names and not allow_creation:
+                raise ValueError("Call find_worker successfully in this turn before creating another worker")
+            slug = _slugify(agent_name)
+            if any(_slugify(name) == slug for name in names) or (self._roster_path.parent / f"{slug}.log").exists():
+                raise ValueError("Worker name collides with an existing history filename; use another name or reconcile the history")
+            atomic_json(self._roster_path, [*names, agent_name])
+            return True
+
+    def discovery_snapshot(self):
+        with self._lock:
+            return self._read(), load_metadata(self.metadata_path)
+
+    def record_assignment(self, agent_name, instructions):
+        with self._lock:
+            if agent_name not in self._read():
+                return  # Late assignments cannot restore removed metadata.
+            metadata = load_metadata(self.metadata_path)
+            metadata[agent_name] = assignment_metadata(metadata.get(agent_name, {}), instructions)
+            atomic_json(self.metadata_path, metadata)
+
+    def rebuild_metadata(self):
+        """Reset derived fields; every roster name remains searchable immediately."""
+        with self._lock:
+            atomic_json(self.metadata_path, {})
+
+    def clear(self):
+        with self._lock:
+            self.metadata_path.unlink(missing_ok=True)
+            self._roster_path.unlink(missing_ok=True)
 
 
 _ROSTER_PATH = get_data_dir() / "execution_agents" / "roster.json"
