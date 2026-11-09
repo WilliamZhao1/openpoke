@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import List, Optional, Dict, Any
 
 from ...services.execution import get_execution_agent_logs
+from ...services.execution.log_store import preserve_worker_content
 from ...logging_config import logger
 
 
@@ -113,11 +114,16 @@ class ExecutionAgent:
     # Log the agent's final response to the execution log store
     def record_response(self, response: str) -> None:
         """Record agent's response to the log."""
+        preserve_worker_content(response, "worker_response", min_bytes=4096, log_store=self._log_store)
         self._log_store.record_agent_response(self.name, response)
 
     # Log tool invocation and results with truncated content for readability
     def record_tool_execution(self, tool_name: str, arguments: str, result: str) -> None:
         """Record tool execution details."""
+        # Gmail/search adapters capture at the actual account-bound boundary.
+        if not tool_name.startswith("gmail_") and tool_name != "task_email_search":
+            preserve_worker_content(arguments, f"{tool_name}.arguments", min_bytes=200, log_store=self._log_store)
+            preserve_worker_content(result, f"{tool_name}.result", log_store=self._log_store)
         self._log_store.record_action(self.name, f"Calling {tool_name} with: {arguments[:200]}")
         # Record the tool response
         self._log_store.record_tool_response(self.name, tool_name, result[:500])

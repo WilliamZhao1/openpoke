@@ -11,6 +11,7 @@ from ...services.conversation import get_conversation_log, get_working_memory_lo
 from ...openrouter_client import request_chat_completion
 from ...logging_config import logger
 from ...observability import observe_tool, record_event, traced
+from ...content_store import ContentStoreError, capture_scope, capture_text
 
 
 @dataclass
@@ -66,11 +67,21 @@ class InteractionAgentRuntime:
     # Main entry point for processing user messages through the LLM interaction loop
     @traced(origin="chat")
     async def execute(self, user_message: str) -> InteractionResult:
+        try:
+            with capture_scope("conversation"):
+                return await self._execute_user(user_message)
+        except ContentStoreError as exc:
+            return InteractionResult(False, "", error=str(exc))
+
+    async def _execute_user(self, user_message: str) -> InteractionResult:
         """Handle a user-authored message."""
 
         try:
+            reference = capture_text(user_message, kind="user_message")
             transcript_before = self._load_conversation_transcript()
             self.conversation_log.record_user_message(user_message)
+            if reference:
+                self.conversation_log.record_content_reference(reference, "user_message")
 
             system_prompt = build_system_prompt(bounded=self.bounded_discovery)
             messages = prepare_message_with_history(
@@ -101,13 +112,23 @@ class InteractionAgentRuntime:
 
     # Handle incoming messages from execution agents and generate appropriate responses
     @traced(new_turn=True)
-    async def handle_agent_message(self, agent_message: str) -> InteractionResult:
+    async def handle_agent_message(self, agent_message: str, *, content_generation=None) -> InteractionResult:
+        try:
+            with capture_scope("conversation", generation=content_generation):
+                return await self._handle_agent_message(agent_message)
+        except ContentStoreError as exc:
+            return InteractionResult(False, "", error=str(exc))
+
+    async def _handle_agent_message(self, agent_message: str) -> InteractionResult:
         """Process a status update emitted by an execution agent."""
 
         record_event("callback.received", component="interaction")
         try:
+            reference = capture_text(agent_message, kind="agent_message")
             transcript_before = self._load_conversation_transcript()
             self.conversation_log.record_agent_message(agent_message)
+            if reference:
+                self.conversation_log.record_content_reference(reference, "agent_message")
 
             system_prompt = build_system_prompt(bounded=self.bounded_discovery)
             messages = prepare_message_with_history(

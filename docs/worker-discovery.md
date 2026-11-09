@@ -107,7 +107,7 @@ history-clear/execution races; content-reference handling belongs to Phase 2.
 
 ## Verification
 
-`python server/tests/run_tests.py` passes 98 tests, including 20 new discovery
+`python server/tests/run_tests.py` passes 137 tests, including 20 discovery
 tests. They cover catalog/output caps, dormant workers, exact names and separate
 topics, metadata persistence/rebuild, unknown activity, malformed storage,
 atomic-write failure, concurrent membership updates, collisions, history clearing,

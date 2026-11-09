@@ -7,15 +7,15 @@ The reduced-scope revision of
 supersedes the earlier storage/migration roadmap. Phase 1 now means bounded worker
 discovery; Phase 2 means bounded context/recovery; Phase 3 means focused comparison
 and release. Revised Phase 1 discovery is implemented behind the development
-strategy setting. Phase 2 has the shared budget helper/provider preflight;
-content preservation and bounded history/recovery are next. No backup/import
+strategy setting. Phase 2 has provider preflight and live full-content capture;
+bounded history construction and model-visible recovery are next. No backup/import
 phase precedes them.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 114 tests.
+and removed from the active implementation. The active suite now has 137 tests.
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -680,10 +680,73 @@ opaque-reference reads, draft-by-reference adapters, and cumulative recall/work
 limits remain unfinished. Usage and examples are in
 [`context-budgets.md`](context-budgets.md).
 
+## Revised Phase 2, step 2: Full-content capture (complete)
+
+**Motivation:** Full text must exist before previews or history pruning can omit
+it. The worker journal already cuts arguments/results at 200/500 characters;
+conversation formatting also normalizes line endings. Neither can supply exact
+original text that was discarded. The preflight guard alone supplies no durable
+source for recovery after a rejection or restart.
+
+**Old behavior:** Workers wrote shortened tool payloads; there was no opaque
+content store or owner/account-qualified source reference. History clearing did
+not invalidate content-write leases because those references did not exist.
+
+**New behavior:** `server/content_store.py` publishes immutable UTF-8 bodies and
+minimal JSON metadata beneath the configured root. Opaque IDs contain random
+generation/object identifiers, not names or paths. Metadata carries owner, kind,
+provider/account qualification, hash, size, media type, and capture time. Backend
+reads return bounded byte pages after qualification and generation checks.
+Missing, invalid, incomplete, or expired references fail explicitly.
+
+Bounded user/callback/reply and worker instruction/response paths capture text
+over 4,096 bytes. Worker arguments/results are additionally preserved before
+the existing journal cuts, with references written into the same journals.
+Gmail adapters bind capture to the actual Composio routing account; inner search
+saves fetch output before cleaning and its selected aggregate. Reviewed draft
+bodies retain original bytes with explicitly unknown mailbox provenance when
+the display tool lacks that information. No result or review body is previewed
+or replaced in model input by this step.
+
+**Why this approach:** Small body/metadata files supply the required source
+without workflow migration or an event schema. Private-directory publication
+keeps partially written objects from becoming usable references. Content-only
+async capture scopes carry exact owners and the original generation through
+queued work; they contain no tool dispatch/approval machinery. Clear advances
+the generation before deleting managed files, so failed cleanup cannot revive
+old references. Batches preserve their first generation for callbacks, avoiding
+attachment of mixed older content to the last finisher's newer history.
+
+Gmail/search capture occurs where the executed account is known, rather than
+guessing from later active-account state. Generic worker logging avoids a second
+unqualified capture of those results. Reference journaling failures are explicit.
+Persistence failure after a Gmail result aborts the tool loop with outcome-check
+guidance instead of offering that tool error to the model for automatic retry.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+all 137 tests: 114 retained and 23 new. Coverage includes exact Unicode/CRLF and
+middle-fact recovery; empty bodies; bounded paging; fresh-process persistence;
+owner/account and profile boundaries; unknown provenance; missing/corrupt/
+truncated content; atomic publication failure; concurrent writes/scopes; clear
+and failed cleanup; queued writes and stale/mixed callbacks; original chat/draft
+visibility; real worker/Gmail/inner-search capture paths; and capture-failure
+propagation. Tests also preserve the existing prompt's whitespace normalization
+while verifying that captured originals remain exact. All storage/results were
+temporary or mocked; no live model/Gmail calls occurred. `git diff --check` passed.
+
+**Remaining limits:** Backend paging is available, but model-visible recovery,
+bounded episode construction, cumulative recall limits, and draft-by-reference
+send adapters remain unfinished. Background classifier/summarizer source capture
+will be added with their bounded context paths. This guards content references
+and old content writes; it does not cancel already-running external actions or
+solve all existing legacy-journal clear races. Body hashes accompany pages for
+assembled-content verification, not a whole-file rehash on every page. Details
+and examples are in [`content-capture.md`](content-capture.md).
+
 ## Next implementation step under the revised plan
 
-Preserve full oversized messages/results under opaque IDs in the small content
-store specified by Phase 2. Include owner/mailbox qualification, restart-safe
-reads, and clear/invalidation checks, and connect it to actual capture paths
-before introducing previews. Then build bounded episodes and recovery handlers.
-Revised Phase 3 comparison/default promotion remains pending.
+Add bounded `read_result` and selected-history recall handlers, then use captured
+references when constructing bounded complete conversation/tool episodes. Keep
+required instructions and genuine follow-up dependencies, preserve valid tool
+call/result pairs, and retain final provider preflight. Revised Phase 3 comparison
+and default promotion remain pending.

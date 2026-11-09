@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import json
 import threading
 from html import escape, unescape
 from pathlib import Path
@@ -143,14 +144,23 @@ class ConversationLog:
         self._working_memory_log.append_entry("agent_message", content, timestamp)
 
     def record_reply(self, content: str) -> None:
+        from ...content_store import capture_text
+        reference = capture_text(content, kind="user_reply")
         timestamp = self._append("poke_reply", content)
         self._working_memory_log.append_entry("poke_reply", content, timestamp)
+        if reference:
+            self.record_content_reference(reference, "user_reply")
         record_event("reply.recorded", component="interaction", outcome="succeeded")
 
     def record_wait(self, reason: str) -> None:
         """Record a wait marker that should not reach the user-facing chat history."""
         timestamp = self._append("wait", reason)
         self._working_memory_log.append_entry("wait", reason, timestamp)
+
+    def record_content_reference(self, reference, kind):
+        payload = json.dumps({"reference": reference, "kind": kind})
+        timestamp = self._append("content_reference", payload)
+        self._working_memory_log.append_entry("content_reference", payload, timestamp)
 
     def _notify_summarization(self) -> None:
         settings = get_settings()

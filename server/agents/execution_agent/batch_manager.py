@@ -15,6 +15,7 @@ from ...config import get_settings
 from ...services.execution import get_agent_roster
 from ...services.execution.discovery import WorkerDiscoveryError
 from ...observability import TraceContext, get_trace_context, record_event, trace_scope, traced
+from ...content_store import ContentStoreError, capture_scope, current_capture
 
 
 @dataclass
@@ -37,6 +38,7 @@ class _BatchState:
     pending: int = 0
     results: List[ExecutionResult] = field(default_factory=list)
     traces: List[TraceContext] = field(default_factory=list)
+    content_generation: Optional[str] = None
 
 
 class ExecutionBatchManager:
@@ -57,6 +59,13 @@ class ExecutionBatchManager:
         instructions: str,
         request_id: Optional[str] = None,
     ) -> ExecutionResult:
+        try:
+            with capture_scope(f"worker:{agent_name}"):
+                return await self._execute_agent(agent_name, instructions, request_id)
+        except ContentStoreError as exc:
+            return ExecutionResult(agent_name, False, "", error=str(exc))
+
+    async def _execute_agent(self, agent_name, instructions, request_id=None) -> ExecutionResult:
         """Execute an agent asynchronously and buffer the result for batch dispatch."""
 
         if not request_id:
@@ -131,7 +140,8 @@ class ExecutionBatchManager:
         async with self._batch_lock:
             if self._batch_state is None:
                 batch_id = str(uuid.uuid4())
-                self._batch_state = _BatchState(batch_id=batch_id)
+                capture = current_capture()
+                self._batch_state = _BatchState(batch_id=batch_id, content_generation=capture.generation if capture else None)
             else:
                 batch_id = self._batch_state.batch_id
 
@@ -156,6 +166,7 @@ class ExecutionBatchManager:
 
         dispatch_payload: Optional[str] = None
         dispatch_traces: List[TraceContext] = []
+        dispatch_generation = None
 
         async with self._batch_lock:
             state = self._batch_state
@@ -170,6 +181,7 @@ class ExecutionBatchManager:
             state.pending -= 1
 
             if state.pending == 0:
+                dispatch_generation = state.content_generation
                 dispatch_payload = self._format_batch_payload(state.results)
                 dispatch_traces = list(state.traces)
                 agent_names = [entry.agent_name for entry in state.results]
@@ -190,7 +202,10 @@ class ExecutionBatchManager:
                     "callback.dispatched", component="execution",
                     parents=[asdict(trace) for trace in dispatch_traces],
                 )
-                await self._dispatch_to_interaction_agent(dispatch_payload)
+                if dispatch_generation is None:
+                    await self._dispatch_to_interaction_agent(dispatch_payload)
+                else:
+                    await self._dispatch_to_interaction_agent(dispatch_payload, content_generation=dispatch_generation)
 
     # Return list of currently pending execution requests for monitoring purposes
     def get_pending_executions(self) -> List[Dict[str, str]]:
@@ -227,16 +242,17 @@ class ExecutionBatchManager:
         return "\n".join(entries)
 
     # Forward combined execution results to interaction agent for user response generation
-    async def _dispatch_to_interaction_agent(self, payload: str) -> None:
+    async def _dispatch_to_interaction_agent(self, payload: str, *, content_generation=None) -> None:
         """Send the aggregated execution summary to the interaction agent."""
 
         from ..interaction_agent.runtime import InteractionAgentRuntime
 
         runtime = InteractionAgentRuntime()
+        callback = runtime.handle_agent_message(payload, content_generation=content_generation) if content_generation else runtime.handle_agent_message(payload)
         try:
             loop = asyncio.get_running_loop()
         except RuntimeError:
-            asyncio.run(runtime.handle_agent_message(payload))
+            asyncio.run(callback)
             return
 
-        loop.create_task(runtime.handle_agent_message(payload))
+        loop.create_task(callback)

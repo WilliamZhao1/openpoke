@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import json
 import threading
 from html import escape, unescape
 from pathlib import Path
@@ -66,7 +67,7 @@ class ExecutionAgentLogStore:
         """Get log file path for an agent."""
         return self._base_dir / f"{_slugify(agent_name)}.log"
 
-    def _append(self, agent_name: str, tag: str, payload: str) -> None:
+    def _append(self, agent_name: str, tag: str, payload: str, *, strict=False) -> None:
         """Append an entry with the given tag."""
         encoded = _encode_payload(str(payload))
         timestamp = now_in_user_timezone("%Y-%m-%d %H:%M:%S")
@@ -78,6 +79,8 @@ class ExecutionAgentLogStore:
                     handle.write(entry)
             except Exception as exc:
                 logger.error(f"Failed to append to log: {exc}")
+                if strict:
+                    raise
 
     def _parse_line(self, line: str) -> Optional[Tuple[str, str, str]]:
         """Parse a single log line."""
@@ -124,6 +127,9 @@ class ExecutionAgentLogStore:
     def record_agent_response(self, agent_name: str, response: str) -> None:
         """Record the agent's final response."""
         self._append(agent_name, "agent_response", response)
+
+    def record_content_reference(self, agent_name, reference, kind):
+        self._append(agent_name, "content_reference", json.dumps({"reference": reference, "kind": kind}), strict=True)
 
     def iter_entries(self, agent_name: str) -> Iterator[Tuple[str, str, str]]:
         """Iterate over all log entries for an agent."""
@@ -182,3 +188,17 @@ _execution_agent_logs = ExecutionAgentLogStore(_EXECUTION_LOG_DIR)
 def get_execution_agent_logs() -> ExecutionAgentLogStore:
     """Get the singleton log store instance."""
     return _execution_agent_logs
+
+
+def preserve_worker_content(text, kind, *, provider=None, account_id=None, min_bytes=500, log_store=None):
+    from ...content_store import ContentStoreError, capture_text, current_capture
+    context = current_capture()
+    if context is None or not context.owner.startswith("worker:"):
+        return None
+    reference = capture_text(text, kind=kind, provider=provider, account_id=account_id, min_bytes=min_bytes)
+    if reference:
+        try:
+            (log_store or get_execution_agent_logs()).record_content_reference(context.owner[len("worker:"):], reference, kind)
+        except OSError as exc:
+            raise ContentStoreError("Full content was saved but its journal reference could not be recorded") from exc
+    return reference

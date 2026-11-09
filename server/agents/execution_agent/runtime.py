@@ -11,6 +11,8 @@ from ...config import get_settings
 from ...openrouter_client import request_chat_completion
 from ...logging_config import logger
 from ...observability import observe_tool, traced
+from ...content_store import ContentStoreError, capture_scope
+from ...services.execution.log_store import preserve_worker_content
 
 
 @dataclass
@@ -43,8 +45,16 @@ class ExecutionAgentRuntime:
     # Main execution loop for running agent with LLM calls and tool execution
     @traced()
     async def execute(self, instructions: str) -> ExecutionResult:
+        try:
+            with capture_scope(f"worker:{self.agent.name}"):
+                return await self._execute(instructions)
+        except ContentStoreError as exc:
+            return ExecutionResult(self.agent.name, False, "", error=str(exc))
+
+    async def _execute(self, instructions: str) -> ExecutionResult:
         """Execute the agent with given instructions."""
         try:
+            preserve_worker_content(instructions, "worker_instructions", min_bytes=4096, log_store=self.agent._log_store)
             # Build system prompt with history
             system_prompt = self.agent.build_system_prompt_with_history()
 
@@ -246,5 +256,7 @@ class ExecutionAgentRuntime:
             ):
                 return False, result
             return True, result
+        except ContentStoreError:
+            raise  # Do not repeat an external action after a content-capture failure.
         except Exception as e:
             return False, {"error": str(e)}

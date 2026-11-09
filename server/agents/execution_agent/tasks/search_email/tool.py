@@ -9,6 +9,8 @@ from server.config import get_settings
 from server.logging_config import logger
 from server.openrouter_client import request_chat_completion
 from server.services.execution import get_execution_agent_logs
+from server.services.execution.log_store import preserve_worker_content
+from server.content_store import ContentStoreError, current_capture
 from server.services.gmail import (
     EmailTextCleaner,
     ProcessedEmail,
@@ -111,14 +113,21 @@ async def task_email_search(search_query: str) -> Any:
         return {"error": model_or_error}
     
     try:
+        preserve_worker_content(search_query, "task_email_search.arguments", provider="gmail", account_id=composio_user_id,
+                                min_bytes=200, log_store=_LOG_STORE)
         result = await _run_email_search(
             search_query=cleaned_query,
             composio_user_id=composio_user_id,
             model=model_or_error,
             api_key=api_key,
         )
+        if current_capture() is not None:
+            preserve_worker_content(_safe_json_dumps(result), "task_email_search.result", provider="gmail",
+                                    account_id=composio_user_id, log_store=_LOG_STORE)
         logger.info(f"[EMAIL_SEARCH] Found {len(result) if isinstance(result, list) else 0} emails")
         return result
+    except ContentStoreError:
+        raise
     except Exception as exc:  # pragma: no cover - defensive
         logger.exception(f"[EMAIL_SEARCH] Search failed: {exc}")
         return {"error": f"Email search failed: {exc}"}
@@ -318,6 +327,8 @@ async def _perform_search(
             composio_user_id,
             arguments=composio_arguments,
         )
+    except ContentStoreError:
+        raise
     except Exception as exc:
         logger.error(f"[EMAIL_SEARCH] Gmail API failed for '{query}': {exc}")
         return EmailSearchToolResult(
@@ -326,6 +337,9 @@ async def _perform_search(
             error=str(exc),
         )
 
+    if current_capture() is not None:
+        preserve_worker_content(_safe_json_dumps(raw_result), "GMAIL_FETCH_EMAILS.result", provider="gmail",
+                                account_id=composio_user_id, log_store=_LOG_STORE)
     processed_emails, next_page_token = parse_gmail_fetch_response(
         raw_result,
         query=query,

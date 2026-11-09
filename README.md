@@ -123,8 +123,10 @@ and removed from the active code and test suite. See the
 
 [Shared context preflight](docs/context-budgets.md) is available with
 `OPENPOKE_CONTEXT_STRATEGY=bounded` and explicit per-model allowances. It accounts
-for complete text requests and rejects over-budget input before HTTP; source
-recovery and bounded history construction remain the next Phase 2 slices.
+for complete text requests and rejects over-budget input before HTTP.
+[Full-content capture](docs/content-capture.md) now preserves oversized live
+messages/results under owner-qualified references in the same bounded mode.
+Model-visible recovery and bounded history construction remain next.
 
 ## Project Layout
 - `server/` – FastAPI application and agents

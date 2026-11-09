@@ -25,6 +25,9 @@ def chat_history() -> ChatHistoryResponse:
 @router.delete("/history", response_model=ChatHistoryClearResponse)
 def clear_history() -> ChatHistoryClearResponse:
     from ..services import get_execution_agent_logs, get_agent_roster
+    from ..content_store import ContentStore
+
+    ContentStore().clear()
 
     # Clear conversation log
     log = get_conversation_log()

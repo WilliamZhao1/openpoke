@@ -9,6 +9,7 @@ from ...logging_config import logger
 from ...services.conversation import get_conversation_log
 from ...services.execution import get_agent_roster, get_execution_agent_logs
 from ...services.execution.discovery import WorkerDiscoveryError, find_workers
+from ...content_store import capture_text
 from ..execution_agent.batch_manager import ExecutionBatchManager
 
 
@@ -190,9 +191,13 @@ def send_draft(
     """Record a draft update in the conversation log for the interaction agent."""
     log = get_conversation_log()
 
+    reference = capture_text(body, kind="reviewed_draft_body", provider="gmail", account_id=None)
+
     message = f"To: {to}\nSubject: {subject}\n\n{body}"
 
     log.record_reply(message)
+    if reference:
+        log.record_content_reference(reference, "reviewed_draft_body")
     logger.info(f"Draft recorded for: {to}")
 
     return ToolResult(

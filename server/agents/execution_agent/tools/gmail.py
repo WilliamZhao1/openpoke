@@ -6,6 +6,8 @@ import json
 from typing import Any, Callable, Dict, List, Optional
 
 from server.services.execution import get_execution_agent_logs
+from server.services.execution.log_store import preserve_worker_content
+from server.content_store import ContentStoreError, current_capture
 from server.services.gmail import execute_gmail_tool, get_active_gmail_user_id
 
 _GMAIL_AGENT_NAME = "gmail-execution-agent"
@@ -327,6 +329,8 @@ def _execute(tool_name: str, composio_user_id: str, arguments: Dict[str, Any]) -
 
     payload = {k: v for k, v in arguments.items() if v is not None}
     payload_str = json.dumps(payload, ensure_ascii=False, sort_keys=True) if payload else "{}"
+    preserve_worker_content(payload_str, f"{tool_name}.arguments", provider="gmail", account_id=composio_user_id,
+                            min_bytes=200, log_store=_LOG_STORE)
     try:
         result = execute_gmail_tool(tool_name, composio_user_id, arguments=payload)
     except Exception as exc:
@@ -335,6 +339,13 @@ def _execute(tool_name: str, composio_user_id: str, arguments: Dict[str, Any]) -
             description=f"{tool_name} failed | args={payload_str} | error={exc}",
         )
         raise
+
+    try:
+        if current_capture() is not None:
+            preserve_worker_content(json.dumps(result, ensure_ascii=False, default=str), f"{tool_name}.result", provider="gmail",
+                                    account_id=composio_user_id, log_store=_LOG_STORE)
+    except ContentStoreError as exc:
+        raise ContentStoreError("Gmail returned a result but content persistence failed; check the operation outcome before retrying") from exc
 
     _LOG_STORE.record_action(
         _GMAIL_AGENT_NAME,

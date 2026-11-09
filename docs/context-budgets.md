@@ -111,7 +111,7 @@ context builders without adding a new observation framework.
 
 ## Verification and remaining work
 
-`python server/tests/run_tests.py` passes all 114 tests, including 16 new context
+`python server/tests/run_tests.py` passes all 137 tests, including 16 context
 budget tests. Checks cover every input section, exact boundaries, output/headroom
 arithmetic, multilingual text, configuration failures, unsupported media, no-HTTP
 rejection, immutable wire bytes, unchanged accepted content/output, provider-usage
@@ -120,9 +120,10 @@ model-calling paths reaching the shared guard. The existing baseline CLI tests
 also run with conflicting bounded settings in the caller environment to verify
 legacy isolation. All data and provider responses are temporary or mocked.
 
-Phase 2 remains in progress. The next slice preserves full oversized content in
-a small owner/account-qualified content store before introducing previews.
-Bounded episode construction, source-reference paging, exact draft-by-reference
-adapters, and cumulative recovery limits follow. No source is deleted or
+Phase 2 remains in progress. [Full-content capture](content-capture.md) now saves
+oversized live content in a small owner/account-qualified file store, with
+backend paging and history-clear invalidation. Model-visible recovery, bounded
+episode construction, exact draft-by-reference adapters, and cumulative recovery
+limits follow. No source is deleted or
 shortened by this preflight, and it does not establish routing quality, native
 token accuracy, or completion of the full bounded-context release.
