@@ -4,8 +4,9 @@ Updated: 2026-11-08
 
 The implementation follows `execution-agent-overload-implementation-plan.md`
 in separately reviewable steps. Phase 0's model-free baseline and infrastructure
-are complete. Phase 1's storage foundation is implemented; migration and runtime
-adoption remain pending. Model-backed release comparisons remain in Phase 5.
+are complete. Phase 1's storage foundation and migration dry-run are implemented;
+migration apply and runtime adoption remain pending. Model-backed release
+comparisons remain in Phase 5.
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -362,13 +363,74 @@ quality claim. Existing baseline evidence is preserved.
 Design details and executable API examples are in
 `server/services/workflows/README.md`.
 
+## Step 6: Non-destructive migration dry-run and reconciliation report (complete)
+
+This completes the second slice of Phase 1. Apply mode remains unimplemented.
+
+**Motivation:** Migration must expose ambiguity and missing evidence before
+allocating durable mappings or changing writers. Filename collisions cannot
+establish historical ownership, and background writers can change a source
+while it is being inspected. The plan requires these cases to be reported,
+not silently merged or treated as empty data.
+
+**Old behavior:** Legacy store constructors initialize files during application
+imports. Roster loading coerces non-string values, and log readers skip
+unparsed lines. Several failed reads become empty state. There was no separate
+inventory of source fingerprints, exact roster positions, unresolved owners,
+or summary-boundary references.
+
+**New behavior:** `server/services/workflows/migration.py` provides a stdlib-only
+standalone CLI with an explicit data root and optional new report file outside
+that root. It never imports the app, constructs a live store, allocates IDs,
+or changes source files. It inventories every roster position, exact aliases,
+worker/conversation entry locations and indices, raw-source/payload hashes,
+request references, working-memory summary metadata/boundary/tail, and trigger
+owner bindings. Reports omit conversation and tool text while retaining names
+needed for reconciliation. Unknown workflow state and purpose remain unknown.
+
+Duplicate aliases, slug collisions, orphan logs, unresolved trigger names,
+malformed records, inaccessible storage, and inconsistent summary state are
+explicit blocking issues. Missing worker logs and possibly truncated tool
+content are warnings. Existing truncation is not repaired or presented as full
+source. Repeated scans of unchanged inputs produce the same report.
+
+**Why this approach:** Inspecting formats directly avoids the legacy services'
+initialization and error-swallowing behavior. Streaming logs retain original
+locations without accumulating source payloads. Parser parity preserves legacy
+indices; ambiguous/noncanonical formats block rather than promise a safe map.
+SQLite reads only temporary copies of the trigger database and WAL, preserving
+committed WAL data without writing source shared-memory files. Copy hashes,
+source fingerprint rechecks, and log-set rechecks detect observed drift. The
+report explicitly does not claim an atomic snapshot across these sources.
+Separating inspection from apply makes reconciliation reviewable before
+resumable mappings, backups, or live writers are introduced.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+all 119 tests: 104 existing and 15 new. Tests verify source bytes, mtimes, and
+file sets remain unchanged; repeated reports; committed WAL-only rows and
+scratch cleanup; collision/orphan/owner diagnostics; exact aliases and roster
+positions; parser parity and byte offsets; summary boundaries and tail checks;
+corrupt/unreadable inputs; detected source mutations; CLI status codes and
+overwrite protection. A guarded fresh process rejects any app import or network
+connection. Inputs are synthetic and temporary; no real data was inspected.
+`git diff --check` passed for tracked changes.
+
+**Remaining limits / plan alignment:** `review_ready` means no blocking issue
+was detected, not that migration can be applied. Every report states
+`apply_supported: false`. Byte hashes and locations are source locators, not
+durable workflow/event mappings. Pause all writers and revalidate during the
+future maintenance window; consistent backups, source/event storage, resumable
+apply, trigger backfill, summary mapping, activity records/cards, authoritative
+adapters, and startup gating remain Phase 1 work. Live behavior and the saved
+baseline are unchanged. CLI usage and examples are in
+`server/services/workflows/MIGRATION.md`.
+
 ## Next implementation step
 
-Add a non-destructive migration dry-run and reconciliation report that inventories
-the legacy roster, logs, conversation state, and triggers; surfaces collisions,
-orphans, and unresolved owners; and leaves all input files untouched. Source/event
-storage and verified apply mode will follow before compatibility adapters or
-background dispatch use the new database.
+Add immutable source/event persistence and durable legacy-reference mappings to
+the SQLite foundation. This is needed before apply mode can preserve original
+content, resume imports without duplicates, or map summary indices to stable
+event references. Backups and verified apply will follow before live adoption.
 
 Phase 1 is in progress; Phases 2–7 remain pending. Phase 6 is optional, and
 Phase 7 follows the baseline release rather than being a prerequisite for it.

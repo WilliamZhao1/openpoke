@@ -112,7 +112,9 @@ disposable storage and mocked providers; live model quality/cost remain unmeasur
 
 The new [workflow storage foundation](server/services/workflows/README.md)
 documents stable identities, revision checks, SQLite behavior, and API examples.
-It is not yet connected to live routing; migration and adoption are later steps.
+It is not yet connected to live routing. A standalone, read-only
+[migration dry-run](server/services/workflows/MIGRATION.md) reports legacy
+collisions and unresolved references; migration apply and adoption are later steps.
 
 ## Project Layout
 - `server/` – FastAPI application and agents

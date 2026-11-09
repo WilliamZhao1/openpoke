@@ -98,16 +98,17 @@ enforcement](https://www.sqlite.org/foreignkeys.html#fk_enable).
 
 ## Verification and remaining work
 
-Run `python server/tests/run_tests.py` from the repository root. All 104 tests
-pass, including 26 new tests in `test_workflow_store.py`. They cover restart
+Run `python server/tests/run_tests.py` from the repository root. All 119 tests
+pass. The 26 storage tests in `test_workflow_store.py` cover restart
 persistence, aliases and slug collisions, scoped access, revisions, concurrent
 writers, index rollback/rebuild, foreign keys, bounded lock handling, schema
 rollback/rejection, missing/corrupt data, generation changes, FTS5 failure, and
 import/data-root isolation. Tests use disposable state and no live providers.
 
-The next slice is a non-destructive legacy migration dry-run and reconciliation
-report. Applying migration still requires source/event persistence, consistent
-backups, resumable mappings, trigger/summary reconciliation, and validation.
+The [non-destructive migration dry-run](MIGRATION.md) is now available as a
+standalone CLI and has 15 additional tests. Applying migration still requires
+source/event persistence, consistent backups, resumable mappings,
+trigger/summary reconciliation, and validation.
 Activity records/cards, authoritative compatibility adapters, startup ordering,
-and feature-gated adoption remain unfinished Phase 1 work. No migration,
+and feature-gated adoption remain unfinished Phase 1 work. No migration apply,
 history-clear operation, model tool, or live routing path is enabled here.
