@@ -6,7 +6,7 @@ from typing import List, Optional, TYPE_CHECKING
 from ....config import get_settings
 from ....logging_config import logger
 from ....observability import traced
-from ....openrouter_client import OpenRouterError, request_chat_completion
+from ....openrouter_client import ContextBudgetError, OpenRouterError, request_chat_completion
 from .prompt_builder import SummaryPrompt, build_summarization_prompt
 from .state import LogEntry, SummaryState
 from .working_memory_log import get_working_memory_log
@@ -47,6 +47,8 @@ async def _call_openrouter(prompt: SummaryPrompt, model: str, api_key: Optional[
             if content:
                 return content
             raise OpenRouterError("OpenRouter response missing content")
+        except ContextBudgetError:
+            raise  # Retrying unchanged input cannot fix a deterministic preflight rejection.
         except OpenRouterError as exc:
             last_error = exc
             if attempt == 0:

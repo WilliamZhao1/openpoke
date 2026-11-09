@@ -18,6 +18,10 @@ def main() -> int:
         with patch.dict(os.environ, {
             "OPENPOKE_DATA_DIR": directory,
             "OPENPOKE_WORKER_DISCOVERY": "legacy",
+            "OPENPOKE_CONTEXT_STRATEGY": "legacy",
+            "OPENPOKE_MODEL_CONTEXT_WINDOWS": "{}",
+            "OPENPOKE_CONTEXT_INPUT_TOKENS": "32768",
+            "OPENPOKE_CONTEXT_HEADROOM_TOKENS": "1024",
             "OPENROUTER_API_KEY": "test-key",
             "COMPOSIO_API_KEY": "test-key",
             "COMPOSIO_GMAIL_AUTH_CONFIG_ID": "test-auth-config",

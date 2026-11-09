@@ -1,11 +1,12 @@
 """Simplified configuration management."""
 
 import os
+import json
 from functools import lru_cache
 from pathlib import Path
-from typing import List, Literal, Optional
+from typing import Dict, List, Literal, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StrictInt, model_validator
 
 
 def _load_env_file() -> None:
@@ -63,6 +64,20 @@ class Settings(BaseModel):
     worker_discovery_strategy: Literal["legacy", "bounded"] = Field(
         default_factory=lambda: os.getenv("OPENPOKE_WORKER_DISCOVERY", "legacy"), validate_default=True,
     )
+    context_strategy: Literal["legacy", "bounded"] = Field(
+        default_factory=lambda: os.getenv("OPENPOKE_CONTEXT_STRATEGY", "legacy"), validate_default=True,
+    )
+    model_context_windows: Dict[str, StrictInt] = Field(
+        default_factory=lambda: json.loads(os.getenv("OPENPOKE_MODEL_CONTEXT_WINDOWS", "{}")), validate_default=True,
+    )
+    context_input_tokens: int = Field(
+        default_factory=lambda: int(os.getenv("OPENPOKE_CONTEXT_INPUT_TOKENS", "32768")),
+        gt=0, strict=True, validate_default=True,
+    )
+    context_headroom_tokens: int = Field(
+        default_factory=lambda: int(os.getenv("OPENPOKE_CONTEXT_HEADROOM_TOKENS", "1024")),
+        ge=0, strict=True, validate_default=True,
+    )
 
     # LLM model selection
     openrouter_max_tokens: int = Field(default=_env_int("OPENROUTER_MAX_TOKENS", 2048), gt=0)
@@ -85,6 +100,19 @@ class Settings(BaseModel):
     # Summarisation controls
     conversation_summary_threshold: int = Field(default=100)
     conversation_summary_tail_size: int = Field(default=10)
+
+    @model_validator(mode="after")
+    def validate_context_configuration(self):
+        if any(not model.strip() or window <= 0 for model, window in self.model_context_windows.items()):
+            raise ValueError("Model context allowances must have nonempty names and positive integer values")
+        if self.context_strategy == "bounded":
+            models = {self.interaction_agent_model, self.execution_agent_model, self.execution_agent_search_model,
+                      self.summarizer_model, self.email_classifier_model}
+            if not models.issubset(self.model_context_windows):
+                raise ValueError("OPENPOKE_MODEL_CONTEXT_WINDOWS must cover every configured model in bounded context mode")
+            if any(self.model_context_windows[model] <= self.openrouter_max_tokens + self.context_headroom_tokens for model in models):
+                raise ValueError("Model context allowances must exceed output reservation plus headroom")
+        return self
 
     @property
     def cors_allow_origins(self) -> List[str]:

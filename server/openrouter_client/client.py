@@ -11,6 +11,7 @@ from uuid import uuid4
 import httpx
 
 from ..config import get_settings
+from ..context_budget import ContextBudgetError, ContextBudgetExceeded, prepare_budgeted_request
 from ..observability import (
     Availability, EvidenceMode, Observation, ObservationReason, ObservationSource,
     record_event, traced,
@@ -130,14 +131,29 @@ async def request_chat_completion(
     transport = _mock_transport.get()
     mode = get_provider_mode()
     try:
+        settings = get_settings()
         payload: Dict[str, object] = {
             "model": model,
             "messages": _build_messages(messages, system),
             "stream": False,
-            "max_tokens": get_settings().openrouter_max_tokens,
+            "max_tokens": settings.openrouter_max_tokens,
         }
         if tools:
             payload["tools"] = tools
+        request_body = {"json": payload}
+        if settings.context_strategy == "bounded":
+            stage = "context_budget"
+            window = settings.model_context_windows.get(model)
+            if window is None:
+                raise ContextBudgetError("No configured context allowance for the requested model")
+            body, _ = prepare_budgeted_request(
+                payload, context_window=window, input_cap=settings.context_input_tokens,
+                headroom=settings.context_headroom_tokens,
+            )
+            # Send precisely the immutable bytes checked above, even if a caller
+            # changes its message list while the HTTP client is being opened.
+            request_body = {"content": body}
+        stage = "configuration"
         url = f"{base_url.rstrip('/')}/chat/completions"
         headers = _headers(api_key=api_key)
         stage = "internal"
@@ -147,7 +163,7 @@ async def request_chat_completion(
             response = await client.post(
                 url,
                 headers=headers,
-                json=payload,
+                **request_body,
                 timeout=60.0,
             )
             status_code = response.status_code
@@ -205,4 +221,5 @@ async def request_chat_completion(
 __all__ = [
     "OpenRouterError", "request_chat_completion", "OpenRouterBaseURL",
     "use_mock_provider", "get_provider_mode",
+    "ContextBudgetError", "ContextBudgetExceeded",
 ]

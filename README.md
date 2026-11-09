@@ -121,6 +121,11 @@ migration, and event-storage work is preserved in a
 and removed from the active code and test suite. See the
 [progress log](docs/execution-agent-overload-progress.md) for the scope change.
 
+[Shared context preflight](docs/context-budgets.md) is available with
+`OPENPOKE_CONTEXT_STRATEGY=bounded` and explicit per-model allowances. It accounts
+for complete text requests and rejects over-budget input before HTTP; source
+recovery and bounded history construction remain the next Phase 2 slices.
+
 ## Project Layout
 - `server/` – FastAPI application and agents
 - `web/` – Next.js app

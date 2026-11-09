@@ -7,14 +7,15 @@ The reduced-scope revision of
 supersedes the earlier storage/migration roadmap. Phase 1 now means bounded worker
 discovery; Phase 2 means bounded context/recovery; Phase 3 means focused comparison
 and release. Revised Phase 1 discovery is implemented behind the development
-strategy setting; Phase 2 context budgeting/recovery is next. No backup/import
-phase precedes it.
+strategy setting. Phase 2 has the shared budget helper/provider preflight;
+content preservation and bounded history/recovery are next. No backup/import
+phase precedes them.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 98 tests.
+and removed from the active implementation. The active suite now has 114 tests.
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -622,9 +623,67 @@ topic switches and ambiguous follow-ups require the Phase 3 comparison. Whole
 model requests and large source bodies are not yet bounded by this step.
 Usage and examples are in [`worker-discovery.md`](worker-discovery.md).
 
+## Revised Phase 2, step 1: Shared budget helper and preflight (complete)
+
+**Motivation:** A bounded roster alone cannot prevent oversized messages,
+histories, tool schemas/results, callbacks, or inner-agent requests from reaching
+the provider. The full request must be checked after construction, with room
+reserved for output and framing uncertainty.
+
+**Old behavior:** The shared client supplied `max_tokens` but did not compare
+input size against a model context allowance. Model capacity and an input cap
+were not configured, and every component could send arbitrarily large text.
+
+**New behavior:** `server/context_budget.py` estimates complete text requests
+and computes the allowed input as the smaller of the configured input cap and
+model allowance minus output reservation/headroom. Bounded context mode requires
+explicit per-model allowances, validates all selected models at startup, and
+rejects unknown dynamic models. Invalid mode/JSON/numeric/relationship settings
+fail explicitly. No allowance is inferred from the output-token limit.
+
+The final provider preflight covers all five callers and every loop iteration.
+It sends exactly the immutable bytes that passed the check. Oversized or
+unsupported requests fail before HTTP client creation, with a content-free
+budget error. Accepted content, tool-call/result pairs, schemas, output limits,
+and provider response contracts remain unchanged. Summarization does not retry
+the same deterministic rejection. No content is trimmed by this step.
+
+**Why this approach:** One small helper at the common provider boundary guards
+outer and inner calls without five independent implementations. Native counting
+is not available in the installed runtime, so UTF-8 JSON byte sizing plus framing
+allowances is explicitly an estimate, not provider usage or a guaranteed native
+token bound. It avoids assuming four characters per token for multilingual text.
+Headroom and per-model configured allowances remain separate. Frozen wire bytes
+prevent a mutable message list growing after approval. Structured media is
+rejected because text sizing cannot account for it. Local budget failures reuse
+the existing telemetry failure fields; measured usage semantics are unchanged.
+
+The context strategy defaults to `legacy` during development, independently of
+worker discovery. Evaluation/test bootstrap pins legacy and controlled budget
+values before imports so external settings cannot alter the frozen comparison.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+all 114 tests: 98 retained and 16 new. New checks cover complete section accounting,
+exact fit/overflow boundaries, reservation/headroom arithmetic, UTF-8 text,
+invalid configuration and unsupported media, zero HTTP setup on rejection,
+immutable request snapshots, unchanged accepted content/output, unknown/zero
+provider usage, growing tool results, no summarizer retry, and all five actual
+model-calling paths reaching preflight. Existing baseline CLI tests use conflicting
+bounded caller settings to verify isolation. All state/providers were temporary
+or mocked; no live Gmail/model calls occurred. `git diff --check` passed.
+
+**Remaining limits:** This completes only Phase 2's initial helper/preflight
+slice. Estimates are conservative planning values, not exact model token counts;
+configured capacities still need independent verification. Oversized required
+input currently produces a clear error. History rebuilding, full source capture,
+opaque-reference reads, draft-by-reference adapters, and cumulative recall/work
+limits remain unfinished. Usage and examples are in
+[`context-budgets.md`](context-budgets.md).
+
 ## Next implementation step under the revised plan
 
-Begin revised Phase 2 with the shared input-budget helper and provider preflight,
-accounting for instructions, messages, tool schemas/results, output reservation,
-and headroom. Add only the content preservation/recovery needed by those callers,
-in reviewable slices. Revised Phase 3 comparison/default promotion remains pending.
+Preserve full oversized messages/results under opaque IDs in the small content
+store specified by Phase 2. Include owner/mailbox qualification, restart-safe
+reads, and clear/invalidation checks, and connect it to actual capture paths
+before introducing previews. Then build bounded episodes and recovery handlers.
+Revised Phase 3 comparison/default promotion remains pending.
