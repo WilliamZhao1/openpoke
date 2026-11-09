@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import sqlite3
 import threading
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Iterator, List, Optional
 
 from ...logging_config import logger
 from .models import TriggerRecord
@@ -28,10 +29,16 @@ class TriggerStore:
                 extra={"error": str(exc)},
             )
 
-    def _connect(self) -> sqlite3.Connection:
+    @contextmanager
+    def _connect(self) -> Iterator[sqlite3.Connection]:
         conn = sqlite3.connect(self._db_path, timeout=30, isolation_level=None)
         conn.row_factory = sqlite3.Row
-        return conn
+        try:
+            with conn:
+                yield conn
+        finally:
+            # sqlite3's transaction context commits/rolls back but does not close.
+            conn.close()
 
     def _ensure_schema(self) -> None:
         schema_sql = """

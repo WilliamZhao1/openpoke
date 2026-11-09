@@ -12,21 +12,22 @@ provider preflight, full-content capture, source recovery, bounded outer context
 exact body references, and inner email-search/summarizer/classifier limits.
 Phase 3's first focused live comparison is recorded. Its bounded draft-ID versus
 saved-reference confusion has focused guidance/validation fixes and a passing
-live recheck. Remaining application release checks precede default promotion.
-No backup/import phase precedes that work.
+live recheck. Application release checks and final findings now pass; default
+promotion is the next separate step. No backup/import phase precedes that work.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 228 tests.
+and removed from the active implementation. The active suite now has 234 backend
+tests, plus five frontend checks.
 
 | Revised plan | Current position |
 | --- | --- |
 | Phase 0: retained preparation | Existing data paths, telemetry, fixtures/fake Gmail and model-free baseline retained. |
 | Phase 1: bounded discovery | Implemented behind `OPENPOKE_WORKER_DISCOVERY=bounded`; selected live routing cases now measured. |
 | Phase 2: bounded context/source recovery | Items 1–6 implemented behind `OPENPOKE_CONTEXT_STRATEGY=bounded`. |
-| Phase 3: comparison/release | First comparison/report complete; draft-ID/reference finding addressed with a passing focused live recheck. Remaining application release checks and default promotion pending. Both defaults remain legacy. |
+| Phase 3: comparison/release | First comparison, focused draft fix/recheck, application checks, and final findings complete. Default promotion is next; both defaults remain legacy. |
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -1091,11 +1092,65 @@ See the [follow-up report and retained traces](agent-overload-comparison.md#foll
 with the actual saved `c1_...` object returned by a tool. A failed format check
 does not establish that the provider draft expired or authorize a replacement.
 
+## Revised Phase 3: Application checks and final findings (complete)
+
+**Motivation:** Agent/storage tests and a seeded live review did not prove that
+the public HTTP/proxy/render path preserved a large review, or that stored
+triggers retained their exact owner through polling and callbacks. Final release
+evidence needed those boundaries and a clear disable path before changing defaults.
+
+**Old behavior:** The web page decoded backslash sequences a second time after
+JSON parsing, changing literal `\n`, `\t`, `\r`, and doubled backslashes in
+reviewed text. The existing trigger store committed/rolled back connections but
+left closing to garbage collection, which left a database handle open during
+the Windows application lifecycle check. Existing tests mainly covered these
+paths separately rather than through HTTP and actual local trigger storage.
+
+**New behavior:** History conversion preserves the decoded API string verbatim,
+including large draft bodies and literal escapes. The optimistic user bubble
+also uses the submitted string. Trigger connections close in `finally` after
+the existing transaction scope, including errors. No trigger schema or schedule
+policy changed. Small frontend test/lint scripts reuse the installed compiler,
+React renderer, Node test runner, and Next lint configuration.
+
+Six new backend checks exercise the actual ASGI app, agent loops, batch callbacks,
+existing SQLite trigger service, content store, and fake Gmail. They verify
+asynchronous 202 versus invalid requests, provider failure delivery, referenced
+creation/full review/separate confirmation/exact sending, owned one-shot and
+recurring triggers, correlation, lifespan, connection cleanup, and HTTP history
+clearing with stale callback rejection. Five frontend checks cover the real
+history mapper, large review component rendering, and POST/GET/DELETE proxies.
+
+**Why this approach:** Application-boundary checks expose transformations that
+scripted worker success cannot establish. Keeping parsed text unchanged avoids
+a second interpretation of a user's exact review. Explicitly closing the old
+store's connections solves the observed resource leak without another store or
+storage framework. Tests use controlled scheduler times and disposable data,
+so they need neither a running mailbox nor wall-clock reminders.
+
+**Verification:** The isolated backend suite passed 234 tests (228 retained and
+six new). All five frontend checks, `next lint --no-cache`, TypeScript checking,
+and the production Next build passed. A review larger than 256 KiB survives
+HTTP delivery and a separate confirmation turn; only creation happens before
+confirmation and fake Gmail records one exact original send afterward. A review
+over 300 KiB survives the actual frontend component. No live model or real Gmail
+calls occurred in this step; earlier live comparison/fix evidence is preserved.
+
+**Example and limits:** A draft containing the literal characters `\n` now
+shows those characters, while an actual newline remains a newline. Switching
+both strategy flags to legacy preserves the existing complete review; deleting
+history is a separate explicit action. The clear test verifies completed work
+and a late generation-bound callback, not every unbound legacy journal race or
+cancellation of an already-running external action. Rendering/proxy checks are
+automated and do not simulate browser clicks or measure visual scroll speed.
+The [final release findings](agent-overload-release-checks.md) include exact
+commands/results, live-evidence limits, configuration and data-preserving opt-out.
+
 ## Next implementation step under the revised plan
 
-Complete Phase 3's remaining application release checks for triggers, callbacks,
-full large-draft review, chat acceptance, and clearing, then publish the final
-release findings before default promotion. Phase 3 remains in progress; Phase 2
-implementation items 1–6 remain complete behind the opt-in setting, and both
-defaults remain `legacy`. The targeted draft recheck does not replace the full
-application release checks or prove deterministic model compliance.
+Promote the checked bounded discovery/context strategies, retaining the explicit
+legacy opt-out, per-model allowance validation, and existing data. Verify the
+default/configuration paths and document the final release state. Phase 3 remains
+in progress until that separate promotion step is implemented; both defaults
+remain `legacy` in this change. The focused live sample and scripted application
+checks do not establish deterministic model compliance or general cost savings.

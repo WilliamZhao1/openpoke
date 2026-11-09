@@ -8,33 +8,9 @@ import { ChatMessages } from '@/components/chat/ChatMessages';
 import { ErrorBanner } from '@/components/chat/ErrorBanner';
 import { useAutoScroll } from '@/components/chat/useAutoScroll';
 import type { ChatBubble } from '@/components/chat/types';
+import { toBubbles } from '@/components/chat/history';
 
 const POLL_INTERVAL_MS = 1500;
-
-const formatEscapeCharacters = (text: string): string => {
-  return text
-    .replace(/\\n/g, '\n')
-    .replace(/\\t/g, '\t')
-    .replace(/\\r/g, '\r')
-    .replace(/\\\\/g, '\\');
-};
-
-const isRenderableMessage = (entry: any) =>
-  typeof entry?.role === 'string' &&
-  typeof entry?.content === 'string' &&
-  entry.content.trim().length > 0;
-
-const toBubbles = (payload: any): ChatBubble[] => {
-  if (!Array.isArray(payload?.messages)) return [];
-
-  return payload.messages
-    .filter(isRenderableMessage)
-    .map((message: any, index: number) => ({
-      id: `history-${index}`,
-      role: message.role,
-      text: formatEscapeCharacters(message.content),
-    }));
-};
 
 export default function Page() {
   const { settings, setSettings } = useSettings();
@@ -119,7 +95,7 @@ export default function Page() {
       const userMessage: ChatBubble = {
         id: `user-${Date.now()}`,
         role: 'user',
-        text: formatEscapeCharacters(trimmed),
+        text: trimmed,
       };
       setMessages(prev => {
         const newMessages = [...prev, userMessage];

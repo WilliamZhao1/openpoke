@@ -5,7 +5,10 @@ pass:** both strategies selected the expected routes, but bounded mode failed
 to send the approved draft. Both product defaults remain `legacy`.
 The [focused follow-up](#follow-up-draft-id-guidance-and-live-recheck) below
 records a fix and a passing rerun of the affected scenario; broader release
-checks remain pending. The original results and evidence are preserved.
+checks are tracked separately. The original results and evidence are preserved.
+The later [application release checks and final findings](agent-overload-release-checks.md)
+now pass; default promotion remains a separate step. Earlier status/metrics below
+describe their individual runs.
 
 ## Motivation and implementation
 
