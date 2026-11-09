@@ -7,15 +7,15 @@ The reduced-scope revision of
 supersedes the earlier storage/migration roadmap. Phase 1 now means bounded worker
 discovery; Phase 2 means bounded context/recovery; Phase 3 means focused comparison
 and release. Revised Phase 1 discovery is implemented behind the development
-strategy setting. Phase 2 has provider preflight and live full-content capture;
-bounded history construction and model-visible recovery are next. No backup/import
-phase precedes them.
+strategy setting. Phase 2 has provider preflight, live full-content capture, and
+bounded model-visible source recovery. Bounded history construction is next.
+No backup/import phase precedes it.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 137 tests.
+and removed from the active implementation. The active suite now has 155 tests.
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -743,10 +743,62 @@ solve all existing legacy-journal clear races. Body hashes accompany pages for
 assembled-content verification, not a whole-file rehash on every page. Details
 and examples are in [`content-capture.md`](content-capture.md).
 
+## Revised Phase 2, step 3: Bounded source recovery (complete)
+
+**Motivation:** Captured references need executable reads before context builders
+can omit full text. Earlier worker journals may contain only shortened payloads;
+recovery must distinguish an existing exact source from an unavailable original.
+
+**Old behavior:** Only backend byte-page APIs could read captured content.
+Neither model had a result-read or selected-history recall tool. Legacy
+transcript loaders read the entire selected file into memory.
+
+**New behavior:** Bounded mode advertises `read_result` and `recall_history` with
+handlers in both existing agent loops. Result pages retain exact UTF-8 text and
+immutable owner/mailbox labels, with byte offsets and hashes. History lookup
+streams a single selected legacy log, can search literal text, and returns
+bounded XML fragments with continuation cursors and explicit legacy limitations.
+It does not call the full-transcript loaders. Partial scans, successful no-match
+completion, lookup failures, missing content, and owner ambiguity are distinct.
+
+The backend owns per-turn counters: eight recovery attempts, 512 KiB read/scan
+work, and 32 KiB accepted responses. Per-call scan work is at most 128 KiB;
+source pages cap at 2,048 bytes, and formatted responses cap at 8,192 bytes,
+including escaping. Refused calls return only a small error. Recovery arguments
+are not echoed into responses, and worker journaling avoids recapturing pages
+of already-stored sources. The normal tool-call/result pair construction remains
+intact; no pruning is introduced yet.
+
+**Why this approach:** Fixed worker bindings and exact roster selection reuse
+the existing ownership model. Stored mailbox labels accompany source browsing
+without borrowing the currently active Gmail account. History cursors bind
+generation, source/query, file identity, and snapshot end, so ordinary restart
+works while clear/replacement fails explicitly. Reading raw bounded fragments
+avoids loading a giant legacy entry or building a history-import/event layer.
+Source data does not grant send permission or restore a missing exact draft.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+all 155 tests: 137 retained and 18 new. Checks cover Unicode/CRLF and middle-fact
+recovery; escaping and actual response wrappers; mailbox/owner qualification;
+invalid/missing/empty sources; selected-file streaming and partial scans;
+matches across chunk/scan boundaries; cursor snapshots, fresh-process restart,
+changed source/query, replacement, truncation and clear; lookup failure and
+historical collisions; cumulative caps; executable schemas; per-turn reset; and
+real interaction/worker loop invocation with valid call/result pairs. Storage
+and providers were temporary/mocked, with no live Gmail/model calls.
+
+**Remaining limits:** This step makes recovery usable before changing context
+assembly. Oversized histories/current messages/callbacks can still fail preflight.
+Exact draft-by-reference adapters and inner email-search/classifier/summarizer
+limits are also pending. Append-only history is assumed; cursor identity/size
+checks do not detect arbitrary same-size edits in place. Existing legacy-journal
+clear races remain outside this slice. Details and examples are in
+[`context-recovery.md`](context-recovery.md).
+
 ## Next implementation step under the revised plan
 
-Add bounded `read_result` and selected-history recall handlers, then use captured
-references when constructing bounded complete conversation/tool episodes. Keep
-required instructions and genuine follow-up dependencies, preserve valid tool
-call/result pairs, and retain final provider preflight. Revised Phase 3 comparison
-and default promotion remain pending.
+Use captured references and these recovery handlers when constructing bounded
+complete conversation/tool episodes. Keep required instructions and genuine
+follow-up dependencies, bound current messages and callbacks, preserve valid
+tool-call/result pairs, and retain final provider preflight. Revised Phase 3
+comparison and default promotion remain pending.

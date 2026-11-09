@@ -236,8 +236,10 @@ class ContextBudgetProviderTests(unittest.IsolatedAsyncioTestCase):
     async def test_all_five_real_model_callers_reach_the_shared_guard(self):
         interaction = InteractionAgentRuntime.__new__(InteractionAgentRuntime)
         interaction.model, interaction.api_key, interaction.tool_schemas = MODEL, "test-key", []
+        interaction.bounded_context = True
         worker = ExecutionAgentRuntime.__new__(ExecutionAgentRuntime)
         worker.model, worker.api_key, worker.tool_schemas = MODEL, "test-key", []
+        worker.bounded_context = True
         worker.agent = SimpleNamespace(name="exact worker")
         messages = [{"role": "user", "content": "x" * 10000}]
         email = ProcessedEmail(id="email", thread_id="thread", query="query", subject="subject", sender="sender", recipient="recipient",

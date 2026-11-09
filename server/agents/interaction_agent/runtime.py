@@ -12,6 +12,7 @@ from ...openrouter_client import request_chat_completion
 from ...logging_config import logger
 from ...observability import observe_tool, record_event, traced
 from ...content_store import ContentStoreError, capture_scope, capture_text
+from ...context_recovery import GUIDANCE, RECOVERY_NAMES, RecoveryBudget
 
 
 @dataclass
@@ -57,7 +58,8 @@ class InteractionAgentRuntime:
         self.conversation_log = get_conversation_log()
         self.working_memory_log = get_working_memory_log()
         self.bounded_discovery = settings.worker_discovery_strategy == "bounded"
-        self.tool_schemas = get_tool_schemas(bounded=self.bounded_discovery)
+        self.bounded_context = settings.context_strategy == "bounded"
+        self.tool_schemas = get_tool_schemas(bounded=self.bounded_discovery, recovery=self.bounded_context)
 
         if not self.api_key:
             raise ValueError(
@@ -169,6 +171,7 @@ class InteractionAgentRuntime:
 
         summary = _LoopSummary()
         discovery = DiscoveryState() if self.bounded_discovery else None
+        recovery = RecoveryBudget() if self.bounded_context else None
 
         for iteration in range(self.MAX_TOOL_ITERATIONS):
             response = await self._make_llm_call(system_prompt, messages)
@@ -195,7 +198,7 @@ class InteractionAgentRuntime:
             for tool_call in parsed_tool_calls:
                 summary.tool_names.append(tool_call.name)
 
-                result = self._execute_tool(tool_call, discovery=discovery)
+                result = self._execute_tool(tool_call, discovery=discovery, recovery=recovery)
 
                 if tool_call.name == "send_message_to_agent" and result.success:
                     agent_name = tool_call.arguments.get("agent_name")
@@ -243,7 +246,7 @@ class InteractionAgentRuntime:
             component="interaction",
             model=self.model,
             messages=messages,
-            system=system_prompt,
+            system=f"{system_prompt}\n\n{GUIDANCE}" if self.bounded_context else system_prompt,
             api_key=self.api_key,
             tools=self.tool_schemas,
         )
@@ -314,15 +317,15 @@ class InteractionAgentRuntime:
         return {}, f"unsupported argument type: {type(raw_arguments).__name__}"
 
     # Execute tool calls with error handling and logging, returning standardized results
-    def _execute_tool(self, tool_call: _ToolCall, *, discovery=None) -> ToolResult:
+    def _execute_tool(self, tool_call: _ToolCall, *, discovery=None, recovery=None) -> ToolResult:
         known_tools = {schema["function"]["name"] for schema in self.tool_schemas}
         name = tool_call.name if tool_call.name in known_tools else "unknown"
         with observe_tool("interaction", name) as observation:
-            result = self._execute_tool_impl(tool_call, discovery=discovery)
+            result = self._execute_tool_impl(tool_call, discovery=discovery, recovery=recovery)
             observation.success = result.success
             return result
 
-    def _execute_tool_impl(self, tool_call: _ToolCall, *, discovery=None) -> ToolResult:
+    def _execute_tool_impl(self, tool_call: _ToolCall, *, discovery=None, recovery=None) -> ToolResult:
         """Execute a tool call and convert low-level errors into structured results."""
 
         if "__invalid_arguments__" in tool_call.arguments:
@@ -334,7 +337,7 @@ class InteractionAgentRuntime:
 
         try:
             self._log_tool_invocation(tool_call, stage="start")
-            result = handle_tool_call(tool_call.name, tool_call.arguments, discovery=discovery)
+            result = handle_tool_call(tool_call.name, tool_call.arguments, discovery=discovery, recovery=recovery)
         except Exception as exc:  # pragma: no cover - defensive
             logger.error(
                 "Tool execution crashed",
@@ -381,7 +384,7 @@ class InteractionAgentRuntime:
             },
         }
 
-        if tool_call.name == "find_worker":
+        if tool_call.name == "find_worker" or tool_call.name in RECOVERY_NAMES:
             # The model already supplied its query. Do not echo giant original
             # arguments outside the search response budget.
             payload["arguments"] = {}

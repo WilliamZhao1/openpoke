@@ -10,6 +10,7 @@ from ...services.conversation import get_conversation_log
 from ...services.execution import get_agent_roster, get_execution_agent_logs
 from ...services.execution.discovery import WorkerDiscoveryError, find_workers
 from ...content_store import capture_text
+from ...context_recovery import SCHEMAS as RECOVERY_SCHEMAS, RECOVERY_NAMES, handle_recovery_tool
 from ..execution_agent.batch_manager import ExecutionBatchManager
 
 
@@ -231,9 +232,9 @@ def wait(reason: str) -> ToolResult:
 
 
 # Return predefined tool schemas for LLM function calling
-def get_tool_schemas(*, bounded=False):
+def get_tool_schemas(*, bounded=False, recovery=False):
     """Return OpenAI-compatible tool schemas."""
-    return [*TOOL_SCHEMAS, FIND_WORKER_SCHEMA] if bounded else TOOL_SCHEMAS
+    return [*TOOL_SCHEMAS, *([FIND_WORKER_SCHEMA] if bounded else []), *(RECOVERY_SCHEMAS if recovery else [])]
 
 
 def find_worker(query, limit=5, *, discovery=None):
@@ -249,7 +250,7 @@ def find_worker(query, limit=5, *, discovery=None):
 
 
 # Route tool calls to appropriate handlers with argument validation and error handling
-def handle_tool_call(name: str, arguments: Any, *, discovery=None) -> ToolResult:
+def handle_tool_call(name: str, arguments: Any, *, discovery=None, recovery=None) -> ToolResult:
     """Handle tool calls from interaction agent."""
     if name == "find_worker" and discovery is not None:
         discovery.successful = False
@@ -261,6 +262,9 @@ def handle_tool_call(name: str, arguments: Any, *, discovery=None) -> ToolResult
         else:
             return ToolResult(success=False, payload={"error": "Invalid arguments format"})
 
+        if name in RECOVERY_NAMES:
+            payload = handle_recovery_tool(name, args, expected_owner="conversation", budget=recovery)
+            return ToolResult(payload.get("status") == "ok", payload)
         if name == "send_message_to_agent":
             return send_message_to_agent(**args, discovery=discovery)
         if name == "find_worker":

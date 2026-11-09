@@ -139,6 +139,18 @@ class ContentStore:
 
     def read_page(self, reference, *, owner, provider=None, account_id=None, offset=0, limit=8192):
         self._qualification(owner, provider, account_id)
+        return self._read_page(reference, owner=owner, mailbox=(provider, account_id), offset=offset, limit=limit)
+
+    def read_source_page(self, reference, *, owner, offset=0, limit=8192):
+        """Browse an owned source with its stored mailbox labels, never rebinding them.
+
+        This read-only API is for recovery, not authorization of mailbox actions.
+        Callers must expose the returned qualification alongside the text.
+        """
+        self._qualification(owner, None, None)
+        return self._read_page(reference, owner=owner, mailbox=None, offset=offset, limit=limit)
+
+    def _read_page(self, reference, *, owner, mailbox, offset, limit):
         match = _REFERENCE.fullmatch(reference) if isinstance(reference, str) else None
         if match is None:
             raise ContentStoreError("Invalid content reference")
@@ -156,7 +168,10 @@ class ContentStore:
                     raise ValueError()
                 if not isinstance(metadata["sha256"], str) or re.fullmatch(r"[0-9a-f]{64}", metadata["sha256"]) is None:
                     raise ValueError()
-                if (metadata["owner"], metadata["provider"], metadata["account_id"]) != (owner, provider, account_id):
+                if not isinstance(metadata["kind"], str) or not metadata["kind"] or metadata["media_type"] != "text/plain; charset=utf-8":
+                    raise ValueError()
+                self._qualification(metadata["owner"], metadata["provider"], metadata["account_id"])
+                if metadata["owner"] != owner or (mailbox is not None and (metadata["provider"], metadata["account_id"]) != mailbox):
                     raise ContentStoreError("Content is unavailable for this owner or mailbox")
                 with (path / "body.txt").open("rb") as handle:
                     if os.fstat(handle.fileno()).st_size != metadata["size_bytes"]:

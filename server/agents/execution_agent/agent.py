@@ -6,6 +6,7 @@ from typing import List, Optional, Dict, Any
 from ...services.execution import get_execution_agent_logs
 from ...services.execution.log_store import preserve_worker_content
 from ...logging_config import logger
+from ...context_recovery import RECOVERY_NAMES
 
 
 # Load system prompt template from file
@@ -121,7 +122,7 @@ class ExecutionAgent:
     def record_tool_execution(self, tool_name: str, arguments: str, result: str) -> None:
         """Record tool execution details."""
         # Gmail/search adapters capture at the actual account-bound boundary.
-        if not tool_name.startswith("gmail_") and tool_name != "task_email_search":
+        if not tool_name.startswith("gmail_") and tool_name != "task_email_search" and tool_name not in RECOVERY_NAMES:
             preserve_worker_content(arguments, f"{tool_name}.arguments", min_bytes=200, log_store=self._log_store)
             preserve_worker_content(result, f"{tool_name}.result", log_store=self._log_store)
         self._log_store.record_action(self.name, f"Calling {tool_name} with: {arguments[:200]}")

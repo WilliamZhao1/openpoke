@@ -13,6 +13,7 @@ from ...logging_config import logger
 from ...observability import observe_tool, traced
 from ...content_store import ContentStoreError, capture_scope
 from ...services.execution.log_store import preserve_worker_content
+from ...context_recovery import GUIDANCE, RECOVERY_NAMES, RecoveryBudget
 
 
 @dataclass
@@ -36,8 +37,9 @@ class ExecutionAgentRuntime:
         self.agent = ExecutionAgent(agent_name)
         self.api_key = settings.openrouter_api_key
         self.model = settings.execution_agent_model
-        self.tool_registry = get_tool_registry(agent_name=agent_name)
-        self.tool_schemas = get_tool_schemas()
+        self.bounded_context = settings.context_strategy == "bounded"
+        self.tool_registry = get_tool_registry(agent_name=agent_name, bounded_context=self.bounded_context)
+        self.tool_schemas = get_tool_schemas(bounded_context=self.bounded_context)
 
         if not self.api_key:
             raise ValueError("OpenRouter API key not configured. Set OPENROUTER_API_KEY environment variable.")
@@ -62,6 +64,7 @@ class ExecutionAgentRuntime:
             messages = [{"role": "user", "content": instructions}]
             tools_executed: List[str] = []
             final_response: Optional[str] = None
+            recovery = RecoveryBudget() if self.bounded_context else None
 
             for iteration in range(self.MAX_TOOL_ITERATIONS):
                 logger.info(
@@ -109,7 +112,7 @@ class ExecutionAgentRuntime:
                     tools_executed.append(tool_name)
                     logger.info(f"[{self.agent.name}] Executing tool: {tool_name}")
 
-                    success, result = await self._execute_tool(tool_name, tool_args)
+                    success, result = await self._execute_tool(tool_name, tool_args, recovery=recovery)
 
                     if success:
                         logger.info(f"[{self.agent.name}] Tool {tool_name} completed successfully")
@@ -169,7 +172,7 @@ class ExecutionAgentRuntime:
             component="execution",
             model=self.model,
             messages=messages,
-            system=system_prompt,
+            system=f"{system_prompt}\n\n{GUIDANCE}" if self.bounded_context else system_prompt,
             api_key=self.api_key,
             tools=tools_to_send
         )
@@ -220,35 +223,37 @@ class ExecutionAgentRuntime:
             payload: Dict[str, Any] = {
                 "tool": tool_name,
                 "status": "success",
-                "arguments": arguments,
+                "arguments": {} if tool_name in RECOVERY_NAMES else arguments,
                 "result": result,
             }
         else:
-            error_detail = result.get("error") if isinstance(result, dict) else str(result)
+            error_detail = (result if tool_name in RECOVERY_NAMES and isinstance(result, dict)
+                            else result.get("error") if isinstance(result, dict) else str(result))
             payload = {
                 "tool": tool_name,
                 "status": "error",
-                "arguments": arguments,
+                "arguments": {} if tool_name in RECOVERY_NAMES else arguments,
                 "error": error_detail,
             }
         return self._safe_json_dump(payload)
 
     # Execute tool function from registry with error handling and async support
-    async def _execute_tool(self, tool_name: str, arguments: Dict) -> Tuple[bool, Any]:
+    async def _execute_tool(self, tool_name: str, arguments: Dict, *, recovery=None) -> Tuple[bool, Any]:
         name = tool_name if tool_name in self.tool_registry else "unknown"
         with observe_tool("execution", name) as observation:
-            success, result = await self._execute_tool_impl(tool_name, arguments)
+            success, result = await self._execute_tool_impl(tool_name, arguments, recovery=recovery)
             observation.success = success
             return success, result
 
-    async def _execute_tool_impl(self, tool_name: str, arguments: Dict) -> Tuple[bool, Any]:
+    async def _execute_tool_impl(self, tool_name: str, arguments: Dict, *, recovery=None) -> Tuple[bool, Any]:
         """Execute a tool. Returns (success, result)."""
         tool_func = self.tool_registry.get(tool_name)
         if not tool_func:
             return False, {"error": f"Unknown tool: {tool_name}"}
 
         try:
-            result = tool_func(**arguments)
+            result = (tool_func(_budget=recovery, **arguments) if tool_name in RECOVERY_NAMES
+                      else tool_func(**arguments))
             if inspect.isawaitable(result):
                 result = await result
             if isinstance(result, dict) and (

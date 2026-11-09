@@ -126,7 +126,9 @@ and removed from the active code and test suite. See the
 for complete text requests and rejects over-budget input before HTTP.
 [Full-content capture](docs/content-capture.md) now preserves oversized live
 messages/results under owner-qualified references in the same bounded mode.
-Model-visible recovery and bounded history construction remain next.
+[Bounded source recovery](docs/context-recovery.md) exposes paged `read_result`
+and selected-history `recall_history` tools to both agents. Bounded history
+construction remains next.
 
 ## Project Layout
 - `server/` – FastAPI application and agents
