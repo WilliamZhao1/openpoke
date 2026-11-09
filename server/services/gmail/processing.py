@@ -341,11 +341,36 @@ def build_processed_emails(
 
 
 # Parse Composio Gmail API response and extract clean email data with pagination
+def has_gmail_messages_response(raw_result):
+    """Distinguish a recognizable empty lookup from an unavailable/error payload."""
+    containers = [raw_result] if isinstance(raw_result, dict) else raw_result if isinstance(raw_result, list) else []
+    recognized = False
+    for container in containers:
+        if not isinstance(container, dict):
+            return False
+        data = container.get("data")
+        for block in (container, data):
+            if isinstance(block, dict):
+                if block.get("error") or block.get("successful") is False or block.get("status") == "error":
+                    return False
+                messages = block.get("messages")
+                if isinstance(messages, list):
+                    recognized = True
+                    for message in messages:
+                        if not isinstance(message, dict) or message.get("error") or message.get("successful") is False:
+                            return False
+                        identifier = message.get("messageId") or message.get("id")
+                        if not isinstance(identifier, str) or not identifier.strip():
+                            return False
+    return recognized
+
+
 def parse_gmail_fetch_response(
     raw_result: Any,
     *,
     query: str,
     cleaner: Optional[EmailTextCleaner] = None,
+    max_messages: Optional[int] = None,
 ) -> Tuple[List[ProcessedEmail], Optional[str]]:
     """Convert Composio Gmail fetch payload into processed email models."""
 
@@ -380,6 +405,8 @@ def parse_gmail_fetch_response(
             continue
 
         for message in messages_block:
+            if max_messages is not None and len(emails) >= max_messages:
+                return emails, next_page
             if not isinstance(message, dict):
                 continue
             processed = build_processed_email(message, query=query, cleaner=cleaner)

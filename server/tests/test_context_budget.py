@@ -233,7 +233,7 @@ class ContextBudgetProviderTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(preflight.call_count, 1)
         http_client.assert_not_called()
 
-    async def test_all_five_real_model_callers_reach_the_shared_guard(self):
+    async def test_real_callers_and_classifier_builder_reject_oversized_input_before_http(self):
         interaction = InteractionAgentRuntime.__new__(InteractionAgentRuntime)
         interaction.model, interaction.api_key, interaction.tool_schemas = MODEL, "test-key", []
         interaction.bounded_context = True
@@ -259,7 +259,9 @@ class ContextBudgetProviderTests(unittest.IsolatedAsyncioTestCase):
             self.assertIsNone(await importance_classifier.classify_email_importance(email))
         http_client.assert_not_called()
         rejected = [event for event in events(captured) if event["event"] == "model_call.completed"]
-        self.assertEqual(len(rejected), 5)
-        self.assertEqual({event["component"] for event in rejected}, {"interaction", "execution", "search_email", "summarizer", "email_classifier"})
+        # The bounded classifier now rejects locally before a provider attempt.
+        # Its accepted requests reaching preflight are covered by inner-context tests.
+        self.assertEqual(len(rejected), 4)
+        self.assertEqual({event["component"] for event in rejected}, {"interaction", "execution", "search_email", "summarizer"})
         self.assertTrue(all(event["failure_category"] == "context_budget" for event in rejected))
         self.assertTrue(any(record.getMessage().startswith("Importance classification failed") for record in captured.records))

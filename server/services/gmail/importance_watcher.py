@@ -3,13 +3,18 @@
 from __future__ import annotations
 
 import asyncio
+import json
 from datetime import datetime, timezone, timedelta
 from typing import List, Optional, TYPE_CHECKING
 
 from .client import execute_gmail_tool, get_active_gmail_user_id
-from .processing import EmailTextCleaner, ProcessedEmail, parse_gmail_fetch_response
+from .processing import EmailTextCleaner, ProcessedEmail, has_gmail_messages_response, parse_gmail_fetch_response
 from .seen_store import GmailSeenStore
-from .importance_classifier import classify_email_importance
+from .importance_classifier import ClassificationUnavailable, classify_email_importance
+from ...config import get_settings
+from ...content_store import capture_scope, current_capture
+from ...context_budget import ContextBudgetError
+from ...inner_context import SourceReader
 from ...data_paths import get_data_dir
 from ...logging_config import logger
 from ...observability import record_event, traced
@@ -54,6 +59,8 @@ class ImportantEmailWatcher:
         self._cleaner = EmailTextCleaner(max_url_length=60)
         self._has_seeded_initial_snapshot = False
         self._last_poll_timestamp: Optional[datetime] = None
+        self._classification_retry_ids: set[str] = set()
+        self._bounded_account: Optional[str] = None
 
     # Start the background email polling task
     async def start(self) -> None:
@@ -64,6 +71,8 @@ class ImportantEmailWatcher:
             self._running = True
             self._has_seeded_initial_snapshot = False
             self._last_poll_timestamp = None
+            self._bounded_account = None
+            self._classification_retry_ids.clear()
             self._task = loop.create_task(self._run(), name="important-email-watcher")
             logger.info(
                 "Important email watcher started",
@@ -102,6 +111,13 @@ class ImportantEmailWatcher:
 
     @traced(origin="gmail", new_request=True)
     async def _poll_once(self) -> None:
+        if get_settings().context_strategy == "bounded":
+            with capture_scope("conversation"):
+                await self._poll_current(bounded=True)
+        else:
+            await self._poll_current(bounded=False)
+
+    async def _poll_current(self, *, bounded):
         record_event("gmail.poll.started", component="email_watcher")
         poll_started_at = datetime.now(timezone.utc)
         user_now = convert_to_user_timezone(poll_started_at)
@@ -116,6 +132,12 @@ class ImportantEmailWatcher:
         if not composio_user_id:
             logger.debug("Gmail not connected; skipping importance poll")
             return
+        if bounded and self._bounded_account != composio_user_id:
+            # A different mailbox cannot inherit the previous account's cutoff.
+            self._bounded_account = composio_user_id
+            self._last_poll_timestamp = None
+            self._classification_retry_ids.clear()
+            cutoff_time = interval_cutoff
 
         query = f"label:INBOX newer_than:{self._lookback_minutes}m"
         arguments = {
@@ -133,10 +155,24 @@ class ImportantEmailWatcher:
             )
             return
 
+        reader, source_reference = (SourceReader(), None) if bounded else (None, None)
+        raw_text = json.dumps(raw_result, ensure_ascii=False, default=str) if bounded else ""
+        if bounded:
+            if len(raw_text.encode()) > 4096:
+                source_reference = reader.save(raw_text, "GMAIL_FETCH_EMAILS.result", provider="gmail", account_id=composio_user_id)
+            if not has_gmail_messages_response(raw_result):
+                raise ContextBudgetError("Watcher Gmail lookup failed; no empty poll was established")
+        seen_key = (lambda identifier: "g1_" + json.dumps([composio_user_id, identifier], ensure_ascii=True)) if bounded else lambda identifier: identifier
+        def mark_seen(identifiers):
+            if bounded:
+                current_capture().store.assert_generation(current_capture().generation)
+            self._seen_store.mark_seen(identifiers)
+
         processed_emails, _ = parse_gmail_fetch_response(
             raw_result,
             query=query,
             cleaner=self._cleaner,
+            **({"max_messages": DEFAULT_MAX_RESULTS} if bounded else {}),
         )
 
         if not processed_emails:
@@ -145,7 +181,7 @@ class ImportantEmailWatcher:
             return
 
         if first_poll:
-            self._seen_store.mark_seen(email.id for email in processed_emails)
+            mark_seen(seen_key(email.id) for email in processed_emails)
             logger.info(
                 "Important email watcher completed initial warmup",
                 extra={"skipped_ids": len(processed_emails)},
@@ -154,8 +190,10 @@ class ImportantEmailWatcher:
             return
 
         unseen_emails: List[ProcessedEmail] = [
-            email for email in processed_emails if not self._seen_store.is_seen(email.id)
+            email for email in processed_emails if not self._seen_store.is_seen(seen_key(email.id))
         ]
+        if bounded:
+            self._classification_retry_ids.intersection_update(seen_key(email.id) for email in processed_emails)
 
         if not unseen_emails:
             logger.info(
@@ -177,14 +215,14 @@ class ImportantEmailWatcher:
             else:
                 email_timestamp = email_timestamp.replace(tzinfo=user_now.tzinfo)
 
-            if email_timestamp < cutoff_time:
+            if email_timestamp < cutoff_time and seen_key(email.id) not in self._classification_retry_ids:
                 aged_emails.append(email)
                 continue
 
             eligible_emails.append(email)
 
         if not eligible_emails and aged_emails:
-            self._seen_store.mark_seen(email.id for email in aged_emails)
+            mark_seen(seen_key(email.id) for email in aged_emails)
             logger.info(
                 "Important email watcher check complete",
                 extra={
@@ -197,19 +235,36 @@ class ImportantEmailWatcher:
             return
 
         summaries_sent = 0
-        processed_ids: List[str] = [email.id for email in aged_emails]
+        processed_ids: List[str] = [seen_key(email.id) for email in aged_emails]
+        incomplete = False
 
         for email in eligible_emails:
-            summary = await classify_email_importance(email)
-            processed_ids.append(email.id)
+            try:
+                if bounded and source_reference is None:
+                    source_reference = reader.save(raw_text, "GMAIL_FETCH_EMAILS.result", provider="gmail", account_id=composio_user_id)
+                summary = await classify_email_importance(email, composio_user_id=composio_user_id, source_reference=source_reference, strict=True) if bounded else await classify_email_importance(email)
+            except ClassificationUnavailable:
+                incomplete = True
+                self._classification_retry_ids.add(seen_key(email.id))
+                continue
+            self._classification_retry_ids.discard(seen_key(email.id))
+            processed_ids.append(seen_key(email.id))
             if not summary:
                 continue
 
             summaries_sent += 1
-            await self._dispatch_summary(summary)
+            if bounded:
+                if source_reference is None:
+                    source_reference = reader.save(raw_text, "GMAIL_FETCH_EMAILS.result", provider="gmail", account_id=composio_user_id)
+                current_capture().store.assert_generation(current_capture().generation)
+                await self._dispatch_summary(summary, source_reference=source_reference, content_generation=current_capture().generation)
+            else:
+                await self._dispatch_summary(summary)
 
         if processed_ids:
-            self._seen_store.mark_seen(processed_ids)
+            if bounded:
+                current_capture().store.assert_generation(current_capture().generation)
+            mark_seen(processed_ids)
 
         logger.info(
             "Important email watcher check complete",
@@ -219,15 +274,21 @@ class ImportantEmailWatcher:
                 "suppressed_for_age": len(aged_emails),
             },
         )
-        self._complete_poll(user_now)
+        if not incomplete:
+            self._complete_poll(user_now)
 
     @traced(origin="gmail")
-    async def _dispatch_summary(self, summary: str) -> None:
+    async def _dispatch_summary(self, summary: str, *, source_reference=None, content_generation=None) -> None:
         runtime = _resolve_interaction_runtime()
         try:
             contextualized = f"Important email watcher notification:\n{summary}"
+            if source_reference:
+                contextualized += f"\nSaved account-qualified email source: {source_reference}. Use read_result for follow-up details."
             record_event("callback.dispatched", component="email_watcher")
-            await runtime.handle_agent_message(contextualized)
+            if content_generation is None:
+                await runtime.handle_agent_message(contextualized)
+            else:
+                await runtime.handle_agent_message(contextualized, content_generation=content_generation)
         except Exception as exc:  # pragma: no cover - defensive
             logger.error(
                 "Failed to dispatch important email summary",

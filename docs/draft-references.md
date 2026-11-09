@@ -115,7 +115,7 @@ outcome-check guidance, avoiding automatic replay of that operation.
 
 ## Verification and plan position
 
-`python server/tests/run_tests.py` passes 191 tests: 171 retained and 20 new.
+`python server/tests/run_tests.py` passes 218 tests, including the 20 draft-reference tests.
 The existing fake Gmail backend verifies actual create/reply/forward/send effects,
 full bodies and recipient options, UTF-8/CRLF/control/literal text, full review and
 compact history, overrides, wrong workers/accounts, unknown provenance, missing/
@@ -129,10 +129,10 @@ providers are temporary/mocked. Scripted model replies do not establish live
 routing quality, provider cost, latency, or compliance with instructions.
 
 Phase 0 assets remain retained and Phase 1 discovery is implemented behind its
-flag. Phase 2 items 1–5 are implemented: shared preflight, bounded outer context,
-full capture, recovery, and exact body adapters. Item 6 is next: inner email-search,
-summarizer, and classifier builders plus cumulative work/growth limits. Their
-current final preflight still rejects oversized requests. Phase 3 comparison,
+flag. Phase 2 items 1–6 are implemented: shared preflight, bounded outer context,
+full capture, recovery, exact body adapters, and [inner email-search, summarizer,
+and classifier limits](inner-context.md). Required oversized inputs can still
+fail explicitly. Phase 3 comparison,
 release checks, reporting, and default promotion remain pending. General giant
 current inputs/callbacks can still fail when required instructions cannot fit;
 this step handles referenced bodies, not every possible oversized request.

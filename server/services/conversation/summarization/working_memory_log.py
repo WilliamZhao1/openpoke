@@ -12,6 +12,7 @@ from ....data_paths import get_data_dir
 from ....logging_config import logger
 from ....utils.timezones import now_in_user_timezone
 from .state import LogEntry, SummaryState
+from ....context_budget import ContextBudgetError
 
 
 _WORKING_MEMORY_LOG_PATH = get_data_dir() / "conversation" / "poke_working_memory.log"
@@ -43,7 +44,7 @@ class WorkingMemoryLog:
 
     def __init__(self, path: Path) -> None:
         self._path = path
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
         self._ensure_directory()
         self._initialize_file()
 
@@ -111,6 +112,7 @@ class WorkingMemoryLog:
         last_index = -1
         updated_at: Optional[datetime] = None
         entries: List[LogEntry] = []
+        has_source_cursor = False
 
         for raw_line in lines:
             parsed = self._parse_line(raw_line)
@@ -123,6 +125,7 @@ class WorkingMemoryLog:
                 except json.JSONDecodeError:
                     continue
                 last_index_val = data.get("last_index")
+                has_source_cursor |= data.get("source_offset") is not None
                 if isinstance(last_index_val, int):
                     last_index = last_index_val
                 updated_raw = data.get("updated_at")
@@ -144,18 +147,67 @@ class WorkingMemoryLog:
             updated_at=updated_at,
             unsummarized_entries=entries,
         )
+        # Bounded mode keeps pending rows in the authoritative conversation log.
+        # Reconstruct them only for legacy consumers requesting the full state.
+        if has_source_cursor:
+            header = self.load_summary_header()
+            from ..log import get_conversation_log
+            source = get_conversation_log()
+            stat = source._path.stat()
+            if [stat.st_dev, stat.st_ino] != header.source_identity or stat.st_size < header.source_offset:
+                raise ContextBudgetError("Working summary source was replaced or truncated")
+            header.unsummarized_entries = [LogEntry(tag=tag, timestamp=timestamp or None, payload=payload, index=index)
+                                          for index, (tag, timestamp, payload) in enumerate(source.iter_entries()) if index > header.last_index]
+            return header
         return state
 
+    def load_summary_header(self, limit=256 * 1024):
+        """Read just the existing metadata and briefing, never its mirrored tail."""
+        with self._lock:
+            try:
+                with self._path.open("rb") as handle:
+                    lines = [handle.readline(limit + 1), handle.readline(limit + 1)]
+            except FileNotFoundError:
+                return SummaryState.empty()
+        if any(len(line) > limit for line in lines):
+            raise ContextBudgetError("Working summary header exceeds the bounded read limit")
+        try:
+            info, summary = [self._parse_line(line.decode("utf-8")) for line in lines]
+            if not info or not summary or info[0] != "summary_info" or summary[0] != "conversation_summary":
+                raise ValueError()
+            data = json.loads(info[2])
+            index = data.get("last_index", -1)
+            if type(index) is not int or index < -1:
+                raise ValueError()
+            state = SummaryState(summary_text=summary[2], last_index=index)
+            if data.get("updated_at"):
+                state.updated_at = datetime.fromisoformat(data["updated_at"])
+            if data.get("source_offset") is not None:
+                offset, identity, generation = data["source_offset"], data["source_identity"], data["source_generation"]
+                if (type(offset) is not int or offset < 0 or not isinstance(identity, list) or len(identity) != 2
+                        or any(type(value) is not int or value < 0 for value in identity)
+                        or not isinstance(generation, str) or re.fullmatch(r"[0-9a-f]{32}", generation) is None):
+                    raise ValueError()
+                state.source_offset, state.source_identity, state.source_generation = offset, identity, generation
+            return state
+        except (ValueError, TypeError, KeyError, UnicodeError) as exc:
+            raise ContextBudgetError("Working summary header is unavailable or invalid") from exc
+
     def write_summary_state(self, state: SummaryState) -> None:
-        meta_payload = json.dumps(
-            {
+        metadata = {
                 "last_index": state.last_index,
                 "updated_at": state.updated_at.isoformat() if state.updated_at else None,
             }
-        )
+        if state.source_offset is not None:
+            metadata.update(source_offset=state.source_offset, source_identity=state.source_identity, source_generation=state.source_generation)
+        meta_payload = json.dumps(metadata)
 
         lines = [_format_line("summary_info", meta_payload)]
-        lines.append(_format_line("conversation_summary", state.summary_text or ""))
+        if state.source_offset is not None:
+            encoded = escape(json.dumps(state.summary_text or "", ensure_ascii=False), quote=False)
+            lines.append(f'<conversation_summary encoding="json">{encoded}</conversation_summary>\n')
+        else:
+            lines.append(_format_line("conversation_summary", state.summary_text or ""))
         for entry in state.unsummarized_entries:
             lines.append(_format_line(entry.tag, entry.payload, entry.timestamp))
 
@@ -177,6 +229,12 @@ class WorkingMemoryLog:
                         temp_path.unlink()
                     except Exception:  # pragma: no cover - defensive cleanup
                         pass
+
+    def write_bounded_summary_state(self, state, *, expected_last_index):
+        with self._lock:
+            if self.load_summary_header().last_index != expected_last_index:
+                raise ContextBudgetError("Working summary changed during generation; stale result was not committed")
+            self.write_summary_state(state)
 
     def render_transcript(self, state: Optional[SummaryState] = None) -> str:
         snapshot = state or self.load_summary_state()
@@ -237,6 +295,12 @@ class WorkingMemoryLog:
             match = re.search(r'timestamp="([^"]*)"', attr_string)
             if match:
                 timestamp = match.group(1)
+        if re.search(r'\bencoding="json"', attr_string):
+            try:
+                decoded = json.loads(unescape(payload))
+            except (ValueError, TypeError):
+                return None
+            return (tag, timestamp, decoded) if isinstance(decoded, str) else None
         return tag, timestamp, unescape(payload) if tag == "draft_review" else _decode_payload(payload)
 
 

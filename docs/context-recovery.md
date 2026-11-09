@@ -110,7 +110,7 @@ produce small explicit errors.
 
 ## Verification and remaining scope
 
-`python server/tests/run_tests.py` passes 191 tests, including the 18 recovery tests.
+`python server/tests/run_tests.py` passes 218 tests, including the 18 recovery tests.
 These cover exact Unicode/CRLF/middle-content paging; JSON escaping
 and actual runtime wrappers; owner selection and immutable mailbox labels;
 invalid offsets/paths/arguments; missing/empty content; streaming one selected
@@ -125,7 +125,10 @@ mocked; no live model/Gmail requests were made.
 large results using these sources. Required current messages/callbacks remain
 intact and fail explicitly if they cannot fit. [Exact body/draft references](draft-references.md)
 now resolve full bodies in adapters and keep verified review references in history.
-Inner email-search/classifier/summarizer limits remain Phase 2 work.
+[Inner email-search/classifier/summarizer loops](inner-context.md) now reuse the
+reader with operation-local references, executable handlers, and cumulative
+limits. Phase 2 implementation is complete behind its opt-in setting; Phase 3's
+comparison and release checks remain pending.
 Existing full draft review and confirmation remain in force. Source
 recovery does not claim to fix all asynchronous legacy-journal clear races or
 cancel already-running external actions.

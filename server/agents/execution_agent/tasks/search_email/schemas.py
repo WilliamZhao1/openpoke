@@ -57,6 +57,11 @@ class GmailSearchEmail(BaseModel):
     has_attachments: bool = False
     attachment_count: int = 0
     attachment_filenames: List[str] = Field(default_factory=list)
+    content_reference: Optional[str] = None
+    source_reference: Optional[str] = None
+    content_complete: Optional[bool] = None
+    provider: Optional[str] = None
+    account_id: Optional[str] = None
 
 
 class EmailSearchToolResult(BaseModel):
@@ -68,6 +73,8 @@ class EmailSearchToolResult(BaseModel):
     next_page_token: Optional[str] = None
     messages: List[GmailSearchEmail] = Field(default_factory=list)
     error: Optional[str] = None
+    source_reference: Optional[str] = None
+    limitation: Optional[str] = None
 
 
 class TaskEmailSearchPayload(BaseModel):

@@ -23,6 +23,9 @@ class SummaryState:
     last_index: int = -1
     updated_at: Optional[datetime] = None
     unsummarized_entries: List[LogEntry] = field(default_factory=list)
+    source_offset: Optional[int] = None
+    source_identity: Optional[List[int]] = None
+    source_generation: Optional[str] = None
 
     @classmethod
     def empty(cls) -> "SummaryState":

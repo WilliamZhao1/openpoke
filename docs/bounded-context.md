@@ -115,16 +115,16 @@ This slice uses clear errors for oversized required content.
 [Exact body/draft adapters](draft-references.md) now resolve saved large bodies
 and compact verified full-review displays without altering UI/source files.
 Generic giant callbacks are not split into independently processed worker notices.
-Inner email-search, summarizer, and classifier builders/cumulative
-growth limits also remain unfinished; their final provider preflight still
-rejects oversized input. Backend message copies and content-file storage can
-grow within existing iteration limits; this is a model-input bound, not a new
-retention or memory-quota system. Existing asynchronous journal/clear races and
+[Inner email-search, summarizer, and classifier builders](inner-context.md) now
+reuse the same assembly/preflight with task-specific guidance and cumulative
+work/result caps. Required oversized input can still fail explicitly. These
+processing caps preserve received full sources before reporting exhaustion;
+they are not hard heap/disk quotas or a new retention policy. Existing asynchronous journal/clear races and
 cross-process coordination remain outside this slice.
 
 ## Verification
 
-`python server/tests/run_tests.py` passes 191 tests, including the 16 context-builder tests.
+`python server/tests/run_tests.py` passes 218 tests, including the 16 context-builder tests.
 These cover bounded history tails and Unicode separators; previous
 draft retention and dispatch deduplication; existing summary/instruction
 preservation; exact result and episode recovery; parallel tool pairs; immutable

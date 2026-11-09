@@ -132,7 +132,10 @@ and selected-history `recall_history` tools to both agents.
 and saves large tool results before previewing them. Required content that cannot
 fit fails explicitly. [Exact draft/body references](docs/draft-references.md)
 now carry large bodies through Gmail creation, full user review, and confirmation
-without repeating them in model arguments. Inner-agent builders remain next.
+without repeating them in model arguments. [Inner model context](docs/inner-context.md)
+now bounds email search, classification, and streamed summarization, including
+cumulative source/result/recovery work. Phase 2 implementation is complete behind
+the opt-in setting; Phase 3 comparison and release checks remain ahead.
 
 ## Project Layout
 - `server/` – FastAPI application and agents

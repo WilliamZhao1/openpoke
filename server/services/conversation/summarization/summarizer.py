@@ -79,6 +79,9 @@ async def summarize_conversation() -> bool:
     settings = get_settings()
     if not settings.summarization_enabled:
         return False
+    if settings.context_strategy == "bounded":
+        from .bounded import summarize_bounded
+        return await summarize_bounded(settings, _resolve_conversation_log(), get_working_memory_log())
 
     conversation_log = _resolve_conversation_log()
     working_memory_log = get_working_memory_log()

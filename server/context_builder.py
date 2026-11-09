@@ -1,4 +1,4 @@
-"""Bound the two outer agents' prompts without changing executed tool payloads."""
+"""Bound agent prompts without changing executed tool payloads."""
 
 from dataclasses import dataclass, field
 from hashlib import sha256
@@ -175,15 +175,16 @@ def _episodes(messages):
 
 
 class ContextBuilder:
-    def __init__(self, *, settings, model, tools, history=None, record_reference):
+    def __init__(self, *, settings, model, tools, history=None, record_reference, policy=POLICY, guidance=GUIDANCE):
         self.settings, self.model, self.tools = settings, model, tools
         self.history = history or HistoryWindow()
         self.record_reference = record_reference
         self.references = {}
         self.last_estimate = None
+        self.policy, self.guidance = policy, guidance
 
     def _fits(self, system, messages):
-        payload = {"model": self.model, "messages": [{"role": "system", "content": system + "\n\n" + GUIDANCE}, *messages],
+        payload = {"model": self.model, "messages": [{"role": "system", "content": system + "\n\n" + self.guidance}, *messages],
                    "max_tokens": self.settings.openrouter_max_tokens, "stream": False}
         if self.tools:
             payload["tools"] = self.tools
@@ -238,7 +239,7 @@ class ContextBuilder:
             raise ContentStoreError("Bounded context requires an owning content-capture scope")
         context.store.assert_generation(context.generation)
         groups = _episodes(messages)
-        system = system + "\n\n" + POLICY
+        system = system + "\n\n" + self.policy
         recent = self.history.episodes[-1:]
 
         def compose(history, selected, omitted_reference=None):

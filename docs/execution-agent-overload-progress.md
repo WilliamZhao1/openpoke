@@ -7,23 +7,23 @@ The reduced-scope revision of
 supersedes the earlier storage/migration roadmap. Phase 1 now means bounded worker
 discovery; Phase 2 means bounded context/recovery; Phase 3 means focused comparison
 and release. Revised Phase 1 discovery is implemented behind the development
-strategy setting. Phase 2 has provider preflight, live full-content capture, and
-bounded model-visible source recovery, and bounded outer-agent context assembly.
-Exact body-by-reference adapters are implemented. Inner email-search,
-summarizer, and classifier context/work limits are next. No backup/import phase
-precedes them.
+strategy setting. Phase 2 implementation is complete behind its opt-in setting:
+provider preflight, full-content capture, source recovery, bounded outer context,
+exact body references, and inner email-search/summarizer/classifier limits.
+Phase 3's comparison and release checks are next. No backup/import phase precedes
+them.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 191 tests.
+and removed from the active implementation. The active suite now has 218 tests.
 
 | Revised plan | Current position |
 | --- | --- |
 | Phase 0: retained preparation | Existing data paths, telemetry, fixtures/fake Gmail and model-free baseline retained. |
 | Phase 1: bounded discovery | Implemented behind `OPENPOKE_WORKER_DISCOVERY=bounded`; live model comparison remains Phase 3 work. |
-| Phase 2: bounded context/source recovery | Items 1–5 implemented, including exact body adapters in this update. Item 6 inner model builders/cumulative limits is next. |
+| Phase 2: bounded context/source recovery | Items 1–6 implemented behind `OPENPOKE_CONTEXT_STRATEGY=bounded`, including inner model builders and cumulative limits in this update. |
 | Phase 3: comparison/release | Model-backed comparison, final release checks/report and default promotion pending. Both strategies still default to legacy. |
 
 Each implementation step is reported with its motivation, old behavior, new
@@ -918,9 +918,81 @@ unfinished, and their final preflight can still reject oversized input. Known
 legacy asynchronous history-clear races remain outside this slice. Details are
 in [`draft-references.md`](draft-references.md).
 
+## Revised Phase 2, item 6: Inner context and cumulative work limits (complete)
+
+**Motivation:** An outer preview is too late to protect an inner search model.
+Large emails, repeated results, full-history summary reads, and growing briefings
+could exceed the provider guard or accumulate unnecessary work inside a task.
+Classification failure also needed to remain distinct from a valid negative.
+
+**Old behavior:** Search accumulated complete email bodies over its iterations.
+The classifier submitted a complete cleaned email in one request; provider
+failure and unimportant both returned `None`. The watcher marked either seen.
+Summarization loaded the whole conversation and mirrored working-memory tail
+before selecting a batch, then submitted the full previous briefing and batch.
+
+**New behavior:** All three paths reuse bounded context assembly and final
+preflight with task-specific guidance. Sources are saved before previewing;
+operation-local `read_result` handlers reuse the existing paging/recall budgets.
+Complete tool groups remain paired, and cumulative retained messages/sources
+have explicit caps. Search keeps eight model iterations plus eight Gmail
+attempts, 20 processed emails per query, and a 100-ID/256 KiB cache. Source hints
+to its parent cap at eight with a complete saved qualified index. Failed or
+malformed lookups cannot become successful empty results, and pagination stays
+on the originally executed mailbox.
+
+The classifier tries full body then preview/reference, preserving metadata and
+instructions. Unimportant requires full cleaned-body coverage; unresolved input
+raises `ClassificationUnavailable` for the watcher. Undecided emails stay unseen
+and retry within the current 50-message fetch window. Seen keys carry their
+actual account, and callbacks carry a source/generation. Overlong notification
+text is saved and rejected rather than truncated.
+
+Summarization streams a bounded batch from a saved byte position in the original
+conversation. Effective threshold/tail each clamp at 64 (including the existing
+100-entry threshold setting), scans at 16 MiB and entries at 8 MiB.
+It preserves full user instructions and prior memory, previews informational
+entries after saving them, and shrinks to a complete prefix if needed. It retains
+the previous two provider attempts, including source reads/transient retries.
+A cursor commits only after a valid bounded briefing with source citations,
+generation/source checks, and an unchanged prior summary index. Legacy mode can
+recover pending rows from the original log after switching back.
+
+**Why this approach:** Reusing the content store, context builder, and reader
+keeps one accounting/recovery boundary instead of adding another model or tool
+session framework. A tiny cursor in existing memory metadata avoids repeatedly
+loading old history without requiring migration or another store. Source-backed
+memory preserves omitted facts, and references are linked from the briefing
+rather than appended into the conversation that schedules summarization.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passes
+218 tests: 191 retained and 27 new. New tests run the actual inner callers through
+mock HTTP and full-request preflight with disposable files/fake Gmail. They cover
+middle-content recovery, Unicode, every cumulative cap, executable reads and
+tool pairs, complete qualified source indexes, account-stable pagination,
+failed-versus-empty lookup, classifier failures/negative coverage, watcher retry
+and account switches, output rejection, streamed resume and legacy rollback,
+prefix-only progress, transient retry, default configuration and legacy loading,
+concurrent memory changes, truncation,
+and history clearing. No live Gmail/model calls or baseline regeneration occurred.
+
+**Examples and limits:** A giant search email can recover a fact from its middle
+by page. An unread large email cannot silently become unimportant. A summary
+that fits only two entries advances through those two, leaving the rest pending.
+Required giant input still fails clearly. Source quotas preserve already-received
+originals before exhaustion, so they are not hard download/heap/disk quotas.
+Watcher retries are best effort within the fetch/lookback window, not a durable
+queue; existing delivery acknowledgement behavior remains. Cursor validation
+assumes append-only logs and is not a universal manual-edit detector. The new
+code does not add retention, cross-process coordination, or durable recovery.
+See [inner-context.md](inner-context.md) for all limits and design examples.
+
 ## Next implementation step under the revised plan
 
-Apply bounded context/source handling inside email search, summarization and
-classification. Reuse existing time/iteration bounds and cap cumulative result
-growth and recall work. Then complete revised Phase 3's focused model-backed
-comparison, release checks/reporting and default promotion.
+Phase 2 implementation items 1–6 are complete behind the opt-in setting. Begin
+revised Phase 3's focused comparison using the existing fixtures/harness and
+actual model decisions with equal model/output settings. Record routing and
+draft/tool effects, calls, available usage, latency and failures. Complete the
+application release checks and short report before promoting defaults. Both
+strategies remain `legacy` by default; scripted tests do not establish live
+quality or cost.

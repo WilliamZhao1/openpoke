@@ -113,22 +113,24 @@ context builders without adding a new observation framework.
 
 ## Verification and remaining work
 
-`python server/tests/run_tests.py` passes all 191 tests, including 16 context
+`python server/tests/run_tests.py` passes all 218 tests, including 16 context
 budget tests. Checks cover every input section, exact boundaries, output/headroom
 arithmetic, multilingual text, configuration failures, unsupported media, no-HTTP
 rejection, immutable wire bytes, unchanged accepted content/output, provider-usage
-separation, growing tool-result input, no summarizer retry, and all five real
-model-calling paths reaching the shared guard. The existing baseline CLI tests
+separation, growing tool-result input, no unchanged preflight retry, and all five
+model-calling paths using the shared guard. Inner builders can also reject
+required oversized input before the provider call. The existing baseline CLI tests
 also run with conflicting bounded settings in the caller environment to verify
 legacy isolation. All data and provider responses are temporary or mocked.
 
-Phase 2 remains in progress. [Full-content capture](content-capture.md) now saves
+Phase 2 implementation is complete behind the opt-in setting. [Full-content capture](content-capture.md) saves
 oversized live content in a small owner/account-qualified file store, with
 backend paging and history-clear invalidation. [Model-visible recovery](context-recovery.md)
 now exposes bounded result/history reads with per-turn limits.
 [Outer-agent context construction](bounded-context.md) uses those sources when
 rebuilding requests. [Exact draft/body references](draft-references.md) now keep
-large bodies out of model arguments while preserving full review. Inner model
-builders and cumulative growth limits remain next.
+large bodies out of model arguments while preserving full review. [Inner model
+builders and cumulative limits](inner-context.md) now handle email search,
+classification, and streamed summarization. Phase 3 comparison/release remains.
 No source is deleted or shortened by this preflight, and it does not establish routing quality, native
 token accuracy, or completion of the full bounded-context release.

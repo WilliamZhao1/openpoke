@@ -3,14 +3,19 @@
 from __future__ import annotations
 
 import json
+from contextlib import nullcontext
+from copy import deepcopy
+from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 from server.config import get_settings
 from server.logging_config import logger
-from server.openrouter_client import request_chat_completion
+from server.openrouter_client import ContextBudgetError, request_chat_completion
 from server.services.execution import get_execution_agent_logs
 from server.services.execution.log_store import preserve_worker_content
-from server.content_store import ContentStoreError, current_capture
+from server.content_store import ContentStoreError, current_capture, capture_scope
+from server.context_builder import ContextBuilder, validate_tool_calls
+from server.inner_context import SourceReader, READ_SCHEMA, INNER_POLICY, INNER_GUIDANCE, MAX_TOOL_CALLS, arguments as parse_inner_arguments, prefix
 from server.services.gmail import (
     EmailTextCleaner,
     ProcessedEmail,
@@ -29,6 +34,7 @@ from .schemas import (
     get_completion_schema,
 )
 from .system_prompt import get_system_prompt
+from server.services.gmail.processing import has_gmail_messages_response
 
 # Constants
 MAX_LLM_ITERATIONS = 8
@@ -112,6 +118,8 @@ async def task_email_search(search_query: str) -> Any:
         logger.error(f"[EMAIL_SEARCH] OpenRouter not configured: {model_or_error}")
         return {"error": model_or_error}
     
+    capture = current_capture()
+    source_start = len(capture.sources) if capture is not None else 0
     try:
         preserve_worker_content(search_query, "task_email_search.arguments", provider="gmail", account_id=composio_user_id,
                                 min_bytes=200, log_store=_LOG_STORE)
@@ -131,6 +139,18 @@ async def task_email_search(search_query: str) -> Any:
     except Exception as exc:  # pragma: no cover - defensive
         logger.exception(f"[EMAIL_SEARCH] Search failed: {exc}")
         return {"error": f"Email search failed: {exc}"}
+    finally:
+        if capture is not None and capture.owner.startswith("worker:") and get_settings().context_strategy == "bounded":
+            hints = capture.sources[source_start:]
+            if len(hints) > 8:
+                if current_capture() is not capture:
+                    raise ContentStoreError("Search source hints changed ownership")
+                # Keep all qualifications in one readable index, rather than
+                # copying hundreds of descriptors into the parent model request.
+                reference = preserve_worker_content(_safe_json_dumps({"source_references": hints}), "task_email_search.sources",
+                                                    min_bytes=-1, log_store=_LOG_STORE)
+                indexed = next(item for item in capture.sources[source_start:] if item["reference"] == reference)
+                capture.sources[source_start:] = [indexed, *hints[-7:]]
 
 
 # Execute the main email search orchestration loop
@@ -142,6 +162,9 @@ async def _run_email_search(
     api_key: str,
 ) -> List[Dict[str, Any]]:
     """Execute the main email search orchestration loop."""
+    if get_settings().context_strategy == "bounded":
+        with nullcontext() if current_capture() is not None else capture_scope("conversation"):
+            return await _run_bounded_search(search_query=search_query, composio_user_id=composio_user_id, model=model, api_key=api_key)
     messages: List[Dict[str, Any]] = [
         {"role": "user", "content": _render_user_message(search_query)}
     ]
@@ -213,6 +236,62 @@ async def _run_email_search(
     unique_queries = list(dict.fromkeys(queries))
     logger.info(f"[EMAIL_SEARCH] Completed - {len(unique_queries)} queries executed, {len(final_result)} emails selected")
     return final_result
+
+
+@dataclass
+class _SearchWork:
+    reader: SourceReader
+    calls: int = 0
+    successful: int = 0
+    retained_bytes: int = 0
+
+
+async def _run_bounded_search(*, search_query, composio_user_id, model, api_key):
+    reader = SourceReader()
+    reader.save(search_query, "task_email_search.arguments", provider="gmail", account_id=composio_user_id)
+    schema = deepcopy(GMAIL_FETCH_EMAILS_SCHEMA)
+    schema["function"]["parameters"]["properties"]["page_token"] = {"type": "string", "description": "Exact pagination token for the same query/account."}
+    schemas = [schema, _COMPLETION_TOOL_SCHEMA, READ_SCHEMA]
+    builder = ContextBuilder(settings=get_settings(), model=model, tools=schemas, record_reference=reader.record,
+                             policy=INNER_POLICY, guidance=INNER_GUIDANCE)
+    messages = [{"role": "user", "content": _render_user_message(search_query) + f"\nProvider: gmail; executed account: {composio_user_id}"}]
+    work, queries, emails = _SearchWork(reader), [], {}
+    for _ in range(MAX_LLM_ITERATIONS):
+        system, prepared = builder.build(get_system_prompt(), messages)
+        response = await request_chat_completion(component="search_email", model=model, messages=prepared,
+                                                system=system + "\n\n" + INNER_GUIDANCE, api_key=api_key, tools=schemas)
+        assistant = _extract_assistant_message(response)
+        calls = assistant.get("tool_calls") or []
+        validate_tool_calls(calls)
+        if not calls or len(calls) > MAX_TOOL_CALLS:
+            raise ContextBudgetError("Search requires an explicit completion after a successful lookup; tool/call limit reached")
+        messages.append({"role": "assistant", "content": assistant.get("content") or "", "tool_calls": calls})
+        completed = None
+        for call in calls:
+            name = call["function"]["name"]
+            args = parse_inner_arguments(call["function"].get("arguments"))
+            payload = {"status": "error", "error": "Invalid or unsupported search tool arguments"}
+            if name == COMPLETE_TOOL_NAME:
+                if len(calls) != 1:
+                    payload = {"status": "error", "error": "Complete in a separate call after reading search results"}
+                elif (args is not None and work.successful and isinstance(args.get("message_ids"), list)
+                      and all(isinstance(item, str) and item in emails for item in args["message_ids"])):
+                    completed = list(dict.fromkeys(args["message_ids"]))
+                    payload = {"status": "success", "message_ids": completed}
+                else:
+                    payload = {"status": "error", "error": "Lookup failed or selected IDs are unknown; this is not a successful empty search"}
+            elif name == "read_result":
+                payload = reader.read(args)
+            elif name == SEARCH_TOOL_NAME and args is not None and not any(c["function"]["name"] == COMPLETE_TOOL_NAME for c in calls):
+                result = await _perform_search(arguments=args, queries=queries, emails=emails,
+                                               composio_user_id=composio_user_id, work=work)
+                payload = result.model_dump(mode="json", exclude_none=True)
+            messages.append({"role": "tool", "tool_call_id": call["id"], "content": _safe_json_dumps(payload)})
+        if completed is not None:
+            reader.check()
+            return [emails[identifier].model_dump(mode="json", exclude_none=True) for identifier in completed]
+        reader.prune(messages)
+    raise ContextBudgetError("Email search exhausted its existing iteration budget; results remain available through saved sources")
 
 
 
@@ -294,6 +373,7 @@ async def _perform_search(
     queries: List[str],
     emails: Dict[str, GmailSearchEmail],
     composio_user_id: str,
+    work: Optional[_SearchWork] = None,
 ) -> EmailSearchToolResult:
     query = (arguments.get("query") or "").strip()
     if not query:
@@ -305,6 +385,13 @@ async def _perform_search(
 
     # Use LLM-provided max_results or default to 10
     max_results = arguments.get("max_results", 10)
+    if work is not None:
+        if work.calls >= 8:
+            raise ContextBudgetError("Email search cumulative query limit reached; lookup is incomplete")
+        work.calls += 1
+        if type(max_results) is not int or not isinstance(arguments.get("page_token", ""), str) or len(arguments.get("page_token", "")) > 2048:
+            return EmailSearchToolResult(status="error", query=query, error="Invalid result count or page token")
+        max_results = min(20, max(1, max_results))
     
     composio_arguments = {
         "query": query,
@@ -315,6 +402,8 @@ async def _perform_search(
         "format": "full",  # Request full email format
         "metadata_headers": ["From", "To", "Subject", "Date"],  # Ensure we get key headers
     }
+    if work is not None and arguments.get("page_token"):
+        composio_arguments["page_token"] = arguments["page_token"]
 
     _LOG_STORE.record_action(
         TASK_TOOL_NAME,
@@ -337,15 +426,38 @@ async def _perform_search(
             error=str(exc),
         )
 
-    if current_capture() is not None:
+    source_reference = None
+    if work is not None:
+        source_reference = work.reader.save(_safe_json_dumps(raw_result), "GMAIL_FETCH_EMAILS.result", provider="gmail", account_id=composio_user_id)
+        if not has_gmail_messages_response(raw_result):
+            return EmailSearchToolResult(status="error", query=query, error="Gmail lookup failed or returned no recognizable result; not an empty success", source_reference=source_reference)
+    elif current_capture() is not None:
         preserve_worker_content(_safe_json_dumps(raw_result), "GMAIL_FETCH_EMAILS.result", provider="gmail",
                                 account_id=composio_user_id, log_store=_LOG_STORE)
     processed_emails, next_page_token = parse_gmail_fetch_response(
         raw_result,
         query=query,
-        cleaner=_EMAIL_CLEANER,
+        cleaner=_EMAIL_CLEANER, **({"max_messages": 20} if work is not None else {}),
     )
     parsed_emails = [_processed_to_schema(email) for email in processed_emails]
+    if work is not None:
+        bounded = []
+        for email in parsed_emails:
+            original = _safe_json_dumps(email.model_dump(mode="json", exclude_none=True))
+            reference = work.reader.save(original, "email_search.email", provider="gmail", account_id=composio_user_id) if len(email.clean_text.encode()) > 1024 else None
+            item = email.model_copy(update={"clean_text": prefix(email.clean_text, 1024), "content_reference": reference,
+                                           "source_reference": source_reference, "content_complete": reference is None,
+                                           "provider": "gmail", "account_id": composio_user_id})
+            if item.id not in emails:
+                size = len(_safe_json_dumps(item.model_dump(mode="json", exclude_none=True)).encode())
+                if len(emails) >= 100 or work.retained_bytes + size > 256 * 1024:
+                    work.reader.save(original, "email_search.email", provider="gmail", account_id=composio_user_id)
+                    raise ContextBudgetError("Email search cumulative cache limit reached; full source saved, selection incomplete")
+                work.retained_bytes += size
+                emails[item.id] = item
+            bounded.append(item)
+        parsed_emails = bounded
+        work.successful += 1
 
     queries.append(query)
     for email in parsed_emails:
@@ -358,6 +470,8 @@ async def _perform_search(
         result_count=len(parsed_emails),
         next_page_token=next_page_token,
         messages=parsed_emails,
+        source_reference=source_reference,
+        limitation="Bodies may be previews; use content_reference/raw source for omitted details. At most 20 messages processed per query; refine or page for more." if work is not None else None,
     )
 
 
