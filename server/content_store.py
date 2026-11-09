@@ -2,7 +2,7 @@
 
 from contextlib import contextmanager
 from contextvars import ContextVar
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
@@ -209,6 +209,7 @@ class ContentCapture:
     store: ContentStore
     generation: str
     owner: str
+    sources: list[dict] = field(default_factory=list)
 
 
 _capture: ContextVar[ContentCapture | None] = ContextVar("content_capture", default=None)
@@ -247,5 +248,7 @@ def capture_text(text, *, kind, provider=None, account_id=None, min_bytes=CAPTUR
         raise ContentStoreError("Captured content must be valid UTF-8 text") from exc
     if size <= min_bytes:
         return None
-    return context.store.put_text(text, owner=context.owner, generation=context.generation, kind=kind,
-                                  provider=provider, account_id=account_id)
+    reference = context.store.put_text(text, owner=context.owner, generation=context.generation, kind=kind,
+                                       provider=provider, account_id=account_id)
+    context.sources.append({"reference": reference, "kind": kind, "provider": provider, "account_id": account_id})
+    return reference

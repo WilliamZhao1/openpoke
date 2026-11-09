@@ -11,8 +11,9 @@ from ...services.conversation import get_conversation_log, get_working_memory_lo
 from ...openrouter_client import request_chat_completion
 from ...logging_config import logger
 from ...observability import observe_tool, record_event, traced
-from ...content_store import ContentStoreError, capture_scope, capture_text
+from ...content_store import ContentStoreError, capture_scope, capture_text, current_capture
 from ...context_recovery import GUIDANCE, RECOVERY_NAMES, RecoveryBudget
+from ...context_builder import ContextBuilder, load_recent_history, validate_tool_calls
 
 
 @dataclass
@@ -87,11 +88,11 @@ class InteractionAgentRuntime:
 
             system_prompt = build_system_prompt(bounded=self.bounded_discovery)
             messages = prepare_message_with_history(
-                user_message, transcript_before, message_type="user", bounded=self.bounded_discovery,
+                user_message, "" if self.bounded_context else transcript_before, message_type="user", bounded=self.bounded_discovery,
             )
 
             logger.info("Processing user message through interaction agent")
-            summary = await self._run_interaction_loop(system_prompt, messages)
+            summary = await self._run_interaction_loop(system_prompt, messages, **({"history": transcript_before} if self.bounded_context else {}))
 
             final_response = self._finalize_response(summary)
 
@@ -134,11 +135,11 @@ class InteractionAgentRuntime:
 
             system_prompt = build_system_prompt(bounded=self.bounded_discovery)
             messages = prepare_message_with_history(
-                agent_message, transcript_before, message_type="agent", bounded=self.bounded_discovery,
+                agent_message, "" if self.bounded_context else transcript_before, message_type="agent", bounded=self.bounded_discovery,
             )
 
             logger.info("Processing execution agent results")
-            summary = await self._run_interaction_loop(system_prompt, messages)
+            summary = await self._run_interaction_loop(system_prompt, messages, **({"history": transcript_before} if self.bounded_context else {}))
 
             final_response = self._finalize_response(summary)
 
@@ -166,15 +167,19 @@ class InteractionAgentRuntime:
         self,
         system_prompt: str,
         messages: List[Dict[str, Any]],
+        *, history=None,
     ) -> _LoopSummary:
         """Iteratively query the LLM until it issues a final response."""
 
         summary = _LoopSummary()
         discovery = DiscoveryState() if self.bounded_discovery else None
         recovery = RecoveryBudget() if self.bounded_context else None
+        builder = ContextBuilder(settings=self.settings, model=self.model, tools=self.tool_schemas, history=history,
+                                 record_reference=self.conversation_log.record_content_reference) if self.bounded_context else None
 
         for iteration in range(self.MAX_TOOL_ITERATIONS):
-            response = await self._make_llm_call(system_prompt, messages)
+            prepared_system, prepared_messages = builder.build(system_prompt, messages) if builder else (system_prompt, messages)
+            response = await self._make_llm_call(prepared_system, prepared_messages)
             assistant_message = self._extract_assistant_message(response)
 
             assistant_content = (assistant_message.get("content") or "").strip()
@@ -182,6 +187,8 @@ class InteractionAgentRuntime:
                 summary.last_assistant_text = assistant_content
 
             raw_tool_calls = assistant_message.get("tool_calls") or []
+            if builder:
+                validate_tool_calls(raw_tool_calls)
             parsed_tool_calls = self._parse_tool_calls(raw_tool_calls)
 
             assistant_entry: Dict[str, Any] = {
@@ -198,6 +205,8 @@ class InteractionAgentRuntime:
             for tool_call in parsed_tool_calls:
                 summary.tool_names.append(tool_call.name)
 
+                capture = current_capture()
+                source_start = len(capture.sources) if capture else 0
                 result = self._execute_tool(tool_call, discovery=discovery, recovery=recovery)
 
                 if tool_call.name == "send_message_to_agent" and result.success:
@@ -213,6 +222,10 @@ class InteractionAgentRuntime:
                     "tool_call_id": tool_call.identifier or tool_call.name,
                     "content": self._format_tool_result(tool_call, result),
                 }
+                if capture and len(capture.sources) > source_start:
+                    payload = json.loads(tool_message["content"])
+                    payload["source_references"] = capture.sources[source_start:]
+                    tool_message["content"] = self._safe_json_dump(payload)
                 messages.append(tool_message)
         else:
             raise RuntimeError("Reached tool iteration limit without final response")
@@ -223,7 +236,10 @@ class InteractionAgentRuntime:
         return summary
 
     # Load conversation history, preferring summarized version if available
-    def _load_conversation_transcript(self) -> str:
+    def _load_conversation_transcript(self):
+        if self.bounded_context:
+            return load_recent_history(self.conversation_log,
+                                       summary_log=self.working_memory_log if self.settings.summarization_enabled else None)
         if self.settings.summarization_enabled:
             rendered = self.working_memory_log.render_transcript()
             if rendered.strip():

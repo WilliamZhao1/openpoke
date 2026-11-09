@@ -110,8 +110,8 @@ produce small explicit errors.
 
 ## Verification and remaining scope
 
-`python server/tests/run_tests.py` passes 155 tests: 137 retained and 18 new.
-Recovery checks cover exact Unicode/CRLF/middle-content paging; JSON escaping
+`python server/tests/run_tests.py` passes 171 tests, including the 18 recovery tests.
+These cover exact Unicode/CRLF/middle-content paging; JSON escaping
 and actual runtime wrappers; owner selection and immutable mailbox labels;
 invalid offsets/paths/arguments; missing/empty content; streaming one selected
 history and partial scans; matches across chunk/scan boundaries; XML/newline
@@ -121,10 +121,10 @@ both real agent loops; and unchanged tool-call/result pairing. The restart test
 blocks network connections. All storage and provider results are temporary or
 mocked; no live model/Gmail requests were made.
 
-This step does not prune model histories, preview current messages/callbacks,
-or resolve draft bodies in send/display adapters. Oversized prompts can still
-fail the final provider preflight. Those builders, exact draft-by-reference
-adapters, and inner email-search/classifier/summarizer limits remain Phase 2
-work. Existing full draft review and confirmation remain in force. Source
+[Outer-agent builders](bounded-context.md) now prune older episodes and preview
+large results using these sources. Required current messages/callbacks remain
+intact and fail explicitly if they cannot fit. Exact draft-by-reference adapters
+and inner email-search/classifier/summarizer limits remain Phase 2 work.
+Existing full draft review and confirmation remain in force. Source
 recovery does not claim to fix all asynchronous legacy-journal clear races or
 cancel already-running external actions.

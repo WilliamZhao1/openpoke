@@ -11,9 +11,10 @@ from ...config import get_settings
 from ...openrouter_client import request_chat_completion
 from ...logging_config import logger
 from ...observability import observe_tool, traced
-from ...content_store import ContentStoreError, capture_scope
+from ...content_store import ContentStoreError, capture_scope, current_capture
 from ...services.execution.log_store import preserve_worker_content
 from ...context_recovery import GUIDANCE, RECOVERY_NAMES, RecoveryBudget
+from ...context_builder import ContextBuilder, load_recent_history, validate_tool_calls
 
 
 @dataclass
@@ -58,7 +59,12 @@ class ExecutionAgentRuntime:
         try:
             preserve_worker_content(instructions, "worker_instructions", min_bytes=4096, log_store=self.agent._log_store)
             # Build system prompt with history
-            system_prompt = self.agent.build_system_prompt_with_history()
+            history = load_recent_history(self.agent._log_store, worker_name=self.agent.name, current_request=instructions) if self.bounded_context else None
+            if history is not None and not history.current_recorded:
+                self.agent._log_store.record_request(self.agent.name, instructions, strict=True)
+            system_prompt = self.agent.build_system_prompt() if self.bounded_context else self.agent.build_system_prompt_with_history()
+            builder = ContextBuilder(settings=get_settings(), model=self.model, tools=self.tool_schemas, history=history,
+                                     record_reference=lambda ref, kind: self.agent._log_store.record_content_reference(self.agent.name, ref, kind)) if self.bounded_context else None
 
             # Start conversation with the instruction
             messages = [{"role": "user", "content": instructions}]
@@ -70,13 +76,16 @@ class ExecutionAgentRuntime:
                 logger.info(
                     f"[{self.agent.name}] Requesting plan (iteration {iteration + 1})"
                 )
-                response = await self._make_llm_call(system_prompt, messages, with_tools=True)
+                prepared_system, prepared_messages = builder.build(system_prompt, messages) if builder else (system_prompt, messages)
+                response = await self._make_llm_call(prepared_system, prepared_messages, with_tools=True)
                 assistant_message = response.get("choices", [{}])[0].get("message", {})
 
                 if not assistant_message:
                     raise RuntimeError("LLM response did not include an assistant message")
 
                 raw_tool_calls = assistant_message.get("tool_calls", []) or []
+                if builder:
+                    validate_tool_calls(raw_tool_calls)
                 parsed_tool_calls = self._extract_tool_calls(raw_tool_calls)
 
                 assistant_entry: Dict[str, Any] = {
@@ -112,7 +121,10 @@ class ExecutionAgentRuntime:
                     tools_executed.append(tool_name)
                     logger.info(f"[{self.agent.name}] Executing tool: {tool_name}")
 
+                    capture = current_capture()
+                    source_start = len(capture.sources) if capture else 0
                     success, result = await self._execute_tool(tool_name, tool_args, recovery=recovery)
+                    source_references = capture.sources[source_start:] if capture else []
 
                     if success:
                         logger.info(f"[{self.agent.name}] Tool {tool_name} completed successfully")
@@ -133,6 +145,10 @@ class ExecutionAgentRuntime:
                         "tool_call_id": call_id or tool_name,
                         "content": self._format_tool_result(tool_name, success, result, tool_args),
                     }
+                    if source_references:
+                        payload = json.loads(tool_message["content"])
+                        payload["source_references"] = source_references
+                        tool_message["content"] = self._safe_json_dump(payload)
                     messages.append(tool_message)
 
             else:

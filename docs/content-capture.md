@@ -4,8 +4,8 @@ This is the second slice of revised Phase 2. In bounded context mode, live
 message/result paths preserve oversized text in immutable content files before
 existing journal truncation or any future preview. Capture keeps original model
 message content and the existing full draft-review path intact.
-[Model-visible recovery](context-recovery.md) is now available; bounded history
-construction is next.
+[Model-visible recovery](context-recovery.md) and
+[bounded outer-agent context](bounded-context.md) now use these sources.
 
 ## Motivation and old behavior
 
@@ -117,7 +117,7 @@ before retrying; it does not claim exactly-once external effects.
 
 ## Verification and next step
 
-`python server/tests/run_tests.py` passes all 155 tests, including the 23 capture
+`python server/tests/run_tests.py` passes all 171 tests, including the 23 capture
 tests. They cover full Unicode/CRLF/middle-content recovery, bounded byte pages,
 exact empty content, ordinary/fresh-process reloads, owner/account isolation,
 unknown provenance, corrupt/missing/truncated storage, atomic publication failure,
@@ -127,8 +127,9 @@ and capture-failure propagation. Legacy mode remains covered by the retained
 suite. Tests use temporary roots, fake results, and mocked providers.
 
 Bounded `read_result`/selected-history handlers now expose these sources with
-per-turn recovery budgets; see [context-recovery.md](context-recovery.md). Next:
-context builders that keep complete episodes and replace omitted content with
-these references. Background classification/summarization capture, inner model
+per-turn recovery budgets; see [context-recovery.md](context-recovery.md).
+[Outer-agent context builders](bounded-context.md) now use references for large
+results and omitted tool groups, carrying original captured source qualifications
+alongside composite snapshots. Background classification/summarization capture, inner model
 limits, and exact draft-by-reference adapters remain unfinished Phase 2 work.
 No old history is imported or deleted as part of enabling capture.

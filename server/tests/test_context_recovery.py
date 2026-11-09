@@ -12,6 +12,7 @@ from unittest.mock import AsyncMock, Mock, patch
 
 from server import content_store
 from server import context_recovery as recovery
+from server import context_builder
 from server.config import Settings
 from server.content_store import ContentStore, capture_scope
 from server.agents.execution_agent import agent as worker_agent, runtime as worker_runtime
@@ -45,6 +46,7 @@ class RecoveryTests(unittest.IsolatedAsyncioTestCase):
         self.stack.enter_context(patch.object(recovery, "get_conversation_log", return_value=self.log))
         self.stack.enter_context(patch.object(recovery, "get_execution_agent_logs", return_value=self.logs))
         self.stack.enter_context(patch.object(recovery, "get_agent_roster", return_value=self.roster))
+        self.stack.enter_context(patch.object(context_builder, "get_agent_roster", return_value=self.roster))
         self.store = ContentStore(self.root / "content")
         self.generation = self.store.generation()
 
@@ -372,7 +374,7 @@ print(json.dumps(data))
 
                 async def respond(system, messages, **kwargs):
                     if kind == "worker":
-                        self.assertIn(reference, system)
+                        self.assertIn(reference, json.dumps(messages))
                     snapshots.append(json.loads(json.dumps(messages)))
                     return next(responses)
 
@@ -399,7 +401,7 @@ print(json.dumps(data))
         final = {"choices": [{"message": {"content": "done"}}]}
         with patch.object(interaction_runtime, "handle_tool_call", side_effect=handle):
             for _ in range(2):
-                with patch.object(runtime, "_make_llm_call", new=AsyncMock(side_effect=[call, final])):
+                with capture_scope("conversation"), patch.object(runtime, "_make_llm_call", new=AsyncMock(side_effect=[call, final])):
                     await runtime._run_interaction_loop("system", [{"role": "user", "content": "read"}])
         self.assertIsNot(seen[0], seen[1])
         self.assertEqual([budget.calls for budget in seen], [1, 1])

@@ -112,9 +112,9 @@ class ExecutionAgentLogStore:
         payload = _decode_payload(stripped[open_end + 1 : close_start])
         return tag, timestamp, payload
 
-    def record_request(self, agent_name: str, instructions: str) -> None:
+    def record_request(self, agent_name: str, instructions: str, *, strict=False) -> None:
         """Record an incoming request from the interaction agent."""
-        self._append(agent_name, "agent_request", instructions)
+        self._append(agent_name, "agent_request", instructions, strict=strict)
 
     def record_action(self, agent_name: str, description: str) -> None:
         """Record an agent action (tool call)."""

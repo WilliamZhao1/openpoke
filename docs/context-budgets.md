@@ -4,7 +4,8 @@ This is the first slice of revised Phase 2. It checks complete text requests at
 the shared provider boundary. The preflight itself does not trim histories or
 build previews. [Full-content capture](content-capture.md) and
 [source recovery](context-recovery.md) are now available. Oversized requests
-still fail locally with a clear error until bounded builders are implemented.
+fail locally with a clear error if required content cannot fit.
+[Bounded outer-agent builders](bounded-context.md) now rebuild optional context.
 
 ## Motivation and old behavior
 
@@ -112,7 +113,7 @@ context builders without adding a new observation framework.
 
 ## Verification and remaining work
 
-`python server/tests/run_tests.py` passes all 155 tests, including 16 context
+`python server/tests/run_tests.py` passes all 171 tests, including 16 context
 budget tests. Checks cover every input section, exact boundaries, output/headroom
 arithmetic, multilingual text, configuration failures, unsupported media, no-HTTP
 rejection, immutable wire bytes, unchanged accepted content/output, provider-usage
@@ -124,7 +125,8 @@ legacy isolation. All data and provider responses are temporary or mocked.
 Phase 2 remains in progress. [Full-content capture](content-capture.md) now saves
 oversized live content in a small owner/account-qualified file store, with
 backend paging and history-clear invalidation. [Model-visible recovery](context-recovery.md)
-now exposes bounded result/history reads with per-turn limits. Bounded episode
-construction, exact draft-by-reference adapters, and inner model limits follow.
+now exposes bounded result/history reads with per-turn limits.
+[Outer-agent context construction](bounded-context.md) uses those sources when
+rebuilding requests. Exact draft-by-reference adapters and inner model limits follow.
 No source is deleted or shortened by this preflight, and it does not establish routing quality, native
 token accuracy, or completion of the full bounded-context release.

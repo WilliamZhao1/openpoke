@@ -127,8 +127,11 @@ for complete text requests and rejects over-budget input before HTTP.
 [Full-content capture](docs/content-capture.md) now preserves oversized live
 messages/results under owner-qualified references in the same bounded mode.
 [Bounded source recovery](docs/context-recovery.md) exposes paged `read_result`
-and selected-history `recall_history` tools to both agents. Bounded history
-construction remains next.
+and selected-history `recall_history` tools to both agents.
+[Bounded outer-agent context](docs/bounded-context.md) now keeps recent episodes
+and saves large tool results before previewing them. Required content that cannot
+fit fails explicitly; exact body-by-reference adapters and inner-agent builders
+remain in progress.
 
 ## Project Layout
 - `server/` – FastAPI application and agents

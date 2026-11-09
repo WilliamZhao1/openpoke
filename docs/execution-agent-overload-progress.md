@@ -1,6 +1,6 @@
 # Execution Agent Overload: Implementation Progress
 
-Updated: 2026-11-08
+Updated: 2026-11-09
 
 The reduced-scope revision of
 [`execution-agent-overload-implementation-plan.md`](execution-agent-overload-implementation-plan.md)
@@ -8,14 +8,15 @@ supersedes the earlier storage/migration roadmap. Phase 1 now means bounded work
 discovery; Phase 2 means bounded context/recovery; Phase 3 means focused comparison
 and release. Revised Phase 1 discovery is implemented behind the development
 strategy setting. Phase 2 has provider preflight, live full-content capture, and
-bounded model-visible source recovery. Bounded history construction is next.
-No backup/import phase precedes it.
+bounded model-visible source recovery, and bounded outer-agent context assembly.
+Exact draft/document body-by-reference adapters are next. No backup/import phase
+precedes them.
 
 Phase 0's data paths, isolated runner, telemetry, fixtures, fake Gmail, evaluation
 command, and saved model-free baseline remain in active use. The unused workflow,
 migration, and event-storage code from Steps 5–7 is preserved with its dedicated
 tests/docs in a [verified deferred checkpoint](../deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active implementation. The active suite now has 155 tests.
+and removed from the active implementation. The active suite now has 171 tests.
 
 Each implementation step is reported with its motivation, old behavior, new
 behavior, design rationale, validation, and any remaining limits or plan gaps.
@@ -795,10 +796,68 @@ checks do not detect arbitrary same-size edits in place. Existing legacy-journal
 clear races remain outside this slice. Details and examples are in
 [`context-recovery.md`](context-recovery.md).
 
+## Revised Phase 2, step 4: Bounded outer-agent context (complete)
+
+**Motivation:** Source recovery needs to be used in actual prompt construction.
+Full histories and cumulative tool payloads otherwise keep reaching the rejection
+guard, even though the information needed for a particular follow-up is smaller.
+Required instructions and exact draft content must not be silently shortened.
+
+**Old behavior:** The Interaction Agent loaded a full conversation/working-memory
+transcript, the worker put its full history in the system prompt, and both loops
+kept every raw result in subsequent requests. Direct/trigger executions did not
+always journal an incoming-request boundary through the worker runtime.
+
+**New behavior:** Both outer loops now build context before every provider call
+in bounded mode. Selected history reads cap at a 128 KiB tail and four recent
+episodes. The existing working summary and latest history episode stay intact,
+as do static instructions, current input, and latest tool-call arguments. Older
+history has recall guidance. Large results and omitted earlier tool groups are
+saved under journaled references before model-visible previews are constructed.
+The executed arguments and full draft-review output remain unchanged.
+
+At most seven builder checks use the shared full-request estimate, including
+tool schemas, output reservation and headroom. The final provider preflight
+remains. Current user messages/callbacks and oversized required draft content
+produce a clear before-HTTP error when their full required form cannot fit.
+Calls/results are retained or omitted as whole groups. Invalid parallel call IDs
+are rejected before tool execution; incomplete groups cannot reach the provider.
+
+**Why this approach:** A bounded tail and fixed reduction sequence avoid another
+summarization agent, history migration, or generalized session framework. Keeping
+current instructions prevents loss of constraints such as a late “do not send.”
+Keeping the last history episode preserves immediate draft/pronoun evidence;
+older applicable instructions remain recoverable, with the existing summary
+retained. Composite snapshots stay explicitly unqualified while original captured
+Gmail/search references retain the executed account. A per-turn content-reference
+cache avoids rewriting the same preview source. Direct/trigger-style worker
+requests receive journal boundaries only when dispatch has not already logged
+the exact current request, preserving the previous episode for follow-ups.
+
+**Verification:** `.venv\Scripts\python.exe server/tests/run_tests.py` passed
+171 tests: 155 retained and 16 new. Checks cover bounded tails and Unicode
+separators; summaries and latest draft evidence; exact snapshot recovery;
+complete parallel groups; preserved current inputs/arguments; insufficient
+budgets and history gaps; collisions, clear and cached references; actual Gmail
+result preview/readback under provider preflight; rejected giant current input
+and callbacks before HTTP; actual interaction dispatch/full draft review;
+failed snapshot persistence without tool replay; invalid calls before effects;
+and direct/trigger-style request boundaries without duplicate dispatch logging.
+All data/providers were temporary or mocked; no live model/Gmail calls occurred.
+
+**Remaining limits:** Older semantic dependencies still need lookup; scripted
+tests do not prove model routing quality. Required content larger than the input
+allowance fails clearly, including giant latest episodes and callbacks. Exact
+body-by-reference adapters and inner email-search/summarizer/classifier builders
+and cumulative growth bounds remain pending. Backend copies/storage can still
+grow under the existing iteration limits; no retention/quota framework is added.
+Known asynchronous legacy-journal/clear limitations remain. Details and examples
+are in [`bounded-context.md`](bounded-context.md).
+
 ## Next implementation step under the revised plan
 
-Use captured references and these recovery handlers when constructing bounded
-complete conversation/tool episodes. Keep required instructions and genuine
-follow-up dependencies, bound current messages and callbacks, preserve valid
-tool-call/result pairs, and retain final provider preflight. Revised Phase 3
-comparison and default promotion remain pending.
+Pass exact large draft/document bodies by reference through the relevant adapter,
+resolving them in backend code while preserving full user review, recipients,
+mailbox qualification and confirmation. Missing or historically truncated bodies
+must fail explicitly. Inner model builders follow; revised Phase 3 comparison
+and default promotion remain pending.
