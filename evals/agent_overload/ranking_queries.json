@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "provenance": "Authored synthetic metadata-retrieval judgments; not independent real-world labels. No tuning against evaluation results.",
+  "cases": [
+    {"id": "exact-lunch", "split": "development", "query": "Alice lunch", "relevant_names": ["Alice lunch"], "kind": "single"},
+    {"id": "original-contract", "split": "development", "query": "Acme original services redline", "relevant_names": ["Alice Acme contract"], "kind": "single"},
+    {"id": "old-taxes", "split": "development", "query": "Morgan 2023 filing", "relevant_names": ["2023 tax documents"], "kind": "single"},
+    {"id": "atlas-review", "split": "development", "query": "Atlas authentication pull request", "relevant_names": ["GitHub review"], "kind": "single"},
+    {"id": "new-garden", "split": "development", "query": "garden landscaping", "relevant_names": [], "kind": "none"},
+    {"id": "acme-ambiguity", "split": "development", "query": "Alice Acme", "relevant_names": ["Alice Acme contract", "Alice Acme renewal", "Acme amendment"], "kind": "ambiguous"},
+    {"id": "cafe-invitation", "split": "evaluation", "query": "Cafe Etoile invitation", "relevant_names": ["Alice lunch"], "kind": "single"},
+    {"id": "services-owner", "split": "evaluation", "query": "original Acme services", "relevant_names": ["Alice Acme contract"], "kind": "single"},
+    {"id": "dormant-documents", "split": "evaluation", "query": "2023 documents Morgan", "relevant_names": ["2023 tax documents"], "kind": "single"},
+    {"id": "expense-owner", "split": "evaluation", "query": "Uber expense reimbursement", "relevant_names": ["Uber receipts"], "kind": "single"},
+    {"id": "repository-owner", "split": "evaluation", "query": "Atlas repository authentication", "relevant_names": ["GitHub review"], "kind": "single"},
+    {"id": "renewal-owner", "split": "evaluation", "query": "Alice renewal terms", "relevant_names": ["Alice Acme renewal"], "kind": "single"},
+    {"id": "amendment-owner", "split": "evaluation", "query": "Acme signed amendment", "relevant_names": ["Acme amendment"], "kind": "single"},
+    {"id": "new-science", "split": "evaluation", "query": "quasar astrophysics", "relevant_names": [], "kind": "none"},
+    {"id": "two-topics", "split": "evaluation", "query": "Cafe Etoile Acme original services", "relevant_names": ["Alice lunch", "Alice Acme contract"], "kind": "multiple"},
+    {"id": "contract-ambiguity", "split": "evaluation", "query": "Alice contract", "relevant_names": ["Alice Acme contract", "Alice Acme renewal"], "kind": "ambiguous"}
+  ]
+}

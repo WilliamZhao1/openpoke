@@ -26,6 +26,10 @@ def main(argv=None):
     parser.add_argument("--sizes", type=int, nargs="+", choices=(0, 100, 1000, 10000))
     parser.add_argument("--mode", choices=("model-free", "live"), default="model-free")
     parser.add_argument("--compare", action="store_true", help="Compare both strategies; model-free decisions remain scripted.")
+    parser.add_argument("--compare-rankers", nargs="+", choices=("heuristic_v1", "idf_v1", "bm25_v1"),
+                        help="Compare local retrieval rankers; add --ranker-agent-check for fixed bounded agent runs.")
+    parser.add_argument("--ranker-agent-check", action="store_true", help="Run agents with each ranker, keeping discovery/context bounded.")
+    parser.add_argument("--repeats", type=int, default=3, help="Timing repetitions per offline ranking case (1–10).")
     parser.add_argument("--cases", nargs="+", help="Frozen routing case IDs for the comparison.")
     parser.add_argument("--context-window", type=int, help="Explicit model context allowance for bounded comparison requests.")
     parser.add_argument("--input-cap", type=int, default=32768)
@@ -38,10 +42,17 @@ def main(argv=None):
         manifest = load_manifest(args.manifest)
         if "server" in sys.modules:
             raise EvaluationConfigError("Run the harness in a fresh standalone process")
-        if args.mode == "live" and not args.compare:
-            raise EvaluationConfigError("Live mode requires --compare; the frozen baseline remains model-free")
+        ranker_agents = bool(args.compare_rankers and args.ranker_agent_check)
+        agent_comparison = args.compare or ranker_agents
+        offline_ranking = bool(args.compare_rankers and not ranker_agents)
+        if (args.compare and args.compare_rankers or args.ranker_agent_check and not args.compare_rankers
+                or args.compare_rankers and len(set(args.compare_rankers)) != len(args.compare_rankers)
+                or not 1 <= args.repeats <= 10):
+            raise EvaluationConfigError("Choose one comparison with unique rankers and 1–10 timing repeats")
+        if args.mode == "live" and not agent_comparison:
+            raise EvaluationConfigError("Live mode requires --compare or --compare-rankers with --ranker-agent-check")
         key = "test-key"
-        if args.compare:
+        if agent_comparison:
             if args.context_window is None or args.context_window < args.input_cap + 1024 + manifest["runtime_settings"]["openrouter_max_tokens"] or args.input_cap < 4096:
                 raise EvaluationConfigError("Comparison requires --context-window covering input cap, output, and 1024 headroom; input cap must be at least 4096")
             if not 1 <= args.max_calls <= 128 or not 10 <= args.case_timeout <= 300:
@@ -58,7 +69,7 @@ def main(argv=None):
                     raise EvaluationConfigError("Live comparison requires a configured OpenRouter API key")
         elif args.cases or args.context_window:
             raise EvaluationConfigError("Comparison controls require --compare")
-        sizes = args.sizes if args.sizes is not None else ([100] if args.compare else manifest["catalog_sizes"])
+        sizes = args.sizes if args.sizes is not None else ([100] if agent_comparison else [100, 1000, 10000] if offline_ranking else manifest["catalog_sizes"])
         if len(set(sizes)) != len(sizes):
             raise EvaluationConfigError("Catalog sizes must not be repeated")
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
@@ -72,9 +83,10 @@ def main(argv=None):
             with patch.dict(os.environ, {
                     "OPENPOKE_DATA_DIR": directory,
                     "OPENPOKE_WORKER_DISCOVERY": "legacy",
+                    "OPENPOKE_WORKER_RANKER": "heuristic_v1",
                     "OPENPOKE_CONTEXT_STRATEGY": "legacy",
-                    "OPENPOKE_MODEL_CONTEXT_WINDOWS": json.dumps({manifest["runtime_settings"]["interaction_agent_model"]: args.context_window}) if args.compare else "{}",
-                    "OPENPOKE_CONTEXT_INPUT_TOKENS": str(args.input_cap) if args.compare else "32768",
+                    "OPENPOKE_MODEL_CONTEXT_WINDOWS": json.dumps({manifest["runtime_settings"]["interaction_agent_model"]: args.context_window}) if agent_comparison else "{}",
+                    "OPENPOKE_CONTEXT_INPUT_TOKENS": str(args.input_cap) if agent_comparison else "32768",
                     "OPENPOKE_CONTEXT_HEADROOM_TOKENS": "1024",
                     "OPENROUTER_API_KEY": key,
                     "COMPOSIO_API_KEY": "test-key",
@@ -93,11 +105,16 @@ def main(argv=None):
                             guards.enter_context(patch.object(socket.socket, "connect", side_effect=reject_network))
                             guards.enter_context(patch.object(socket.socket, "connect_ex", side_effect=reject_network))
                         # This import initializes stores, so keep it after env setup.
-                        if args.compare:
+                        if offline_ranking:
+                            from evals.agent_overload.ranking import run_ranking_comparison
+                            summary = run_ranking_comparison(manifest, sizes, output, Path(directory),
+                                identifiers=args.compare_rankers, repeats=args.repeats)
+                        elif agent_comparison:
                             from evals.agent_overload.comparison import run_comparison
                             summary = loop.run_until_complete(run_comparison(manifest, sizes, output, Path(directory),
                                 mode=args.mode, cases=args.cases, max_calls=args.max_calls, timeout=args.case_timeout,
-                                request_interval=args.request_interval if args.request_interval is not None else 3.1 if args.mode == "live" else 0))
+                                request_interval=args.request_interval if args.request_interval is not None else 3.1 if args.mode == "live" else 0,
+                                rankers=args.compare_rankers if ranker_agents else None))
                         else:
                             from evals.agent_overload.engine import run_evaluation
                             summary = run_evaluation(manifest, sizes, output, Path(directory), loop)
@@ -108,7 +125,7 @@ def main(argv=None):
                     asyncio.set_event_loop(None)
         print(json.dumps({"status": "passed" if summary["checks_passed"] else "failed",
                           "mode": args.mode, "case_contexts": summary["case_context_count"],
-                          "routing_quality": summary["routing_quality"] if args.compare else "unavailable", "output": str(output)}))
+                          "routing_quality": summary.get("routing_quality", "unavailable"), "output": str(output)}))
         return 0 if summary["checks_passed"] else 1
     except FileExistsError:
         print("Evidence directory already exists; choose a new --output directory.", file=sys.stderr)

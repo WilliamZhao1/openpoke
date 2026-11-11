@@ -1,0 +1,127 @@
+{
+  "source_commit": "4677aae",
+  "source": "server/services/execution/discovery.py:find_workers",
+  "serialization": "json.dumps(sort_keys=True, ensure_ascii=True)",
+  "cases": [
+    {
+      "size": 0,
+      "query": "Alice lunch",
+      "sha256": "c4ca5bfe14559ec42f66434e61b25a2726d05e8848e266a9201915bee8922805"
+    },
+    {
+      "size": 0,
+      "query": "Alice contract",
+      "sha256": "4e91022fbbfd0bbede42929d6e2cad781665ac1221a6caf8b3bcb30e950852e8"
+    },
+    {
+      "size": 0,
+      "query": "Acme",
+      "sha256": "ceaa5cdb79bd1b71d243bb2acb353221cfc8a1c236f646e49932629182a48cc4"
+    },
+    {
+      "size": 0,
+      "query": "Morgan 2023 filing",
+      "sha256": "81ca75887e288b2599d4f3ddeb3579cf8567c12acab956c693fedfaadb160874"
+    },
+    {
+      "size": 0,
+      "query": "旅行計画",
+      "sha256": "ceaa5cdb79bd1b71d243bb2acb353221cfc8a1c236f646e49932629182a48cc4"
+    },
+    {
+      "size": 0,
+      "query": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "sha256": "9b1ee461065704058db61f8adf8990ebf24e74fe7ed4907a3ec0cc6237861020"
+    },
+    {
+      "size": 100,
+      "query": "Alice lunch",
+      "sha256": "c3512497b58d01033e17c4ebd3297bd1df416ab4767c261c2be30dee006e62ad"
+    },
+    {
+      "size": 100,
+      "query": "Alice contract",
+      "sha256": "1826e5405e93c575c983ae0d12fc4ce8cecbfd83597143edc65c6aa71a441c3a"
+    },
+    {
+      "size": 100,
+      "query": "Acme",
+      "sha256": "325189cf9deb20dfb9bfa16e1e42b8818d9479ec1a3eb12421c2c27e2704bc01"
+    },
+    {
+      "size": 100,
+      "query": "Morgan 2023 filing",
+      "sha256": "1626068bae73229865e15b65a151e11cf230e49a6bbfe33c2daf9f6fbecf8b56"
+    },
+    {
+      "size": 100,
+      "query": "旅行計画",
+      "sha256": "f8cca061e5e688b735a11229f5bddaae66c63f9c0dcbd381c6b9b2a8af4d91bc"
+    },
+    {
+      "size": 100,
+      "query": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "sha256": "dbbb06eb0f21e3bc6a0faa91083208d14b5fad46c1357e572caaf2a7e6012884"
+    },
+    {
+      "size": 1000,
+      "query": "Alice lunch",
+      "sha256": "00f9205cf24f3688a17687666842e3322b2bd8c2c9d74c552ab8a6fb5716741b"
+    },
+    {
+      "size": 1000,
+      "query": "Alice contract",
+      "sha256": "6e57c054b412816ec81d1df312852c47bd9f35ef0e5c485ec0cbdf3bd71b1bde"
+    },
+    {
+      "size": 1000,
+      "query": "Acme",
+      "sha256": "6ba37dca1d4b04f7d50e907f5d9de09d6417631b47ca77c0f36ccf71f29c5901"
+    },
+    {
+      "size": 1000,
+      "query": "Morgan 2023 filing",
+      "sha256": "f98ce09a45dacbf34668876d9a778dac4d0a0366e9913d9c2a36a9eb767f6ef5"
+    },
+    {
+      "size": 1000,
+      "query": "旅行計画",
+      "sha256": "2cd9fab10142e7f84cb7322240e6fc85bbff20268efb904a57cfa61b8a2c5e01"
+    },
+    {
+      "size": 1000,
+      "query": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "sha256": "f241aa89f9b31d91a270a3e8a176d4bb9986bc86213a56f67a530f1fc0248f5c"
+    },
+    {
+      "size": 10000,
+      "query": "Alice lunch",
+      "sha256": "f93a8d7a0c0eca05511bea7e5d95bba73903bfc43d15814fbaa63857f24f398c"
+    },
+    {
+      "size": 10000,
+      "query": "Alice contract",
+      "sha256": "a71c647a121abd330dc67ee83138f4a0b88f7f7e1cfb609b1115eb1e239a4d7a"
+    },
+    {
+      "size": 10000,
+      "query": "Acme",
+      "sha256": "d5b96172943ac9979fdeabae6b6be6280ef0b9e6bbe6797acc1a791e20d8a255"
+    },
+    {
+      "size": 10000,
+      "query": "Morgan 2023 filing",
+      "sha256": "99e5b3520a1ec0a5ebcc42f824a4c6698e55c68df7215c25259101ee4ca56978"
+    },
+    {
+      "size": 10000,
+      "query": "旅行計画",
+      "sha256": "ff7cdef81d66898f992149db6c4b089937ec6dcda9996a988e040082e690c9f7"
+    },
+    {
+      "size": 10000,
+      "query": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "sha256": "ad3b64f2469dab441512d55b487b38dd93a1f1d3421707d829c5798daeb892ef"
+    }
+  ]
+}

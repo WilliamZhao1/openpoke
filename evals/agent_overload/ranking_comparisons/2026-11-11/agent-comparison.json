@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "profile": "worker_ranker_agent_comparison_v1",
+  "decision_mode": "mock",
+  "gmail_mode": "mock",
+  "model": "anthropic/claude-sonnet-4.6",
+  "max_tokens": 2048,
+  "model_context_windows": {
+    "anthropic/claude-sonnet-4.6": 65536
+  },
+  "input_cap": 32768,
+  "headroom": 1024,
+  "max_http_requests": 64,
+  "case_timeout_seconds": 180,
+  "request_interval_seconds": 0,
+  "arm_order": "paired; rotate first ranker by scenario",
+  "max_request_bytes": 262144,
+  "catalog_sizes": [
+    100
+  ],
+  "cases": [
+    "alice-lunch"
+  ],
+  "strategies": [
+    "heuristic_v1",
+    "idf_v1",
+    "bm25_v1"
+  ],
+  "baseline_manifest_sha256": "9f1f6ff9276e6602756cb840ecccff35178522c61b3e7224642e296087afd4d6",
+  "scope": "ranker_only; discovery_and_context_fixed_bounded",
+  "worker_discovery_strategy": "bounded",
+  "context_strategy": "bounded",
+  "ranker_parameters": {
+    "heuristic_v1": {
+      "field_weights": [
+        20,
+        6,
+        3
+      ],
+      "exact_bonus": 10000,
+      "substring_bonus": 1000
+    },
+    "idf_v1": {
+      "field_weights": [
+        4.0,
+        2.0,
+        1.0
+      ],
+      "exact_bonus": 10000,
+      "normalized_exact_bonus": 1000,
+      "word_phrase_bonus": 0.5,
+      "coverage_factor": "0.5 + 0.5 * idf_coverage",
+      "repeated_fields": "strongest_only"
+    },
+    "bm25_v1": {
+      "field_weights": [
+        4.0,
+        2.0,
+        1.0
+      ],
+      "exact_bonus": 10000,
+      "normalized_exact_bonus": 1000,
+      "word_phrase_bonus": 0.5,
+      "k1": 1.2,
+      "b": 0.75,
+      "idf": "worker_union",
+      "field_normalization": "independent"
+    }
+  }
+}

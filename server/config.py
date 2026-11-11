@@ -72,6 +72,9 @@ class Settings(BaseModel):
     worker_discovery_strategy: Literal["legacy", "bounded"] = Field(
         default_factory=lambda: os.getenv("OPENPOKE_WORKER_DISCOVERY", "bounded"), validate_default=True,
     )
+    worker_ranker: Literal["heuristic_v1", "idf_v1", "bm25_v1"] = Field(
+        default_factory=lambda: os.getenv("OPENPOKE_WORKER_RANKER", "heuristic_v1"), validate_default=True,
+    )
     context_strategy: Literal["legacy", "bounded"] = Field(
         default_factory=lambda: os.getenv("OPENPOKE_CONTEXT_STRATEGY", "bounded"), validate_default=True,
     )

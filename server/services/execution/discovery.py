@@ -6,11 +6,10 @@ from html import escape
 import json
 import os
 from pathlib import Path
-import re
 import tempfile
-import unicodedata
 
 from .log_store import _slugify
+from .ranking import SearchCatalog, get_ranker, rank_workers, terms as _terms
 
 
 RECENT_LIMIT = 5
@@ -78,15 +77,7 @@ def assignment_metadata(previous, instructions):
             "last_activity": stamp.astimezone(timezone.utc).isoformat()}
 
 
-def _normalise(text):
-    return unicodedata.normalize("NFKC", text).casefold()
-
-
-def _terms(text):
-    return set(re.findall(r"[^\W_]+", _normalise(text)))
-
-
-def find_workers(roster, query, limit=LOOKUP_LIMIT):
+def find_workers(roster, query, limit=LOOKUP_LIMIT, *, ranker=None):
     if not isinstance(query, str) or not _terms(query[:QUERY_CHAR_LIMIT]):
         raise ValueError("query must contain words or numbers")
     if type(limit) is not int:
@@ -97,30 +88,21 @@ def find_workers(roster, query, limit=LOOKUP_LIMIT):
     names, metadata = roster.discovery_snapshot()
     names = list(dict.fromkeys(names))
     collisions = Counter(_slugify(name) for name in names)
-    tokens, normal_query = _terms(query), _normalise(query)
+    if ranker is None:
+        from ...config import get_settings
+        ranker = get_ranker(get_settings().worker_ranker)
+    try:
+        matches = rank_workers(ranker, query, SearchCatalog.build(names, metadata))
+    except Exception as exc:
+        raise WorkerDiscoveryError("Worker ranking is unavailable; retry without assuming no matches") from exc
     ranked = []
-    for name in names:
+    for match in matches:
+        name = match.name
         record = metadata.get(name, {})
-        fields = [("name", name, 20), ("purpose", record.get("purpose") or "", 6),
-                  ("recent_assignment", record.get("recent_assignment") or "", 3)]
-        reasons, score = [], 0
-        if query == name:
-            score += 10000
-            reasons.append("exact_name")
-        elif normal_query in _normalise(name):
-            score += 1000
-            reasons.append("name_phrase")
-        for field, value, weight in fields:
-            hits = tokens & _terms(value)
-            if hits:
-                score += weight * len(hits)
-                reasons.append(field + "_terms")
-        if score:
-            ranked.append((-score, name, {"agent_name": name, "purpose": record.get("purpose"),
+        ranked.append((-match.score, name, {"agent_name": name, "purpose": record.get("purpose"),
                            "recent_assignment": record.get("recent_assignment"),
-                           "last_activity": record.get("last_activity"), "match_reasons": reasons,
+                           "last_activity": record.get("last_activity"), "match_reasons": list(match.reasons),
                            "history_collision": collisions[_slugify(name)] > 1}))
-    ranked.sort(key=lambda row: (row[0], row[1]))
     payload = {"status": "ok", "query_characters": len(query), "query_truncated": truncated,
                "total_workers": len(names), "total_matches": len(ranked), "workers": [], "omitted_matches": len(ranked)}
     for _, _, card in ranked:

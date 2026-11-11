@@ -18,6 +18,7 @@ def main() -> int:
         with patch.dict(os.environ, {
             "OPENPOKE_DATA_DIR": directory,
             "OPENPOKE_WORKER_DISCOVERY": "legacy",
+            "OPENPOKE_WORKER_RANKER": "heuristic_v1",
             "OPENPOKE_CONTEXT_STRATEGY": "legacy",
             "OPENPOKE_MODEL_CONTEXT_WINDOWS": "{}",
             "OPENPOKE_CONTEXT_INPUT_TOKENS": "32768",

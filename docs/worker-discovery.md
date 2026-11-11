@@ -30,6 +30,12 @@ context strategy is independent and also defaults to bounded.
 
 ## Metadata and matching
 
+Lookup ranking is now selectable independently through
+`OPENPOKE_WORKER_RANKER=heuristic_v1|idf_v1|bm25_v1`. The default heuristic preserves
+the original scoring described below. See the [ranking implementation plan](worker-ranking-implementation-plan.md)
+for interfaces, comparison commands, parameters, measurements and promotion rules.
+All methods retain the existing count/text limits and exact-name identities.
+
 `execution_agents/roster.metadata.json` lives alongside the roster under
 `OPENPOKE_DATA_DIR`. Its exact-name entries contain a purpose snippet from the
 first observed assignment, the latest assignment snippet, and its UTC activity

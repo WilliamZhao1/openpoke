@@ -28,6 +28,7 @@ from server.openrouter_client import client
 from server.services.conversation import get_conversation_log
 from server.services.conversation.chat_handler import handle_chat_request
 from server.services.execution import get_agent_roster, get_execution_agent_logs
+from server.services.execution.ranking import get_ranker, ranker_parameters
 from server.tests.fixtures.catalogs import build_catalog, load_fixture, routing_cases
 from server.tests.fixtures.fake_gmail import FakeGmail, use_fake_gmail
 
@@ -210,7 +211,7 @@ async def run_case(case, catalog, strategy, script, provider, mode, timeout, *, 
             "conversation": [{"kind": tag, "content": content} for tag, _, content in log.iter_entries()], "gmail": fake.snapshot()}
 
 
-async def run_comparison(manifest, sizes, output, data_root, *, mode, cases=None, max_calls=64, timeout=180, request_interval=0):
+async def run_comparison(manifest, sizes, output, data_root, *, mode, cases=None, max_calls=64, timeout=180, request_interval=0, rankers=None):
     if get_data_dir() != data_root.resolve():
         raise EvaluationConfigError("Comparison stores must use the disposable evaluation root")
     selected = list((DEFAULT_CASES if mode == "live" else ("alice-lunch",)) if cases is None else cases)
@@ -239,6 +240,13 @@ async def run_comparison(manifest, sizes, output, data_root, *, mode, cases=None
               "max_request_bytes": 256 * 1024, "catalog_sizes": sizes, "cases": selected,
               "strategies": ["legacy", "bounded"], "baseline_manifest_sha256": digest(manifest),
               "scope": "combined_discovery_and_context; not a ranker/metadata ablation"}
+    if rankers is not None:
+        if not rankers or len(set(rankers)) != len(rankers):
+            raise EvaluationConfigError("Select unique worker rankers")
+        public.update(profile="worker_ranker_agent_comparison_v1", strategies=list(rankers),
+                      scope="ranker_only; discovery_and_context_fixed_bounded",
+                      arm_order="paired; rotate first ranker by scenario", worker_discovery_strategy="bounded", context_strategy="bounded",
+                      ranker_parameters={identifier: ranker_parameters(get_ranker(identifier)) for identifier in rankers})
     write_json(output / "comparison.json", public)
     write_json(output / "inputs.json", {"routing_cases": [case for case in eligible], "smoke_input": script["input"],
                                         "smoke_expected": script["expected"], "fixture_checksums": checksums})
@@ -255,8 +263,13 @@ async def run_comparison(manifest, sizes, output, data_root, *, mode, cases=None
             jobs = [(case, catalogs[size], False) for size in sizes for case in eligible if (case["catalog"] == "empty") == (size == 0)]
             jobs.append((None, catalogs[manifest["smoke_catalog_size"]], True))
             for index, (case, catalog, smoke) in enumerate(jobs):
-                for strategy in (("legacy", "bounded") if index % 2 == 0 else ("bounded", "legacy")):
-                    with patch.object(settings, "worker_discovery_strategy", strategy), patch.object(settings, "context_strategy", strategy):
+                order = (rankers[index % len(rankers):] + rankers[:index % len(rankers)] if rankers is not None
+                         else ("legacy", "bounded") if index % 2 == 0 else ("bounded", "legacy"))
+                for strategy in order:
+                    discovery_strategy = "bounded" if rankers is not None else strategy
+                    with (patch.object(settings, "worker_discovery_strategy", discovery_strategy),
+                          patch.object(settings, "context_strategy", discovery_strategy),
+                          patch.object(settings, "worker_ranker", strategy if rankers is not None else "heuristic_v1")):
                         if len(provider.requests) >= max_calls:
                             rows.append({"case_id": "approved-draft" if smoke else case["id"], "catalog_size": len(catalog), "strategy": strategy,
                                          "decision_mode": public["decision_mode"], "failure": "not_run_request_limit", "routing_grade": {"availability": "unavailable"}})
@@ -305,13 +318,15 @@ def summarize(rows, public):
 
 
 def write_report(output, summary):
-    lines = ["# Legacy versus bounded comparison", "", f"Decision mode: {summary['decision_mode']}. Gmail effects: mock. Checks passed: {summary['checks_passed']}.", "",
+    ranker_only = summary["profile"] == "worker_ranker_agent_comparison_v1"
+    lines = ["# Worker ranker agent comparison" if ranker_only else "# Legacy versus bounded comparison", "", f"Decision mode: {summary['decision_mode']}. Gmail effects: mock. Checks passed: {summary['checks_passed']}.", "",
         "| Strategy | Correct routes / graded / cases | Wrong reuse | Unnecessary creation | Model attempts / HTTP | Failures | Exact draft sent | Elapsed ms |",
         "| --- | --- | --- | --- | --- | --- | --- | --- |"]
     for name, arm in summary["arms"].items():
         lines.append(f"| {name} | {arm['correct_routes']} / {arm['graded']} / {arm['cases']} | {arm['incorrect_reuse']} | {arm['unnecessary_creation']} | {arm['model_call_attempts']} / {arm['http_requests']} | {arm['failures']} | {arm['exact_fake_draft_effect']} | {arm['elapsed_ms']:.0f} |")
     lines += ["", "Routing cases execute real lookup/registration and record accepted dispatch; their workers are not run. The approved-draft case executes chat acceptance, actual workers, callbacks and fake Gmail effects.",
-        "", "This is one small combined-strategy comparison, not a metadata/ranker ablation or a general accuracy estimate. Mock decisions provide no live-quality evidence. Usage and cost totals stay unknown when any request lacks valid provider values; reported subtotals remain separate. Elapsed time is local end-to-end time including configured request pacing, not isolated provider latency. Recovered tool errors are reported separately from terminal task failures; downstream errors do not erase observed dispatch decisions.",
-        "", "Defaults remain legacy. Trigger behavior, giant-history/full-review application checks and release approval remain separate work. No runtime mailbox or history was used.",
+        "", ("Only worker ranking varies; discovery and context are bounded in every arm. " if ranker_only else "This is one small combined-strategy comparison, not a metadata/ranker ablation. ")
+        + "This is not a general accuracy estimate. Mock decisions provide no live-quality evidence and may skip lookup entirely. Usage and cost totals stay unknown when any request lacks valid provider values; reported subtotals remain separate. Elapsed time is local end-to-end time including configured request pacing, not isolated provider latency. Recovered tool errors are reported separately from terminal task failures; downstream errors do not erase observed dispatch decisions.",
+        "", "Production configuration is unchanged. The default ranker remains heuristic_v1. No runtime mailbox or history was used.",
         "", "See [results and traces](results.json), [numeric summary](summary.json), [public settings](comparison.json), [inputs and grading labels](inputs.json), and [source provenance](provenance.json).", ""]
     (output / "report.md").write_text("\n".join(lines), encoding="utf-8")

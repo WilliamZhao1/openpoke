@@ -1,5 +1,10 @@
 # Agent overload evaluation harness
 
+Worker ranking experiments now use the same CLI. See the
+[ranking plan, configuration, commands and results](../../docs/worker-ranking-implementation-plan.md)
+for `--compare-rankers` and `--ranker-agent-check`. These keep the frozen baseline
+and original legacy/bounded comparison available.
+
 ## Motivation and scope
 
 The first comparison needs a durable record of the current behavior, fixed

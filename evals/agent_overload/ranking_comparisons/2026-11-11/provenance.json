@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-11-11T13:04:16.492201+00:00",
+  "fixture_checksums": {
+    "fixture_version": 1,
+    "catalogs": {
+      "0": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "100": "4ba294187e1ea7685d5a4c30962e308d28028e7af8195c0a9b111a36f03911aa",
+      "1000": "d30f8a3f000cb92d8cfd45e0b4f92b2bd9e328b81fb38eb8f8c52bc9481d293d",
+      "10000": "827d02d5f1a12652ce92b70a505e1aabaae8d2ee0e74fd7e21e91eb136b03561"
+    },
+    "routing_cases": "f3df90582528ed79c1f986ab6669a060fdba8c6411e8dd97875280783e2c8324",
+    "gmail_mailbox": "e08d517810df1a72308af28873dc13f9a4780b173062baf6499d876a0c183a50"
+  },
+  "source_sha256_lf_normalized": {
+    "server/services/execution/ranking.py": "c07fe1555ddeda2a554b9443a055307242ea09ecee482bf57f8d920214fed4ef",
+    "server/services/execution/discovery.py": "fc1b13f81a0d251d27d2e4dbf75cbe0ea630a4c54c5c61d70e9225490a07aa81",
+    "server/config.py": "f4baf542de171a2c86483a892b09c81364c8f8c744c4a0a4699277a005f2bd04",
+    "evals/agent_overload/ranking.py": "d7814547297da997c21e6d9846615776357c120d93d02d597335d81c2dd72f58",
+    "evals/agent_overload/ranking_queries.json": "5db4a509312d2b912e93df89ab3eaeeffed1f1e05d4e50abcf434c7112951499",
+    "evals/agent_overload/run.py": "6d0edeba5f990b24a3060c1fa8610c4e5b677cd6c79109f3b639fc394e1e65b5"
+  }
+}

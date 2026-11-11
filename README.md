@@ -130,7 +130,12 @@ keeps name-based dispatch and local JSON/log storage.
 `OPENPOKE_WORKER_DISCOVERY=bounded`: at most five recent entries plus `find_worker`
 over all workers, using a small metadata sidecar. Set the flag to `legacy` to opt
 out; restart the backend after changing settings. Explicit existing choices are
-preserved. The unused workflow,
+preserved. Lookup scoring is selectable with `OPENPOKE_WORKER_RANKER`:
+`heuristic_v1` (unchanged default), `idf_v1`, or `bm25_v1`. The
+[ranking implementation plan and comparison guide](docs/worker-ranking-implementation-plan.md)
+records the interfaces, isolated local/agent comparisons, results and promotion
+criteria. Ranking methods add no model calls or new service dependencies.
+The unused workflow,
 migration, and event-storage work is preserved in a
 [verified deferred checkpoint](deferred/execution-agent-overload-storage-2026-11-08/README.md)
 and removed from the active code and test suite. See the
