@@ -1,0 +1,4593 @@
+{
+  "status": "complete",
+  "created_at": "2026-11-12T02:13:23.161436+00:00",
+  "rows": [
+    {
+      "split": "evaluation",
+      "kind": "single",
+      "query": "Plan the Cafe Etoile meal with Alice Chen",
+      "relevant_names": [
+        "Alice lunch"
+      ],
+      "case_id": "fresh-cafe-guest",
+      "direct": false,
+      "embedding_ms": 10.565800126641989,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.8312392972345983
+              },
+              {
+                "name": "Alice Chen lunch project 00256",
+                "score": 0.6283617139023354
+              },
+              {
+                "name": "Alice Chen lunch project 00176",
+                "score": 0.6260798124982648
+              },
+              {
+                "name": "Alice Chen lunch project 00136",
+                "score": 0.625137211924305
+              },
+              {
+                "name": "Alice Chen lunch project 00216",
+                "score": 0.6236888298972184
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 5.072999745607376,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.8312392972345983
+              },
+              {
+                "name": "Alice Chen lunch project 00256",
+                "score": 0.6283617139023354
+              },
+              {
+                "name": "Alice Chen lunch project 00176",
+                "score": 0.6260798124982648
+              },
+              {
+                "name": "Alice Chen lunch project 00136",
+                "score": 0.625137211924305
+              },
+              {
+                "name": "Alice Chen lunch project 00216",
+                "score": 0.6236888298972184
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.723599646240473,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.8312392972345983
+              },
+              {
+                "name": "Alice Chen lunch project 00256",
+                "score": 0.6283617139023354
+              },
+              {
+                "name": "Alice Chen lunch project 00176",
+                "score": 0.6260798124982648
+              },
+              {
+                "name": "Alice Chen lunch project 00136",
+                "score": 0.625137211924305
+              },
+              {
+                "name": "Alice Chen lunch project 00216",
+                "score": 0.6236888298972184
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.773099906742573,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.8315730094909668
+              },
+              {
+                "name": "Alice Chen lunch project 00256",
+                "score": 0.629392147064209
+              },
+              {
+                "name": "Alice Chen lunch project 00176",
+                "score": 0.6255011558532715
+              },
+              {
+                "name": "Alice Chen lunch project 00136",
+                "score": 0.6254115104675293
+              },
+              {
+                "name": "Alice Chen lunch project 00216",
+                "score": 0.624457836151123
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 6.326500326395035,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.8315730094909668
+              },
+              {
+                "name": "Alice Chen lunch project 00256",
+                "score": 0.629392147064209
+              },
+              {
+                "name": "Alice Chen lunch project 00176",
+                "score": 0.6255011558532715
+              },
+              {
+                "name": "Alice Chen lunch project 00136",
+                "score": 0.6254115104675293
+              },
+              {
+                "name": "Alice Chen lunch project 00216",
+                "score": 0.624457836151123
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 6.860800087451935,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.8315730094909668
+              },
+              {
+                "name": "Alice Chen lunch project 00256",
+                "score": 0.629392147064209
+              },
+              {
+                "name": "Alice Chen lunch project 00176",
+                "score": 0.6255011558532715
+              },
+              {
+                "name": "Alice Chen lunch project 00136",
+                "score": 0.6254115104675293
+              },
+              {
+                "name": "Alice Chen lunch project 00216",
+                "score": 0.624457836151123
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.662000272423029,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.8312392972345983
+              },
+              {
+                "name": "Alice Chen lunch project 00256",
+                "score": 0.6283617139023354
+              },
+              {
+                "name": "Alice Chen lunch project 00176",
+                "score": 0.6260798124982648
+              },
+              {
+                "name": "Alice Chen lunch project 00136",
+                "score": 0.625137211924305
+              },
+              {
+                "name": "Alice Chen lunch project 00216",
+                "score": 0.6236888298972184
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.8312392972345983
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.4572940998664685
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.4428094394706371
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.42112393369341905
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.40703096101257114
+              }
+            ],
+            "candidate_count": 254,
+            "candidate_fraction": 0.254,
+            "representative_comparisons": 60,
+            "worker_comparisons": 254,
+            "total_explicit_comparisons": 314,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 186.46469991654158,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.8312392972345983
+              },
+              {
+                "name": "Alice Chen lunch project 00256",
+                "score": 0.6283617139023354
+              },
+              {
+                "name": "Alice Chen lunch project 00176",
+                "score": 0.6260798124982648
+              },
+              {
+                "name": "Alice Chen lunch project 00136",
+                "score": 0.625137211924305
+              },
+              {
+                "name": "Alice Chen lunch project 00216",
+                "score": 0.6236888298972184
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.8312392972345983
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.4572940998664685
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.4428094394706371
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.42112393369341905
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.40703096101257114
+              }
+            ],
+            "candidate_count": 254,
+            "candidate_fraction": 0.254,
+            "representative_comparisons": 60,
+            "worker_comparisons": 254,
+            "total_explicit_comparisons": 314,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 190.36199990659952,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.8312392972345983
+              },
+              {
+                "name": "Alice Chen lunch project 00256",
+                "score": 0.6283617139023354
+              },
+              {
+                "name": "Alice Chen lunch project 00176",
+                "score": 0.6260798124982648
+              },
+              {
+                "name": "Alice Chen lunch project 00136",
+                "score": 0.625137211924305
+              },
+              {
+                "name": "Alice Chen lunch project 00216",
+                "score": 0.6236888298972184
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.8312392972345983
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.4572940998664685
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.4428094394706371
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.42112393369341905
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.40703096101257114
+              }
+            ],
+            "candidate_count": 254,
+            "candidate_fraction": 0.254,
+            "representative_comparisons": 60,
+            "worker_comparisons": 254,
+            "total_explicit_comparisons": 314,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 190.3203995898366,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "split": "evaluation",
+      "kind": "single",
+      "query": "Find the Acme services agreement redline that Alice needs to review",
+      "relevant_names": [
+        "Alice Acme contract"
+      ],
+      "case_id": "fresh-original-redline",
+      "direct": false,
+      "embedding_ms": 9.066599886864424,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "Alice Acme contract",
+                "score": 0.8161344006814909
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.5917552311865486
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.5765325470978268
+              },
+              {
+                "name": "Alice Chen receipts project 00132",
+                "score": 0.3924065001828876
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.38900116057686496
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.16139978915453,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme contract",
+                "score": 0.8161344006814909
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.5917552311865486
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.5765325470978268
+              },
+              {
+                "name": "Alice Chen receipts project 00132",
+                "score": 0.3924065001828876
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.38900116057686496
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.315299913287163,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme contract",
+                "score": 0.8161344006814909
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.5917552311865486
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.5765325470978268
+              },
+              {
+                "name": "Alice Chen receipts project 00132",
+                "score": 0.3924065001828876
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.38900116057686496
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 3.0918996781110764,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "Alice Acme contract",
+                "score": 0.8152499198913574
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.5949697494506836
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.5771217346191406
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.3891763687133789
+              },
+              {
+                "name": "Alice lunch",
+                "score": 0.3867835998535156
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.596400238573551,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.6
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme contract",
+                "score": 0.8152499198913574
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.5949697494506836
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.5771217346191406
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.3891763687133789
+              },
+              {
+                "name": "Alice lunch",
+                "score": 0.3867835998535156
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.515099968761206,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.6
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme contract",
+                "score": 0.8152499198913574
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.5949697494506836
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.5771217346191406
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.3891763687133789
+              },
+              {
+                "name": "Alice lunch",
+                "score": 0.3867835998535156
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.880999844521284,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.6
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "Alice Acme contract",
+                "score": 0.8161344006814909
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.5917552311865486
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.5765325470978268
+              },
+              {
+                "name": "Alice Chen receipts project 00132",
+                "score": 0.3924065001828876
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.38900116057686496
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.8161344006814908
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.5917552311865486
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.3924065001828878
+              },
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.3813230340891687
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.3289447144888274
+              }
+            ],
+            "candidate_count": 254,
+            "candidate_fraction": 0.254,
+            "representative_comparisons": 60,
+            "worker_comparisons": 254,
+            "total_explicit_comparisons": 314,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 184.47080021724105,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme contract",
+                "score": 0.8161344006814909
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.5917552311865486
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.5765325470978268
+              },
+              {
+                "name": "Alice Chen receipts project 00132",
+                "score": 0.3924065001828876
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.38900116057686496
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.8161344006814908
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.5917552311865486
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.3924065001828878
+              },
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.3813230340891687
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.3289447144888274
+              }
+            ],
+            "candidate_count": 254,
+            "candidate_fraction": 0.254,
+            "representative_comparisons": 60,
+            "worker_comparisons": 254,
+            "total_explicit_comparisons": 314,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 188.14479978755116,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme contract",
+                "score": 0.8161344006814909
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.5917552311865486
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.5765325470978268
+              },
+              {
+                "name": "Alice Chen receipts project 00132",
+                "score": 0.3924065001828876
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.38900116057686496
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.8161344006814908
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.5917552311865486
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.3924065001828878
+              },
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.3813230340891687
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.3289447144888274
+              }
+            ],
+            "candidate_count": 254,
+            "candidate_fraction": 0.254,
+            "representative_comparisons": 60,
+            "worker_comparisons": 254,
+            "total_explicit_comparisons": 314,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 182.0457000285387,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "split": "evaluation",
+      "kind": "single",
+      "query": "Retrieve Morgan's correspondence about filing taxes for 2023",
+      "relevant_names": [
+        "2023 tax documents"
+      ],
+      "case_id": "fresh-tax-archive",
+      "direct": false,
+      "embedding_ms": 11.27300038933754,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "2023 tax documents",
+                "score": 0.8350976481348058
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.5613431066621437
+              },
+              {
+                "name": "Morgan receipts project 00117",
+                "score": 0.5562914128894123
+              },
+              {
+                "name": "Morgan receipts project 00197",
+                "score": 0.5505388994678264
+              },
+              {
+                "name": "Morgan receipts project 00437",
+                "score": 0.5485948489073491
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 5.0245001912117,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "2023 tax documents",
+                "score": 0.8350976481348058
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.5613431066621437
+              },
+              {
+                "name": "Morgan receipts project 00117",
+                "score": 0.5562914128894123
+              },
+              {
+                "name": "Morgan receipts project 00197",
+                "score": 0.5505388994678264
+              },
+              {
+                "name": "Morgan receipts project 00437",
+                "score": 0.5485948489073491
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 2.9730997048318386,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "2023 tax documents",
+                "score": 0.8350976481348058
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.5613431066621437
+              },
+              {
+                "name": "Morgan receipts project 00117",
+                "score": 0.5562914128894123
+              },
+              {
+                "name": "Morgan receipts project 00197",
+                "score": 0.5505388994678264
+              },
+              {
+                "name": "Morgan receipts project 00437",
+                "score": 0.5485948489073491
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 3.9173001423478127,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "2023 tax documents",
+                "score": 0.835721492767334
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.5619792938232422
+              },
+              {
+                "name": "Morgan receipts project 00117",
+                "score": 0.5569210052490234
+              },
+              {
+                "name": "Morgan receipts project 00197",
+                "score": 0.5513758659362793
+              },
+              {
+                "name": "Morgan receipts project 00497",
+                "score": 0.5493464469909668
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.755000282078981,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.8
+          },
+          {
+            "top5": [
+              {
+                "name": "2023 tax documents",
+                "score": 0.835721492767334
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.5619792938232422
+              },
+              {
+                "name": "Morgan receipts project 00117",
+                "score": 0.5569210052490234
+              },
+              {
+                "name": "Morgan receipts project 00197",
+                "score": 0.5513758659362793
+              },
+              {
+                "name": "Morgan receipts project 00497",
+                "score": 0.5493464469909668
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.223600193858147,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.8
+          },
+          {
+            "top5": [
+              {
+                "name": "2023 tax documents",
+                "score": 0.835721492767334
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.5619792938232422
+              },
+              {
+                "name": "Morgan receipts project 00117",
+                "score": 0.5569210052490234
+              },
+              {
+                "name": "Morgan receipts project 00197",
+                "score": 0.5513758659362793
+              },
+              {
+                "name": "Morgan receipts project 00497",
+                "score": 0.5493464469909668
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 6.700100377202034,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.8
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "2023 tax documents",
+                "score": 0.8350976481348058
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.5613431066621437
+              },
+              {
+                "name": "Morgan receipts project 00117",
+                "score": 0.5562914128894123
+              },
+              {
+                "name": "Morgan receipts project 00197",
+                "score": 0.5505388994678264
+              },
+              {
+                "name": "Morgan receipts project 00437",
+                "score": 0.5485948489073491
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-000",
+                "size": 51,
+                "score": 0.8350976481348058
+              },
+              {
+                "id": "community-013",
+                "size": 50,
+                "score": 0.4566056883585702
+              },
+              {
+                "id": "community-014",
+                "size": 49,
+                "score": 0.45066188622931735
+              },
+              {
+                "id": "community-011",
+                "size": 50,
+                "score": 0.39656445887078784
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.33016443484455504
+              }
+            ],
+            "candidate_count": 250,
+            "candidate_fraction": 0.25,
+            "representative_comparisons": 60,
+            "worker_comparisons": 250,
+            "total_explicit_comparisons": 310,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 181.18369998410344,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "2023 tax documents",
+                "score": 0.8350976481348058
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.5613431066621437
+              },
+              {
+                "name": "Morgan receipts project 00117",
+                "score": 0.5562914128894123
+              },
+              {
+                "name": "Morgan receipts project 00197",
+                "score": 0.5505388994678264
+              },
+              {
+                "name": "Morgan receipts project 00437",
+                "score": 0.5485948489073491
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-000",
+                "size": 51,
+                "score": 0.8350976481348058
+              },
+              {
+                "id": "community-013",
+                "size": 50,
+                "score": 0.4566056883585702
+              },
+              {
+                "id": "community-014",
+                "size": 49,
+                "score": 0.45066188622931735
+              },
+              {
+                "id": "community-011",
+                "size": 50,
+                "score": 0.39656445887078784
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.33016443484455504
+              }
+            ],
+            "candidate_count": 250,
+            "candidate_fraction": 0.25,
+            "representative_comparisons": 60,
+            "worker_comparisons": 250,
+            "total_explicit_comparisons": 310,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 188.60969971865416,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "2023 tax documents",
+                "score": 0.8350976481348058
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.5613431066621437
+              },
+              {
+                "name": "Morgan receipts project 00117",
+                "score": 0.5562914128894123
+              },
+              {
+                "name": "Morgan receipts project 00197",
+                "score": 0.5505388994678264
+              },
+              {
+                "name": "Morgan receipts project 00437",
+                "score": 0.5485948489073491
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-000",
+                "size": 51,
+                "score": 0.8350976481348058
+              },
+              {
+                "id": "community-013",
+                "size": 50,
+                "score": 0.4566056883585702
+              },
+              {
+                "id": "community-014",
+                "size": 49,
+                "score": 0.45066188622931735
+              },
+              {
+                "id": "community-011",
+                "size": 50,
+                "score": 0.39656445887078784
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.33016443484455504
+              }
+            ],
+            "candidate_count": 250,
+            "candidate_fraction": 0.25,
+            "representative_comparisons": 60,
+            "worker_comparisons": 250,
+            "total_explicit_comparisons": 310,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 190.8215000294149,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "split": "evaluation",
+      "kind": "single",
+      "query": "Gather ride-hailing trip receipts for reimbursement",
+      "relevant_names": [
+        "Uber receipts"
+      ],
+      "case_id": "fresh-trip-costs",
+      "direct": false,
+      "embedding_ms": 9.809399954974651,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6708586851600367
+              },
+              {
+                "name": "Morgan receipts project 00257",
+                "score": 0.3176836461230397
+              },
+              {
+                "name": "Morgan receipts project 00317",
+                "score": 0.31414754295471536
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.31297172624722125
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.3100568313905242
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 3.435799852013588,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6708586851600367
+              },
+              {
+                "name": "Morgan receipts project 00257",
+                "score": 0.3176836461230397
+              },
+              {
+                "name": "Morgan receipts project 00317",
+                "score": 0.31414754295471536
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.31297172624722125
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.3100568313905242
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.51080035418272,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6708586851600367
+              },
+              {
+                "name": "Morgan receipts project 00257",
+                "score": 0.3176836461230397
+              },
+              {
+                "name": "Morgan receipts project 00317",
+                "score": 0.31414754295471536
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.31297172624722125
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.3100568313905242
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.035899881273508,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "Morgan receipts project 00257",
+                "score": 0.3184647560119629
+              },
+              {
+                "name": "Morgan receipts project 00317",
+                "score": 0.31528139114379883
+              },
+              {
+                "name": "Morgan receipts project 00397",
+                "score": 0.3117985725402832
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.31139278411865234
+              },
+              {
+                "name": "Morgan receipts project 00337",
+                "score": 0.31050920486450195
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.417899694293737,
+            "failure": null,
+            "misses": [
+              "Uber receipts"
+            ],
+            "owner_recall_at_5": 0.0,
+            "vector_recall_at_5": 0.6
+          },
+          {
+            "top5": [
+              {
+                "name": "Morgan receipts project 00257",
+                "score": 0.3184647560119629
+              },
+              {
+                "name": "Morgan receipts project 00317",
+                "score": 0.31528139114379883
+              },
+              {
+                "name": "Morgan receipts project 00397",
+                "score": 0.3117985725402832
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.31139278411865234
+              },
+              {
+                "name": "Morgan receipts project 00337",
+                "score": 0.31050920486450195
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 6.415300071239471,
+            "failure": null,
+            "misses": [
+              "Uber receipts"
+            ],
+            "owner_recall_at_5": 0.0,
+            "vector_recall_at_5": 0.6
+          },
+          {
+            "top5": [
+              {
+                "name": "Morgan receipts project 00257",
+                "score": 0.3184647560119629
+              },
+              {
+                "name": "Morgan receipts project 00317",
+                "score": 0.31528139114379883
+              },
+              {
+                "name": "Morgan receipts project 00397",
+                "score": 0.3117985725402832
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.31139278411865234
+              },
+              {
+                "name": "Morgan receipts project 00337",
+                "score": 0.31050920486450195
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.480800289660692,
+            "failure": null,
+            "misses": [
+              "Uber receipts"
+            ],
+            "owner_recall_at_5": 0.0,
+            "vector_recall_at_5": 0.6
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6708586851600367
+              },
+              {
+                "name": "Morgan receipts project 00257",
+                "score": 0.3176836461230397
+              },
+              {
+                "name": "Morgan receipts project 00317",
+                "score": 0.31414754295471536
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.31297172624722125
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.3100568313905242
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-000",
+                "size": 51,
+                "score": 0.6708586851600367
+              },
+              {
+                "id": "community-017",
+                "size": 50,
+                "score": 0.2900108403287403
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.28991278034632834
+              },
+              {
+                "id": "community-004",
+                "size": 50,
+                "score": 0.28791015921629814
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.18510351583482682
+              }
+            ],
+            "candidate_count": 252,
+            "candidate_fraction": 0.252,
+            "representative_comparisons": 60,
+            "worker_comparisons": 252,
+            "total_explicit_comparisons": 312,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 182.20040015876293,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6708586851600367
+              },
+              {
+                "name": "Morgan receipts project 00257",
+                "score": 0.3176836461230397
+              },
+              {
+                "name": "Morgan receipts project 00317",
+                "score": 0.31414754295471536
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.31297172624722125
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.3100568313905242
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-000",
+                "size": 51,
+                "score": 0.6708586851600367
+              },
+              {
+                "id": "community-017",
+                "size": 50,
+                "score": 0.2900108403287403
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.28991278034632834
+              },
+              {
+                "id": "community-004",
+                "size": 50,
+                "score": 0.28791015921629814
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.18510351583482682
+              }
+            ],
+            "candidate_count": 252,
+            "candidate_fraction": 0.252,
+            "representative_comparisons": 60,
+            "worker_comparisons": 252,
+            "total_explicit_comparisons": 312,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 185.60279998928308,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6708586851600367
+              },
+              {
+                "name": "Morgan receipts project 00257",
+                "score": 0.3176836461230397
+              },
+              {
+                "name": "Morgan receipts project 00317",
+                "score": 0.31414754295471536
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.31297172624722125
+              },
+              {
+                "name": "Morgan receipts project 00137",
+                "score": 0.3100568313905242
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-000",
+                "size": 51,
+                "score": 0.6708586851600367
+              },
+              {
+                "id": "community-017",
+                "size": 50,
+                "score": 0.2900108403287403
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.28991278034632834
+              },
+              {
+                "id": "community-004",
+                "size": 50,
+                "score": 0.28791015921629814
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.18510351583482682
+              }
+            ],
+            "candidate_count": 252,
+            "candidate_fraction": 0.252,
+            "representative_comparisons": 60,
+            "worker_comparisons": 252,
+            "total_explicit_comparisons": 312,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 185.6530997902155,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "split": "evaluation",
+      "kind": "single",
+      "query": "Track review of the authentication change in the Atlas code repository",
+      "relevant_names": [
+        "GitHub review"
+      ],
+      "case_id": "fresh-auth-code",
+      "direct": false,
+      "embedding_ms": 9.920299984514713,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "GitHub review",
+                "score": 0.8701099536652783
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.2273716414498372
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.22607785377022319
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.22545622632266293
+              },
+              {
+                "name": "Alice Chen receipts project 00192",
+                "score": 0.2204542128016263
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.369599744677544,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "GitHub review",
+                "score": 0.8701099536652783
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.2273716414498372
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.22607785377022319
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.22545622632266293
+              },
+              {
+                "name": "Alice Chen receipts project 00192",
+                "score": 0.2204542128016263
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.192200023680925,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "GitHub review",
+                "score": 0.8701099536652783
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.2273716414498372
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.22607785377022319
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.22545622632266293
+              },
+              {
+                "name": "Alice Chen receipts project 00192",
+                "score": 0.2204542128016263
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 2.8433999978005886,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "Alice Chen renewal project 00164",
+                "score": 0.20495271682739258
+              },
+              {
+                "name": "Alice Chen renewal project 00744",
+                "score": 0.20461606979370117
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.20270156860351562
+              },
+              {
+                "name": "Alice Chen renewal project 00724",
+                "score": 0.2019205093383789
+              },
+              {
+                "name": "Alice Chen renewal project 00624",
+                "score": 0.20186471939086914
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.035099573433399,
+            "failure": null,
+            "misses": [
+              "GitHub review"
+            ],
+            "owner_recall_at_5": 0.0,
+            "vector_recall_at_5": 0.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Chen renewal project 00164",
+                "score": 0.20495271682739258
+              },
+              {
+                "name": "Alice Chen renewal project 00744",
+                "score": 0.20461606979370117
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.20270156860351562
+              },
+              {
+                "name": "Alice Chen renewal project 00724",
+                "score": 0.2019205093383789
+              },
+              {
+                "name": "Alice Chen renewal project 00624",
+                "score": 0.20186471939086914
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.887700244784355,
+            "failure": null,
+            "misses": [
+              "GitHub review"
+            ],
+            "owner_recall_at_5": 0.0,
+            "vector_recall_at_5": 0.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Chen renewal project 00164",
+                "score": 0.20495271682739258
+              },
+              {
+                "name": "Alice Chen renewal project 00744",
+                "score": 0.20461606979370117
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.20270156860351562
+              },
+              {
+                "name": "Alice Chen renewal project 00724",
+                "score": 0.2019205093383789
+              },
+              {
+                "name": "Alice Chen renewal project 00624",
+                "score": 0.20186471939086914
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.253199953585863,
+            "failure": null,
+            "misses": [
+              "GitHub review"
+            ],
+            "owner_recall_at_5": 0.0,
+            "vector_recall_at_5": 0.0
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "GitHub review",
+                "score": 0.8701099536652783
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.2273716414498372
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.22607785377022319
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.22545622632266293
+              },
+              {
+                "name": "Alice Chen receipts project 00192",
+                "score": 0.2204542128016263
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.8701099536652783
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.22545622632266293
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.21566869254851528
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.19955081017076276
+              },
+              {
+                "id": "community-014",
+                "size": 49,
+                "score": 0.18157803994874672
+              }
+            ],
+            "candidate_count": 253,
+            "candidate_fraction": 0.253,
+            "representative_comparisons": 60,
+            "worker_comparisons": 253,
+            "total_explicit_comparisons": 313,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 183.3310998044908,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "GitHub review",
+                "score": 0.8701099536652783
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.2273716414498372
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.22607785377022319
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.22545622632266293
+              },
+              {
+                "name": "Alice Chen receipts project 00192",
+                "score": 0.2204542128016263
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.8701099536652783
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.22545622632266293
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.21566869254851528
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.19955081017076276
+              },
+              {
+                "id": "community-014",
+                "size": 49,
+                "score": 0.18157803994874672
+              }
+            ],
+            "candidate_count": 253,
+            "candidate_fraction": 0.253,
+            "representative_comparisons": 60,
+            "worker_comparisons": 253,
+            "total_explicit_comparisons": 313,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 187.06549983471632,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "GitHub review",
+                "score": 0.8701099536652783
+              },
+              {
+                "name": "Alice Chen receipts project 00152",
+                "score": 0.2273716414498372
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.22607785377022319
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.22545622632266293
+              },
+              {
+                "name": "Alice Chen receipts project 00192",
+                "score": 0.2204542128016263
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.8701099536652783
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.22545622632266293
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.21566869254851528
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.19955081017076276
+              },
+              {
+                "id": "community-014",
+                "size": 49,
+                "score": 0.18157803994874672
+              }
+            ],
+            "candidate_count": 253,
+            "candidate_fraction": 0.253,
+            "representative_comparisons": 60,
+            "worker_comparisons": 253,
+            "total_explicit_comparisons": 313,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 206.6426002420485,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "split": "evaluation",
+      "kind": "single",
+      "query": "Who is negotiating next year's Acme renewal with Alice?",
+      "relevant_names": [
+        "Alice Acme renewal"
+      ],
+      "case_id": "fresh-nextyear-negotiation",
+      "direct": false,
+      "embedding_ms": 9.621300268918276,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.8243186088575852
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6502224386831765
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.6021337501442872
+              },
+              {
+                "name": "Alice Chen renewal project 00244",
+                "score": 0.5305049880515309
+              },
+              {
+                "name": "Alice Chen renewal project 00824",
+                "score": 0.5272518114969713
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.448799882084131,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.8243186088575852
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6502224386831765
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.6021337501442872
+              },
+              {
+                "name": "Alice Chen renewal project 00244",
+                "score": 0.5305049880515309
+              },
+              {
+                "name": "Alice Chen renewal project 00824",
+                "score": 0.5272518114969713
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 3.3344998955726624,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.8243186088575852
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6502224386831765
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.6021337501442872
+              },
+              {
+                "name": "Alice Chen renewal project 00244",
+                "score": 0.5305049880515309
+              },
+              {
+                "name": "Alice Chen renewal project 00824",
+                "score": 0.5272518114969713
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.615900106728077,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.824857234954834
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6533336639404297
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.602851390838623
+              },
+              {
+                "name": "Alice Chen renewal project 00244",
+                "score": 0.5327811241149902
+              },
+              {
+                "name": "Alice Chen renewal project 00204",
+                "score": 0.5284562110900879
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.6374999694526196,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.8
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.824857234954834
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6533336639404297
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.602851390838623
+              },
+              {
+                "name": "Alice Chen renewal project 00244",
+                "score": 0.5327811241149902
+              },
+              {
+                "name": "Alice Chen renewal project 00204",
+                "score": 0.5284562110900879
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 6.040399894118309,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.8
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.824857234954834
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6533336639404297
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.602851390838623
+              },
+              {
+                "name": "Alice Chen renewal project 00244",
+                "score": 0.5327811241149902
+              },
+              {
+                "name": "Alice Chen renewal project 00204",
+                "score": 0.5284562110900879
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 6.29910035058856,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.8
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.8243186088575852
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6502224386831765
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.6021337501442872
+              },
+              {
+                "name": "Alice Chen renewal project 00244",
+                "score": 0.5305049880515309
+              },
+              {
+                "name": "Alice Chen renewal project 00824",
+                "score": 0.5272518114969713
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.8243186088575852
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.6502224386831763
+              },
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.3892227065622327
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.3738925132141291
+              },
+              {
+                "id": "community-013",
+                "size": 50,
+                "score": 0.34375022360665347
+              }
+            ],
+            "candidate_count": 253,
+            "candidate_fraction": 0.253,
+            "representative_comparisons": 60,
+            "worker_comparisons": 253,
+            "total_explicit_comparisons": 313,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 187.91590025648475,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.8243186088575852
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6502224386831765
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.6021337501442872
+              },
+              {
+                "name": "Alice Chen renewal project 00244",
+                "score": 0.5305049880515309
+              },
+              {
+                "name": "Alice Chen renewal project 00824",
+                "score": 0.5272518114969713
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.8243186088575852
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.6502224386831763
+              },
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.3892227065622327
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.3738925132141291
+              },
+              {
+                "id": "community-013",
+                "size": 50,
+                "score": 0.34375022360665347
+              }
+            ],
+            "candidate_count": 253,
+            "candidate_fraction": 0.253,
+            "representative_comparisons": 60,
+            "worker_comparisons": 253,
+            "total_explicit_comparisons": 313,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 189.48949966579676,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.8243186088575852
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6502224386831765
+              },
+              {
+                "name": "Acme amendment",
+                "score": 0.6021337501442872
+              },
+              {
+                "name": "Alice Chen renewal project 00244",
+                "score": 0.5305049880515309
+              },
+              {
+                "name": "Alice Chen renewal project 00824",
+                "score": 0.5272518114969713
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.8243186088575852
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.6502224386831763
+              },
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.3892227065622327
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.3738925132141291
+              },
+              {
+                "id": "community-013",
+                "size": 50,
+                "score": 0.34375022360665347
+              }
+            ],
+            "candidate_count": 253,
+            "candidate_fraction": 0.253,
+            "representative_comparisons": 60,
+            "worker_comparisons": 253,
+            "total_explicit_comparisons": 313,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 195.28240012004972,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "split": "evaluation",
+      "kind": "single",
+      "query": "Locate the Acme contract amendment that Alice has already signed",
+      "relevant_names": [
+        "Acme amendment"
+      ],
+      "case_id": "fresh-signed-change",
+      "direct": false,
+      "embedding_ms": 10.07660012692213,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "Acme amendment",
+                "score": 0.8276891129556634
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6731868593926318
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.6654441780174483
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.4742827065614754
+              },
+              {
+                "name": "Alice Chen contract project 00180",
+                "score": 0.46879254428899575
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.3750000186264515,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Acme amendment",
+                "score": 0.8276891129556634
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6731868593926318
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.6654441780174483
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.4742827065614754
+              },
+              {
+                "name": "Alice Chen contract project 00180",
+                "score": 0.46879254428899575
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.179300274699926,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Acme amendment",
+                "score": 0.8276891129556634
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6731868593926318
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.6654441780174483
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.4742827065614754
+              },
+              {
+                "name": "Alice Chen contract project 00180",
+                "score": 0.46879254428899575
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.692399874329567,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "Acme amendment",
+                "score": 0.8260817527770996
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6734991073608398
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.668668270111084
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.4769759178161621
+              },
+              {
+                "name": "Alice Chen contract project 00180",
+                "score": 0.4732651710510254
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.771000403910875,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Acme amendment",
+                "score": 0.8260817527770996
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6734991073608398
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.668668270111084
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.4769759178161621
+              },
+              {
+                "name": "Alice Chen contract project 00180",
+                "score": 0.4732651710510254
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 6.387299858033657,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Acme amendment",
+                "score": 0.8260817527770996
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6734991073608398
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.668668270111084
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.4769759178161621
+              },
+              {
+                "name": "Alice Chen contract project 00180",
+                "score": 0.4732651710510254
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.395899992436171,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "Acme amendment",
+                "score": 0.8276891129556634
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6731868593926318
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.6654441780174483
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.4742827065614754
+              },
+              {
+                "name": "Alice Chen contract project 00180",
+                "score": 0.46879254428899575
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.8276891129556635
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.6731868593926319
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.3495068558122998
+              },
+              {
+                "id": "community-015",
+                "size": 50,
+                "score": 0.32563309602433915
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.31754218071955687
+              }
+            ],
+            "candidate_count": 254,
+            "candidate_fraction": 0.254,
+            "representative_comparisons": 60,
+            "worker_comparisons": 254,
+            "total_explicit_comparisons": 314,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 187.8174999728799,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Acme amendment",
+                "score": 0.8276891129556634
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6731868593926318
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.6654441780174483
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.4742827065614754
+              },
+              {
+                "name": "Alice Chen contract project 00180",
+                "score": 0.46879254428899575
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.8276891129556635
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.6731868593926319
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.3495068558122998
+              },
+              {
+                "id": "community-015",
+                "size": 50,
+                "score": 0.32563309602433915
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.31754218071955687
+              }
+            ],
+            "candidate_count": 254,
+            "candidate_fraction": 0.254,
+            "representative_comparisons": 60,
+            "worker_comparisons": 254,
+            "total_explicit_comparisons": 314,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 186.05220038443804,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Acme amendment",
+                "score": 0.8276891129556634
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.6731868593926318
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.6654441780174483
+              },
+              {
+                "name": "Alice Chen contract project 00120",
+                "score": 0.4742827065614754
+              },
+              {
+                "name": "Alice Chen contract project 00180",
+                "score": 0.46879254428899575
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.8276891129556635
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.6731868593926319
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.3495068558122998
+              },
+              {
+                "id": "community-015",
+                "size": 50,
+                "score": 0.32563309602433915
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.31754218071955687
+              }
+            ],
+            "candidate_count": 254,
+            "candidate_fraction": 0.254,
+            "representative_comparisons": 60,
+            "worker_comparisons": 254,
+            "total_explicit_comparisons": 314,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 188.0354001186788,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "split": "evaluation",
+      "kind": "multiple",
+      "query": "Handle the Cafe Etoile lunch invitation and the original Acme services redline",
+      "relevant_names": [
+        "Alice lunch",
+        "Alice Acme contract"
+      ],
+      "case_id": "fresh-meal-and-agreement",
+      "direct": false,
+      "embedding_ms": 11.318199802190065,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.5418919793857873
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.4892735257080332
+              },
+              {
+                "name": "Morgan lunch project 00121",
+                "score": 0.35346917329403005
+              },
+              {
+                "name": "Morgan lunch project 00501",
+                "score": 0.3413265224483642
+              },
+              {
+                "name": "Morgan lunch project 00821",
+                "score": 0.3395502295271209
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.403600003570318,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.5418919793857873
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.4892735257080332
+              },
+              {
+                "name": "Morgan lunch project 00121",
+                "score": 0.35346917329403005
+              },
+              {
+                "name": "Morgan lunch project 00501",
+                "score": 0.3413265224483642
+              },
+              {
+                "name": "Morgan lunch project 00821",
+                "score": 0.3395502295271209
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.435200244188309,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.5418919793857873
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.4892735257080332
+              },
+              {
+                "name": "Morgan lunch project 00121",
+                "score": 0.35346917329403005
+              },
+              {
+                "name": "Morgan lunch project 00501",
+                "score": 0.3413265224483642
+              },
+              {
+                "name": "Morgan lunch project 00821",
+                "score": 0.3395502295271209
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 2.807099837809801,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.5432977676391602
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.49407243728637695
+              },
+              {
+                "name": "Morgan lunch project 00121",
+                "score": 0.3530616760253906
+              },
+              {
+                "name": "Morgan lunch project 00821",
+                "score": 0.3424830436706543
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.3422966003417969
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 3.9992001838982105,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.8
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.5432977676391602
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.49407243728637695
+              },
+              {
+                "name": "Morgan lunch project 00121",
+                "score": 0.3530616760253906
+              },
+              {
+                "name": "Morgan lunch project 00821",
+                "score": 0.3424830436706543
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.3422966003417969
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.681200418621302,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.8
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.5432977676391602
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.49407243728637695
+              },
+              {
+                "name": "Morgan lunch project 00121",
+                "score": 0.3530616760253906
+              },
+              {
+                "name": "Morgan lunch project 00821",
+                "score": 0.3424830436706543
+              },
+              {
+                "name": "Alice Acme renewal",
+                "score": 0.3422966003417969
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.003599915653467,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 0.8
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.5418919793857873
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.4892735257080332
+              },
+              {
+                "name": "Morgan lunch project 00121",
+                "score": 0.35346917329403005
+              },
+              {
+                "name": "Morgan lunch project 00501",
+                "score": 0.3413265224483642
+              },
+              {
+                "name": "Morgan lunch project 00821",
+                "score": 0.3395502295271209
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.5418919793857873
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.48927352570803306
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.33522526421358867
+              },
+              {
+                "id": "community-012",
+                "size": 50,
+                "score": 0.3273349518529372
+              },
+              {
+                "id": "community-016",
+                "size": 50,
+                "score": 0.2817399258425467
+              }
+            ],
+            "candidate_count": 253,
+            "candidate_fraction": 0.253,
+            "representative_comparisons": 60,
+            "worker_comparisons": 253,
+            "total_explicit_comparisons": 313,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 182.72969964891672,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.5418919793857873
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.4892735257080332
+              },
+              {
+                "name": "Morgan lunch project 00121",
+                "score": 0.35346917329403005
+              },
+              {
+                "name": "Morgan lunch project 00501",
+                "score": 0.3413265224483642
+              },
+              {
+                "name": "Morgan lunch project 00821",
+                "score": 0.3395502295271209
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.5418919793857873
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.48927352570803306
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.33522526421358867
+              },
+              {
+                "id": "community-012",
+                "size": 50,
+                "score": 0.3273349518529372
+              },
+              {
+                "id": "community-016",
+                "size": 50,
+                "score": 0.2817399258425467
+              }
+            ],
+            "candidate_count": 253,
+            "candidate_fraction": 0.253,
+            "representative_comparisons": 60,
+            "worker_comparisons": 253,
+            "total_explicit_comparisons": 313,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 184.9647001363337,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Alice lunch",
+                "score": 0.5418919793857873
+              },
+              {
+                "name": "Alice Acme contract",
+                "score": 0.4892735257080332
+              },
+              {
+                "name": "Morgan lunch project 00121",
+                "score": 0.35346917329403005
+              },
+              {
+                "name": "Morgan lunch project 00501",
+                "score": 0.3413265224483642
+              },
+              {
+                "name": "Morgan lunch project 00821",
+                "score": 0.3395502295271209
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-008",
+                "size": 50,
+                "score": 0.5418919793857873
+              },
+              {
+                "id": "community-007",
+                "size": 51,
+                "score": 0.48927352570803306
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.33522526421358867
+              },
+              {
+                "id": "community-012",
+                "size": 50,
+                "score": 0.3273349518529372
+              },
+              {
+                "id": "community-016",
+                "size": 50,
+                "score": 0.2817399258425467
+              }
+            ],
+            "candidate_count": 253,
+            "candidate_fraction": 0.253,
+            "representative_comparisons": 60,
+            "worker_comparisons": 253,
+            "total_explicit_comparisons": 313,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 184.08970022574067,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "split": "evaluation",
+      "kind": "multiple",
+      "query": "Find the Uber reimbursement receipts and the Atlas authentication review",
+      "relevant_names": [
+        "Uber receipts",
+        "GitHub review"
+      ],
+      "case_id": "fresh-expenses-and-code",
+      "direct": false,
+      "embedding_ms": 10.065999813377857,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6197913432586575
+              },
+              {
+                "name": "GitHub review",
+                "score": 0.5250237312173148
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.41198838102925317
+              },
+              {
+                "name": "Alex Kim receipts project 00127",
+                "score": 0.4039680067484438
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.40116383078088513
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 3.59890004619956,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6197913432586575
+              },
+              {
+                "name": "GitHub review",
+                "score": 0.5250237312173148
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.41198838102925317
+              },
+              {
+                "name": "Alex Kim receipts project 00127",
+                "score": 0.4039680067484438
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.40116383078088513
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 3.221900202333927,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6197913432586575
+              },
+              {
+                "name": "GitHub review",
+                "score": 0.5250237312173148
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.41198838102925317
+              },
+              {
+                "name": "Alex Kim receipts project 00127",
+                "score": 0.4039680067484438
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.40116383078088513
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 7.1600996889173985,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6224541664123535
+              },
+              {
+                "name": "GitHub review",
+                "score": 0.5281929969787598
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.41414594650268555
+              },
+              {
+                "name": "Alex Kim receipts project 00127",
+                "score": 0.4050178527832031
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.40419769287109375
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 4.757900256663561,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6224541664123535
+              },
+              {
+                "name": "GitHub review",
+                "score": 0.5281929969787598
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.41414594650268555
+              },
+              {
+                "name": "Alex Kim receipts project 00127",
+                "score": 0.4050178527832031
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.40419769287109375
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.417299922555685,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6224541664123535
+              },
+              {
+                "name": "GitHub review",
+                "score": 0.5281929969787598
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.41414594650268555
+              },
+              {
+                "name": "Alex Kim receipts project 00127",
+                "score": 0.4050178527832031
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.40419769287109375
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.960699636489153,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6197913432586575
+              },
+              {
+                "name": "GitHub review",
+                "score": 0.5250237312173148
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.41198838102925317
+              },
+              {
+                "name": "Alex Kim receipts project 00127",
+                "score": 0.4039680067484438
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.40116383078088513
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-000",
+                "size": 51,
+                "score": 0.6197913432586574
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.5250237312173148
+              },
+              {
+                "id": "community-004",
+                "size": 50,
+                "score": 0.4039680067484438
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.39829216913805676
+              },
+              {
+                "id": "community-017",
+                "size": 50,
+                "score": 0.39525978965680103
+              }
+            ],
+            "candidate_count": 252,
+            "candidate_fraction": 0.252,
+            "representative_comparisons": 60,
+            "worker_comparisons": 252,
+            "total_explicit_comparisons": 312,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 185.65359991043806,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6197913432586575
+              },
+              {
+                "name": "GitHub review",
+                "score": 0.5250237312173148
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.41198838102925317
+              },
+              {
+                "name": "Alex Kim receipts project 00127",
+                "score": 0.4039680067484438
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.40116383078088513
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-000",
+                "size": 51,
+                "score": 0.6197913432586574
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.5250237312173148
+              },
+              {
+                "id": "community-004",
+                "size": 50,
+                "score": 0.4039680067484438
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.39829216913805676
+              },
+              {
+                "id": "community-017",
+                "size": 50,
+                "score": 0.39525978965680103
+              }
+            ],
+            "candidate_count": 252,
+            "candidate_fraction": 0.252,
+            "representative_comparisons": 60,
+            "worker_comparisons": 252,
+            "total_explicit_comparisons": 312,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 182.52599984407425,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          },
+          {
+            "top5": [
+              {
+                "name": "Uber receipts",
+                "score": 0.6197913432586575
+              },
+              {
+                "name": "GitHub review",
+                "score": 0.5250237312173148
+              },
+              {
+                "name": "Alice Chen receipts project 00112",
+                "score": 0.41198838102925317
+              },
+              {
+                "name": "Alex Kim receipts project 00127",
+                "score": 0.4039680067484438
+              },
+              {
+                "name": "Alice Chen receipts project 00172",
+                "score": 0.40116383078088513
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-000",
+                "size": 51,
+                "score": 0.6197913432586574
+              },
+              {
+                "id": "community-010",
+                "size": 51,
+                "score": 0.5250237312173148
+              },
+              {
+                "id": "community-004",
+                "size": 50,
+                "score": 0.4039680067484438
+              },
+              {
+                "id": "community-009",
+                "size": 50,
+                "score": 0.39829216913805676
+              },
+              {
+                "id": "community-017",
+                "size": 50,
+                "score": 0.39525978965680103
+              }
+            ],
+            "candidate_count": 252,
+            "candidate_fraction": 0.252,
+            "representative_comparisons": 60,
+            "worker_comparisons": 252,
+            "total_explicit_comparisons": 312,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 197.60290021076798,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": 1.0,
+            "vector_recall_at_5": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "split": "evaluation",
+      "kind": "none",
+      "query": "Arrange telescope maintenance for an observatory",
+      "relevant_names": [],
+      "case_id": "fresh-no-match",
+      "direct": false,
+      "embedding_ms": 8.682299870997667,
+      "methods": {
+        "flat": [
+          {
+            "top5": [
+              {
+                "name": "Alex Kim renewal project 00139",
+                "score": 0.21348039073988187
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.20802369374125085
+              },
+              {
+                "name": "Alex Kim renewal project 00159",
+                "score": 0.20303359495371132
+              },
+              {
+                "name": "Alex Kim renewal project 00119",
+                "score": 0.202591565595577
+              },
+              {
+                "name": "Alice Chen renewal project 00024",
+                "score": 0.20234811702470237
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 3.212600015103817,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": null,
+            "vector_recall_at_5": null
+          },
+          {
+            "top5": [
+              {
+                "name": "Alex Kim renewal project 00139",
+                "score": 0.21348039073988187
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.20802369374125085
+              },
+              {
+                "name": "Alex Kim renewal project 00159",
+                "score": 0.20303359495371132
+              },
+              {
+                "name": "Alex Kim renewal project 00119",
+                "score": 0.202591565595577
+              },
+              {
+                "name": "Alice Chen renewal project 00024",
+                "score": 0.20234811702470237
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 3.6433995701372623,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": null,
+            "vector_recall_at_5": null
+          },
+          {
+            "top5": [
+              {
+                "name": "Alex Kim renewal project 00139",
+                "score": 0.21348039073988187
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.20802369374125085
+              },
+              {
+                "name": "Alex Kim renewal project 00159",
+                "score": 0.20303359495371132
+              },
+              {
+                "name": "Alex Kim renewal project 00119",
+                "score": 0.202591565595577
+              },
+              {
+                "name": "Alice Chen renewal project 00024",
+                "score": 0.20234811702470237
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": 1000,
+            "candidate_fraction": 1.0,
+            "representative_comparisons": 0,
+            "worker_comparisons": 1000,
+            "total_explicit_comparisons": 1000,
+            "covers_entire_catalog": true,
+            "lookup_ms": 4.439299926161766,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": null,
+            "vector_recall_at_5": null
+          }
+        ],
+        "ann": [
+          {
+            "top5": [
+              {
+                "name": "Alex Kim renewal project 00139",
+                "score": 0.21290922164916992
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.2076277732849121
+              },
+              {
+                "name": "Alice Chen renewal project 00024",
+                "score": 0.2037954330444336
+              },
+              {
+                "name": "Alex Kim renewal project 00159",
+                "score": 0.2029099464416504
+              },
+              {
+                "name": "Alex Kim renewal project 00119",
+                "score": 0.20061302185058594
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 6.3080997206270695,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": null,
+            "vector_recall_at_5": null
+          },
+          {
+            "top5": [
+              {
+                "name": "Alex Kim renewal project 00139",
+                "score": 0.21290922164916992
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.2076277732849121
+              },
+              {
+                "name": "Alice Chen renewal project 00024",
+                "score": 0.2037954330444336
+              },
+              {
+                "name": "Alex Kim renewal project 00159",
+                "score": 0.2029099464416504
+              },
+              {
+                "name": "Alex Kim renewal project 00119",
+                "score": 0.20061302185058594
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.454599857330322,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": null,
+            "vector_recall_at_5": null
+          },
+          {
+            "top5": [
+              {
+                "name": "Alex Kim renewal project 00139",
+                "score": 0.21290922164916992
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.2076277732849121
+              },
+              {
+                "name": "Alice Chen renewal project 00024",
+                "score": 0.2037954330444336
+              },
+              {
+                "name": "Alex Kim renewal project 00159",
+                "score": 0.2029099464416504
+              },
+              {
+                "name": "Alex Kim renewal project 00119",
+                "score": 0.20061302185058594
+              }
+            ],
+            "direct": false,
+            "selected_communities": [],
+            "candidate_count": null,
+            "candidate_fraction": null,
+            "representative_comparisons": 0,
+            "worker_comparisons": null,
+            "total_explicit_comparisons": null,
+            "covers_entire_catalog": null,
+            "ann_internal_comparisons": "unknown",
+            "score_source": "2 * Neo4j cosine score - 1",
+            "lookup_ms": 5.331499967724085,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": null,
+            "vector_recall_at_5": null
+          }
+        ],
+        "community": [
+          {
+            "top5": [
+              {
+                "name": "Alex Kim renewal project 00139",
+                "score": 0.21348039073988187
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.20802369374125085
+              },
+              {
+                "name": "Alex Kim renewal project 00159",
+                "score": 0.20303359495371132
+              },
+              {
+                "name": "Alex Kim renewal project 00119",
+                "score": 0.202591565595577
+              },
+              {
+                "name": "Alice Chen renewal project 00024",
+                "score": 0.20234811702470237
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-005",
+                "size": 49,
+                "score": 0.21348039073988184
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.17132721589469083
+              },
+              {
+                "id": "community-018",
+                "size": 49,
+                "score": 0.16584983988099905
+              },
+              {
+                "id": "community-013",
+                "size": 50,
+                "score": 0.16334345978287845
+              },
+              {
+                "id": "community-004",
+                "size": 50,
+                "score": 0.1061075390292825
+              }
+            ],
+            "candidate_count": 250,
+            "candidate_fraction": 0.25,
+            "representative_comparisons": 60,
+            "worker_comparisons": 250,
+            "total_explicit_comparisons": 310,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 180.5369001813233,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": null,
+            "vector_recall_at_5": null
+          },
+          {
+            "top5": [
+              {
+                "name": "Alex Kim renewal project 00139",
+                "score": 0.21348039073988187
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.20802369374125085
+              },
+              {
+                "name": "Alex Kim renewal project 00159",
+                "score": 0.20303359495371132
+              },
+              {
+                "name": "Alex Kim renewal project 00119",
+                "score": 0.202591565595577
+              },
+              {
+                "name": "Alice Chen renewal project 00024",
+                "score": 0.20234811702470237
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-005",
+                "size": 49,
+                "score": 0.21348039073988184
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.17132721589469083
+              },
+              {
+                "id": "community-018",
+                "size": 49,
+                "score": 0.16584983988099905
+              },
+              {
+                "id": "community-013",
+                "size": 50,
+                "score": 0.16334345978287845
+              },
+              {
+                "id": "community-004",
+                "size": 50,
+                "score": 0.1061075390292825
+              }
+            ],
+            "candidate_count": 250,
+            "candidate_fraction": 0.25,
+            "representative_comparisons": 60,
+            "worker_comparisons": 250,
+            "total_explicit_comparisons": 310,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 182.4595001526177,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": null,
+            "vector_recall_at_5": null
+          },
+          {
+            "top5": [
+              {
+                "name": "Alex Kim renewal project 00139",
+                "score": 0.21348039073988187
+              },
+              {
+                "name": "Alice Chen renewal project 00124",
+                "score": 0.20802369374125085
+              },
+              {
+                "name": "Alex Kim renewal project 00159",
+                "score": 0.20303359495371132
+              },
+              {
+                "name": "Alex Kim renewal project 00119",
+                "score": 0.202591565595577
+              },
+              {
+                "name": "Alice Chen renewal project 00024",
+                "score": 0.20234811702470237
+              }
+            ],
+            "selected_communities": [
+              {
+                "id": "community-005",
+                "size": 49,
+                "score": 0.21348039073988184
+              },
+              {
+                "id": "community-001",
+                "size": 52,
+                "score": 0.17132721589469083
+              },
+              {
+                "id": "community-018",
+                "size": 49,
+                "score": 0.16584983988099905
+              },
+              {
+                "id": "community-013",
+                "size": 50,
+                "score": 0.16334345978287845
+              },
+              {
+                "id": "community-004",
+                "size": 50,
+                "score": 0.1061075390292825
+              }
+            ],
+            "candidate_count": 250,
+            "candidate_fraction": 0.25,
+            "representative_comparisons": 60,
+            "worker_comparisons": 250,
+            "total_explicit_comparisons": 310,
+            "covers_entire_catalog": false,
+            "direct": false,
+            "lookup_ms": 186.3846997730434,
+            "failure": null,
+            "misses": [],
+            "owner_recall_at_5": null,
+            "vector_recall_at_5": null
+          }
+        ]
+      }
+    }
+  ],
+  "query_fixture_sha256": "22b9cfb40892a4d82ff965fa042a2be0c381cd7b0a07ed68091021af40251747",
+  "query_provenance": "Ten newly authored synthetic queries frozen before the three-representative quality run. Author knew prior cases and diagnosis; not independently authored, blind, or real-world labels.",
+  "settings": {
+    "neighbors": 10,
+    "seed": 42,
+    "resolution": 1,
+    "communities": 5,
+    "top_k": 5,
+    "representatives": 3
+  },
+  "repetitions": 3,
+  "quality_repetition": 0,
+  "evaluation_scope": "freshly_authored_confirmation_after_prior_inspection_not_independent_holdout",
+  "implementation_sha256": "3c67cfeec226e28e33bfbc753433ca2127854f097279b2afaeb60c25ac1d4940",
+  "setup_failure": null,
+  "manifest": {
+    "schema": 1,
+    "status": "ready",
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "model_revision": "c9745ed1d9f207416be6d2e6f8de32d1f16199bf",
+    "catalog_sha256": "1141182e16814bf8254332d0ff98c0a8aaa59f7be334ef4566575c02e2d5f9aa",
+    "sources": {
+      "server/tests/fixtures/catalogs.py": "956a06b963a70a4579c7caffee718c74ec8906367ed1f85c9d62adf7bdb6d781",
+      "server/tests/fixtures/catalog.json": "c2943d9ec10cc04d65683b5247f3d756e20445f007934d64838ee099e098b050"
+    },
+    "parameters": {
+      "neighbors": 10,
+      "seed": 42,
+      "resolution": 1,
+      "communities": 2,
+      "top_k": 5
+    },
+    "worker_count": 1000,
+    "created_at": "2026-11-12T01:03:12.431062+00:00",
+    "neo4j_version": "5.26.0",
+    "versions": {
+      "numpy": "2.2.6",
+      "networkx": "3.5",
+      "sentence-transformers": "5.1.2",
+      "neo4j": "5.28.2",
+      "torch": "2.15.0",
+      "transformers": "4.57.6",
+      "huggingface-hub": "0.36.2"
+    },
+    "python": "3.12.3",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "dimensions": 384,
+    "edge_count": 7142,
+    "community_sizes": {
+      "community-000": 51,
+      "community-001": 52,
+      "community-002": 49,
+      "community-003": 50,
+      "community-004": 50,
+      "community-005": 49,
+      "community-006": 50,
+      "community-007": 51,
+      "community-008": 50,
+      "community-009": 50,
+      "community-010": 51,
+      "community-011": 50,
+      "community-012": 50,
+      "community-013": 50,
+      "community-014": 49,
+      "community-015": 50,
+      "community-016": 50,
+      "community-017": 50,
+      "community-018": 49,
+      "community-019": 49
+    },
+    "files": {
+      "catalog.json": "96df77409dac00e0f365645e6e04a7e1ed14a565c20c7415bdce1ad080511606",
+      "vectors.npy": "d0cfaa64e6f11b79b77457e2b04c56b5faf8b448352f6c57cdd7bb8bf6fca5bd",
+      "communities.json": "5344ba7151594488d573d578ea434c87e241a8765c620fe33b253f809156c2d0"
+    },
+    "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+    "build_ms": {
+      "model_setup_ms": 7816.501799970865,
+      "catalog_embedding_ms": 2816.0234997048974,
+      "pairwise_graph_ms": 512.7488998696208,
+      "louvain_centroids_ms": 71.36770011857152,
+      "database_write_index_validation_ms": 3372.4497999064624,
+      "total_build_ms": 15211.561900097877
+    }
+  },
+  "routing_width": {
+    "requested": 5,
+    "effective": 5,
+    "original_snapshot_setting": 2
+  },
+  "representative_setup": {
+    "policy": "centroid_plus_two_farthest_v1",
+    "maximum_per_community": 3,
+    "total_representatives": 60,
+    "cache_reused": true,
+    "cache_sha256": "cb3b016c555260d0fa19c49e0fe20db755a0c050e49b51a4822f56da8185ee7e",
+    "cache_fingerprint": "22e6db8c3fc5ea0f47ea428f44901f379b13f7887a22a912cb4a3c1a12b801f8",
+    "build_ms": 1123.9967001602054,
+    "build_explicit_comparisons": 2000,
+    "load_or_build_ms": 31.94190002977848
+  },
+  "setup_ms": 7058.073100168258,
+  "summary": [
+    {
+      "split": "development",
+      "method": "flat",
+      "cases": 0,
+      "quality_cases": 0,
+      "timing_samples": 0,
+      "failed_samples": 0,
+      "complete": true,
+      "owner_recall_at_5": null,
+      "vector_recall_at_5": null,
+      "lookup_median_ms": null,
+      "lookup_p95_ms": null,
+      "non_direct_median_explicit_comparisons": null,
+      "non_direct_median_candidate_fraction": null
+    },
+    {
+      "split": "development",
+      "method": "ann",
+      "cases": 0,
+      "quality_cases": 0,
+      "timing_samples": 0,
+      "failed_samples": 0,
+      "complete": true,
+      "owner_recall_at_5": null,
+      "vector_recall_at_5": null,
+      "lookup_median_ms": null,
+      "lookup_p95_ms": null,
+      "non_direct_median_explicit_comparisons": null,
+      "non_direct_median_candidate_fraction": null
+    },
+    {
+      "split": "development",
+      "method": "community",
+      "cases": 0,
+      "quality_cases": 0,
+      "timing_samples": 0,
+      "failed_samples": 0,
+      "complete": true,
+      "owner_recall_at_5": null,
+      "vector_recall_at_5": null,
+      "lookup_median_ms": null,
+      "lookup_p95_ms": null,
+      "non_direct_median_explicit_comparisons": null,
+      "non_direct_median_candidate_fraction": null
+    },
+    {
+      "split": "evaluation",
+      "method": "flat",
+      "cases": 10,
+      "quality_cases": 9,
+      "timing_samples": 30,
+      "failed_samples": 0,
+      "complete": true,
+      "owner_recall_at_5": 1.0,
+      "vector_recall_at_5": 1.0,
+      "lookup_median_ms": 4.253749968484044,
+      "lookup_p95_ms": 5.072999745607376,
+      "non_direct_median_explicit_comparisons": 1000.0,
+      "non_direct_median_candidate_fraction": 1.0
+    },
+    {
+      "split": "evaluation",
+      "method": "ann",
+      "cases": 10,
+      "quality_cases": 9,
+      "timing_samples": 30,
+      "failed_samples": 0,
+      "complete": true,
+      "owner_recall_at_5": 0.7777777777777778,
+      "vector_recall_at_5": 0.7333333333333334,
+      "lookup_median_ms": 5.649750120937824,
+      "lookup_p95_ms": 6.700100377202034,
+      "non_direct_median_explicit_comparisons": null,
+      "non_direct_median_candidate_fraction": null
+    },
+    {
+      "split": "evaluation",
+      "method": "community",
+      "cases": 10,
+      "quality_cases": 9,
+      "timing_samples": 30,
+      "failed_samples": 0,
+      "complete": true,
+      "owner_recall_at_5": 1.0,
+      "vector_recall_at_5": 1.0,
+      "lookup_median_ms": 186.21845007874072,
+      "lookup_p95_ms": 197.60290021076798,
+      "non_direct_median_explicit_comparisons": 313.0,
+      "non_direct_median_candidate_fraction": 0.253
+    }
+  ],
+  "targets": {
+    "measurable": true,
+    "median_comparisons_at_most_500": true,
+    "owner_recall_within_5_percentage_points": true,
+    "both_targets_met": true,
+    "scope": "non-direct evaluation effort; nonempty relevant-owner cases; demo targets only"
+  },
+  "demo_targets": {
+    "measurable": true,
+    "maximum_absolute_recall_gap": 0.03,
+    "comparison_fraction_exclusive": 0.3333333333333333,
+    "scope": "mean evaluation owner recall; every non-direct sample including routing overhead; no latency gate",
+    "flat_owner_recall_at_5": 1.0,
+    "community_owner_recall_at_5": 1.0,
+    "absolute_recall_gap": 0.0,
+    "recall_within_3_percentage_points": true,
+    "max_explicit_comparisons": 314,
+    "max_comparison_fraction": 0.314,
+    "every_non_direct_sample_below_one_third": true,
+    "both_targets_met": true
+  }
+}

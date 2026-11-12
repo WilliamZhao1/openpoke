@@ -1,0 +1,233 @@
+{
+  "status": "passed",
+  "created_at": "2026-11-12T02:15:24.586290+00:00",
+  "protocol_sha256": "41b112b96bd80bff8407dcf68c34b65a0abb1861c21dc04cb8597576224dcc6c",
+  "numerical_tests_passed": 4,
+  "original_artifact_hashes_preserved": {
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\build-manifest.json": "4cb5302be37046b9d6be9a2578e6660e13a63733744c5718b867d95b84112b42",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\diagnosis.json": "67d1f7c565b46c8b1d033ff8cfb2bce6d2794857cb8331b1d2fb620ce747763e",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\smoke.json": "5d4ba3092b7c7fde9f8608c7a9c68a3bdb187f369b1dc979aede490a13c0cf52",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\evaluation\\results.json": "47bb7368cb8232b89edd5b7dd380a84750768883d7ef762226cd79cce79530a8",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\comparison.json": "d7747f56921299ca770c535f35f7bb76a9e7e1c86b6fe2a8613c94b7b8a9cbc0",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\lookup-profile.json": "ef11c578016adb0cd2fb58656724945f58fcfc549a824b74d01d93080e27ad39",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\results.json": "c185978becdd74976bba9b31729cbf98c5e13dd0054e2df06819ecce11f9f5d0",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\evaluation\\report.md": "4ce80aa688b4df950d7d0783b75669aacd5b31d78fa9e4f579265ed2867320dd",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\comparison.md": "ab67c3aedfeaab6597a52dbd709ecce732594d29b66c6d73561b5eaff6302256",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\report.md": "e29f9052a8aa02c7c2c87f24b14e834188e837330484e0cad7ba2e977799f70d",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\manifest.json": "4cb5302be37046b9d6be9a2578e6660e13a63733744c5718b867d95b84112b42",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\catalog.json": "96df77409dac00e0f365645e6e04a7e1ed14a565c20c7415bdce1ad080511606",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\vectors.npy": "d0cfaa64e6f11b79b77457e2b04c56b5faf8b448352f6c57cdd7bb8bf6fca5bd",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\communities.json": "5344ba7151594488d573d578ea434c87e241a8765c620fe33b253f809156c2d0"
+  },
+  "representative_cache_sha256": "cb3b016c555260d0fa19c49e0fe20db755a0c050e49b51a4822f56da8185ee7e",
+  "sets": {
+    "existing": {
+      "cases": 16,
+      "quality_cases": 9,
+      "timing_samples": 144,
+      "flat": {
+        "split": "evaluation",
+        "method": "flat",
+        "cases": 10,
+        "quality_cases": 9,
+        "timing_samples": 30,
+        "failed_samples": 0,
+        "complete": true,
+        "owner_recall_at_5": 0.9444444444444444,
+        "vector_recall_at_5": 1.0,
+        "lookup_median_ms": 4.528499906882644,
+        "lookup_p95_ms": 6.299399770796299,
+        "non_direct_median_explicit_comparisons": 1000.0,
+        "non_direct_median_candidate_fraction": 1.0
+      },
+      "community": {
+        "split": "evaluation",
+        "method": "community",
+        "cases": 10,
+        "quality_cases": 9,
+        "timing_samples": 30,
+        "failed_samples": 0,
+        "complete": true,
+        "owner_recall_at_5": 0.9444444444444444,
+        "vector_recall_at_5": 1.0,
+        "lookup_median_ms": 186.0436499118805,
+        "lookup_p95_ms": 192.10129976272583,
+        "non_direct_median_explicit_comparisons": 312.0,
+        "non_direct_median_candidate_fraction": 0.252
+      },
+      "targets": {
+        "measurable": true,
+        "maximum_absolute_recall_gap": 0.03,
+        "comparison_fraction_exclusive": 0.3333333333333333,
+        "scope": "mean evaluation owner recall; every non-direct sample including routing overhead; no latency gate",
+        "flat_owner_recall_at_5": 0.9444444444444444,
+        "community_owner_recall_at_5": 0.9444444444444444,
+        "absolute_recall_gap": 0.0,
+        "recall_within_3_percentage_points": true,
+        "max_explicit_comparisons": 314,
+        "max_comparison_fraction": 0.314,
+        "every_non_direct_sample_below_one_third": true,
+        "both_targets_met": true
+      },
+      "candidate_owner_coverage": 1,
+      "all_member_unions_and_representative_counts_verified": true
+    },
+    "fresh": {
+      "cases": 10,
+      "quality_cases": 9,
+      "timing_samples": 90,
+      "flat": {
+        "split": "evaluation",
+        "method": "flat",
+        "cases": 10,
+        "quality_cases": 9,
+        "timing_samples": 30,
+        "failed_samples": 0,
+        "complete": true,
+        "owner_recall_at_5": 1.0,
+        "vector_recall_at_5": 1.0,
+        "lookup_median_ms": 4.253749968484044,
+        "lookup_p95_ms": 5.072999745607376,
+        "non_direct_median_explicit_comparisons": 1000.0,
+        "non_direct_median_candidate_fraction": 1.0
+      },
+      "community": {
+        "split": "evaluation",
+        "method": "community",
+        "cases": 10,
+        "quality_cases": 9,
+        "timing_samples": 30,
+        "failed_samples": 0,
+        "complete": true,
+        "owner_recall_at_5": 1.0,
+        "vector_recall_at_5": 1.0,
+        "lookup_median_ms": 186.21845007874072,
+        "lookup_p95_ms": 197.60290021076798,
+        "non_direct_median_explicit_comparisons": 313.0,
+        "non_direct_median_candidate_fraction": 0.253
+      },
+      "targets": {
+        "measurable": true,
+        "maximum_absolute_recall_gap": 0.03,
+        "comparison_fraction_exclusive": 0.3333333333333333,
+        "scope": "mean evaluation owner recall; every non-direct sample including routing overhead; no latency gate",
+        "flat_owner_recall_at_5": 1.0,
+        "community_owner_recall_at_5": 1.0,
+        "absolute_recall_gap": 0.0,
+        "recall_within_3_percentage_points": true,
+        "max_explicit_comparisons": 314,
+        "max_comparison_fraction": 0.314,
+        "every_non_direct_sample_below_one_third": true,
+        "both_targets_met": true
+      },
+      "candidate_owner_coverage": 1,
+      "all_member_unions_and_representative_counts_verified": true
+    }
+  },
+  "cached_query_trace": {
+    "top5": [
+      {
+        "name": "Alice Acme contract",
+        "score": 0.6380285708286593
+      },
+      {
+        "name": "Alice Acme renewal",
+        "score": 0.40903150053380605
+      },
+      {
+        "name": "Acme amendment",
+        "score": 0.3324239909710922
+      },
+      {
+        "name": "Alice Chen renewal project 00124",
+        "score": 0.16317248209813381
+      },
+      {
+        "name": "Morgan renewal project 00109",
+        "score": 0.16029148048252606
+      }
+    ],
+    "selected_communities": [
+      {
+        "id": "community-007",
+        "size": 51,
+        "score": 0.6380285708286593
+      },
+      {
+        "id": "community-001",
+        "size": 52,
+        "score": 0.40903150053380605
+      },
+      {
+        "id": "community-013",
+        "size": 50,
+        "score": 0.15957461205344362
+      },
+      {
+        "id": "community-018",
+        "size": 49,
+        "score": 0.15764696683599277
+      },
+      {
+        "id": "community-015",
+        "size": 50,
+        "score": 0.12263652053582631
+      }
+    ],
+    "candidate_count": 252,
+    "candidate_fraction": 0.252,
+    "representative_comparisons": 60,
+    "worker_comparisons": 252,
+    "total_explicit_comparisons": 312,
+    "covers_entire_catalog": false,
+    "direct": false,
+    "embedding_ms": 18.899699673056602,
+    "lookup_ms": 214.9932999163866,
+    "representative_setup": {
+      "policy": "centroid_plus_two_farthest_v1",
+      "maximum_per_community": 3,
+      "total_representatives": 60,
+      "cache_reused": true,
+      "cache_sha256": "cb3b016c555260d0fa19c49e0fe20db755a0c050e49b51a4822f56da8185ee7e",
+      "cache_fingerprint": "22e6db8c3fc5ea0f47ea428f44901f379b13f7887a22a912cb4a3c1a12b801f8",
+      "build_ms": 1123.9967001602054,
+      "build_explicit_comparisons": 2000,
+      "load_or_build_ms": 30.547400005161762
+    },
+    "query": "Acme original services redline",
+    "requested_communities": 5,
+    "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+    "timing_scope": "lookup excludes model/cache/connection validation and query embedding"
+  },
+  "cache_error_check": "Corrupt derived cache rejects non-direct query with nonzero exit; exact-name lookup still works without model/vector caches.",
+  "effort_gate_check": "One 334-comparison sample fails the per-request gate, regardless of median.",
+  "prototype_build": "One label-free offline member pass; 2,000 setup comparisons recorded separately from per-query effort.",
+  "synthetic_catalog_boundary": {
+    "core_workers": 7,
+    "synthetic_distractors": 993,
+    "member_exemplars": 40,
+    "core_workers_selected_as_exemplars": [
+      "2023 tax documents",
+      "Acme amendment",
+      "Alice Acme contract",
+      "Alice Acme renewal",
+      "Alice lunch",
+      "GitHub review",
+      "Uber receipts"
+    ],
+    "interpretation": "Observed after frozen quality runs. Selection was label-free, but all seven core workers are distinctive among repetitive synthetic distractors; the fresh queries target the same seven owners. This is not representative production coverage."
+  },
+  "same_flat_top5_outputs": {
+    "existing": false,
+    "fresh": true
+  },
+  "same_ordered_flat_top5_names": {
+    "existing": true,
+    "fresh": true
+  },
+  "flat_scores_agree_at_absolute_tolerance_1e12": {
+    "existing": true,
+    "fresh": true
+  },
+  "runtime_cleanup": "Disposable Neo4j processes stopped after validation; graph/model/snapshot and derived cache files retained under ignored .venv."
+}

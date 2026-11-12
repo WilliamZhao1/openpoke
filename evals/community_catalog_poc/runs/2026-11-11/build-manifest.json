@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "status": "ready",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "model_revision": "c9745ed1d9f207416be6d2e6f8de32d1f16199bf",
+  "catalog_sha256": "1141182e16814bf8254332d0ff98c0a8aaa59f7be334ef4566575c02e2d5f9aa",
+  "sources": {
+    "server/tests/fixtures/catalogs.py": "956a06b963a70a4579c7caffee718c74ec8906367ed1f85c9d62adf7bdb6d781",
+    "server/tests/fixtures/catalog.json": "c2943d9ec10cc04d65683b5247f3d756e20445f007934d64838ee099e098b050"
+  },
+  "parameters": {
+    "neighbors": 10,
+    "seed": 42,
+    "resolution": 1,
+    "communities": 2,
+    "top_k": 5
+  },
+  "worker_count": 1000,
+  "created_at": "2026-11-12T01:03:12.431062+00:00",
+  "neo4j_version": "5.26.0",
+  "versions": {
+    "numpy": "2.2.6",
+    "networkx": "3.5",
+    "sentence-transformers": "5.1.2",
+    "neo4j": "5.28.2",
+    "torch": "2.15.0",
+    "transformers": "4.57.6",
+    "huggingface-hub": "0.36.2"
+  },
+  "python": "3.12.3",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "dimensions": 384,
+  "edge_count": 7142,
+  "community_sizes": {
+    "community-000": 51,
+    "community-001": 52,
+    "community-002": 49,
+    "community-003": 50,
+    "community-004": 50,
+    "community-005": 49,
+    "community-006": 50,
+    "community-007": 51,
+    "community-008": 50,
+    "community-009": 50,
+    "community-010": 51,
+    "community-011": 50,
+    "community-012": 50,
+    "community-013": 50,
+    "community-014": 49,
+    "community-015": 50,
+    "community-016": 50,
+    "community-017": 50,
+    "community-018": 49,
+    "community-019": 49
+  },
+  "files": {
+    "catalog.json": "96df77409dac00e0f365645e6e04a7e1ed14a565c20c7415bdce1ad080511606",
+    "vectors.npy": "d0cfaa64e6f11b79b77457e2b04c56b5faf8b448352f6c57cdd7bb8bf6fca5bd",
+    "communities.json": "5344ba7151594488d573d578ea434c87e241a8765c620fe33b253f809156c2d0"
+  },
+  "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+  "build_ms": {
+    "model_setup_ms": 7816.501799970865,
+    "catalog_embedding_ms": 2816.0234997048974,
+    "pairwise_graph_ms": 512.7488998696208,
+    "louvain_centroids_ms": 71.36770011857152,
+    "database_write_index_validation_ms": 3372.4497999064624,
+    "total_build_ms": 15211.561900097877
+  }
+}

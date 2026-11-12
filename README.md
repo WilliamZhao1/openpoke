@@ -161,6 +161,11 @@ are recorded. To restore the original strategies without deleting data, set both
 `OPENPOKE_WORKER_DISCOVERY=legacy` and `OPENPOKE_CONTEXT_STRATEGY=legacy`, then restart.
 
 ## Project Layout
+
+See the [runtime architecture map](docs/architecture-map.md) for the complete query-to-storage flow, labeled API/function calls, worker discovery, callbacks, model context, Gmail drafts, background jobs, and storage layout.
+
+The [known system limitations register](docs/known-limitations.md) tracks current gaps, intentional bounds, deferred capabilities, evidence limits, and resolved findings with stable IDs and source links. Update it when repository work identifies, changes, or resolves a limitation.
+
 - `server/` – FastAPI application and agents
 - `web/` – Next.js app
 - `server/data/` – runtime data (ignored by git)

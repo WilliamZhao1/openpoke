@@ -1,0 +1,451 @@
+{
+  "created_at": "2026-11-12T01:23:12.533195+00:00",
+  "scope": "Post-evaluation diagnosis on the original frozen snapshot; no policy changes, sweeps, new quality examples, timing claims, or DB run.",
+  "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+  "implementation_sha256": "e5c4800f45d8641d0c1e1ea9a438cafecb38bc6d3958b2899e9210686c49bbaf",
+  "reconstruction": "Original seeded graph/community construction reproduced cached community representatives exactly; recomputed flat top-five scores exactly match saved output.",
+  "core_workers": 7,
+  "synthetic_distractors": 993,
+  "representative_failure_cases": [
+    {
+      "case_id": "original-contract",
+      "query": "Acme original services redline",
+      "selected": [
+        {
+          "id": "community-001",
+          "size": 52,
+          "score": 0.1475357819179276
+        },
+        {
+          "id": "community-013",
+          "size": 50,
+          "score": 0.1417726324669872
+        }
+      ],
+      "flat_top5": [
+        {
+          "name": "Alice Acme contract",
+          "score": 0.6380285708286593
+        },
+        {
+          "name": "Alice Acme renewal",
+          "score": 0.40903150053380605
+        },
+        {
+          "name": "Acme amendment",
+          "score": 0.3324239909710922
+        },
+        {
+          "name": "Alice Chen renewal project 00124",
+          "score": 0.16317248209813381
+        },
+        {
+          "name": "Morgan renewal project 00109",
+          "score": 0.16029148048252606
+        }
+      ],
+      "community_top5": [
+        {
+          "name": "Alice Acme renewal",
+          "score": 0.40903150053380605
+        },
+        {
+          "name": "Acme amendment",
+          "score": 0.3324239909710922
+        },
+        {
+          "name": "Alice Chen renewal project 00124",
+          "score": 0.16317248209813381
+        },
+        {
+          "name": "Morgan renewal project 00109",
+          "score": 0.16029148048252606
+        },
+        {
+          "name": "Morgan renewal project 00149",
+          "score": 0.15957461205344362
+        }
+      ],
+      "owners": [
+        {
+          "name": "Alice Acme contract",
+          "community": "community-007",
+          "community_rank_for_query": 5,
+          "community_size": 51,
+          "core_workers": [
+            "Alice Acme contract"
+          ],
+          "dominant_distractor_groups": [
+            [
+              "Alice Chen contract",
+              50
+            ]
+          ],
+          "worker_cosine": 0.6380285708286593,
+          "centroid_cosine": 0.09715031902609138,
+          "selected_in_top_two": false
+        }
+      ]
+    },
+    {
+      "case_id": "services-owner",
+      "query": "original Acme services",
+      "selected": [
+        {
+          "id": "community-001",
+          "size": 52,
+          "score": 0.18346540459292598
+        },
+        {
+          "id": "community-013",
+          "size": 50,
+          "score": 0.1765507693380469
+        }
+      ],
+      "flat_top5": [
+        {
+          "name": "Alice Acme contract",
+          "score": 0.5435532400484897
+        },
+        {
+          "name": "Alice Acme renewal",
+          "score": 0.4488811704084575
+        },
+        {
+          "name": "Acme amendment",
+          "score": 0.3706165113487
+        },
+        {
+          "name": "Sam Patel renewal project 00714",
+          "score": 0.19863803448924933
+        },
+        {
+          "name": "Sam Patel renewal project 00814",
+          "score": 0.19728881865397596
+        }
+      ],
+      "community_top5": [
+        {
+          "name": "Alice Acme renewal",
+          "score": 0.4488811704084575
+        },
+        {
+          "name": "Acme amendment",
+          "score": 0.3706165113487
+        },
+        {
+          "name": "Morgan renewal project 00209",
+          "score": 0.19602729913144837
+        },
+        {
+          "name": "Morgan renewal project 00709",
+          "score": 0.1941748972140367
+        },
+        {
+          "name": "Morgan renewal project 00869",
+          "score": 0.18995655414739981
+        }
+      ],
+      "owners": [
+        {
+          "name": "Alice Acme contract",
+          "community": "community-007",
+          "community_rank_for_query": 5,
+          "community_size": 51,
+          "core_workers": [
+            "Alice Acme contract"
+          ],
+          "dominant_distractor_groups": [
+            [
+              "Alice Chen contract",
+              50
+            ]
+          ],
+          "worker_cosine": 0.5435532400484898,
+          "centroid_cosine": 0.14547980340878772,
+          "selected_in_top_two": false
+        }
+      ]
+    },
+    {
+      "case_id": "amendment-owner",
+      "query": "Acme signed amendment",
+      "selected": [
+        {
+          "id": "community-015",
+          "size": 50,
+          "score": 0.10792303765570475
+        },
+        {
+          "id": "community-011",
+          "size": 50,
+          "score": 0.09322840111959345
+        }
+      ],
+      "flat_top5": [
+        {
+          "name": "Acme amendment",
+          "score": 0.7754152113895667
+        },
+        {
+          "name": "Alice Acme contract",
+          "score": 0.3846604495648708
+        },
+        {
+          "name": "Alice Acme renewal",
+          "score": 0.3817532428676652
+        },
+        {
+          "name": "GitHub review",
+          "score": 0.14528093532332437
+        },
+        {
+          "name": "Sam Patel contract project 00130",
+          "score": 0.12912976728380013
+        }
+      ],
+      "community_top5": [
+        {
+          "name": "Sam Patel contract project 00130",
+          "score": 0.12912976728380013
+        },
+        {
+          "name": "Sam Patel contract project 00170",
+          "score": 0.12870294921666417
+        },
+        {
+          "name": "Sam Patel contract project 00870",
+          "score": 0.12848674757305348
+        },
+        {
+          "name": "Sam Patel contract project 00830",
+          "score": 0.12679444978969415
+        },
+        {
+          "name": "Sam Patel contract project 00270",
+          "score": 0.12244816831427226
+        }
+      ],
+      "owners": [
+        {
+          "name": "Acme amendment",
+          "community": "community-001",
+          "community_rank_for_query": 4,
+          "community_size": 52,
+          "core_workers": [
+            "Acme amendment",
+            "Alice Acme renewal"
+          ],
+          "dominant_distractor_groups": [
+            [
+              "Alice Chen renewal",
+              50
+            ]
+          ],
+          "worker_cosine": 0.7754152113895666,
+          "centroid_cosine": 0.08630949629420161,
+          "selected_in_top_two": false
+        }
+      ]
+    },
+    {
+      "case_id": "two-topics",
+      "query": "Cafe Etoile Acme original services",
+      "selected": [
+        {
+          "id": "community-012",
+          "size": 50,
+          "score": 0.2147303554927783
+        },
+        {
+          "id": "community-013",
+          "size": 50,
+          "score": 0.16510705353619043
+        }
+      ],
+      "flat_top5": [
+        {
+          "name": "Alice lunch",
+          "score": 0.3638844401047052
+        },
+        {
+          "name": "Alice Acme contract",
+          "score": 0.3432665496730668
+        },
+        {
+          "name": "Alice Acme renewal",
+          "score": 0.2399506825131023
+        },
+        {
+          "name": "Morgan lunch project 00701",
+          "score": 0.22629641512600962
+        },
+        {
+          "name": "Morgan lunch project 00361",
+          "score": 0.22622618238255843
+        }
+      ],
+      "community_top5": [
+        {
+          "name": "Morgan lunch project 00701",
+          "score": 0.22629641512600962
+        },
+        {
+          "name": "Morgan lunch project 00361",
+          "score": 0.22622618238255843
+        },
+        {
+          "name": "Morgan lunch project 00501",
+          "score": 0.2254708472506064
+        },
+        {
+          "name": "Morgan lunch project 00521",
+          "score": 0.22539318378138107
+        },
+        {
+          "name": "Morgan lunch project 00121",
+          "score": 0.22494608302632946
+        }
+      ],
+      "owners": [
+        {
+          "name": "Alice lunch",
+          "community": "community-008",
+          "community_rank_for_query": 3,
+          "community_size": 50,
+          "core_workers": [
+            "Alice lunch"
+          ],
+          "dominant_distractor_groups": [
+            [
+              "Alice Chen lunch",
+              49
+            ]
+          ],
+          "worker_cosine": 0.3638844401047052,
+          "centroid_cosine": 0.15745935566786773,
+          "selected_in_top_two": false
+        },
+        {
+          "name": "Alice Acme contract",
+          "community": "community-007",
+          "community_rank_for_query": 11,
+          "community_size": 51,
+          "core_workers": [
+            "Alice Acme contract"
+          ],
+          "dominant_distractor_groups": [
+            [
+              "Alice Chen contract",
+              50
+            ]
+          ],
+          "worker_cosine": 0.3432665496730669,
+          "centroid_cosine": 0.0595383244302214,
+          "selected_in_top_two": false
+        }
+      ]
+    },
+    {
+      "case_id": "contract-ambiguity",
+      "query": "Alice contract",
+      "selected": [
+        {
+          "id": "community-007",
+          "size": 51,
+          "score": 0.6126193231613433
+        },
+        {
+          "id": "community-009",
+          "size": 50,
+          "score": 0.4372740542261819
+        }
+      ],
+      "flat_top5": [
+        {
+          "name": "Alice Acme contract",
+          "score": 0.6745281630372846
+        },
+        {
+          "name": "Alice Chen contract project 00400",
+          "score": 0.6172564931492244
+        },
+        {
+          "name": "Alice Chen contract project 00120",
+          "score": 0.6136299783965617
+        },
+        {
+          "name": "Alice Chen contract project 00620",
+          "score": 0.6080553649080516
+        },
+        {
+          "name": "Alice Chen contract project 00180",
+          "score": 0.60749666304848
+        }
+      ],
+      "community_top5": [
+        {
+          "name": "Alice Acme contract",
+          "score": 0.6745281630372846
+        },
+        {
+          "name": "Alice Chen contract project 00400",
+          "score": 0.6172564931492244
+        },
+        {
+          "name": "Alice Chen contract project 00120",
+          "score": 0.6136299783965617
+        },
+        {
+          "name": "Alice Chen contract project 00620",
+          "score": 0.6080553649080516
+        },
+        {
+          "name": "Alice Chen contract project 00180",
+          "score": 0.60749666304848
+        }
+      ],
+      "owners": [
+        {
+          "name": "Alice Acme contract",
+          "community": "community-007",
+          "community_rank_for_query": 1,
+          "community_size": 51,
+          "core_workers": [
+            "Alice Acme contract"
+          ],
+          "dominant_distractor_groups": [
+            [
+              "Alice Chen contract",
+              50
+            ]
+          ],
+          "worker_cosine": 0.6745281630372847,
+          "centroid_cosine": 0.6126193231613433,
+          "selected_in_top_two": true
+        },
+        {
+          "name": "Alice Acme renewal",
+          "community": "community-001",
+          "community_rank_for_query": 3,
+          "community_size": 52,
+          "core_workers": [
+            "Acme amendment",
+            "Alice Acme renewal"
+          ],
+          "dominant_distractor_groups": [
+            [
+              "Alice Chen renewal",
+              50
+            ]
+          ],
+          "worker_cosine": 0.588611576949536,
+          "centroid_cosine": 0.43657477855425325,
+          "selected_in_top_two": false
+        }
+      ]
+    }
+  ],
+  "unprofiled_latency": "The community path includes fetching/deserializing member embeddings and Python conversion/validation. The saved run has no stage-level timing breakdown to attribute its latency gap.",
+  "ann_cause": "Low recall is observed; root cause is unverified. Existing index uses only dimensions/cosine options, and query requests exactly five neighbors. No claim about which index setting caused the loss."
+}

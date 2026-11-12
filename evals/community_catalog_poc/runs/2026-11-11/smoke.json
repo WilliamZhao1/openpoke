@@ -1,0 +1,585 @@
+{
+  "status": "passed",
+  "created_at": "2026-11-12T01:04:51.127475+00:00",
+  "database": "Neo4j Community 5.26.0, disposable Windows ZIP / Java 21",
+  "model_network": "HF_HUB_OFFLINE=1; query loads local_files_only=True",
+  "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+  "implementation_sha256": "e5c4800f45d8641d0c1e1ea9a438cafecb38bc6d3958b2899e9210686c49bbaf",
+  "cache_reused": true,
+  "counts": {
+    "workers": 1000,
+    "memberships": 1000
+  },
+  "index": {
+    "name": "poc_worker_vectors",
+    "state": "ONLINE"
+  },
+  "membership_union_checks": "all non-direct traces equal count(DISTINCT w) for selected communities",
+  "queries": {
+    "exact": {
+      "top5": [
+        {
+          "name": "Alice lunch",
+          "score": null
+        }
+      ],
+      "direct": true,
+      "selected_communities": [],
+      "candidate_count": 1,
+      "candidate_fraction": 0.001,
+      "representative_comparisons": 0,
+      "worker_comparisons": 0,
+      "total_explicit_comparisons": 0,
+      "covers_entire_catalog": false,
+      "embedding_ms": 0.0,
+      "lookup_ms": 44.28949998691678,
+      "query": "Alice lunch",
+      "requested_communities": 2,
+      "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+      "timing_scope": "lookup excludes model/cache/connection validation and query embedding"
+    },
+    "topical": {
+      "top5": [
+        {
+          "name": "GitHub review",
+          "score": 0.7986737893746431
+        },
+        {
+          "name": "Alice Chen contract project 00160",
+          "score": 0.17392848034380773
+        },
+        {
+          "name": "Alice Chen contract project 00120",
+          "score": 0.16214804414329662
+        },
+        {
+          "name": "Alice Chen contract project 00380",
+          "score": 0.16185692433287022
+        },
+        {
+          "name": "Alice Chen contract project 00700",
+          "score": 0.16169261940890917
+        }
+      ],
+      "selected_communities": [
+        {
+          "id": "community-010",
+          "size": 51,
+          "score": 0.16220771234708922
+        },
+        {
+          "id": "community-007",
+          "size": 51,
+          "score": 0.15087683711207733
+        }
+      ],
+      "candidate_count": 102,
+      "candidate_fraction": 0.102,
+      "representative_comparisons": 20,
+      "worker_comparisons": 102,
+      "total_explicit_comparisons": 122,
+      "covers_entire_catalog": false,
+      "direct": false,
+      "embedding_ms": 16.23160019516945,
+      "lookup_ms": 191.85910001397133,
+      "query": "Atlas repository authentication",
+      "requested_communities": 2,
+      "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+      "timing_scope": "lookup excludes model/cache/connection validation and query embedding"
+    },
+    "ambiguous_narrow": {
+      "top5": [
+        {
+          "name": "Alice Acme contract",
+          "score": 0.6745281630372846
+        },
+        {
+          "name": "Alice Chen contract project 00400",
+          "score": 0.6172564931492244
+        },
+        {
+          "name": "Alice Chen contract project 00120",
+          "score": 0.6136299783965617
+        },
+        {
+          "name": "Alice Chen contract project 00620",
+          "score": 0.6080553649080516
+        },
+        {
+          "name": "Alice Chen contract project 00180",
+          "score": 0.60749666304848
+        }
+      ],
+      "selected_communities": [
+        {
+          "id": "community-007",
+          "size": 51,
+          "score": 0.6126193231613433
+        }
+      ],
+      "candidate_count": 51,
+      "candidate_fraction": 0.051,
+      "representative_comparisons": 20,
+      "worker_comparisons": 51,
+      "total_explicit_comparisons": 71,
+      "covers_entire_catalog": false,
+      "direct": false,
+      "embedding_ms": 16.575499903410673,
+      "lookup_ms": 143.10829993337393,
+      "query": "Alice contract",
+      "requested_communities": 1,
+      "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+      "timing_scope": "lookup excludes model/cache/connection validation and query embedding"
+    },
+    "ambiguous_wide": {
+      "top5": [
+        {
+          "name": "Alice Acme contract",
+          "score": 0.6745281630372846
+        },
+        {
+          "name": "Alice Chen contract project 00400",
+          "score": 0.6172564931492244
+        },
+        {
+          "name": "Alice Chen contract project 00120",
+          "score": 0.6136299783965617
+        },
+        {
+          "name": "Alice Chen contract project 00620",
+          "score": 0.6080553649080516
+        },
+        {
+          "name": "Alice Chen contract project 00180",
+          "score": 0.60749666304848
+        }
+      ],
+      "selected_communities": [
+        {
+          "id": "community-007",
+          "size": 51,
+          "score": 0.6126193231613433
+        },
+        {
+          "id": "community-009",
+          "size": 50,
+          "score": 0.4372740542261819
+        },
+        {
+          "id": "community-001",
+          "size": 52,
+          "score": 0.43657477855425325
+        },
+        {
+          "id": "community-010",
+          "size": 51,
+          "score": 0.4019273424793297
+        }
+      ],
+      "candidate_count": 204,
+      "candidate_fraction": 0.204,
+      "representative_comparisons": 20,
+      "worker_comparisons": 204,
+      "total_explicit_comparisons": 224,
+      "covers_entire_catalog": false,
+      "direct": false,
+      "embedding_ms": 16.120899934321642,
+      "lookup_ms": 184.26289968192577,
+      "query": "Alice contract",
+      "requested_communities": 4,
+      "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+      "timing_scope": "lookup excludes model/cache/connection validation and query embedding"
+    },
+    "topical_cached_repeat": {
+      "top5": [
+        {
+          "name": "GitHub review",
+          "score": 0.7986737893746431
+        },
+        {
+          "name": "Alice Chen contract project 00160",
+          "score": 0.17392848034380773
+        },
+        {
+          "name": "Alice Chen contract project 00120",
+          "score": 0.16214804414329662
+        },
+        {
+          "name": "Alice Chen contract project 00380",
+          "score": 0.16185692433287022
+        },
+        {
+          "name": "Alice Chen contract project 00700",
+          "score": 0.16169261940890917
+        }
+      ],
+      "selected_communities": [
+        {
+          "id": "community-010",
+          "size": 51,
+          "score": 0.16220771234708922
+        },
+        {
+          "id": "community-007",
+          "size": 51,
+          "score": 0.15087683711207733
+        }
+      ],
+      "candidate_count": 102,
+      "candidate_fraction": 0.102,
+      "representative_comparisons": 20,
+      "worker_comparisons": 102,
+      "total_explicit_comparisons": 122,
+      "covers_entire_catalog": false,
+      "direct": false,
+      "embedding_ms": 17.862000036984682,
+      "lookup_ms": 97.96589985489845,
+      "query": "Atlas repository authentication",
+      "requested_communities": 2,
+      "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+      "timing_scope": "lookup excludes model/cache/connection validation and query embedding"
+    },
+    "all_communities": {
+      "top5": [
+        {
+          "name": "Alice Acme contract",
+          "score": 0.6745281630372846
+        },
+        {
+          "name": "Alice Chen contract project 00400",
+          "score": 0.6172564931492244
+        },
+        {
+          "name": "Alice Chen contract project 00120",
+          "score": 0.6136299783965617
+        },
+        {
+          "name": "Alice Chen contract project 00620",
+          "score": 0.6080553649080516
+        },
+        {
+          "name": "Alice Chen contract project 00180",
+          "score": 0.60749666304848
+        }
+      ],
+      "selected_communities": [
+        {
+          "id": "community-007",
+          "size": 51,
+          "score": 0.6126193231613433
+        },
+        {
+          "id": "community-009",
+          "size": 50,
+          "score": 0.4372740542261819
+        },
+        {
+          "id": "community-001",
+          "size": 52,
+          "score": 0.43657477855425325
+        },
+        {
+          "id": "community-010",
+          "size": 51,
+          "score": 0.4019273424793297
+        },
+        {
+          "id": "community-002",
+          "size": 49,
+          "score": 0.38889882908567097
+        },
+        {
+          "id": "community-015",
+          "size": 50,
+          "score": 0.37791255332996376
+        },
+        {
+          "id": "community-008",
+          "size": 50,
+          "score": 0.37210182043715034
+        },
+        {
+          "id": "community-011",
+          "size": 50,
+          "score": 0.35420242748574404
+        },
+        {
+          "id": "community-004",
+          "size": 50,
+          "score": 0.24086741672594542
+        },
+        {
+          "id": "community-000",
+          "size": 51,
+          "score": 0.22350507447802065
+        },
+        {
+          "id": "community-017",
+          "size": 50,
+          "score": 0.2023577761426295
+        },
+        {
+          "id": "community-005",
+          "size": 49,
+          "score": 0.19882676296704888
+        },
+        {
+          "id": "community-013",
+          "size": 50,
+          "score": 0.1928729215748486
+        },
+        {
+          "id": "community-003",
+          "size": 50,
+          "score": 0.17698360097068594
+        },
+        {
+          "id": "community-018",
+          "size": 49,
+          "score": 0.17387982345762104
+        },
+        {
+          "id": "community-012",
+          "size": 50,
+          "score": 0.1493051905459722
+        },
+        {
+          "id": "community-016",
+          "size": 50,
+          "score": 0.14642155550878128
+        },
+        {
+          "id": "community-014",
+          "size": 49,
+          "score": 0.14475906896622176
+        },
+        {
+          "id": "community-006",
+          "size": 50,
+          "score": 0.14116642692617803
+        },
+        {
+          "id": "community-019",
+          "size": 49,
+          "score": 0.09507137922146014
+        }
+      ],
+      "candidate_count": 1000,
+      "candidate_fraction": 1.0,
+      "representative_comparisons": 20,
+      "worker_comparisons": 1000,
+      "total_explicit_comparisons": 1020,
+      "covers_entire_catalog": true,
+      "direct": false,
+      "embedding_ms": 16.490499954670668,
+      "lookup_ms": 856.7475001327693,
+      "query": "Alice contract",
+      "requested_communities": 99999,
+      "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+      "timing_scope": "lookup excludes model/cache/connection validation and query embedding"
+    },
+    "boundary_narrow": {
+      "top5": [
+        {
+          "name": "Alice Acme renewal",
+          "score": 0.40903150053380605
+        },
+        {
+          "name": "Acme amendment",
+          "score": 0.3324239909710922
+        },
+        {
+          "name": "Alice Chen renewal project 00124",
+          "score": 0.16317248209813381
+        },
+        {
+          "name": "Morgan renewal project 00109",
+          "score": 0.16029148048252606
+        },
+        {
+          "name": "Morgan renewal project 00149",
+          "score": 0.15957461205344362
+        }
+      ],
+      "selected_communities": [
+        {
+          "id": "community-001",
+          "size": 52,
+          "score": 0.1475357819179276
+        },
+        {
+          "id": "community-013",
+          "size": 50,
+          "score": 0.1417726324669872
+        }
+      ],
+      "candidate_count": 102,
+      "candidate_fraction": 0.102,
+      "representative_comparisons": 20,
+      "worker_comparisons": 102,
+      "total_explicit_comparisons": 122,
+      "covers_entire_catalog": false,
+      "direct": false,
+      "embedding_ms": 18.666100222617388,
+      "lookup_ms": 101.96760017424822,
+      "query": "Acme original services redline",
+      "requested_communities": 2,
+      "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+      "timing_scope": "lookup excludes model/cache/connection validation and query embedding"
+    },
+    "boundary_all_communities": {
+      "top5": [
+        {
+          "name": "Alice Acme contract",
+          "score": 0.6380285708286593
+        },
+        {
+          "name": "Alice Acme renewal",
+          "score": 0.40903150053380605
+        },
+        {
+          "name": "Acme amendment",
+          "score": 0.3324239909710922
+        },
+        {
+          "name": "Alice Chen renewal project 00124",
+          "score": 0.16317248209813381
+        },
+        {
+          "name": "Morgan renewal project 00109",
+          "score": 0.16029148048252606
+        }
+      ],
+      "selected_communities": [
+        {
+          "id": "community-001",
+          "size": 52,
+          "score": 0.1475357819179276
+        },
+        {
+          "id": "community-013",
+          "size": 50,
+          "score": 0.1417726324669872
+        },
+        {
+          "id": "community-018",
+          "size": 49,
+          "score": 0.13407906851986323
+        },
+        {
+          "id": "community-015",
+          "size": 50,
+          "score": 0.10256508803352055
+        },
+        {
+          "id": "community-007",
+          "size": 51,
+          "score": 0.09715031902609138
+        },
+        {
+          "id": "community-011",
+          "size": 50,
+          "score": 0.09475769328679953
+        },
+        {
+          "id": "community-005",
+          "size": 49,
+          "score": 0.04869309385596811
+        },
+        {
+          "id": "community-000",
+          "size": 51,
+          "score": 0.04010587638654961
+        },
+        {
+          "id": "community-017",
+          "size": 50,
+          "score": 0.0396734057464591
+        },
+        {
+          "id": "community-009",
+          "size": 50,
+          "score": 0.03255575624898248
+        },
+        {
+          "id": "community-012",
+          "size": 50,
+          "score": 0.03063425777704161
+        },
+        {
+          "id": "community-016",
+          "size": 50,
+          "score": 0.023758541353982865
+        },
+        {
+          "id": "community-014",
+          "size": 49,
+          "score": 0.02290986380492204
+        },
+        {
+          "id": "community-010",
+          "size": 51,
+          "score": 0.014220732935634969
+        },
+        {
+          "id": "community-008",
+          "size": 50,
+          "score": 0.012810886098079226
+        },
+        {
+          "id": "community-019",
+          "size": 49,
+          "score": 0.009116894801341383
+        },
+        {
+          "id": "community-002",
+          "size": 49,
+          "score": 0.007308840897163146
+        },
+        {
+          "id": "community-004",
+          "size": 50,
+          "score": -0.04036340045302971
+        },
+        {
+          "id": "community-003",
+          "size": 50,
+          "score": -0.047006427900131015
+        },
+        {
+          "id": "community-006",
+          "size": 50,
+          "score": -0.06867396998219416
+        }
+      ],
+      "candidate_count": 1000,
+      "candidate_fraction": 1.0,
+      "representative_comparisons": 20,
+      "worker_comparisons": 1000,
+      "total_explicit_comparisons": 1020,
+      "covers_entire_catalog": true,
+      "direct": false,
+      "embedding_ms": 19.009800162166357,
+      "lookup_ms": 756.4733996987343,
+      "query": "Acme original services redline",
+      "requested_communities": 99999,
+      "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+      "timing_scope": "lookup excludes model/cache/connection validation and query embedding"
+    }
+  },
+  "additional_checks": {
+    "exact_name_without_model_or_worker_vector_cache": "passed",
+    "non_exact_without_model_cache": "nonzero exit; no empty-success result",
+    "missing_model_error": "Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.",
+    "tampered_community_cache": "nonzero exit with fingerprint mismatch",
+    "database_unavailable_evaluation": {
+      "exit_code": 1,
+      "status": "incomplete",
+      "retained_cases": 16,
+      "failed_samples": 144,
+      "quality_aggregates": "unavailable"
+    },
+    "setup_notes": "Initial model setup hit the Windows path-length limit at the longer runs/.../snapshot cache path; the successful build used .venv/snapshot and reused partially downloaded model files. Saved build time covers the successful attempt, not earlier setup attempts."
+  },
+  "runtime_cleanup": "Disposable Neo4j processes stopped after validation; local model/snapshot and DB files retained under ignored .venv."
+}

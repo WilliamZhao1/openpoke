@@ -1,0 +1,39 @@
+{
+  "status": "frozen_before_quality_run",
+  "scope": "User-authorized three-representative routing experiment; no parameter sweep or model change.",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "communities": 5,
+  "representatives_per_community": 3,
+  "representative_rule": "Centroid plus up to two distinct members chosen greedily farthest from their closest current representative in cosine distance; exact-name tie breaks. No queries or relevance labels used.",
+  "community_scoring": "Maximum cosine across the three representatives. Rank members of the top five communities using unchanged exact cosine/name ordering.",
+  "targets": {
+    "maximum_absolute_owner_recall_gap": 0.03,
+    "maximum_comparison_fraction_exclusive": 0.3333333333333333,
+    "comparison_scope": "Every non-direct request, including representative scoring; no latency gate."
+  },
+  "comparison_bound_on_snapshot": {
+    "representatives": 60,
+    "maximum_members": 255,
+    "total": 315
+  },
+  "original_artifact_and_snapshot_hashes": {
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\build-manifest.json": "4cb5302be37046b9d6be9a2578e6660e13a63733744c5718b867d95b84112b42",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\diagnosis.json": "67d1f7c565b46c8b1d033ff8cfb2bce6d2794857cb8331b1d2fb620ce747763e",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\smoke.json": "5d4ba3092b7c7fde9f8608c7a9c68a3bdb187f369b1dc979aede490a13c0cf52",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\evaluation\\results.json": "47bb7368cb8232b89edd5b7dd380a84750768883d7ef762226cd79cce79530a8",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\comparison.json": "d7747f56921299ca770c535f35f7bb76a9e7e1c86b6fe2a8613c94b7b8a9cbc0",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\lookup-profile.json": "ef11c578016adb0cd2fb58656724945f58fcfc549a824b74d01d93080e27ad39",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\results.json": "c185978becdd74976bba9b31729cbf98c5e13dd0054e2df06819ecce11f9f5d0",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\evaluation\\report.md": "4ce80aa688b4df950d7d0783b75669aacd5b31d78fa9e4f579265ed2867320dd",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\comparison.md": "ab67c3aedfeaab6597a52dbd709ecce732594d29b66c6d73561b5eaff6302256",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\report.md": "e29f9052a8aa02c7c2c87f24b14e834188e837330484e0cad7ba2e977799f70d",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\manifest.json": "4cb5302be37046b9d6be9a2578e6660e13a63733744c5718b867d95b84112b42",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\catalog.json": "96df77409dac00e0f365645e6e04a7e1ed14a565c20c7415bdce1ad080511606",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\vectors.npy": "d0cfaa64e6f11b79b77457e2b04c56b5faf8b448352f6c57cdd7bb8bf6fca5bd",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\communities.json": "5344ba7151594488d573d578ea434c87e241a8765c620fe33b253f809156c2d0"
+  },
+  "fresh_sample_boundary": "Freshly authored below before prototype quality measurements, by the same assistant after seeing the prior cases/diagnosis. Not independently authored or a production holdout.",
+  "frozen_at_utc": "2026-11-12T02:12:43.620370+00:00",
+  "implementation_sha256": "3c67cfeec226e28e33bfbc753433ca2127854f097279b2afaeb60c25ac1d4940",
+  "fresh_queries_sha256": "469de9b3aa553e4100ff1e20ba3c6f1c2af03331b18bec0b7c7203f437583d70"
+}

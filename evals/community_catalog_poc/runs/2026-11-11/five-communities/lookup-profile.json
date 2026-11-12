@@ -1,0 +1,340 @@
+{
+  "created_at": "2026-11-12T01:43:26.557072+00:00",
+  "scope": "Instrumented warm latency diagnosis: three existing non-direct requests, three repetitions, two unchanged lookup methods. Not a new quality evaluation or independent holdout.",
+  "snapshot_id": "ccf21467eb010a2233b1efe863a9a08106fc28a06e51bb998a498aa95f449a37",
+  "implementation_sha256": "d7c967be713ec20e847248255e9d3c0aabfcf7c366a740ba9f86e5adf44b6227",
+  "configuration": {
+    "communities": 5,
+    "dimensions": 384,
+    "repetitions": 3,
+    "cases": [
+      "original-contract",
+      "atlas-review",
+      "two-topics"
+    ]
+  },
+  "timing_boundary": "Query embedding, model/cache loading, graph validation, connection setup, and one warmup per method/case excluded. Python wrappers measure aggregate stages; added timer overhead remains in totals.",
+  "fetch_stage_boundary": "Includes Neo4j member query, Bolt transfer, Python driver decoding, and record-to-dict materialization. These components are not separated by this measurement.",
+  "comparison_boundary": "Both methods use the same exact-name DB probe. Flat vectors are loaded once before timing; routing fetches embeddings each lookup. Comparisons count dot products, not scalar operations or transfer work.",
+  "original_artifact_hashes_preserved": {
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\comparison.json": "d7747f56921299ca770c535f35f7bb76a9e7e1c86b6fe2a8613c94b7b8a9cbc0",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\results.json": "c185978becdd74976bba9b31729cbf98c5e13dd0054e2df06819ecce11f9f5d0",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\comparison.md": "ab67c3aedfeaab6597a52dbd709ecce732594d29b66c6d73561b5eaff6302256",
+    "evals\\community_catalog_poc\\runs\\2026-11-11\\five-communities\\report.md": "e29f9052a8aa02c7c2c87f24b14e834188e837330484e0cad7ba2e977799f70d",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\manifest.json": "4cb5302be37046b9d6be9a2578e6660e13a63733744c5718b867d95b84112b42",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\vectors.npy": "d0cfaa64e6f11b79b77457e2b04c56b5faf8b448352f6c57cdd7bb8bf6fca5bd",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\communities.json": "5344ba7151594488d573d578ea434c87e241a8765c620fe33b253f809156c2d0",
+    "evals\\community_catalog_poc\\.venv\\snapshot\\catalog.json": "96df77409dac00e0f365645e6e04a7e1ed14a565c20c7415bdce1ad080511606"
+  },
+  "summary": {
+    "flat": {
+      "samples": 9,
+      "median_stages_ms": {
+        "array_conversion_validation_ms": 0,
+        "community_selection_ms": 0,
+        "exact_name_probe_ms": 4.0572998113930225,
+        "member_fetch_decode_records_ms": 0,
+        "other_python_ms": 0.07689977064728737,
+        "ranking_conversion_scoring_sort_ms": 1.245299819856882,
+        "total_lookup_ms": 5.310400389134884
+      }
+    },
+    "community": {
+      "samples": 9,
+      "median_stages_ms": {
+        "array_conversion_validation_ms": 3.2399999909102917,
+        "community_selection_ms": 0.2971002832055092,
+        "exact_name_probe_ms": 4.108800087124109,
+        "member_fetch_decode_records_ms": 188.4916997514665,
+        "other_python_ms": 0.5626999773085117,
+        "ranking_conversion_scoring_sort_ms": 0.17430027946829796,
+        "total_lookup_ms": 197.0206000842154
+      }
+    }
+  },
+  "samples": [
+    {
+      "case_id": "original-contract",
+      "method": "flat",
+      "repetition": 0,
+      "candidate_count": 1000,
+      "total_explicit_comparisons": 1000,
+      "embedding_values_returned": 0,
+      "stages_ms": {
+        "exact_name_probe_ms": 4.797100089490414,
+        "ranking_conversion_scoring_sort_ms": 1.2354999780654907,
+        "total_lookup_ms": 6.109499838203192,
+        "other_python_ms": 0.07689977064728737
+      }
+    },
+    {
+      "case_id": "original-contract",
+      "method": "community",
+      "repetition": 0,
+      "candidate_count": 252,
+      "total_explicit_comparisons": 272,
+      "embedding_values_returned": 96768,
+      "stages_ms": {
+        "exact_name_probe_ms": 4.108800087124109,
+        "community_selection_ms": 0.29190024361014366,
+        "member_fetch_decode_records_ms": 199.21369990333915,
+        "array_conversion_validation_ms": 3.231900278478861,
+        "ranking_conversion_scoring_sort_ms": 0.17430027946829796,
+        "total_lookup_ms": 207.56039954721928,
+        "other_python_ms": 0.5397987551987171
+      }
+    },
+    {
+      "case_id": "original-contract",
+      "method": "community",
+      "repetition": 1,
+      "candidate_count": 252,
+      "total_explicit_comparisons": 272,
+      "embedding_values_returned": 96768,
+      "stages_ms": {
+        "exact_name_probe_ms": 4.608099814504385,
+        "community_selection_ms": 0.2962001599371433,
+        "member_fetch_decode_records_ms": 197.64549983665347,
+        "array_conversion_validation_ms": 3.244900144636631,
+        "ranking_conversion_scoring_sort_ms": 0.17650006338953972,
+        "total_lookup_ms": 206.53389999642968,
+        "other_python_ms": 0.5626999773085117
+      }
+    },
+    {
+      "case_id": "original-contract",
+      "method": "flat",
+      "repetition": 1,
+      "candidate_count": 1000,
+      "total_explicit_comparisons": 1000,
+      "embedding_values_returned": 0,
+      "stages_ms": {
+        "exact_name_probe_ms": 4.5091998763382435,
+        "ranking_conversion_scoring_sort_ms": 1.245299819856882,
+        "total_lookup_ms": 5.828300025314093,
+        "other_python_ms": 0.07380032911896706
+      }
+    },
+    {
+      "case_id": "original-contract",
+      "method": "flat",
+      "repetition": 2,
+      "candidate_count": 1000,
+      "total_explicit_comparisons": 1000,
+      "embedding_values_returned": 0,
+      "stages_ms": {
+        "exact_name_probe_ms": 3.2756002619862556,
+        "ranking_conversion_scoring_sort_ms": 1.328399870544672,
+        "total_lookup_ms": 4.674800205975771,
+        "other_python_ms": 0.07080007344484329
+      }
+    },
+    {
+      "case_id": "original-contract",
+      "method": "community",
+      "repetition": 2,
+      "candidate_count": 252,
+      "total_explicit_comparisons": 272,
+      "embedding_values_returned": 96768,
+      "stages_ms": {
+        "exact_name_probe_ms": 10.682399850338697,
+        "community_selection_ms": 0.6412002258002758,
+        "member_fetch_decode_records_ms": 369.8623995296657,
+        "array_conversion_validation_ms": 6.176799535751343,
+        "ranking_conversion_scoring_sort_ms": 1.5186998061835766,
+        "total_lookup_ms": 190.6810998916626,
+        "other_python_ms": 0.5239006131887436
+      }
+    },
+    {
+      "case_id": "atlas-review",
+      "method": "community",
+      "repetition": 0,
+      "candidate_count": 254,
+      "total_explicit_comparisons": 274,
+      "embedding_values_returned": 97536,
+      "stages_ms": {
+        "exact_name_probe_ms": 9.086899925023317,
+        "community_selection_ms": 0.2971002832055092,
+        "member_fetch_decode_records_ms": 185.44930033385754,
+        "array_conversion_validation_ms": 3.2603000290691853,
+        "ranking_conversion_scoring_sort_ms": 0.17380015924572945,
+        "total_lookup_ms": 198.84400023147464,
+        "other_python_ms": 0.5765995010733604
+      }
+    },
+    {
+      "case_id": "atlas-review",
+      "method": "flat",
+      "repetition": 0,
+      "candidate_count": 1000,
+      "total_explicit_comparisons": 1000,
+      "embedding_values_returned": 0,
+      "stages_ms": {
+        "exact_name_probe_ms": 4.523699637502432,
+        "ranking_conversion_scoring_sort_ms": 1.191999763250351,
+        "total_lookup_ms": 5.795400124043226,
+        "other_python_ms": 0.07970072329044342
+      }
+    },
+    {
+      "case_id": "atlas-review",
+      "method": "flat",
+      "repetition": 1,
+      "candidate_count": 1000,
+      "total_explicit_comparisons": 1000,
+      "embedding_values_returned": 0,
+      "stages_ms": {
+        "exact_name_probe_ms": 3.44960018992424,
+        "ranking_conversion_scoring_sort_ms": 1.2629996053874493,
+        "total_lookup_ms": 4.780800081789494,
+        "other_python_ms": 0.06820028647780418
+      }
+    },
+    {
+      "case_id": "atlas-review",
+      "method": "community",
+      "repetition": 1,
+      "candidate_count": 254,
+      "total_explicit_comparisons": 274,
+      "embedding_values_returned": 97536,
+      "stages_ms": {
+        "exact_name_probe_ms": 3.012899775058031,
+        "community_selection_ms": 0.3313003107905388,
+        "member_fetch_decode_records_ms": 189.75280039012432,
+        "array_conversion_validation_ms": 3.1925002112984657,
+        "ranking_conversion_scoring_sort_ms": 0.17540017142891884,
+        "total_lookup_ms": 197.0206000842154,
+        "other_python_ms": 0.5556992255151272
+      }
+    },
+    {
+      "case_id": "atlas-review",
+      "method": "community",
+      "repetition": 2,
+      "candidate_count": 254,
+      "total_explicit_comparisons": 274,
+      "embedding_values_returned": 97536,
+      "stages_ms": {
+        "exact_name_probe_ms": 3.8904002867639065,
+        "community_selection_ms": 0.28540007770061493,
+        "member_fetch_decode_records_ms": 184.3177000992,
+        "array_conversion_validation_ms": 3.1495997682213783,
+        "ranking_conversion_scoring_sort_ms": 0.17170002683997154,
+        "total_lookup_ms": 192.46699986979365,
+        "other_python_ms": 0.6521996110677719
+      }
+    },
+    {
+      "case_id": "atlas-review",
+      "method": "flat",
+      "repetition": 2,
+      "candidate_count": 1000,
+      "total_explicit_comparisons": 1000,
+      "embedding_values_returned": 0,
+      "stages_ms": {
+        "exact_name_probe_ms": 10.134199634194374,
+        "ranking_conversion_scoring_sort_ms": 3.0165002681314945,
+        "total_lookup_ms": 5.310400389134884,
+        "other_python_ms": 0.07730070501565933,
+        "community_selection_ms": 0.28820009902119637,
+        "member_fetch_decode_records_ms": 183.3100998774171,
+        "array_conversion_validation_ms": 3.1059999018907547
+      }
+    },
+    {
+      "case_id": "two-topics",
+      "method": "flat",
+      "repetition": 0,
+      "candidate_count": 1000,
+      "total_explicit_comparisons": 1000,
+      "embedding_values_returned": 0,
+      "stages_ms": {
+        "exact_name_probe_ms": 3.945400007069111,
+        "ranking_conversion_scoring_sort_ms": 1.1598998680710793,
+        "total_lookup_ms": 5.190099589526653,
+        "other_python_ms": 0.08479971438646317
+      }
+    },
+    {
+      "case_id": "two-topics",
+      "method": "community",
+      "repetition": 0,
+      "candidate_count": 250,
+      "total_explicit_comparisons": 270,
+      "embedding_values_returned": 96000,
+      "stages_ms": {
+        "exact_name_probe_ms": 2.78969993814826,
+        "community_selection_ms": 0.3312998451292515,
+        "member_fetch_decode_records_ms": 182.52260005101562,
+        "array_conversion_validation_ms": 3.0552996322512627,
+        "ranking_conversion_scoring_sort_ms": 0.16779964789748192,
+        "total_lookup_ms": 189.38260013237596,
+        "other_python_ms": 0.5159010179340839
+      }
+    },
+    {
+      "case_id": "two-topics",
+      "method": "community",
+      "repetition": 1,
+      "candidate_count": 250,
+      "total_explicit_comparisons": 270,
+      "embedding_values_returned": 96000,
+      "stages_ms": {
+        "exact_name_probe_ms": 4.160999786108732,
+        "community_selection_ms": 0.35450002178549767,
+        "member_fetch_decode_records_ms": 188.4916997514665,
+        "array_conversion_validation_ms": 3.2399999909102917,
+        "ranking_conversion_scoring_sort_ms": 0.18460024148225784,
+        "total_lookup_ms": 197.10460025817156,
+        "other_python_ms": 0.6728004664182663
+      }
+    },
+    {
+      "case_id": "two-topics",
+      "method": "flat",
+      "repetition": 1,
+      "candidate_count": 1000,
+      "total_explicit_comparisons": 1000,
+      "embedding_values_returned": 0,
+      "stages_ms": {
+        "exact_name_probe_ms": 4.0572998113930225,
+        "ranking_conversion_scoring_sort_ms": 1.50969997048378,
+        "total_lookup_ms": 5.660600028932095,
+        "other_python_ms": 0.09360024705529213
+      }
+    },
+    {
+      "case_id": "two-topics",
+      "method": "flat",
+      "repetition": 2,
+      "candidate_count": 1000,
+      "total_explicit_comparisons": 1000,
+      "embedding_values_returned": 0,
+      "stages_ms": {
+        "exact_name_probe_ms": 3.164099995046854,
+        "ranking_conversion_scoring_sort_ms": 1.1402000673115253,
+        "total_lookup_ms": 4.377500154078007,
+        "other_python_ms": 0.07320009171962738
+      }
+    },
+    {
+      "case_id": "two-topics",
+      "method": "community",
+      "repetition": 2,
+      "candidate_count": 250,
+      "total_explicit_comparisons": 270,
+      "embedding_values_returned": 96000,
+      "stages_ms": {
+        "exact_name_probe_ms": 2.6932000182569027,
+        "community_selection_ms": 0.28040027245879173,
+        "member_fetch_decode_records_ms": 180.7381003163755,
+        "array_conversion_validation_ms": 3.2522999681532383,
+        "ranking_conversion_scoring_sort_ms": 0.16879988834261894,
+        "total_lookup_ms": 187.73189978674054,
+        "other_python_ms": 0.5990993231534958
+      }
+    }
+  ],
+  "runtime_cleanup": "Disposable Neo4j processes stopped after profiling; original snapshot and evaluation files retained unchanged."
+}

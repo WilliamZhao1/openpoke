@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "provenance": "Ten newly authored synthetic queries frozen before the three-representative quality run. Author knew prior cases and diagnosis; not independently authored, blind, or real-world labels.",
+  "evaluation_scope": "freshly_authored_confirmation_after_prior_inspection_not_independent_holdout",
+  "cases": [
+    {
+      "id": "fresh-cafe-guest",
+      "split": "evaluation",
+      "query": "Plan the Cafe Etoile meal with Alice Chen",
+      "relevant_names": [
+        "Alice lunch"
+      ],
+      "kind": "single"
+    },
+    {
+      "id": "fresh-original-redline",
+      "split": "evaluation",
+      "query": "Find the Acme services agreement redline that Alice needs to review",
+      "relevant_names": [
+        "Alice Acme contract"
+      ],
+      "kind": "single"
+    },
+    {
+      "id": "fresh-tax-archive",
+      "split": "evaluation",
+      "query": "Retrieve Morgan's correspondence about filing taxes for 2023",
+      "relevant_names": [
+        "2023 tax documents"
+      ],
+      "kind": "single"
+    },
+    {
+      "id": "fresh-trip-costs",
+      "split": "evaluation",
+      "query": "Gather ride-hailing trip receipts for reimbursement",
+      "relevant_names": [
+        "Uber receipts"
+      ],
+      "kind": "single"
+    },
+    {
+      "id": "fresh-auth-code",
+      "split": "evaluation",
+      "query": "Track review of the authentication change in the Atlas code repository",
+      "relevant_names": [
+        "GitHub review"
+      ],
+      "kind": "single"
+    },
+    {
+      "id": "fresh-nextyear-negotiation",
+      "split": "evaluation",
+      "query": "Who is negotiating next year's Acme renewal with Alice?",
+      "relevant_names": [
+        "Alice Acme renewal"
+      ],
+      "kind": "single"
+    },
+    {
+      "id": "fresh-signed-change",
+      "split": "evaluation",
+      "query": "Locate the Acme contract amendment that Alice has already signed",
+      "relevant_names": [
+        "Acme amendment"
+      ],
+      "kind": "single"
+    },
+    {
+      "id": "fresh-meal-and-agreement",
+      "split": "evaluation",
+      "query": "Handle the Cafe Etoile lunch invitation and the original Acme services redline",
+      "relevant_names": [
+        "Alice lunch",
+        "Alice Acme contract"
+      ],
+      "kind": "multiple"
+    },
+    {
+      "id": "fresh-expenses-and-code",
+      "split": "evaluation",
+      "query": "Find the Uber reimbursement receipts and the Atlas authentication review",
+      "relevant_names": [
+        "Uber receipts",
+        "GitHub review"
+      ],
+      "kind": "multiple"
+    },
+    {
+      "id": "fresh-no-match",
+      "split": "evaluation",
+      "query": "Arrange telescope maintenance for an observatory",
+      "relevant_names": [],
+      "kind": "none"
+    }
+  ]
+}
