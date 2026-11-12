@@ -1,4 +1,4 @@
-# Worker ranking experiments
+# Worker ranking and evaluation
 
 Date: 2026-11-11
 Status: Implemented and locally validated. Production remains `heuristic_v1`;
@@ -10,26 +10,6 @@ Compare interchangeable worker rankers using the same roster metadata, queries,
 response budgets, and agent settings. Keep the current heuristic reproducible.
 This extends the completed reduced-scope overload release; it does not reopen
 its deferred workflow-storage or migration roadmap.
-
-## Implementation checkpoints
-
-- [x] Extract the existing heuristic behind a small ranker protocol and immutable
-  catalog/result types. Preserve current public lookup behavior and reasons.
-- [x] Add `idf_v1` (field weights, rarity, query coverage, bounded phrase bonus)
-  and `bm25_v1` (independent field scores, frequency saturation, length normalization).
-- [x] Add validated `OPENPOKE_WORKER_RANKER` configuration and direct injection.
-  Keep `heuristic_v1` as the default and leave discovery/context flags independent.
-- [x] Extend the existing evaluation CLI with an offline ranking comparison at
-  100/1,000/10,000 workers. Save queries and relevance labels separately from
-  ranker inputs, per-case scores, parameters, metrics, timings, and source hashes.
-- [x] Add a ranker-only agent comparison with both discovery and context fixed
-  to bounded. Preserve scripted/live provenance, synthetic Gmail effects, request
-  limits, and the existing comparison/baseline behavior.
-- [x] Verify baseline parity, ranking contracts, exact-name priority, Unicode,
-  missing metadata, ambiguity, no matches, response budgets, configuration,
-  metadata changes/clear, CLI isolation, and actual lookup/agent integration.
-- [x] Run backend regressions and local comparisons; record results and promotion
-  decision here. Add runtime caching only if measurements justify it.
 
 ## Evaluation and promotion rules (declared before measurement)
 

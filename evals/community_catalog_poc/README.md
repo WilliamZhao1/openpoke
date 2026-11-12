@@ -2,10 +2,11 @@
 
 Standalone retrieval experiment over the existing 1,000-worker synthetic catalog.
 It does not import the application, change its ranker, dispatch workers, or call Gmail.
-The implementation follows [the PoC plan](../../docs/community-catalog-poc-plan.md).
+The [design and evaluation guide](../../docs/community-catalog.md) explains the
+standalone experiment, frozen configuration, measured results, and limits.
 
-For the accepted configuration, milestone history, and a presentation script, start
-with [the demo progress and runbook](../../docs/community-catalog-demo-progress.md).
+For the accepted configuration, milestone history, and measured outcomes, start
+with [the evaluated checkpoint](../../docs/community-catalog.md#evaluation-and-results).
 
 ## Setup
 

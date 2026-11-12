@@ -45,3 +45,27 @@ server/venv/
 server/repomix-output.txt
 server/plans/
 evals/agent_overload/runs/
+
+# Deferred checkpoints stay local; earlier versions remain in Git history.
+/deferred/
+
+# Publish system guides and evaluation evidence, not implementation plans,
+# progress logs, proposals, or recording scripts. Add reader-facing docs here.
+/docs/*
+!/docs/README.md
+!/docs/architecture-map.md
+!/docs/known-limitations.md
+!/docs/runtime-scope.md
+!/docs/worker-discovery.md
+!/docs/worker-ranking.md
+!/docs/context-budgets.md
+!/docs/content-capture.md
+!/docs/context-recovery.md
+!/docs/bounded-context.md
+!/docs/draft-references.md
+!/docs/inner-context.md
+!/docs/observability.md
+!/docs/evaluation.md
+!/docs/community-catalog.md
+!/docs/agent-overload-comparison.md
+!/docs/agent-overload-release-checks.md

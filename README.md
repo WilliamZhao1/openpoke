@@ -124,7 +124,7 @@ and close trigger-store connections promptly. The checked bounded strategies are
 now the defaults; the [release findings and opt-out guide](docs/agent-overload-release-checks.md)
 describe the remaining limits and data-preserving rollback.
 
-The [reduced-scope implementation plan](docs/execution-agent-overload-implementation-plan.md)
+The [runtime scope guide](docs/runtime-scope.md)
 keeps name-based dispatch and local JSON/log storage.
 [Bounded worker discovery](docs/worker-discovery.md) defaults to
 `OPENPOKE_WORKER_DISCOVERY=bounded`: at most five recent entries plus `find_worker`
@@ -132,14 +132,14 @@ over all workers, using a small metadata sidecar. Set the flag to `legacy` to op
 out; restart the backend after changing settings. Explicit existing choices are
 preserved. Lookup scoring is selectable with `OPENPOKE_WORKER_RANKER`:
 `heuristic_v1` (unchanged default), `idf_v1`, or `bm25_v1`. The
-[ranking implementation plan and comparison guide](docs/worker-ranking-implementation-plan.md)
+[ranking configuration and comparison guide](docs/worker-ranking.md)
 records the interfaces, isolated local/agent comparisons, results and promotion
 criteria. Ranking methods add no model calls or new service dependencies.
 The unused workflow,
 migration, and event-storage work is preserved in a
-[verified deferred checkpoint](deferred/execution-agent-overload-storage-2026-11-08/README.md)
-and removed from the active code and test suite. See the
-[progress log](docs/execution-agent-overload-progress.md) for the scope change.
+[verified deferred checkpoint](docs/runtime-scope.md#deferred-storage-checkpoint)
+and removed from the active code and test suite. The checkpoint stays local and
+can be recovered from Git history using the instructions in that guide.
 
 [Shared context preflight](docs/context-budgets.md) defaults to
 `OPENPOKE_CONTEXT_STRATEGY=bounded`, with a shipped allowance for the bundled
@@ -155,12 +155,16 @@ fit fails explicitly. [Exact draft/body references](docs/draft-references.md)
 now carry large bodies through Gmail creation, full user review, and confirmation
 without repeating them in model arguments. [Inner model context](docs/inner-context.md)
 now bounds email search, classification, and streamed summarization, including
-cumulative source/result/recovery work. The reduced-scope implementation plan is
-complete: comparison, draft-ID follow-up, application checks and default promotion
-are recorded. To restore the original strategies without deleting data, set both
+cumulative source/result/recovery work. The [evaluation guide](docs/evaluation.md)
+links the comparison, draft-ID follow-up, application checks and default promotion,
+with their evidence boundaries. To restore the original strategies without deleting data, set both
 `OPENPOKE_WORKER_DISCOVERY=legacy` and `OPENPOKE_CONTEXT_STRATEGY=legacy`, then restart.
 
 ## Project Layout
+
+The [documentation index](docs/README.md) groups system guides and evaluation
+evidence. Implementation plans, progress logs, proposals, recording scripts, and
+deferred checkpoints stay local under the repository's ignore policy.
 
 See the [runtime architecture map](docs/architecture-map.md) for the complete query-to-storage flow, labeled API/function calls, worker discovery, callbacks, model context, Gmail drafts, background jobs, and storage layout.
 
@@ -168,6 +172,9 @@ The [known system limitations register](docs/known-limitations.md) tracks curren
 
 - `server/` – FastAPI application and agents
 - `web/` – Next.js app
+- `docs/` – system guides, evaluation explanations, and known limitations
+- `evals/` – reproducible evaluation tools and retained historical evidence
+- `deferred/` – local deferred-work checkpoints (ignored by git)
 - `server/data/` – runtime data (ignored by git)
 
 ## License

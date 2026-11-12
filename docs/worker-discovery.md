@@ -32,7 +32,7 @@ context strategy is independent and also defaults to bounded.
 
 Lookup ranking is now selectable independently through
 `OPENPOKE_WORKER_RANKER=heuristic_v1|idf_v1|bm25_v1`. The default heuristic preserves
-the original scoring described below. See the [ranking implementation plan](worker-ranking-implementation-plan.md)
+the original scoring described below. See the [worker ranking guide](worker-ranking.md)
 for interfaces, comparison commands, parameters, measurements and promotion rules.
 All methods retain the existing count/text limits and exact-name identities.
 
