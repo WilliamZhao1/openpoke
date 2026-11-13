@@ -39,6 +39,7 @@ release-check counts.
 
 | Evidence | Observed outcome and boundary |
 | --- | --- |
+| [Full bounded rerun, 2026-11-13](../evals/agent_overload/validation_reports/2026-11-13-full-suite/report.md) | 272 backend and five frontend checks pass, with lint/type/build, baseline/scripted comparisons, 144 original retrieval rows and 4,200 v2 rows. Expanded live comparison covers all eight supported routing cases plus approved draft in both arms: 7/9 correct routes each, one bounded terminal turn failure, exact fake draft sends in both arms, overall gate failed. Complete test/request scenario maps and preserved evidence distinguish local contracts, live routing and fake effects. |
 | [Baseline](../evals/agent_overload/baseline/report.md) | Model-free control, not live quality/cost evidence |
 | [Legacy/bounded live comparison](agent-overload-comparison.md) | Both arms selected expected routing actions/owners in 6/6 selected scenarios at 100 workers. Original bounded draft effect failed; focused guidance recheck passed. Fake Gmail, small synthetic sample. |
 | [Ranking comparison](../evals/agent_overload/ranking_comparisons/2026-11-11/retrieval-report.md) | All three rankers tied: 94.44% mean owner recall@5 over nine judged evaluation queries, 100% top-1 over seven applicable queries. Same authored queries repeated at 100/1,000/10,000 workers. Default remains `heuristic_v1`. |
@@ -61,8 +62,10 @@ directories for reruns; preserve failures, original gates, and provenance.
   available subtotals remain separately labeled.
 - Standalone graph results do not demonstrate production graph routing. The
   confirmation queries target known owners after prior failures were inspected.
-- The original live draft failure and focused recheck both remain visible; the
-  focused fix does not establish a complete post-fix six-case result.
+- The original live draft failure and focused recheck both remain visible. The
+  focused fix alone does not establish a complete post-fix six-case result;
+  the separate 2026-11-13 expanded rerun includes that original subset and its
+  new routing failures rather than substituting the focused recheck.
 
 Current evidence gaps remain open under [LIM-029](known-limitations.md#lim-029)
 and [LIM-030](known-limitations.md#lim-030). Retrieval limits remain under

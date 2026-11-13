@@ -1,0 +1,427 @@
+{
+  "created_utc": "2026-11-13T06:29:58.238073+00:00",
+  "scope": "active bounded-solution regression and evaluation; community PoC and deferred code excluded",
+  "backend_tests": 272,
+  "backend_modules": 23,
+  "frontend_tests": 5,
+  "command_checks": {
+    "backend": {
+      "check": "backend",
+      "command": [
+        "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+        "D:\\personal_projects\\openpoke\\server\\tests\\run_tests.py"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 300,
+      "started_utc": "2026-11-13T06:01:35.479416+00:00",
+      "log": "checks\\backend.log",
+      "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:02:37.646916+00:00",
+      "elapsed_seconds": 62.16708459984511,
+      "log_sha256": "d0c1452a32d99ce17909ec703752ad065027a6a259751e1f3848819e4fc6e629"
+    },
+    "frontend": {
+      "check": "frontend",
+      "command": [
+        "npm.cmd",
+        "--prefix",
+        "D:\\personal_projects\\openpoke\\web",
+        "test"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 180,
+      "started_utc": "2026-11-13T06:01:35.479416+00:00",
+      "log": "checks\\frontend.log",
+      "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:01:37.329810+00:00",
+      "elapsed_seconds": 1.850363299716264,
+      "log_sha256": "4a2a4bd24ec23fd1f60af7c1a2a7cfcb8c55e290e52116bdb2f6c9c36223a44d"
+    },
+    "lint": {
+      "check": "lint",
+      "command": [
+        "npm.cmd",
+        "--prefix",
+        "D:\\personal_projects\\openpoke\\web",
+        "run",
+        "lint",
+        "--",
+        "--no-cache"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 180,
+      "started_utc": "2026-11-13T06:01:37.428811+00:00",
+      "log": "checks\\lint.log",
+      "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:01:46.945518+00:00",
+      "elapsed_seconds": 9.515687599778175,
+      "log_sha256": "29f178f3de8e0df8ffe73443d17916f06fc8b5c0d8b2a54fa1a1c0510f96d8d2"
+    },
+    "typecheck": {
+      "check": "typecheck",
+      "command": [
+        "D:\\personal_projects\\openpoke\\web\\node_modules\\.bin\\tsc.cmd",
+        "--project",
+        "D:\\personal_projects\\openpoke\\web\\tsconfig.json",
+        "--noEmit"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 180,
+      "started_utc": "2026-11-13T06:01:47.048532+00:00",
+      "log": "checks\\typecheck.log",
+      "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:01:48.801397+00:00",
+      "elapsed_seconds": 1.7527522998861969,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build": {
+      "check": "build",
+      "command": [
+        "npm.cmd",
+        "--prefix",
+        "D:\\personal_projects\\openpoke\\web",
+        "run",
+        "build"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 300,
+      "started_utc": "2026-11-13T06:01:48.898398+00:00",
+      "log": "checks\\build.log",
+      "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:02:07.917055+00:00",
+      "elapsed_seconds": 19.018411400262266,
+      "log_sha256": "22688e1416cadf19149a5841a320677ce3b48ccf3c921acff51faee29bb37854"
+    },
+    "baseline": {
+      "check": "baseline",
+      "command": [
+        "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\run.py",
+        "--output",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\runs\\20261113T055958Z-full-suite\\baseline"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 180,
+      "started_utc": "2026-11-13T06:02:14.914972+00:00",
+      "log": "checks\\baseline.log",
+      "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:02:16.971725+00:00",
+      "elapsed_seconds": 2.0571545995771885,
+      "log_sha256": "361d8dac517b0b9f99bd9ed75aef1abeeecb87c634eee0ba4ef2364707d917da"
+    },
+    "scripted": {
+      "check": "scripted",
+      "command": [
+        "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\run.py",
+        "--compare",
+        "--context-window",
+        "65536",
+        "--output",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\runs\\20261113T055958Z-full-suite\\scripted"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 180,
+      "started_utc": "2026-11-13T06:02:17.082725+00:00",
+      "log": "checks\\scripted.log",
+      "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:02:18.818070+00:00",
+      "elapsed_seconds": 1.7344744000583887,
+      "log_sha256": "811f0f6587aede763f099b0ccd2c678017fe2db5979cbe92a6c0744f70775706"
+    },
+    "ranking-v1": {
+      "check": "ranking-v1",
+      "command": [
+        "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\run.py",
+        "--compare-rankers",
+        "heuristic_v1",
+        "idf_v1",
+        "bm25_v1",
+        "--sizes",
+        "100",
+        "1000",
+        "10000",
+        "--repeats",
+        "3",
+        "--output",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\runs\\20261113T055958Z-full-suite\\ranking-v1"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 900,
+      "started_utc": "2026-11-13T06:03:19.439261+00:00",
+      "log": "checks\\ranking-v1.log",
+      "runner_sha256": "fd3ac63a83a2fb4f5b84fe003d179f509842dad6ec483fefc84662c724298903",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:04:29.772619+00:00",
+      "elapsed_seconds": 70.33324010018259,
+      "log_sha256": "63c16749e8c526c797fb7a27d8895153153619b8a1ba0f3fd901807d13efa222"
+    },
+    "ranker-agents": {
+      "check": "ranker-agents",
+      "command": [
+        "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\run.py",
+        "--compare-rankers",
+        "heuristic_v1",
+        "idf_v1",
+        "bm25_v1",
+        "--ranker-agent-check",
+        "--context-window",
+        "65536",
+        "--sizes",
+        "100",
+        "--cases",
+        "alice-lunch",
+        "--output",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\runs\\20261113T055958Z-full-suite\\ranker-agents"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 180,
+      "started_utc": "2026-11-13T06:02:18.917072+00:00",
+      "log": "checks\\ranker-agents.log",
+      "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:02:20.997901+00:00",
+      "elapsed_seconds": 2.08008289989084,
+      "log_sha256": "192e92425b5e5381b917079d0b55db4927668e57f856e52b7e001395b51551eb"
+    },
+    "discovery-v2": {
+      "check": "discovery-v2",
+      "command": [
+        "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\run.py",
+        "--compare-rankers",
+        "heuristic_v1",
+        "idf_v1",
+        "bm25_v1",
+        "--dataset",
+        "discovery-v2",
+        "--sizes",
+        "100",
+        "1000",
+        "10000",
+        "--draws",
+        "11",
+        "22",
+        "33",
+        "--repeats",
+        "1",
+        "--output",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\runs\\20261113T055958Z-full-suite\\discovery-v2"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 5400,
+      "started_utc": "2026-11-13T06:04:29.863618+00:00",
+      "log": "checks\\discovery-v2.log",
+      "runner_sha256": "fd3ac63a83a2fb4f5b84fe003d179f509842dad6ec483fefc84662c724298903",
+      "exit_code": 0,
+      "finished_utc": "2026-11-13T06:29:55.899844+00:00",
+      "elapsed_seconds": 1526.036122099962,
+      "log_sha256": "40f5be3ff4066c5dd49ab9b2bfde212160126e7b76da494ab26f3c0c9ab699c0"
+    },
+    "live": {
+      "check": "live",
+      "command": [
+        "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\run.py",
+        "--compare",
+        "--mode",
+        "live",
+        "--context-window",
+        "65536",
+        "--sizes",
+        "0",
+        "100",
+        "--cases",
+        "alice-lunch",
+        "alice-contract",
+        "dormant-owner",
+        "empty-catalog",
+        "genuinely-new",
+        "alternating-topics",
+        "competing-drafts",
+        "two-owners",
+        "--max-calls",
+        "128",
+        "--case-timeout",
+        "180",
+        "--output",
+        "D:\\personal_projects\\openpoke\\evals\\agent_overload\\runs\\20261113T055958Z-full-suite\\live"
+      ],
+      "cwd": "D:\\personal_projects\\openpoke",
+      "timeout_seconds": 1800,
+      "started_utc": "2026-11-13T06:01:57.752667+00:00",
+      "log": "checks\\live.log",
+      "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+      "exit_code": 1,
+      "finished_utc": "2026-11-13T06:05:21.271947+00:00",
+      "elapsed_seconds": 203.5196770997718,
+      "log_sha256": "730f1fe8ebfc5f8700cee9b052510343b58e76a5a825c0d9b789b32e958fa54d"
+    }
+  },
+  "all_command_checks_passed": false,
+  "passed_command_checks": 10,
+  "live_summary": {
+    "profile": "legacy_bounded_comparison_v1",
+    "decision_mode": "live",
+    "gmail_mode": "mock",
+    "checks_passed": false,
+    "case_context_count": 18,
+    "arms": {
+      "legacy": {
+        "cases": 9,
+        "graded": 9,
+        "failures": 0,
+        "correct_routes": 7,
+        "correct_reuse": 5,
+        "incorrect_reuse": 0,
+        "unnecessary_creation": 0,
+        "model_errors": 0,
+        "tool_errors": 0,
+        "model_call_attempts": 28,
+        "http_requests": 28,
+        "elapsed_ms": 89472.59130002931,
+        "input_tokens": {
+          "value": 139566,
+          "availability": "available",
+          "source": "provider_usage",
+          "source_mode": "live",
+          "reason": null,
+          "evidence_refs": [],
+          "reported_calls": 28,
+          "attempted_http_calls": 28,
+          "reported_subtotal": 139566
+        },
+        "output_tokens": {
+          "value": 1950,
+          "availability": "available",
+          "source": "provider_usage",
+          "source_mode": "live",
+          "reason": null,
+          "evidence_refs": [],
+          "reported_calls": 28,
+          "attempted_http_calls": 28,
+          "reported_subtotal": 1950
+        },
+        "cost": {
+          "value": 0.447948,
+          "availability": "available",
+          "source": "provider_usage",
+          "source_mode": "live",
+          "reason": null,
+          "evidence_refs": [],
+          "reported_calls": 28,
+          "attempted_http_calls": 28,
+          "reported_subtotal": 0.447948
+        },
+        "exact_fake_draft_effect": true,
+        "unexpected_fake_mutations": 0,
+        "chat_callback_checked": true
+      },
+      "bounded": {
+        "cases": 9,
+        "graded": 9,
+        "failures": 1,
+        "correct_routes": 7,
+        "correct_reuse": 6,
+        "incorrect_reuse": 0,
+        "unnecessary_creation": 0,
+        "model_errors": 0,
+        "tool_errors": 1,
+        "model_call_attempts": 33,
+        "http_requests": 33,
+        "elapsed_ms": 110500.9949002415,
+        "input_tokens": {
+          "value": 201246,
+          "availability": "available",
+          "source": "provider_usage",
+          "source_mode": "live",
+          "reason": null,
+          "evidence_refs": [],
+          "reported_calls": 33,
+          "attempted_http_calls": 33,
+          "reported_subtotal": 201246
+        },
+        "output_tokens": {
+          "value": 3048,
+          "availability": "available",
+          "source": "provider_usage",
+          "source_mode": "live",
+          "reason": null,
+          "evidence_refs": [],
+          "reported_calls": 33,
+          "attempted_http_calls": 33,
+          "reported_subtotal": 3048
+        },
+        "cost": {
+          "value": 0.649458,
+          "availability": "available",
+          "source": "provider_usage",
+          "source_mode": "live",
+          "reason": null,
+          "evidence_refs": [],
+          "reported_calls": 33,
+          "attempted_http_calls": 33,
+          "reported_subtotal": 0.649458
+        },
+        "exact_fake_draft_effect": true,
+        "unexpected_fake_mutations": 0,
+        "chat_callback_checked": true
+      }
+    },
+    "defaults_promoted": false,
+    "routing_quality": "selected_cases_only"
+  },
+  "original_six_case_subset": {
+    "legacy": {
+      "cases": 6,
+      "routing_correct": 6
+    },
+    "bounded": {
+      "cases": 6,
+      "routing_correct": 5
+    }
+  },
+  "artifact_verification": [
+    {
+      "run": "baseline",
+      "artifacts_verified": 18,
+      "passed": true
+    },
+    {
+      "run": "scripted",
+      "artifacts_verified": 6,
+      "passed": true
+    },
+    {
+      "run": "ranking-v1",
+      "artifacts_verified": 10,
+      "passed": true
+    },
+    {
+      "run": "ranker-agents",
+      "artifacts_verified": 6,
+      "passed": true
+    },
+    {
+      "run": "discovery-v2",
+      "artifacts_verified": 20,
+      "passed": true
+    },
+    {
+      "run": "live",
+      "artifacts_verified": 6,
+      "passed": true
+    }
+  ],
+  "raw_run_directory": "D:\\personal_projects\\openpoke\\evals\\agent_overload\\runs\\20261113T055958Z-full-suite",
+  "timing_caveat": "Local lookup runs overlapped part of the paced live comparison; not an isolated performance experiment."
+}

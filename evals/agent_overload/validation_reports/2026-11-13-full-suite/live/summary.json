@@ -1,0 +1,111 @@
+{
+  "profile": "legacy_bounded_comparison_v1",
+  "decision_mode": "live",
+  "gmail_mode": "mock",
+  "checks_passed": false,
+  "case_context_count": 18,
+  "arms": {
+    "legacy": {
+      "cases": 9,
+      "graded": 9,
+      "failures": 0,
+      "correct_routes": 7,
+      "correct_reuse": 5,
+      "incorrect_reuse": 0,
+      "unnecessary_creation": 0,
+      "model_errors": 0,
+      "tool_errors": 0,
+      "model_call_attempts": 28,
+      "http_requests": 28,
+      "elapsed_ms": 89472.59130002931,
+      "input_tokens": {
+        "value": 139566,
+        "availability": "available",
+        "source": "provider_usage",
+        "source_mode": "live",
+        "reason": null,
+        "evidence_refs": [],
+        "reported_calls": 28,
+        "attempted_http_calls": 28,
+        "reported_subtotal": 139566
+      },
+      "output_tokens": {
+        "value": 1950,
+        "availability": "available",
+        "source": "provider_usage",
+        "source_mode": "live",
+        "reason": null,
+        "evidence_refs": [],
+        "reported_calls": 28,
+        "attempted_http_calls": 28,
+        "reported_subtotal": 1950
+      },
+      "cost": {
+        "value": 0.447948,
+        "availability": "available",
+        "source": "provider_usage",
+        "source_mode": "live",
+        "reason": null,
+        "evidence_refs": [],
+        "reported_calls": 28,
+        "attempted_http_calls": 28,
+        "reported_subtotal": 0.447948
+      },
+      "exact_fake_draft_effect": true,
+      "unexpected_fake_mutations": 0,
+      "chat_callback_checked": true
+    },
+    "bounded": {
+      "cases": 9,
+      "graded": 9,
+      "failures": 1,
+      "correct_routes": 7,
+      "correct_reuse": 6,
+      "incorrect_reuse": 0,
+      "unnecessary_creation": 0,
+      "model_errors": 0,
+      "tool_errors": 1,
+      "model_call_attempts": 33,
+      "http_requests": 33,
+      "elapsed_ms": 110500.9949002415,
+      "input_tokens": {
+        "value": 201246,
+        "availability": "available",
+        "source": "provider_usage",
+        "source_mode": "live",
+        "reason": null,
+        "evidence_refs": [],
+        "reported_calls": 33,
+        "attempted_http_calls": 33,
+        "reported_subtotal": 201246
+      },
+      "output_tokens": {
+        "value": 3048,
+        "availability": "available",
+        "source": "provider_usage",
+        "source_mode": "live",
+        "reason": null,
+        "evidence_refs": [],
+        "reported_calls": 33,
+        "attempted_http_calls": 33,
+        "reported_subtotal": 3048
+      },
+      "cost": {
+        "value": 0.649458,
+        "availability": "available",
+        "source": "provider_usage",
+        "source_mode": "live",
+        "reason": null,
+        "evidence_refs": [],
+        "reported_calls": 33,
+        "attempted_http_calls": 33,
+        "reported_subtotal": 0.649458
+      },
+      "exact_fake_draft_effect": true,
+      "unexpected_fake_mutations": 0,
+      "chat_callback_checked": true
+    }
+  },
+  "defaults_promoted": false,
+  "routing_quality": "selected_cases_only"
+}

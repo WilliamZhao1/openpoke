@@ -1,0 +1,21 @@
+{
+  "check": "lint",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "D:\\personal_projects\\openpoke\\web",
+    "run",
+    "lint",
+    "--",
+    "--no-cache"
+  ],
+  "cwd": "D:\\personal_projects\\openpoke",
+  "timeout_seconds": 180,
+  "started_utc": "2026-11-13T06:01:37.428811+00:00",
+  "log": "checks\\lint.log",
+  "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+  "exit_code": 0,
+  "finished_utc": "2026-11-13T06:01:46.945518+00:00",
+  "elapsed_seconds": 9.515687599778175,
+  "log_sha256": "29f178f3de8e0df8ffe73443d17916f06fc8b5c0d8b2a54fa1a1c0510f96d8d2"
+}

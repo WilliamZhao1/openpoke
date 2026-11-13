@@ -1,0 +1,59 @@
+{
+  "profile": "worker_ranking_v1",
+  "decision_mode": "local",
+  "model_calls": 0,
+  "rankers": [
+    "heuristic_v1",
+    "idf_v1",
+    "bm25_v1"
+  ],
+  "parameters": {
+    "heuristic_v1": {
+      "field_weights": [
+        20,
+        6,
+        3
+      ],
+      "exact_bonus": 10000,
+      "substring_bonus": 1000
+    },
+    "idf_v1": {
+      "field_weights": [
+        4.0,
+        2.0,
+        1.0
+      ],
+      "exact_bonus": 10000,
+      "normalized_exact_bonus": 1000,
+      "word_phrase_bonus": 0.5,
+      "coverage_factor": "0.5 + 0.5 * idf_coverage",
+      "repeated_fields": "strongest_only"
+    },
+    "bm25_v1": {
+      "field_weights": [
+        4.0,
+        2.0,
+        1.0
+      ],
+      "exact_bonus": 10000,
+      "normalized_exact_bonus": 1000,
+      "word_phrase_bonus": 0.5,
+      "k1": 1.2,
+      "b": 0.75,
+      "idf": "worker_union",
+      "field_normalization": "independent"
+    }
+  },
+  "catalog_sizes": [
+    100,
+    1000,
+    10000
+  ],
+  "repeats": 3,
+  "query_sha256": "654241412c9cf535e00bb74a8e714c41f6f4b4373d9e4dcfbda91acc232db737",
+  "metadata": "name,purpose[:240],recent_assignment[:240],last_activity; no gold labels",
+  "latency": "local timings include no tracing; lookup includes JSON reads, preparation, scoring and packing",
+  "memory": "separate tracemalloc preparation peak; Python allocations only, not process RSS",
+  "default_ranker": "heuristic_v1",
+  "defaults_promoted": false
+}

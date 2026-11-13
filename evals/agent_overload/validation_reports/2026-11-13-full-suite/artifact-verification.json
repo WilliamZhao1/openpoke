@@ -1,0 +1,32 @@
+[
+  {
+    "run": "baseline",
+    "artifacts_verified": 18,
+    "passed": true
+  },
+  {
+    "run": "scripted",
+    "artifacts_verified": 6,
+    "passed": true
+  },
+  {
+    "run": "ranking-v1",
+    "artifacts_verified": 10,
+    "passed": true
+  },
+  {
+    "run": "ranker-agents",
+    "artifacts_verified": 6,
+    "passed": true
+  },
+  {
+    "run": "discovery-v2",
+    "artifacts_verified": 20,
+    "passed": true
+  },
+  {
+    "run": "live",
+    "artifacts_verified": 6,
+    "passed": true
+  }
+]

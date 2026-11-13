@@ -1,0 +1,18 @@
+{
+  "check": "baseline",
+  "command": [
+    "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+    "D:\\personal_projects\\openpoke\\evals\\agent_overload\\run.py",
+    "--output",
+    "D:\\personal_projects\\openpoke\\evals\\agent_overload\\runs\\20261113T055958Z-full-suite\\baseline"
+  ],
+  "cwd": "D:\\personal_projects\\openpoke",
+  "timeout_seconds": 180,
+  "started_utc": "2026-11-13T06:02:14.914972+00:00",
+  "log": "checks\\baseline.log",
+  "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+  "exit_code": 0,
+  "finished_utc": "2026-11-13T06:02:16.971725+00:00",
+  "elapsed_seconds": 2.0571545995771885,
+  "log_sha256": "361d8dac517b0b9f99bd9ed75aef1abeeecb87c634eee0ba4ef2364707d917da"
+}

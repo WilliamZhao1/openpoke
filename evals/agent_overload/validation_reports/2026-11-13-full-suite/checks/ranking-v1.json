@@ -1,0 +1,28 @@
+{
+  "check": "ranking-v1",
+  "command": [
+    "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+    "D:\\personal_projects\\openpoke\\evals\\agent_overload\\run.py",
+    "--compare-rankers",
+    "heuristic_v1",
+    "idf_v1",
+    "bm25_v1",
+    "--sizes",
+    "100",
+    "1000",
+    "10000",
+    "--repeats",
+    "3",
+    "--output",
+    "D:\\personal_projects\\openpoke\\evals\\agent_overload\\runs\\20261113T055958Z-full-suite\\ranking-v1"
+  ],
+  "cwd": "D:\\personal_projects\\openpoke",
+  "timeout_seconds": 900,
+  "started_utc": "2026-11-13T06:03:19.439261+00:00",
+  "log": "checks\\ranking-v1.log",
+  "runner_sha256": "fd3ac63a83a2fb4f5b84fe003d179f509842dad6ec483fefc84662c724298903",
+  "exit_code": 0,
+  "finished_utc": "2026-11-13T06:04:29.772619+00:00",
+  "elapsed_seconds": 70.33324010018259,
+  "log_sha256": "63c16749e8c526c797fb7a27d8895153153619b8a1ba0f3fd901807d13efa222"
+}

@@ -1,0 +1,16 @@
+{
+  "check": "backend",
+  "command": [
+    "D:\\personal_projects\\openpoke\\.venv\\Scripts\\python.exe",
+    "D:\\personal_projects\\openpoke\\server\\tests\\run_tests.py"
+  ],
+  "cwd": "D:\\personal_projects\\openpoke",
+  "timeout_seconds": 300,
+  "started_utc": "2026-11-13T06:01:35.479416+00:00",
+  "log": "checks\\backend.log",
+  "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+  "exit_code": 0,
+  "finished_utc": "2026-11-13T06:02:37.646916+00:00",
+  "elapsed_seconds": 62.16708459984511,
+  "log_sha256": "d0c1452a32d99ce17909ec703752ad065027a6a259751e1f3848819e4fc6e629"
+}

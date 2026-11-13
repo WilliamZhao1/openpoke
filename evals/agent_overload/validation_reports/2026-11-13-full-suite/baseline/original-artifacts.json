@@ -1,0 +1,20 @@
+{
+  "approved_draft.json": "e8ff6874089dbfb0de85fc5bb0897754f1e270682b37e5ab69e7909dee90f613",
+  "case_contexts.json": "371fb9c1c04d144e7a2653d0eb25936d6fb12713ae374d599cbebd11518556d5",
+  "case_requests.jsonl.gz": "8835ecc169905ecab748d1379b3599db7f6013d780e402aebbe0cb4479b2a828",
+  "inputs/catalog.json": "e692d326a6b16c4628a5c25e813d946d506f68757f2dce50dc9f0df0f03d786e",
+  "inputs/catalogs.py": "fc29fc3c981e4e1335eb6049ff9b6176dd538a7b2b3f546ac7cff65b47a1fd82",
+  "inputs/checksums.json": "855f33659906d70c72f1ff1c30c69ce955039210f42331f4c8457b92de2bac36",
+  "inputs/gmail_mailbox.json": "721c4bac676363c119d3ba1b2337864cc8833da62d39d0c1d45f6ecad08e4820",
+  "inputs/routing_cases.json": "0f6825cdeaa06d8fcb5d0644cb821bcadc5d15a6a19b599d0578888dbd9456be",
+  "manifest.json": "a2965267c33dd0f9c0fd7adfd602c19ecda80c36adb1d4b96aae6e384b63fa40",
+  "prompt_shapes.json": "31b0d126fc662889480d85d81b773025d282eeec6751edcfd4a365f05d900729",
+  "prompts/catalog-00000.json": "a525ab4268b54d8154fb6ef34e261b4886958ee8ea523bd0aeff748bf1dc4559",
+  "prompts/catalog-00100.json": "642f2b683880bba757a0b2aab575c6875bc4d1aa85f7385ac2e5803e2c7d36ba",
+  "prompts/catalog-01000.json": "259a86eba42c4555cb71ad9be28cf66ffe9110cad36f3062045188456670de59",
+  "prompts/catalog-10000.json": "743ea4eaf521dea1ee8a94d9cf798aba4f2401721374e710440c9a845950d2f9",
+  "provenance.json": "25ded165cd855115c7c6225bd53c0c6c72315409ff0f8bae38311f6cf4118c0b",
+  "report.md": "ebfd1b928f07c9301907aaf02d47c13bafd676bd8138d39a744fdce2ccf9e127",
+  "smoke.json": "be7511b8440dad47408ec2e0aca6619eb8c175c90369614628c1a6edf4bfc0a4",
+  "summary.json": "5dc410ea340b9223ec4473bd0f8258643e2a5fc0d3301aca87a5d7546bab6066"
+}

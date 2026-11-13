@@ -1,0 +1,19 @@
+{
+  "check": "build",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "D:\\personal_projects\\openpoke\\web",
+    "run",
+    "build"
+  ],
+  "cwd": "D:\\personal_projects\\openpoke",
+  "timeout_seconds": 300,
+  "started_utc": "2026-11-13T06:01:48.898398+00:00",
+  "log": "checks\\build.log",
+  "runner_sha256": "c62849c96093f95fa426e24018ad3a951a09c787ab742973f482c03168baa9cf",
+  "exit_code": 0,
+  "finished_utc": "2026-11-13T06:02:07.917055+00:00",
+  "elapsed_seconds": 19.018411400262266,
+  "log_sha256": "22688e1416cadf19149a5841a320677ce3b48ccf3c921acff51faee29bb37854"
+}

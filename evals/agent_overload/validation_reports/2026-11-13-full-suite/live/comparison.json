@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "profile": "legacy_bounded_comparison_v1",
+  "decision_mode": "live",
+  "gmail_mode": "mock",
+  "model": "anthropic/claude-sonnet-4.6",
+  "max_tokens": 2048,
+  "model_context_windows": {
+    "anthropic/claude-sonnet-4.6": 65536
+  },
+  "input_cap": 32768,
+  "headroom": 1024,
+  "max_http_requests": 128,
+  "case_timeout_seconds": 180,
+  "request_interval_seconds": 3.1,
+  "arm_order": "paired; alternate first strategy by scenario",
+  "max_request_bytes": 262144,
+  "catalog_sizes": [
+    0,
+    100
+  ],
+  "cases": [
+    "alice-lunch",
+    "alice-contract",
+    "dormant-owner",
+    "empty-catalog",
+    "genuinely-new",
+    "alternating-topics",
+    "competing-drafts",
+    "two-owners"
+  ],
+  "strategies": [
+    "legacy",
+    "bounded"
+  ],
+  "baseline_manifest_sha256": "9f1f6ff9276e6602756cb840ecccff35178522c61b3e7224642e296087afd4d6",
+  "scope": "combined_discovery_and_context; not a ranker/metadata ablation"
+}
