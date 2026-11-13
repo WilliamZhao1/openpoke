@@ -102,13 +102,30 @@ community scoring; this does not measure semantic retrieval quality.
 <summary>Inspect the graph</summary>
 
 Open [Neo4j Browser](http://localhost:17474), connect to `bolt://127.0.0.1:17687`,
-and sign in as `neo4j` with the password above. Example queries:
+and sign in as `neo4j` with the password above. The saved graph has 20 communities;
+`--communities 5` selects five to search for a query. List all groups with:
 
 ```cypher
 MATCH (w:PoCWorker) RETURN count(w) AS workers;
 MATCH (c:PoCCommunity) RETURN c.id, c.size ORDER BY c.id;
-MATCH (c:PoCCommunity)<-[m:MEMBER_OF]-(w:PoCWorker) RETURN c, m, w LIMIT 60;
 ```
+
+To display three sample workers from every community, use:
+
+```cypher
+MATCH (c:PoCCommunity)
+CALL (c) {
+  MATCH (w:PoCWorker)-[r:MEMBER_OF]->(c)
+  RETURN w, r
+  ORDER BY w.name
+  LIMIT 3
+}
+RETURN c, r, w;
+```
+
+A single outer `LIMIT` can show only the first few groups. Similar worker names
+come from synthetic person/topic templates with distinct project IDs; these are
+test catalog entries. See [the fixture generator](../../server/tests/fixtures/catalogs.py).
 
 </details>
 
