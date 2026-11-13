@@ -1,0 +1,36 @@
+{
+  "validated_on": "2026-11-12",
+  "backend_regressions": {
+    "command": "python -B server/tests/run_tests.py",
+    "status": "passed",
+    "tests": 267,
+    "new_discovery_tests": 12,
+    "elapsed_seconds": 54.171
+  },
+  "independent_semantic_review": {
+    "status": "pending",
+    "author": "implementation assistant",
+    "note": "Integrity and regression tests do not validate labels independently."
+  },
+  "source_freeze": {
+    "status": "verified",
+    "note": "Current and retained initial manifests have identical canonical hashes for all six source files and all seven catalog snapshots; only authorship wording was clarified."
+  },
+  "external_calls": {
+    "model_provider_calls": 0,
+    "gmail_calls": 0,
+    "scope": "Offline CLI blocks network connections and invokes only local rankers/discovery."
+  },
+  "offline_baseline": {
+    "status": "passed",
+    "rows": 4200,
+    "distinct_queries": 200,
+    "families": 20,
+    "catalog_snapshots": 7,
+    "rankers": 3,
+    "timing_repeats_per_row": 1,
+    "runtime_failures": 0,
+    "artifact_hashes_verified": 22,
+    "catalog_hashes_verified": 7
+  }
+}

@@ -30,6 +30,9 @@ def main(argv=None):
                         help="Compare local retrieval rankers; add --ranker-agent-check for fixed bounded agent runs.")
     parser.add_argument("--ranker-agent-check", action="store_true", help="Run agents with each ranker, keeping discovery/context bounded.")
     parser.add_argument("--repeats", type=int, default=3, help="Timing repetitions per offline ranking case (1–10).")
+    parser.add_argument("--dataset", choices=("legacy", "discovery-v2"), default="legacy", help="Offline ranker dataset; the legacy control stays unchanged.")
+    parser.add_argument("--draws", type=int, nargs="+", choices=(11, 22, 33), help="Discovery-v2 background draws; defaults to all three.")
+    parser.add_argument("--split", choices=("all", "development", "evaluation"), default="all", help="Discovery-v2 request split.")
     parser.add_argument("--cases", nargs="+", help="Frozen routing case IDs for the comparison.")
     parser.add_argument("--context-window", type=int, help="Explicit model context allowance for bounded comparison requests.")
     parser.add_argument("--input-cap", type=int, default=32768)
@@ -45,6 +48,17 @@ def main(argv=None):
         ranker_agents = bool(args.compare_rankers and args.ranker_agent_check)
         agent_comparison = args.compare or ranker_agents
         offline_ranking = bool(args.compare_rankers and not ranker_agents)
+        if args.dataset == "discovery-v2":
+            if not offline_ranking or args.mode != "model-free" or args.compare or args.cases or args.context_window:
+                raise EvaluationConfigError("Discovery-v2 is an offline ranking dataset; live/agent comparisons are not supported")
+            if args.sizes is not None and 0 in args.sizes:
+                raise EvaluationConfigError("Discovery-v2 supports 100, 1000 and 10000 workers")
+            if args.draws is not None and len(set(args.draws)) != len(args.draws):
+                raise EvaluationConfigError("Discovery draws must not repeat")
+            from evals.agent_overload.discovery_dataset import load_dataset
+            load_dataset()  # Validate frozen inputs before creating an evidence directory.
+        elif args.draws is not None or args.split != "all":
+            raise EvaluationConfigError("Draw and split controls require --dataset discovery-v2")
         if (args.compare and args.compare_rankers or args.ranker_agent_check and not args.compare_rankers
                 or args.compare_rankers and len(set(args.compare_rankers)) != len(args.compare_rankers)
                 or not 1 <= args.repeats <= 10):
@@ -106,9 +120,14 @@ def main(argv=None):
                             guards.enter_context(patch.object(socket.socket, "connect_ex", side_effect=reject_network))
                         # This import initializes stores, so keep it after env setup.
                         if offline_ranking:
-                            from evals.agent_overload.ranking import run_ranking_comparison
-                            summary = run_ranking_comparison(manifest, sizes, output, Path(directory),
-                                identifiers=args.compare_rankers, repeats=args.repeats)
+                            if args.dataset == "discovery-v2":
+                                from evals.agent_overload.discovery_quality import run_quality_comparison
+                                summary = run_quality_comparison(manifest, sizes, output, Path(directory), identifiers=args.compare_rankers,
+                                    repeats=args.repeats, draws=args.draws or (11, 22, 33), split=args.split)
+                            else:
+                                from evals.agent_overload.ranking import run_ranking_comparison
+                                summary = run_ranking_comparison(manifest, sizes, output, Path(directory),
+                                    identifiers=args.compare_rankers, repeats=args.repeats)
                         elif agent_comparison:
                             from evals.agent_overload.comparison import run_comparison
                             summary = loop.run_until_complete(run_comparison(manifest, sizes, output, Path(directory),

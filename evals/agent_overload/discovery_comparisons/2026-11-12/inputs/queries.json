@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "vendor:exact_name",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Beacon licenses 2026"
+  },
+  {
+    "id": "vendor:description",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Who is handling the double payment for Northstar Beacon?"
+  },
+  {
+    "id": "vendor:paraphrase",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Find the owner checking whether the Beacon supplier at Northstar meets our protection requirements."
+  },
+  {
+    "id": "vendor:same_entity",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "For Northstar Beacon, continue getting the new team onto the workspace rather than changing the subscription."
+  },
+  {
+    "id": "vendor:period_artifact",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Pick up the Northstar Beacon license agreement for 2027, rather than the 2026 one."
+  },
+  {
+    "id": "vendor:dormant",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Find the older Northstar Beacon 2026 subscription work that Maya Chen filed."
+  },
+  {
+    "id": "vendor:multiple",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "I need both the duplicate-invoice refund and the new-staff invitations for Northstar Beacon."
+  },
+  {
+    "id": "vendor:ambiguous",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Which workers handle Northstar Beacon license renewals? I have not specified a year."
+  },
+  {
+    "id": "vendor:no_match",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Start arranging an art auction for Northstar Beacon; which existing worker owns that?"
+  },
+  {
+    "id": "vendor:insufficient_metadata",
+    "family_id": "vendor",
+    "split": "development",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker associated with private receipt QX-VENDOR-48."
+  },
+  {
+    "id": "travel:exact_name",
+    "family_id": "travel",
+    "split": "development",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Meridian rail passes 2026"
+  },
+  {
+    "id": "travel:description",
+    "family_id": "travel",
+    "split": "development",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Locate the Brookhaven Meridian train-delay reimbursement work."
+  },
+  {
+    "id": "travel:paraphrase",
+    "family_id": "travel",
+    "split": "development",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who was ensuring travelers on Brookhaven Meridian could reach their hotel rooms without stairs?"
+  },
+  {
+    "id": "travel:same_entity",
+    "family_id": "travel",
+    "split": "development",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue the meeting-space arrangements for Brookhaven Meridian, not transport or lodging."
+  },
+  {
+    "id": "travel:period_artifact",
+    "family_id": "travel",
+    "split": "development",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "I mean the Brookhaven Meridian railway booking for 2027, not the previous year."
+  },
+  {
+    "id": "travel:dormant",
+    "family_id": "travel",
+    "split": "development",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Reopen Omar Haddad’s older Brookhaven Meridian 2026 train-pass arrangement."
+  },
+  {
+    "id": "travel:multiple",
+    "family_id": "travel",
+    "split": "development",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Bring back the Brookhaven Meridian missed-connection claim and workshop room booking."
+  },
+  {
+    "id": "travel:ambiguous",
+    "family_id": "travel",
+    "split": "development",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Show the owners of Brookhaven Meridian train-pass bookings across the two years."
+  },
+  {
+    "id": "travel:no_match",
+    "family_id": "travel",
+    "split": "development",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "We need a new Brookhaven Meridian employee pension review; does any worker own it?"
+  },
+  {
+    "id": "travel:insufficient_metadata",
+    "family_id": "travel",
+    "split": "development",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Locate the owner of confidential ticket QX-TRAVEL-51."
+  },
+  {
+    "id": "legal:exact_name",
+    "family_id": "legal",
+    "split": "development",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Juniper lease — 2026"
+  },
+  {
+    "id": "legal:description",
+    "family_id": "legal",
+    "split": "development",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Who has the Harbor Legal Juniper landlord-deposit dispute?"
+  },
+  {
+    "id": "legal:paraphrase",
+    "family_id": "legal",
+    "split": "development",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Find the Harbor Legal Juniper owner checking who may see confidential supplier information."
+  },
+  {
+    "id": "legal:same_entity",
+    "family_id": "legal",
+    "split": "development",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Harbor Legal Juniper needs the signing meeting coordinated, not another contract review."
+  },
+  {
+    "id": "legal:period_artifact",
+    "family_id": "legal",
+    "split": "development",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Continue the Harbor Legal Juniper tenancy extension for 2027 specifically."
+  },
+  {
+    "id": "legal:dormant",
+    "family_id": "legal",
+    "split": "development",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Find Elena Rossi’s archived Harbor Legal Juniper 2026 rental agreement work."
+  },
+  {
+    "id": "legal:multiple",
+    "family_id": "legal",
+    "split": "development",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Get the deposit-recovery and signing-appointment workers for Harbor Legal Juniper."
+  },
+  {
+    "id": "legal:ambiguous",
+    "family_id": "legal",
+    "split": "development",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Find the workers for Harbor Legal Juniper office-lease renewals without choosing a year."
+  },
+  {
+    "id": "legal:no_match",
+    "family_id": "legal",
+    "split": "development",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Assign Harbor Legal Juniper a new aquarium-maintenance task; is there an existing owner?"
+  },
+  {
+    "id": "legal:insufficient_metadata",
+    "family_id": "legal",
+    "split": "development",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the matter linked to sealed exhibit QX-LEGAL-73."
+  },
+  {
+    "id": "research:exact_name",
+    "family_id": "research",
+    "split": "development",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Lumen 文献レビュー 2026"
+  },
+  {
+    "id": "research:description",
+    "family_id": "research",
+    "split": "development",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Who is repairing the absent bibliography entries in the Cedar Institute Lumen paper?"
+  },
+  {
+    "id": "research:paraphrase",
+    "family_id": "research",
+    "split": "development",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "For Cedar Institute Lumen, locate the person checking whether another lab can repeat our experiments."
+  },
+  {
+    "id": "research:same_entity",
+    "family_id": "research",
+    "split": "development",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue arranging participant interview times for Cedar Institute Lumen."
+  },
+  {
+    "id": "research:period_artifact",
+    "family_id": "research",
+    "split": "development",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Find the Cedar Institute Lumen literature survey covering 2027 rather than 2026."
+  },
+  {
+    "id": "research:dormant",
+    "family_id": "research",
+    "split": "development",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Locate Aiko Tanaka’s older Cedar Institute Lumen 2026 bibliography work."
+  },
+  {
+    "id": "research:multiple",
+    "family_id": "research",
+    "split": "development",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Find both reference repair and participant scheduling for Cedar Institute Lumen."
+  },
+  {
+    "id": "research:ambiguous",
+    "family_id": "research",
+    "split": "development",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Who owns Cedar Institute Lumen literature-review updates? The year is unspecified."
+  },
+  {
+    "id": "research:no_match",
+    "family_id": "research",
+    "split": "development",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Start a new Cedar Institute Lumen fleet-insurance negotiation; is it already owned?"
+  },
+  {
+    "id": "research:insufficient_metadata",
+    "family_id": "research",
+    "split": "development",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Which worker has restricted notebook QX-RESEARCH-36?"
+  },
+  {
+    "id": "events:exact_name",
+    "family_id": "events",
+    "split": "development",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Solstice venue renewal 2026"
+  },
+  {
+    "id": "events:description",
+    "family_id": "events",
+    "split": "development",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Find the Aster Collective Solstice caterer-overbilling refund owner."
+  },
+  {
+    "id": "events:paraphrase",
+    "family_id": "events",
+    "split": "development",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who checks that people can leave Aster Collective Solstice safely if an alarm sounds?"
+  },
+  {
+    "id": "events:same_entity",
+    "family_id": "events",
+    "split": "development",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "For Aster Collective Solstice, organize presenters arriving backstage rather than venue contracts."
+  },
+  {
+    "id": "events:period_artifact",
+    "family_id": "events",
+    "split": "development",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Pick the Aster Collective Solstice hall agreement renewal for 2027."
+  },
+  {
+    "id": "events:dormant",
+    "family_id": "events",
+    "split": "development",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Go back to Noah Williams’s old Aster Collective Solstice 2026 venue booking."
+  },
+  {
+    "id": "events:multiple",
+    "family_id": "events",
+    "split": "development",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "I need the catering-credit and speaker-arrival work for Aster Collective Solstice."
+  },
+  {
+    "id": "events:ambiguous",
+    "family_id": "events",
+    "split": "development",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Which workers manage Aster Collective Solstice venue renewals in either year?"
+  },
+  {
+    "id": "events:no_match",
+    "family_id": "events",
+    "split": "development",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Create a new Aster Collective Solstice soil-analysis task; is it already assigned?"
+  },
+  {
+    "id": "events:insufficient_metadata",
+    "family_id": "events",
+    "split": "development",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the file owner for confidential voucher QX-EVENTS-29."
+  },
+  {
+    "id": "recruiting:exact_name",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Kestrel hiring plan 2026"
+  },
+  {
+    "id": "recruiting:description",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "The Copper Finch Kestrel applicants are still owed their journey costs. Find that work."
+  },
+  {
+    "id": "recruiting:paraphrase",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Locate the Copper Finch Kestrel review of whether all applicants are being judged on the same basis."
+  },
+  {
+    "id": "recruiting:same_entity",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Who coordinates the interviewer diaries on Copper Finch Kestrel?"
+  },
+  {
+    "id": "recruiting:period_artifact",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "I need the Copper Finch Kestrel staffing authorization for 2027, not last year’s plan."
+  },
+  {
+    "id": "recruiting:dormant",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Find Priya Nair’s long-finished Copper Finch Kestrel 2026 headcount approval."
+  },
+  {
+    "id": "recruiting:multiple",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Get both applicant travel repayments and panel scheduling for Copper Finch Kestrel."
+  },
+  {
+    "id": "recruiting:ambiguous",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Bring up the Copper Finch Kestrel hiring-plan owners; I have not picked 2026 or 2027."
+  },
+  {
+    "id": "recruiting:no_match",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Does anyone own a new Copper Finch Kestrel vineyard-irrigation redesign?"
+  },
+  {
+    "id": "recruiting:insufficient_metadata",
+    "family_id": "recruiting",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Identify the owner of private application token QX-RECRUITING-62."
+  },
+  {
+    "id": "finance:exact_name",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Estuary budget 2026"
+  },
+  {
+    "id": "finance:description",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Find the Redwood Partners Estuary payment that never matched a ledger entry."
+  },
+  {
+    "id": "finance:paraphrase",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who is checking that Redwood Partners Estuary spending is approved by the right people?"
+  },
+  {
+    "id": "finance:same_entity",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "For Redwood Partners Estuary, continue coordinating when the month-end reports are due."
+  },
+  {
+    "id": "finance:period_artifact",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Use the Redwood Partners Estuary operating forecast for 2027 rather than 2026."
+  },
+  {
+    "id": "finance:dormant",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Look up Luis Ortega’s old Redwood Partners Estuary 2026 budget preparation."
+  },
+  {
+    "id": "finance:multiple",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "I need the unmatched-transfer investigation plus the close timetable for Redwood Partners Estuary."
+  },
+  {
+    "id": "finance:ambiguous",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Locate both Redwood Partners Estuary annual-budget owners without assuming the year."
+  },
+  {
+    "id": "finance:no_match",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Who already handles a new Redwood Partners Estuary opera-costume fitting?"
+  },
+  {
+    "id": "finance:insufficient_metadata",
+    "family_id": "finance",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker linked to restricted ledger note QX-FINANCE-84."
+  },
+  {
+    "id": "education:exact_name",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Atlas curriculum 2026"
+  },
+  {
+    "id": "education:description",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Which worker corrects the extra tuition paid for Oakridge College Atlas?"
+  },
+  {
+    "id": "education:paraphrase",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Locate the Oakridge College Atlas work ensuring students with disabilities can take assessments."
+  },
+  {
+    "id": "education:same_entity",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue organizing tutor session times for Oakridge College Atlas."
+  },
+  {
+    "id": "education:period_artifact",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "I want the Oakridge College Atlas syllabus renewal for the 2027 academic year."
+  },
+  {
+    "id": "education:dormant",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Find Grace Okafor’s older Oakridge College Atlas 2026 course-outline work."
+  },
+  {
+    "id": "education:multiple",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Bring back both tuition repayment and tutorial scheduling for Oakridge College Atlas."
+  },
+  {
+    "id": "education:ambiguous",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Show Oakridge College Atlas curriculum-renewal owners across the two academic years."
+  },
+  {
+    "id": "education:no_match",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Start a new Oakridge College Atlas industrial-boiler inspection. Is it already owned?"
+  },
+  {
+    "id": "education:insufficient_metadata",
+    "family_id": "education",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Who is responsible for private assessment record QX-EDUCATION-17?"
+  },
+  {
+    "id": "home:exact_name",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Maple cover 2026"
+  },
+  {
+    "id": "home:description",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Who has the Willow Household Maple insurer’s response to the leak damage?"
+  },
+  {
+    "id": "home:paraphrase",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Find the Willow Household Maple work checking whether the wiring is safe."
+  },
+  {
+    "id": "home:same_entity",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Get the Willow Household Maple tradesperson-access appointments, not the insurance work."
+  },
+  {
+    "id": "home:period_artifact",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Continue Willow Household Maple home coverage for 2027 specifically."
+  },
+  {
+    "id": "home:dormant",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Retrieve Sofia Berg’s older Willow Household Maple 2026 property policy work."
+  },
+  {
+    "id": "home:multiple",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "I need the water-damage claim and contractor-access schedule for Willow Household Maple."
+  },
+  {
+    "id": "home:ambiguous",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Which workers renew Willow Household Maple home policies? The policy year is unclear."
+  },
+  {
+    "id": "home:no_match",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Is there an owner for a new Willow Household Maple satellite-launch permit?"
+  },
+  {
+    "id": "home:insufficient_metadata",
+    "family_id": "home",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Locate the owner of sealed household record QX-HOME-95."
+  },
+  {
+    "id": "health_admin:exact_name",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Birch equipment cover 2026"
+  },
+  {
+    "id": "health_admin:description",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Find the Lakeside Clinic Birch work disputing a supplier charging us twice."
+  },
+  {
+    "id": "health_admin:paraphrase",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who is checking which staff may see Lakeside Clinic Birch administrative records?"
+  },
+  {
+    "id": "health_admin:same_entity",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue booking the Lakeside Clinic Birch technician appointments."
+  },
+  {
+    "id": "health_admin:period_artifact",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Take the Lakeside Clinic Birch equipment-service agreement for 2027 rather than 2026."
+  },
+  {
+    "id": "health_admin:dormant",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Locate Daniel Kim’s long-inactive Lakeside Clinic Birch 2026 maintenance contract."
+  },
+  {
+    "id": "health_admin:multiple",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Find both the duplicate-bill dispute and maintenance-visit calendar for Lakeside Clinic Birch."
+  },
+  {
+    "id": "health_admin:ambiguous",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Show the Lakeside Clinic Birch maintenance-agreement renewal owners for either year."
+  },
+  {
+    "id": "health_admin:no_match",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Create Lakeside Clinic Birch’s first marine-freight charter task; is there an existing owner?"
+  },
+  {
+    "id": "health_admin:insufficient_metadata",
+    "family_id": "health_admin",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the owner of restricted administrative reference QX-HEALTH-43."
+  },
+  {
+    "id": "opensource:exact_name",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Quasar release support 2026"
+  },
+  {
+    "id": "opensource:description",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Find the owner debugging Helix Foundation Quasar’s red integration pipeline."
+  },
+  {
+    "id": "opensource:paraphrase",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who is checking whether Helix Foundation Quasar can legally redistribute its external packages?"
+  },
+  {
+    "id": "opensource:same_entity",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue organizing Helix Foundation Quasar maintainer shifts rather than investigating a build."
+  },
+  {
+    "id": "opensource:period_artifact",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Choose Helix Foundation Quasar’s release-support renewal for 2027."
+  },
+  {
+    "id": "opensource:dormant",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Find Mateo Silva’s old Helix Foundation Quasar 2026 support commitment."
+  },
+  {
+    "id": "opensource:multiple",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "I need the broken-build investigation and maintainer roster for Helix Foundation Quasar."
+  },
+  {
+    "id": "opensource:ambiguous",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Which workers own Helix Foundation Quasar release-support renewals without a specified year?"
+  },
+  {
+    "id": "opensource:no_match",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Who already handles a new Helix Foundation Quasar livestock-vaccination schedule?"
+  },
+  {
+    "id": "opensource:insufficient_metadata",
+    "family_id": "opensource",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker bound to embargoed artifact QX-OPENSOURCE-57."
+  },
+  {
+    "id": "procurement:exact_name",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Orion supply terms 2026"
+  },
+  {
+    "id": "procurement:description",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Who is sorting out the Summit Works Orion equipment that arrived broken?"
+  },
+  {
+    "id": "procurement:paraphrase",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Find the Summit Works Orion owner checking whether the vendor can stay in business."
+  },
+  {
+    "id": "procurement:same_entity",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue arranging Summit Works Orion loading-bay appointments."
+  },
+  {
+    "id": "procurement:period_artifact",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "I mean Summit Works Orion’s equipment purchasing framework for 2027."
+  },
+  {
+    "id": "procurement:dormant",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Recover Hana Novak’s earlier Summit Works Orion 2026 supply-terms work."
+  },
+  {
+    "id": "procurement:multiple",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Bring back the damaged-delivery and warehouse-slot workers for Summit Works Orion."
+  },
+  {
+    "id": "procurement:ambiguous",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Find Summit Works Orion equipment-supply renewal owners across the two years."
+  },
+  {
+    "id": "procurement:no_match",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Is a new Summit Works Orion film-festival submission already owned?"
+  },
+  {
+    "id": "procurement:insufficient_metadata",
+    "family_id": "procurement",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker for confidential purchase reference QX-PROCUREMENT-68."
+  },
+  {
+    "id": "logistics:exact_name",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Vega freight agreement 2026"
+  },
+  {
+    "id": "logistics:description",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Locate the Bluewater Cargo Vega consignment work about a pallet going missing."
+  },
+  {
+    "id": "logistics:paraphrase",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who is ensuring Bluewater Cargo Vega’s border-clearance paperwork is complete?"
+  },
+  {
+    "id": "logistics:same_entity",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue organizing the unloading crew for Bluewater Cargo Vega."
+  },
+  {
+    "id": "logistics:period_artifact",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Use Bluewater Cargo Vega’s carriage agreement renewal for 2027."
+  },
+  {
+    "id": "logistics:dormant",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Look up Amira Saleh’s dormant Bluewater Cargo Vega 2026 freight-contract work."
+  },
+  {
+    "id": "logistics:multiple",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "I need the missing-pallet investigation and dock staffing for Bluewater Cargo Vega."
+  },
+  {
+    "id": "logistics:ambiguous",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Find the Bluewater Cargo Vega freight-contract owners; the year has not been supplied."
+  },
+  {
+    "id": "logistics:no_match",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Is anyone assigned a new Bluewater Cargo Vega choir-audition program?"
+  },
+  {
+    "id": "logistics:insufficient_metadata",
+    "family_id": "logistics",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker associated with sealed manifest QX-LOGISTICS-24."
+  },
+  {
+    "id": "design:exact_name",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Prism design retainer 2026"
+  },
+  {
+    "id": "design:description",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Find the Marigold Studio Prism argument about an extra iteration charge."
+  },
+  {
+    "id": "design:paraphrase",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who checks whether Marigold Studio Prism screens remain readable for people with low vision?"
+  },
+  {
+    "id": "design:same_entity",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue arranging Marigold Studio Prism usability-test appointments."
+  },
+  {
+    "id": "design:period_artifact",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Pick the Marigold Studio Prism creative-services retainer for 2027."
+  },
+  {
+    "id": "design:dormant",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Find Camille Dubois’s old Marigold Studio Prism 2026 retainer work."
+  },
+  {
+    "id": "design:multiple",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Get both the revision-fee dispute and user-study scheduling for Marigold Studio Prism."
+  },
+  {
+    "id": "design:ambiguous",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Show Marigold Studio Prism design-retainer renewal owners without assuming the year."
+  },
+  {
+    "id": "design:no_match",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Start a new Marigold Studio Prism archaeological excavation task; is there an owner?"
+  },
+  {
+    "id": "design:insufficient_metadata",
+    "family_id": "design",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker linked to private mockup QX-DESIGN-39."
+  },
+  {
+    "id": "nonprofit:exact_name",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Tern grant renewal 2026"
+  },
+  {
+    "id": "nonprofit:description",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Who is tracing the Riverton Aid Tern contribution that was never acknowledged?"
+  },
+  {
+    "id": "nonprofit:paraphrase",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Find the Riverton Aid Tern owner checking how volunteers protect vulnerable participants."
+  },
+  {
+    "id": "nonprofit:same_entity",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue arranging Riverton Aid Tern volunteer coverage on distribution days."
+  },
+  {
+    "id": "nonprofit:period_artifact",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "I want Riverton Aid Tern’s community-funding renewal for 2027."
+  },
+  {
+    "id": "nonprofit:dormant",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Locate Kwame Mensah’s completed Riverton Aid Tern 2026 grant application work."
+  },
+  {
+    "id": "nonprofit:multiple",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Get the uncredited-donation and volunteer-shift workers for Riverton Aid Tern."
+  },
+  {
+    "id": "nonprofit:ambiguous",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Find the Riverton Aid Tern annual-grant owners for either funding year."
+  },
+  {
+    "id": "nonprofit:no_match",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Is there an existing owner for a new Riverton Aid Tern semiconductor-fabrication review?"
+  },
+  {
+    "id": "nonprofit:insufficient_metadata",
+    "family_id": "nonprofit",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the owner of confidential donor receipt QX-NONPROFIT-76."
+  },
+  {
+    "id": "property:exact_name",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Spruce service contract 2026"
+  },
+  {
+    "id": "property:description",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Find the Elmstone Estates Spruce tenant bill that was apportioned incorrectly."
+  },
+  {
+    "id": "property:paraphrase",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who is checking whether Elmstone Estates Spruce’s corridor doors meet fire rules?"
+  },
+  {
+    "id": "property:same_entity",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue arranging resident inspection appointments at Elmstone Estates Spruce."
+  },
+  {
+    "id": "property:period_artifact",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Find Elmstone Estates Spruce’s facilities-service renewal for 2027."
+  },
+  {
+    "id": "property:dormant",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Look up Isabel Costa’s older Elmstone Estates Spruce 2026 building-services agreement."
+  },
+  {
+    "id": "property:multiple",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "I need the tenant-charge correction and resident-visit schedule for Elmstone Estates Spruce."
+  },
+  {
+    "id": "property:ambiguous",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Show both Elmstone Estates Spruce building-service renewal owners, with the year unresolved."
+  },
+  {
+    "id": "property:no_match",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Does anyone own a new Elmstone Estates Spruce ballet-tour itinerary?"
+  },
+  {
+    "id": "property:insufficient_metadata",
+    "family_id": "property",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker for sealed tenancy document QX-PROPERTY-81."
+  },
+  {
+    "id": "manufacturing:exact_name",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Cobalt calibration contract 2026"
+  },
+  {
+    "id": "manufacturing:description",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Locate the Ironwood Tools Cobalt work tracing why a production lot failed acceptance."
+  },
+  {
+    "id": "manufacturing:paraphrase",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who is checking that Ironwood Tools Cobalt operators cannot reach moving machinery?"
+  },
+  {
+    "id": "manufacturing:same_entity",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue coordinating Ironwood Tools Cobalt’s planned downtime."
+  },
+  {
+    "id": "manufacturing:period_artifact",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Pick Ironwood Tools Cobalt’s calibration-service contract for 2027."
+  },
+  {
+    "id": "manufacturing:dormant",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Retrieve Tomasz Zielinski’s long-finished Ironwood Tools Cobalt 2026 calibration agreement."
+  },
+  {
+    "id": "manufacturing:multiple",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Find both rejected-batch analysis and shutdown scheduling for Ironwood Tools Cobalt."
+  },
+  {
+    "id": "manufacturing:ambiguous",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Which workers own Ironwood Tools Cobalt calibration renewals, without a year?"
+  },
+  {
+    "id": "manufacturing:no_match",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Is a new Ironwood Tools Cobalt coral-restoration project already assigned?"
+  },
+  {
+    "id": "manufacturing:insufficient_metadata",
+    "family_id": "manufacturing",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker linked to restricted lot certificate QX-MANUFACTURING-92."
+  },
+  {
+    "id": "agriculture:exact_name",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Saffron water allocation 2026"
+  },
+  {
+    "id": "agriculture:description",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Find the Meadowlark Farm Saffron supplier claim about missing seed bags."
+  },
+  {
+    "id": "agriculture:paraphrase",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who checks Meadowlark Farm Saffron’s earth-sample evidence for organic approval?"
+  },
+  {
+    "id": "agriculture:same_entity",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue arranging pickers for Meadowlark Farm Saffron harvest days."
+  },
+  {
+    "id": "agriculture:period_artifact",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "I want Meadowlark Farm Saffron’s irrigation entitlement for 2027."
+  },
+  {
+    "id": "agriculture:dormant",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Find Nadia Rahman’s older Meadowlark Farm Saffron 2026 water-allocation application."
+  },
+  {
+    "id": "agriculture:multiple",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Get the seed-shortage claim and harvest-crew schedule for Meadowlark Farm Saffron."
+  },
+  {
+    "id": "agriculture:ambiguous",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Show the Meadowlark Farm Saffron water-allocation renewal owners across both years."
+  },
+  {
+    "id": "agriculture:no_match",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Does anyone own a new Meadowlark Farm Saffron mobile-app penetration test?"
+  },
+  {
+    "id": "agriculture:insufficient_metadata",
+    "family_id": "agriculture",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker associated with sealed field note QX-AGRICULTURE-65."
+  },
+  {
+    "id": "publishing:exact_name",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Horizon rights 2026"
+  },
+  {
+    "id": "publishing:description",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Who is correcting the Paperkite Press Horizon author-payment statement?"
+  },
+  {
+    "id": "publishing:paraphrase",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Find the Paperkite Press Horizon owner checking whether the artwork can be reproduced."
+  },
+  {
+    "id": "publishing:same_entity",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue arranging Paperkite Press Horizon page-proof deadlines."
+  },
+  {
+    "id": "publishing:period_artifact",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "Choose Paperkite Press Horizon’s translation-rights renewal for 2027."
+  },
+  {
+    "id": "publishing:dormant",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Locate Lea Muller’s old Paperkite Press Horizon 2026 foreign-language rights agreement."
+  },
+  {
+    "id": "publishing:multiple",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "I need royalty reconciliation and proof scheduling for Paperkite Press Horizon."
+  },
+  {
+    "id": "publishing:ambiguous",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Which workers handle Paperkite Press Horizon translation-rights renewals, with no year supplied?"
+  },
+  {
+    "id": "publishing:no_match",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Start a new Paperkite Press Horizon turbine-overhaul task; is there an owner?"
+  },
+  {
+    "id": "publishing:insufficient_metadata",
+    "family_id": "publishing",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker for confidential manuscript reference QX-PUBLISHING-28."
+  },
+  {
+    "id": "security:exact_name",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "exact_name",
+    "answerability": "answerable",
+    "query": "Nimbus monitoring contract 2026"
+  },
+  {
+    "id": "security:description",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "description",
+    "answerability": "answerable",
+    "query": "Find the Stonebridge Systems Nimbus investigation into unusual login attempts."
+  },
+  {
+    "id": "security:paraphrase",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "paraphrase",
+    "answerability": "answerable",
+    "query": "Who checks that Stonebridge Systems Nimbus can be recovered from saved copies after a failure?"
+  },
+  {
+    "id": "security:same_entity",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "same_entity",
+    "answerability": "answerable",
+    "query": "Continue organizing Stonebridge Systems Nimbus responder shifts."
+  },
+  {
+    "id": "security:period_artifact",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "period_artifact",
+    "answerability": "answerable",
+    "query": "I mean Stonebridge Systems Nimbus’s monitoring-service renewal for 2027."
+  },
+  {
+    "id": "security:dormant",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "dormant",
+    "answerability": "answerable",
+    "query": "Find Yuki Sato’s dormant Stonebridge Systems Nimbus 2026 monitoring contract."
+  },
+  {
+    "id": "security:multiple",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "multiple",
+    "answerability": "answerable",
+    "query": "Get both the suspicious-login investigation and on-call rota for Stonebridge Systems Nimbus."
+  },
+  {
+    "id": "security:ambiguous",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "ambiguous",
+    "answerability": "ambiguous",
+    "query": "Show Stonebridge Systems Nimbus monitoring-renewal owners for the unspecified year."
+  },
+  {
+    "id": "security:no_match",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "no_match",
+    "answerability": "answerable",
+    "query": "Is anyone assigned a new Stonebridge Systems Nimbus orchard-pruning schedule?"
+  },
+  {
+    "id": "security:insufficient_metadata",
+    "family_id": "security",
+    "split": "evaluation",
+    "category": "insufficient_metadata",
+    "answerability": "insufficient_metadata",
+    "query": "Find the worker attached to embargoed incident token QX-SECURITY-46."
+  }
+]

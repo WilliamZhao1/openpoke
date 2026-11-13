@@ -1,0 +1,54 @@
+{
+  "profile": "discovery_quality_v2",
+  "schema_version": 2,
+  "frozen_on": "2026-11-12",
+  "catalog_sizes": [
+    100,
+    1000,
+    10000
+  ],
+  "draws": [
+    11,
+    22,
+    33
+  ],
+  "authoring": {
+    "method": "Assistant-authored synthetic core workers and requests; deterministic templated background expansion. No separate model-provider calls during data construction or evaluation, and no production mailbox/history.",
+    "review_status": "author_checked_pending_independent_review",
+    "reviewer": "Implementation assistant; no independent human reviewer",
+    "split": "Entire task families are disjoint; five development and fifteen evaluation families. Author knows both splits.",
+    "measurement_policy": "Frozen before first ranker measurement; no ranker tuning on this dataset. No production-accuracy or promotion claim.",
+    "provenance_clarification": "Authorship wording clarified after the first run began; no worker, query, judgment, generation input or catalog fingerprint changed. The initial run retains its original manifest snapshot."
+  },
+  "counts": {
+    "workers": 100,
+    "families": 20,
+    "development_queries": 50,
+    "evaluation_queries": 150,
+    "targeted_owners": 100
+  },
+  "generation": {
+    "close_alternative_fraction": 0.3,
+    "scope_rule": "Every additional worker has a different named project. Every answerable base request identifies its protected base project.",
+    "base_replicates": 1,
+    "larger_catalog_replicates": 3,
+    "clock": "2026-11-12T12:00:00+00:00"
+  },
+  "file_sha256_canonical": {
+    "workers.json": "92e16ff49796a85a946792e7f922f18276fc0e36e09e6c921cfeaff987d017fa",
+    "families.json": "5d15ebae278281f8e4ad9f5ae276b1a1679d158986644ef9d2ba5aaad2a02612",
+    "queries.json": "ad402e6d1f15b40ad45f6989da88a34d02a7affb0a2443630b46bffd9f2c15e7",
+    "judgments.json": "b4ab17bb90686331cecddec1ad3563475d3800d34f40417f561e06ba58a42053",
+    "background.json": "749d5ee9b06e6b29225a92378afb14de051dc6e93bbdc5dfc02455c9f35088b2",
+    "scenario_source.json": "b46d865b059633eea9cf1a3414f83a1e0024578574c21862cc6b8bf96d9caeb4"
+  },
+  "catalog_sha256": {
+    "100:base": "92e16ff49796a85a946792e7f922f18276fc0e36e09e6c921cfeaff987d017fa",
+    "1000:11": "88ea45a524847ef22a7c4daa2dbf2e071f7ba7508c92400664d5ef934c18c6fd",
+    "1000:22": "83059396ff2dc399f3b2bb0d2fa8933e6b2ab1b7a2b1e549a3780523aa5582ba",
+    "1000:33": "79de2575d83b0a782610f98dc04d148fda69544a18246fbdb6bfe130218ad4c6",
+    "10000:11": "f8cc9303d5268f65824cd92799e56284fd4c037109082d50a12e5446e303630d",
+    "10000:22": "ebe89bbbebdd7d23e451e5c67fd37da3927c4708b4ff91b4146d7dae9023e277",
+    "10000:33": "68af1a6dae7e7a0d3b8fb7654d577b6ced89636cc369145c43f96db75b19e2fc"
+  }
+}

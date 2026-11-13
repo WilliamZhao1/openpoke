@@ -1,0 +1,6 @@
+# Keep this benchmark's byte-hashed text evidence stable across checkouts.
+/evals/agent_overload/datasets/discovery_v2/*.json text eol=lf
+/evals/agent_overload/datasets/discovery_v2/*.md text eol=lf
+/evals/agent_overload/discovery_comparisons/**/*.json text eol=lf
+/evals/agent_overload/discovery_comparisons/**/*.md text eol=lf
+/evals/agent_overload/discovery_comparisons/**/*.gz binary

@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-11-13T02:14:56.018670+00:00",
+  "dataset_manifest_sha256": "004803430c617b663eb0df3e31dc9610fff482f74e6242bcd6fa73e17b39deaf",
+  "legacy_manifest_sha256": "9f1f6ff9276e6602756cb840ecccff35178522c61b3e7224642e296087afd4d6",
+  "python_version": "3.12.3",
+  "package_versions": {
+    "httpx": "0.28.1",
+    "fastapi": "0.162.0",
+    "pydantic": "2.14.3"
+  },
+  "source_sha256_lf_normalized": {
+    "evals/agent_overload/discovery_dataset.py": "9724b2a898960d8c9c116aab6515e495ddc68b646fa27a25d895c723b2a4a32b",
+    "evals/agent_overload/discovery_quality.py": "cd42af7aafdb699c410e41c3ebd55cbe0a06a5970bfa7b701dcef50a6c96c7fa",
+    "evals/agent_overload/ranking.py": "d7814547297da997c21e6d9846615776357c120d93d02d597335d81c2dd72f58",
+    "evals/agent_overload/run.py": "e5eb399bb5e30686e77a7acbe30f9fd01cf4c462ddb73c35a30ce8ebed57cff1",
+    "server/services/execution/discovery.py": "fc1b13f81a0d251d27d2e4dbf75cbe0ea630a4c54c5c61d70e9225490a07aa81",
+    "server/services/execution/ranking.py": "c07fe1555ddeda2a554b9443a055307242ea09ecee482bf57f8d920214fed4ef",
+    "server/config.py": "f4baf542de171a2c86483a892b09c81364c8f8c744c4a0a4699277a005f2bd04"
+  }
+}

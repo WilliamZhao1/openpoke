@@ -1,0 +1,70 @@
+{
+  "profile": "discovery_quality_v2",
+  "decision_mode": "local",
+  "model_calls": 0,
+  "gmail_calls": 0,
+  "rankers": [
+    "heuristic_v1",
+    "idf_v1",
+    "bm25_v1"
+  ],
+  "parameters": {
+    "heuristic_v1": {
+      "field_weights": [
+        20,
+        6,
+        3
+      ],
+      "exact_bonus": 10000,
+      "substring_bonus": 1000
+    },
+    "idf_v1": {
+      "field_weights": [
+        4.0,
+        2.0,
+        1.0
+      ],
+      "exact_bonus": 10000,
+      "normalized_exact_bonus": 1000,
+      "word_phrase_bonus": 0.5,
+      "coverage_factor": "0.5 + 0.5 * idf_coverage",
+      "repeated_fields": "strongest_only"
+    },
+    "bm25_v1": {
+      "field_weights": [
+        4.0,
+        2.0,
+        1.0
+      ],
+      "exact_bonus": 10000,
+      "normalized_exact_bonus": 1000,
+      "word_phrase_bonus": 0.5,
+      "k1": 1.2,
+      "b": 0.75,
+      "idf": "worker_union",
+      "field_normalization": "independent"
+    }
+  },
+  "catalog_sizes": [
+    100,
+    1000,
+    10000
+  ],
+  "draws": [
+    11,
+    22,
+    33
+  ],
+  "base_evaluated_once": true,
+  "repeats": 1,
+  "split": "all",
+  "dataset_manifest_sha256": "004803430c617b663eb0df3e31dc9610fff482f74e6242bcd6fa73e17b39deaf",
+  "review_status": "author_checked_pending_independent_review",
+  "default_ranker": "heuristic_v1",
+  "defaults_promoted": false,
+  "scope": "offline_worker_discovery_only; no agent, context, draft or community comparison",
+  "quality_gate": "first_baseline_only; independent_review_pending; no_automatic_promotion",
+  "latency": "ranking uses prepared snapshot; lookup includes fresh JSON reads, preparation, ranking and packing",
+  "memory": "separate preparation pass; Python allocations, not RSS",
+  "uncertainty": "average draws per query, then resample whole families; authored synthetic sample, not production inference"
+}

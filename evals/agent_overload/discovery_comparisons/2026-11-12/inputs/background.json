@@ -1,0 +1,328 @@
+{
+  "given_names": [
+    "Adrian",
+    "Beatriz",
+    "Chloe",
+    "Dmitri",
+    "Eleni",
+    "Farah",
+    "Gabriel",
+    "Hiro",
+    "Imani",
+    "Jonas",
+    "Kavya",
+    "Luca",
+    "Marisol",
+    "Nikhil",
+    "Olivia",
+    "Pavel",
+    "Renata",
+    "Sana",
+    "Theo",
+    "Uma",
+    "Valeria",
+    "Wen",
+    "Ximena",
+    "Zara",
+    "Arjun",
+    "Dalia",
+    "Emre",
+    "Fatima",
+    "Ines",
+    "Jae",
+    "Linh",
+    "Marta"
+  ],
+  "surnames": [
+    "Alvarez",
+    "Basu",
+    "Cheng",
+    "Demir",
+    "Evans",
+    "Farouk",
+    "Garcia",
+    "Hwang",
+    "Ibrahim",
+    "Jensen",
+    "Kowalski",
+    "Larsen",
+    "Moreau",
+    "Nguyen",
+    "Osei",
+    "Petrov",
+    "Qureshi",
+    "Reed",
+    "Santos",
+    "Tran",
+    "Ueda",
+    "Vegaard",
+    "Wong",
+    "Yilmaz",
+    "Zhang",
+    "Adebayo",
+    "Bianchi",
+    "Das",
+    "Hassan",
+    "Ivanov",
+    "Lopez",
+    "Patel"
+  ],
+  "organization_starts": [
+    "Acorn",
+    "Bayfield",
+    "Cloudbank",
+    "Driftwood",
+    "Evergreen",
+    "Foxglove",
+    "Granite",
+    "Highland",
+    "Indigo",
+    "Jade",
+    "Kingfisher",
+    "Lantern",
+    "Mossbank",
+    "Newhaven",
+    "Opal",
+    "Pinecrest",
+    "Quartz",
+    "Rainfall",
+    "Silverleaf",
+    "Timberline",
+    "Uplands",
+    "Verdant",
+    "Westhaven",
+    "Yellowwood",
+    "Zephyr",
+    "Amber",
+    "Bayside",
+    "Clearwater",
+    "Dovetail",
+    "Eastwind",
+    "Fernhill",
+    "Glenwood"
+  ],
+  "organization_ends": [
+    "Associates",
+    "Cooperative",
+    "Labs",
+    "Consulting",
+    "Workshop",
+    "Trading",
+    "Services",
+    "Guild",
+    "Network",
+    "Ventures",
+    "Group",
+    "Office",
+    "Trust",
+    "School",
+    "Agency",
+    "Council",
+    "Logistics",
+    "Collective",
+    "Systems",
+    "Studio",
+    "Foundation",
+    "Library",
+    "Industries",
+    "Center"
+  ],
+  "project_adjectives": [
+    "Amber",
+    "Brisk",
+    "Calm",
+    "Dappled",
+    "Emerald",
+    "Frosted",
+    "Golden",
+    "Hidden",
+    "Iridescent",
+    "Jovial",
+    "Kindred",
+    "Lucent",
+    "Mellow",
+    "Nimble",
+    "Ochre",
+    "Patient",
+    "Quiet",
+    "Resolute",
+    "Silver",
+    "Tidal",
+    "Umber",
+    "Velvet",
+    "Winding",
+    "Young",
+    "Zealous",
+    "Azure",
+    "Copper",
+    "Distant",
+    "Evening",
+    "Gentle",
+    "Ivory",
+    "Lively"
+  ],
+  "project_nouns": [
+    "Badger",
+    "Canyon",
+    "Dahlia",
+    "Elm",
+    "Falcon",
+    "Grove",
+    "Heron",
+    "Inlet",
+    "Jasmine",
+    "Lagoon",
+    "Meadow",
+    "Nectar",
+    "Osprey",
+    "Pebble",
+    "Raven",
+    "Sequoia",
+    "Thicket",
+    "Valley",
+    "Walnut",
+    "Yarrow",
+    "Wren",
+    "Boulder",
+    "Cricket",
+    "Delta",
+    "Egret",
+    "Finch",
+    "Glacier",
+    "Hearth",
+    "Island",
+    "Marsh",
+    "Otter",
+    "Pond"
+  ],
+  "activities": [
+    [
+      "supplier renewal",
+      "Negotiate annual supplier rates and delivery obligations"
+    ],
+    [
+      "invoice reconciliation",
+      "Compare supplier invoices against recorded payments"
+    ],
+    [
+      "candidate scheduling",
+      "Coordinate applicant interviews and panel availability"
+    ],
+    [
+      "equipment inspection",
+      "Check equipment condition and maintenance findings"
+    ],
+    [
+      "training registration",
+      "Arrange staff training places and attendance records"
+    ],
+    [
+      "lease negotiation",
+      "Negotiate rent, access terms and the property lease period"
+    ],
+    [
+      "travel reimbursement",
+      "Process documented travel expenses and repayments"
+    ],
+    [
+      "conference planning",
+      "Coordinate a conference program and venue arrangements"
+    ],
+    [
+      "software release",
+      "Prepare release notes and deployment approvals"
+    ],
+    [
+      "research permissions",
+      "Obtain access permissions for an academic research study"
+    ],
+    [
+      "grant reporting",
+      "Prepare grant expenditure and outcome reports"
+    ],
+    [
+      "accessibility review",
+      "Assess accessible interfaces and participant accommodations"
+    ],
+    [
+      "cargo tracking",
+      "Trace shipment handovers and investigate delayed deliveries"
+    ],
+    [
+      "volunteer intake",
+      "Arrange volunteer introductions and required checks"
+    ],
+    [
+      "translation rights",
+      "Negotiate licensed translation territories and publication dates"
+    ],
+    [
+      "backup exercise",
+      "Verify restore procedures using retained backups"
+    ],
+    [
+      "customer onboarding",
+      "Arrange customer setup, contacts and welcome sessions"
+    ],
+    [
+      "inventory correction",
+      "Resolve differences between stock counts and inventory records"
+    ],
+    [
+      "field sampling",
+      "Schedule field samples and maintain collection documentation"
+    ],
+    [
+      "contract dispute",
+      "Resolve disagreement about a supplier contract obligation"
+    ],
+    [
+      "artwork licensing",
+      "Obtain permissions to reproduce commissioned illustrations"
+    ],
+    [
+      "manufacturing audit",
+      "Review production controls and supporting quality records"
+    ],
+    [
+      "room allocation",
+      "Assign meeting rooms to scheduled activities"
+    ],
+    [
+      "policy renewal",
+      "Review annual insurance terms and coverage changes"
+    ],
+    [
+      "tuition correction",
+      "Reconcile a student account and correct tuition payments"
+    ],
+    [
+      "participant interviews",
+      "Organize research-participant interview sessions"
+    ],
+    [
+      "building compliance",
+      "Collect inspection evidence and arrange building repairs"
+    ],
+    [
+      "security response",
+      "Investigate authentication alerts and coordinate responders"
+    ],
+    [
+      "roster coordination",
+      "Match team availability to operating shifts"
+    ],
+    [
+      "budget forecast",
+      "Collect departmental estimates for an operating forecast"
+    ],
+    [
+      "service cancellation",
+      "Close an obsolete supplier service and verify final charges"
+    ],
+    [
+      "archive retrieval",
+      "Recover older project correspondence and signed records"
+    ]
+  ]
+}

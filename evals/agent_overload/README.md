@@ -61,6 +61,18 @@ python evals/agent_overload/run.py --compare-rankers heuristic_v1 idf_v1 bm25_v1
 See the [ranking guide](../../docs/worker-ranking.md#comparison-commands) for
 agent checks, live comparisons, scoring rules, and saved results.
 
+For the more varied offline benchmark, select `--dataset discovery-v2`:
+
+```powershell
+python evals/agent_overload/run.py --compare-rankers heuristic_v1 idf_v1 bm25_v1 --dataset discovery-v2 --sizes 100 1000 10000 --draws 11 22 33 --repeats 1
+```
+
+The [v2 guide](../../docs/discovery-quality-benchmark.md) records the accepted
+design, frozen 100-worker/200-request inputs, disjoint family splits, metrics,
+three larger-catalog draws and pending independent review. Use `--split development`
+while developing changes and fresh output directories for every run. This dataset
+is offline-only; existing baseline and live comparisons keep their original inputs.
+
 ## Outputs and checks
 
 Each completed run includes `report.md`, `summary.json`, input/provenance records,

@@ -1,0 +1,302 @@
+[
+  {
+    "id": "vendor",
+    "split": "development",
+    "domain": "software procurement",
+    "organization": "Northstar",
+    "project": "Beacon",
+    "person": "Maya Chen",
+    "worker_ids": [
+      "b8e83b78-e30a-5118-aaf6-e9cc15c4f41f",
+      "e710677c-63de-52b2-860e-5c73a53708e6",
+      "d2bc5af0-279a-5701-9917-22ff14609ef3",
+      "9671fb94-6440-562f-98de-d1c28e50ace1",
+      "1087cd9f-a8ab-56ea-bfb0-b7cf1f708366"
+    ]
+  },
+  {
+    "id": "travel",
+    "split": "development",
+    "domain": "business travel",
+    "organization": "Brookhaven",
+    "project": "Meridian",
+    "person": "Omar Haddad",
+    "worker_ids": [
+      "2fe3186e-b47e-5662-89dc-75f3b0fd5c3c",
+      "54cf4528-9df2-5419-80a6-b89fd20ac51b",
+      "d10add08-fcdd-5c86-9e59-4cb9a0bd294d",
+      "faefee91-0127-524d-a87b-20137f861b1b",
+      "16d7a324-0cd8-5e89-a984-c6dbacdea84c"
+    ]
+  },
+  {
+    "id": "legal",
+    "split": "development",
+    "domain": "legal administration",
+    "organization": "Harbor Legal",
+    "project": "Juniper",
+    "person": "Elena Rossi",
+    "worker_ids": [
+      "a1285ca9-0043-5009-8d93-3f0e6e8848a4",
+      "a266330e-8f7c-5b2b-9156-2ecfbd6cfe3a",
+      "3d5872bd-40dd-59fa-b86a-893cd7bedc73",
+      "acc65727-6f38-5ebe-b539-175d338d7011",
+      "a0cacc14-e877-5554-93b1-01157f1f934c"
+    ]
+  },
+  {
+    "id": "research",
+    "split": "development",
+    "domain": "academic research",
+    "organization": "Cedar Institute",
+    "project": "Lumen",
+    "person": "Aiko Tanaka",
+    "worker_ids": [
+      "496e77c8-facf-5a70-b366-951a490a01e8",
+      "b02f496b-15dc-530a-9e9d-122ceb233afd",
+      "728593e6-2f09-504f-9576-84600b67a501",
+      "1ce53434-780e-5b84-aadb-8de6d905c7f9",
+      "ae994782-86f2-5338-8995-60636cc1633e"
+    ]
+  },
+  {
+    "id": "events",
+    "split": "development",
+    "domain": "event operations",
+    "organization": "Aster Collective",
+    "project": "Solstice",
+    "person": "Noah Williams",
+    "worker_ids": [
+      "f2a07b4e-de2f-5c00-bcca-fe4f6a2b429a",
+      "e7cc7679-06cc-5bd4-b684-c9bb7b595837",
+      "28e44d43-64ae-5ecf-a940-945be6361978",
+      "812c60a6-7f28-546b-8096-95911aefdf21",
+      "9283861d-24c2-54aa-8e8f-0a2d272cefc4"
+    ]
+  },
+  {
+    "id": "recruiting",
+    "split": "evaluation",
+    "domain": "recruiting",
+    "organization": "Copper Finch",
+    "project": "Kestrel",
+    "person": "Priya Nair",
+    "worker_ids": [
+      "ea897d36-5e6c-571c-9bc2-dba4db09856e",
+      "45327e4e-91a7-5fe8-bb7a-f0163c83d254",
+      "0ffed8bc-e8a5-5683-a1d0-4a75cc001c13",
+      "592c4678-2851-5c45-ac39-1c3b435c3fd6",
+      "60f3aafa-41d7-59c9-ab51-37a0b6f9e1aa"
+    ]
+  },
+  {
+    "id": "finance",
+    "split": "evaluation",
+    "domain": "financial administration",
+    "organization": "Redwood Partners",
+    "project": "Estuary",
+    "person": "Luis Ortega",
+    "worker_ids": [
+      "587c5a03-ff5c-55d1-af39-f74dd6b10168",
+      "6dad1979-2b25-5589-b99e-d2f619c36844",
+      "d2c5cf47-fc52-571f-b375-14bc0a9cc9e8",
+      "ce9881e5-e940-51ef-820c-c5e00663e7d0",
+      "71a56496-604a-5c14-8775-f17a4508cc48"
+    ]
+  },
+  {
+    "id": "education",
+    "split": "evaluation",
+    "domain": "education administration",
+    "organization": "Oakridge College",
+    "project": "Atlas",
+    "person": "Grace Okafor",
+    "worker_ids": [
+      "0426ea55-2a87-5592-b72c-7c01ccca8c92",
+      "2df73cda-8a4f-5bc0-8448-dd8e0b60f859",
+      "e9e70849-b072-5ceb-8198-8f9bdd8bbe16",
+      "64452720-50e9-5221-bda6-36789ef82ed9",
+      "40e82aed-3621-50e3-bc70-4253a11ebf62"
+    ]
+  },
+  {
+    "id": "home",
+    "split": "evaluation",
+    "domain": "household administration",
+    "organization": "Willow Household",
+    "project": "Maple",
+    "person": "Sofia Berg",
+    "worker_ids": [
+      "22001057-b1e1-591a-b6bf-763431870fc3",
+      "18592fc9-0ff0-5237-9d90-d66cfd67650d",
+      "a6f5da07-598d-5dfd-bc62-cc7deeaf0210",
+      "58babe3e-1651-501e-ace0-6d3d6f2b15d9",
+      "b81f9618-4997-571f-9ee4-0a4e63769168"
+    ]
+  },
+  {
+    "id": "health_admin",
+    "split": "evaluation",
+    "domain": "healthcare administration",
+    "organization": "Lakeside Clinic",
+    "project": "Birch",
+    "person": "Daniel Kim",
+    "worker_ids": [
+      "f7410ad6-9edf-5c87-b51f-8a99abc1c5e0",
+      "4f8ae002-092f-58f9-95f9-8b7344349f84",
+      "43276e96-402f-5c51-9557-16cec740d34b",
+      "1e045da3-f0d6-57b1-9f5a-1ed8b34dfa4f",
+      "8c3e1d4a-b216-5a16-8fd9-5e9ed34c6fa9"
+    ]
+  },
+  {
+    "id": "opensource",
+    "split": "evaluation",
+    "domain": "open-source software",
+    "organization": "Helix Foundation",
+    "project": "Quasar",
+    "person": "Mateo Silva",
+    "worker_ids": [
+      "37db67b9-fcdf-5201-a91d-a071e07d65d1",
+      "2177db5d-6259-5f0c-8b38-1633bc6389f2",
+      "cc546e5b-1686-5d1a-9eb2-ac1e9829ff12",
+      "65d976ed-113e-5d58-82cb-2802de920be2",
+      "49080b11-7b35-5b68-9b9c-0f038098eb38"
+    ]
+  },
+  {
+    "id": "procurement",
+    "split": "evaluation",
+    "domain": "equipment purchasing",
+    "organization": "Summit Works",
+    "project": "Orion",
+    "person": "Hana Novak",
+    "worker_ids": [
+      "e12598f2-3043-54ce-ab01-2a00bea6e1e5",
+      "3e1b651c-078f-5d27-b58d-2740a9417a68",
+      "96e7860a-e8d6-5392-b94d-635741d0ebc9",
+      "960ea11b-0004-552d-aa36-b82e99a6b867",
+      "2d0e93a8-8031-5908-bde1-8e43d2221739"
+    ]
+  },
+  {
+    "id": "logistics",
+    "split": "evaluation",
+    "domain": "freight logistics",
+    "organization": "Bluewater Cargo",
+    "project": "Vega",
+    "person": "Amira Saleh",
+    "worker_ids": [
+      "e5dcec5c-c62c-5c31-89cb-428fe6ddc17e",
+      "de30b085-b2bf-56bb-ad4e-692c35904f97",
+      "c551f8c4-c29e-54f4-ab02-d0b2f27fdc20",
+      "a7d6373c-8a0d-5d9c-a683-63e1bdf6586e",
+      "99c6def0-5bb8-51ea-ad98-fce5205569fa"
+    ]
+  },
+  {
+    "id": "design",
+    "split": "evaluation",
+    "domain": "product design",
+    "organization": "Marigold Studio",
+    "project": "Prism",
+    "person": "Camille Dubois",
+    "worker_ids": [
+      "198ec419-d537-5e13-91ec-4279a6775c78",
+      "d5ddbdcf-28cc-5308-8d29-492545cb9b52",
+      "3b0d973f-ed2d-5308-94ef-430b58c746df",
+      "3f763695-15ba-5ea3-a5e6-5da8bb70c55a",
+      "51b32b4e-5cf2-5630-a0c2-b9b76a4ad088"
+    ]
+  },
+  {
+    "id": "nonprofit",
+    "split": "evaluation",
+    "domain": "nonprofit operations",
+    "organization": "Riverton Aid",
+    "project": "Tern",
+    "person": "Kwame Mensah",
+    "worker_ids": [
+      "21e20db3-c7c5-58d4-a364-73d67c10f3e1",
+      "e71fcb99-404f-5563-ad68-d4494b2bacb3",
+      "4c8f439a-9067-548d-bbc0-5f6155eadba5",
+      "c0a39d4f-594b-5736-b917-3eaaeef1bfde",
+      "575f87e6-1c16-5213-88f6-4da006908362"
+    ]
+  },
+  {
+    "id": "property",
+    "split": "evaluation",
+    "domain": "property management",
+    "organization": "Elmstone Estates",
+    "project": "Spruce",
+    "person": "Isabel Costa",
+    "worker_ids": [
+      "27e1f175-995b-5b0c-8f29-80c55dfe029a",
+      "d1f25813-6795-508b-8d5f-daf9496f6ff3",
+      "29f8403d-35fa-508a-bda9-205430a829f0",
+      "ac0bfc5c-2fc9-50a6-982d-fa3fd4cd05f1",
+      "b85aae63-029c-547d-b259-6c28e650a00b"
+    ]
+  },
+  {
+    "id": "manufacturing",
+    "split": "evaluation",
+    "domain": "manufacturing operations",
+    "organization": "Ironwood Tools",
+    "project": "Cobalt",
+    "person": "Tomasz Zielinski",
+    "worker_ids": [
+      "a8a6866e-d6c6-5422-8e45-873fe2fc94dd",
+      "bf3c5fac-be87-5883-947a-c59d42814893",
+      "3f67c716-38ac-5916-a778-ec4604f3660e",
+      "85ecfea6-318a-5b03-b35a-a51256559083",
+      "96b5edc8-6d12-531e-a758-7823854558af"
+    ]
+  },
+  {
+    "id": "agriculture",
+    "split": "evaluation",
+    "domain": "agricultural operations",
+    "organization": "Meadowlark Farm",
+    "project": "Saffron",
+    "person": "Nadia Rahman",
+    "worker_ids": [
+      "920fb2a3-3986-54a3-97b5-e75e72130054",
+      "23b840f5-5441-599b-8137-80e817efa266",
+      "409c0bc2-de08-5c18-a052-76800def913a",
+      "80962964-dc89-524a-9ccf-f6c3b147ed7f",
+      "89f73524-88ad-5eb3-a9b4-04586d2d2958"
+    ]
+  },
+  {
+    "id": "publishing",
+    "split": "evaluation",
+    "domain": "publishing",
+    "organization": "Paperkite Press",
+    "project": "Horizon",
+    "person": "Lea Muller",
+    "worker_ids": [
+      "6bcba024-b9dd-5ea2-8175-d5679140032f",
+      "ba5f1fff-1541-534f-a42b-2e7177350957",
+      "e0ddc9a8-f250-51f8-9f87-e49e73c5c39b",
+      "660ab781-7d59-515e-9e88-1d51077962af",
+      "4a5d50b7-7ac2-56d7-8cb5-c706e03517e3"
+    ]
+  },
+  {
+    "id": "security",
+    "split": "evaluation",
+    "domain": "information security",
+    "organization": "Stonebridge Systems",
+    "project": "Nimbus",
+    "person": "Yuki Sato",
+    "worker_ids": [
+      "625bf43b-96da-5cc9-8390-0aa9fd2268c4",
+      "4d9ce173-f0d4-581b-a874-cd14f6b71f7b",
+      "28656d82-90a7-5a47-9058-a6097b335828",
+      "8cd52456-afe0-5cda-bcc8-637eee735fc1",
+      "dac507f9-8a97-5e21-a2f9-bbb799de105f"
+    ]
+  }
+]

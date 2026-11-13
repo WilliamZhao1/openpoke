@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "vendor:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "b8e83b78-e30a-5118-aaf6-e9cc15c4f41f"
+    ],
+    "rationale": "The task, project and applicable period identify Beacon licenses 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "vendor:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e710677c-63de-52b2-860e-5c73a53708e6"
+    ],
+    "rationale": "The task, project and applicable period identify Northstar / Beacon duplicate charge; the other workers own different tasks or years."
+  },
+  {
+    "id": "vendor:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "d2bc5af0-279a-5701-9917-22ff14609ef3"
+    ],
+    "rationale": "The task, project and applicable period identify Beacon vendor assurance; the other workers own different tasks or years."
+  },
+  {
+    "id": "vendor:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "9671fb94-6440-562f-98de-d1c28e50ace1"
+    ],
+    "rationale": "The task, project and applicable period identify Getting Beacon seats ready; the other workers own different tasks or years."
+  },
+  {
+    "id": "vendor:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "1087cd9f-a8ab-56ea-bfb0-b7cf1f708366"
+    ],
+    "rationale": "The task, project and applicable period identify Beacon licenses 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "vendor:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "b8e83b78-e30a-5118-aaf6-e9cc15c4f41f"
+    ],
+    "rationale": "The task, project and applicable period identify Beacon licenses 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "vendor:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "e710677c-63de-52b2-860e-5c73a53708e6",
+      "9671fb94-6440-562f-98de-d1c28e50ace1"
+    ],
+    "rationale": "The request requires both Northstar / Beacon duplicate charge and Getting Beacon seats ready."
+  },
+  {
+    "id": "vendor:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "b8e83b78-e30a-5118-aaf6-e9cc15c4f41f",
+      "1087cd9f-a8ab-56ea-bfb0-b7cf1f708366"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Northstar Beacon; clarification is required before action."
+  },
+  {
+    "id": "vendor:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Northstar Beacon; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "vendor:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "d2bc5af0-279a-5701-9917-22ff14609ef3"
+    ],
+    "rationale": "The supplied private reference belongs to Beacon vendor assurance, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "travel:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "2fe3186e-b47e-5662-89dc-75f3b0fd5c3c"
+    ],
+    "rationale": "The task, project and applicable period identify Meridian rail passes 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "travel:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "54cf4528-9df2-5419-80a6-b89fd20ac51b"
+    ],
+    "rationale": "The task, project and applicable period identify Meridian missed connection claim; the other workers own different tasks or years."
+  },
+  {
+    "id": "travel:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "d10add08-fcdd-5c86-9e59-4cb9a0bd294d"
+    ],
+    "rationale": "The task, project and applicable period identify Accessible Meridian stays; the other workers own different tasks or years."
+  },
+  {
+    "id": "travel:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "faefee91-0127-524d-a87b-20137f861b1b"
+    ],
+    "rationale": "The task, project and applicable period identify Meridian workshop rooms; the other workers own different tasks or years."
+  },
+  {
+    "id": "travel:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "16d7a324-0cd8-5e89-a984-c6dbacdea84c"
+    ],
+    "rationale": "The task, project and applicable period identify Meridian rail passes 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "travel:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "2fe3186e-b47e-5662-89dc-75f3b0fd5c3c"
+    ],
+    "rationale": "The task, project and applicable period identify Meridian rail passes 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "travel:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "54cf4528-9df2-5419-80a6-b89fd20ac51b",
+      "faefee91-0127-524d-a87b-20137f861b1b"
+    ],
+    "rationale": "The request requires both Meridian missed connection claim and Meridian workshop rooms."
+  },
+  {
+    "id": "travel:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "2fe3186e-b47e-5662-89dc-75f3b0fd5c3c",
+      "16d7a324-0cd8-5e89-a984-c6dbacdea84c"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Brookhaven Meridian; clarification is required before action."
+  },
+  {
+    "id": "travel:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Brookhaven Meridian; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "travel:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "d10add08-fcdd-5c86-9e59-4cb9a0bd294d"
+    ],
+    "rationale": "The supplied private reference belongs to Accessible Meridian stays, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "legal:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "a1285ca9-0043-5009-8d93-3f0e6e8848a4"
+    ],
+    "rationale": "The task, project and applicable period identify Juniper lease — 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "legal:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "a266330e-8f7c-5b2b-9156-2ecfbd6cfe3a"
+    ],
+    "rationale": "The task, project and applicable period identify Juniper deposit recovery; the other workers own different tasks or years."
+  },
+  {
+    "id": "legal:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "3d5872bd-40dd-59fa-b86a-893cd7bedc73"
+    ],
+    "rationale": "The task, project and applicable period identify Juniper access terms; the other workers own different tasks or years."
+  },
+  {
+    "id": "legal:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "acc65727-6f38-5ebe-b539-175d338d7011"
+    ],
+    "rationale": "The task, project and applicable period identify Juniper signature appointment; the other workers own different tasks or years."
+  },
+  {
+    "id": "legal:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "a0cacc14-e877-5554-93b1-01157f1f934c"
+    ],
+    "rationale": "The task, project and applicable period identify Juniper lease — 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "legal:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "a1285ca9-0043-5009-8d93-3f0e6e8848a4"
+    ],
+    "rationale": "The task, project and applicable period identify Juniper lease — 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "legal:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "a266330e-8f7c-5b2b-9156-2ecfbd6cfe3a",
+      "acc65727-6f38-5ebe-b539-175d338d7011"
+    ],
+    "rationale": "The request requires both Juniper deposit recovery and Juniper signature appointment."
+  },
+  {
+    "id": "legal:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "a1285ca9-0043-5009-8d93-3f0e6e8848a4",
+      "a0cacc14-e877-5554-93b1-01157f1f934c"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Harbor Legal Juniper; clarification is required before action."
+  },
+  {
+    "id": "legal:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Harbor Legal Juniper; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "legal:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "3d5872bd-40dd-59fa-b86a-893cd7bedc73"
+    ],
+    "rationale": "The supplied private reference belongs to Juniper access terms, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "research:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "496e77c8-facf-5a70-b366-951a490a01e8"
+    ],
+    "rationale": "The task, project and applicable period identify Lumen 文献レビュー 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "research:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "b02f496b-15dc-530a-9e9d-122ceb233afd"
+    ],
+    "rationale": "The task, project and applicable period identify Lumen missing citations; the other workers own different tasks or years."
+  },
+  {
+    "id": "research:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "728593e6-2f09-504f-9576-84600b67a501"
+    ],
+    "rationale": "The task, project and applicable period identify Lumen reproducibility audit; the other workers own different tasks or years."
+  },
+  {
+    "id": "research:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "1ce53434-780e-5b84-aadb-8de6d905c7f9"
+    ],
+    "rationale": "The task, project and applicable period identify Lumen participant sessions; the other workers own different tasks or years."
+  },
+  {
+    "id": "research:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "ae994782-86f2-5338-8995-60636cc1633e"
+    ],
+    "rationale": "The task, project and applicable period identify Lumen 文献レビュー 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "research:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "496e77c8-facf-5a70-b366-951a490a01e8"
+    ],
+    "rationale": "The task, project and applicable period identify Lumen 文献レビュー 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "research:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "b02f496b-15dc-530a-9e9d-122ceb233afd",
+      "1ce53434-780e-5b84-aadb-8de6d905c7f9"
+    ],
+    "rationale": "The request requires both Lumen missing citations and Lumen participant sessions."
+  },
+  {
+    "id": "research:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "496e77c8-facf-5a70-b366-951a490a01e8",
+      "ae994782-86f2-5338-8995-60636cc1633e"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Cedar Institute Lumen; clarification is required before action."
+  },
+  {
+    "id": "research:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Cedar Institute Lumen; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "research:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "728593e6-2f09-504f-9576-84600b67a501"
+    ],
+    "rationale": "The supplied private reference belongs to Lumen reproducibility audit, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "events:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "f2a07b4e-de2f-5c00-bcca-fe4f6a2b429a"
+    ],
+    "rationale": "The task, project and applicable period identify Solstice venue renewal 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "events:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e7cc7679-06cc-5bd4-b684-c9bb7b595837"
+    ],
+    "rationale": "The task, project and applicable period identify Solstice catering credit; the other workers own different tasks or years."
+  },
+  {
+    "id": "events:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "28e44d43-64ae-5ecf-a940-945be6361978"
+    ],
+    "rationale": "The task, project and applicable period identify Solstice crowd safety; the other workers own different tasks or years."
+  },
+  {
+    "id": "events:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "812c60a6-7f28-546b-8096-95911aefdf21"
+    ],
+    "rationale": "The task, project and applicable period identify Solstice speaker arrivals; the other workers own different tasks or years."
+  },
+  {
+    "id": "events:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "9283861d-24c2-54aa-8e8f-0a2d272cefc4"
+    ],
+    "rationale": "The task, project and applicable period identify Solstice venue renewal 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "events:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "f2a07b4e-de2f-5c00-bcca-fe4f6a2b429a"
+    ],
+    "rationale": "The task, project and applicable period identify Solstice venue renewal 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "events:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "e7cc7679-06cc-5bd4-b684-c9bb7b595837",
+      "812c60a6-7f28-546b-8096-95911aefdf21"
+    ],
+    "rationale": "The request requires both Solstice catering credit and Solstice speaker arrivals."
+  },
+  {
+    "id": "events:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "f2a07b4e-de2f-5c00-bcca-fe4f6a2b429a",
+      "9283861d-24c2-54aa-8e8f-0a2d272cefc4"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Aster Collective Solstice; clarification is required before action."
+  },
+  {
+    "id": "events:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Aster Collective Solstice; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "events:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "28e44d43-64ae-5ecf-a940-945be6361978"
+    ],
+    "rationale": "The supplied private reference belongs to Solstice crowd safety, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "recruiting:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "ea897d36-5e6c-571c-9bc2-dba4db09856e"
+    ],
+    "rationale": "The task, project and applicable period identify Kestrel hiring plan 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "recruiting:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "45327e4e-91a7-5fe8-bb7a-f0163c83d254"
+    ],
+    "rationale": "The task, project and applicable period identify Kestrel candidate expenses; the other workers own different tasks or years."
+  },
+  {
+    "id": "recruiting:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "0ffed8bc-e8a5-5683-a1d0-4a75cc001c13"
+    ],
+    "rationale": "The task, project and applicable period identify Kestrel interview fairness; the other workers own different tasks or years."
+  },
+  {
+    "id": "recruiting:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "592c4678-2851-5c45-ac39-1c3b435c3fd6"
+    ],
+    "rationale": "The task, project and applicable period identify Kestrel panel calendars; the other workers own different tasks or years."
+  },
+  {
+    "id": "recruiting:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "60f3aafa-41d7-59c9-ab51-37a0b6f9e1aa"
+    ],
+    "rationale": "The task, project and applicable period identify Kestrel hiring plan 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "recruiting:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "ea897d36-5e6c-571c-9bc2-dba4db09856e"
+    ],
+    "rationale": "The task, project and applicable period identify Kestrel hiring plan 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "recruiting:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "45327e4e-91a7-5fe8-bb7a-f0163c83d254",
+      "592c4678-2851-5c45-ac39-1c3b435c3fd6"
+    ],
+    "rationale": "The request requires both Kestrel candidate expenses and Kestrel panel calendars."
+  },
+  {
+    "id": "recruiting:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "ea897d36-5e6c-571c-9bc2-dba4db09856e",
+      "60f3aafa-41d7-59c9-ab51-37a0b6f9e1aa"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Copper Finch Kestrel; clarification is required before action."
+  },
+  {
+    "id": "recruiting:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Copper Finch Kestrel; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "recruiting:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "0ffed8bc-e8a5-5683-a1d0-4a75cc001c13"
+    ],
+    "rationale": "The supplied private reference belongs to Kestrel interview fairness, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "finance:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "587c5a03-ff5c-55d1-af39-f74dd6b10168"
+    ],
+    "rationale": "The task, project and applicable period identify Estuary budget 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "finance:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "6dad1979-2b25-5589-b99e-d2f619c36844"
+    ],
+    "rationale": "The task, project and applicable period identify Estuary unmatched transfer; the other workers own different tasks or years."
+  },
+  {
+    "id": "finance:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "d2c5cf47-fc52-571f-b375-14bc0a9cc9e8"
+    ],
+    "rationale": "The task, project and applicable period identify Estuary expense controls; the other workers own different tasks or years."
+  },
+  {
+    "id": "finance:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "ce9881e5-e940-51ef-820c-c5e00663e7d0"
+    ],
+    "rationale": "The task, project and applicable period identify Estuary close calendar; the other workers own different tasks or years."
+  },
+  {
+    "id": "finance:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "71a56496-604a-5c14-8775-f17a4508cc48"
+    ],
+    "rationale": "The task, project and applicable period identify Estuary budget 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "finance:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "587c5a03-ff5c-55d1-af39-f74dd6b10168"
+    ],
+    "rationale": "The task, project and applicable period identify Estuary budget 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "finance:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "6dad1979-2b25-5589-b99e-d2f619c36844",
+      "ce9881e5-e940-51ef-820c-c5e00663e7d0"
+    ],
+    "rationale": "The request requires both Estuary unmatched transfer and Estuary close calendar."
+  },
+  {
+    "id": "finance:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "587c5a03-ff5c-55d1-af39-f74dd6b10168",
+      "71a56496-604a-5c14-8775-f17a4508cc48"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Redwood Partners Estuary; clarification is required before action."
+  },
+  {
+    "id": "finance:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Redwood Partners Estuary; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "finance:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "d2c5cf47-fc52-571f-b375-14bc0a9cc9e8"
+    ],
+    "rationale": "The supplied private reference belongs to Estuary expense controls, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "education:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "0426ea55-2a87-5592-b72c-7c01ccca8c92"
+    ],
+    "rationale": "The task, project and applicable period identify Atlas curriculum 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "education:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "2df73cda-8a4f-5bc0-8448-dd8e0b60f859"
+    ],
+    "rationale": "The task, project and applicable period identify Atlas tuition adjustment; the other workers own different tasks or years."
+  },
+  {
+    "id": "education:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e9e70849-b072-5ceb-8198-8f9bdd8bbe16"
+    ],
+    "rationale": "The task, project and applicable period identify Atlas assessment access; the other workers own different tasks or years."
+  },
+  {
+    "id": "education:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "64452720-50e9-5221-bda6-36789ef82ed9"
+    ],
+    "rationale": "The task, project and applicable period identify Atlas tutorial timetable; the other workers own different tasks or years."
+  },
+  {
+    "id": "education:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "40e82aed-3621-50e3-bc70-4253a11ebf62"
+    ],
+    "rationale": "The task, project and applicable period identify Atlas curriculum 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "education:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "0426ea55-2a87-5592-b72c-7c01ccca8c92"
+    ],
+    "rationale": "The task, project and applicable period identify Atlas curriculum 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "education:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "2df73cda-8a4f-5bc0-8448-dd8e0b60f859",
+      "64452720-50e9-5221-bda6-36789ef82ed9"
+    ],
+    "rationale": "The request requires both Atlas tuition adjustment and Atlas tutorial timetable."
+  },
+  {
+    "id": "education:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "0426ea55-2a87-5592-b72c-7c01ccca8c92",
+      "40e82aed-3621-50e3-bc70-4253a11ebf62"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Oakridge College Atlas; clarification is required before action."
+  },
+  {
+    "id": "education:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Oakridge College Atlas; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "education:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e9e70849-b072-5ceb-8198-8f9bdd8bbe16"
+    ],
+    "rationale": "The supplied private reference belongs to Atlas assessment access, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "home:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "22001057-b1e1-591a-b6bf-763431870fc3"
+    ],
+    "rationale": "The task, project and applicable period identify Maple cover 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "home:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "18592fc9-0ff0-5237-9d90-d66cfd67650d"
+    ],
+    "rationale": "The task, project and applicable period identify Maple water-damage claim; the other workers own different tasks or years."
+  },
+  {
+    "id": "home:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "a6f5da07-598d-5dfd-bc62-cc7deeaf0210"
+    ],
+    "rationale": "The task, project and applicable period identify Maple electrical checks; the other workers own different tasks or years."
+  },
+  {
+    "id": "home:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "58babe3e-1651-501e-ace0-6d3d6f2b15d9"
+    ],
+    "rationale": "The task, project and applicable period identify Maple contractor visits; the other workers own different tasks or years."
+  },
+  {
+    "id": "home:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "b81f9618-4997-571f-9ee4-0a4e63769168"
+    ],
+    "rationale": "The task, project and applicable period identify Maple cover 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "home:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "22001057-b1e1-591a-b6bf-763431870fc3"
+    ],
+    "rationale": "The task, project and applicable period identify Maple cover 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "home:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "18592fc9-0ff0-5237-9d90-d66cfd67650d",
+      "58babe3e-1651-501e-ace0-6d3d6f2b15d9"
+    ],
+    "rationale": "The request requires both Maple water-damage claim and Maple contractor visits."
+  },
+  {
+    "id": "home:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "22001057-b1e1-591a-b6bf-763431870fc3",
+      "b81f9618-4997-571f-9ee4-0a4e63769168"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Willow Household Maple; clarification is required before action."
+  },
+  {
+    "id": "home:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Willow Household Maple; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "home:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "a6f5da07-598d-5dfd-bc62-cc7deeaf0210"
+    ],
+    "rationale": "The supplied private reference belongs to Maple electrical checks, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "health_admin:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "f7410ad6-9edf-5c87-b51f-8a99abc1c5e0"
+    ],
+    "rationale": "The task, project and applicable period identify Birch equipment cover 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "health_admin:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "4f8ae002-092f-58f9-95f9-8b7344349f84"
+    ],
+    "rationale": "The task, project and applicable period identify Birch duplicate supplier bill; the other workers own different tasks or years."
+  },
+  {
+    "id": "health_admin:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "43276e96-402f-5c51-9557-16cec740d34b"
+    ],
+    "rationale": "The task, project and applicable period identify Birch records access review; the other workers own different tasks or years."
+  },
+  {
+    "id": "health_admin:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "1e045da3-f0d6-57b1-9f5a-1ed8b34dfa4f"
+    ],
+    "rationale": "The task, project and applicable period identify Birch service visits; the other workers own different tasks or years."
+  },
+  {
+    "id": "health_admin:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "8c3e1d4a-b216-5a16-8fd9-5e9ed34c6fa9"
+    ],
+    "rationale": "The task, project and applicable period identify Birch equipment cover 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "health_admin:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "f7410ad6-9edf-5c87-b51f-8a99abc1c5e0"
+    ],
+    "rationale": "The task, project and applicable period identify Birch equipment cover 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "health_admin:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "4f8ae002-092f-58f9-95f9-8b7344349f84",
+      "1e045da3-f0d6-57b1-9f5a-1ed8b34dfa4f"
+    ],
+    "rationale": "The request requires both Birch duplicate supplier bill and Birch service visits."
+  },
+  {
+    "id": "health_admin:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "f7410ad6-9edf-5c87-b51f-8a99abc1c5e0",
+      "8c3e1d4a-b216-5a16-8fd9-5e9ed34c6fa9"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Lakeside Clinic Birch; clarification is required before action."
+  },
+  {
+    "id": "health_admin:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Lakeside Clinic Birch; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "health_admin:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "43276e96-402f-5c51-9557-16cec740d34b"
+    ],
+    "rationale": "The supplied private reference belongs to Birch records access review, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "opensource:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "37db67b9-fcdf-5201-a91d-a071e07d65d1"
+    ],
+    "rationale": "The task, project and applicable period identify Quasar release support 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "opensource:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "2177db5d-6259-5f0c-8b38-1633bc6389f2"
+    ],
+    "rationale": "The task, project and applicable period identify Quasar broken build; the other workers own different tasks or years."
+  },
+  {
+    "id": "opensource:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "cc546e5b-1686-5d1a-9eb2-ac1e9829ff12"
+    ],
+    "rationale": "The task, project and applicable period identify Quasar dependency audit; the other workers own different tasks or years."
+  },
+  {
+    "id": "opensource:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "65d976ed-113e-5d58-82cb-2802de920be2"
+    ],
+    "rationale": "The task, project and applicable period identify Quasar maintainer rota; the other workers own different tasks or years."
+  },
+  {
+    "id": "opensource:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "49080b11-7b35-5b68-9b9c-0f038098eb38"
+    ],
+    "rationale": "The task, project and applicable period identify Quasar release support 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "opensource:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "37db67b9-fcdf-5201-a91d-a071e07d65d1"
+    ],
+    "rationale": "The task, project and applicable period identify Quasar release support 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "opensource:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "2177db5d-6259-5f0c-8b38-1633bc6389f2",
+      "65d976ed-113e-5d58-82cb-2802de920be2"
+    ],
+    "rationale": "The request requires both Quasar broken build and Quasar maintainer rota."
+  },
+  {
+    "id": "opensource:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "37db67b9-fcdf-5201-a91d-a071e07d65d1",
+      "49080b11-7b35-5b68-9b9c-0f038098eb38"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Helix Foundation Quasar; clarification is required before action."
+  },
+  {
+    "id": "opensource:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Helix Foundation Quasar; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "opensource:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "cc546e5b-1686-5d1a-9eb2-ac1e9829ff12"
+    ],
+    "rationale": "The supplied private reference belongs to Quasar dependency audit, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "procurement:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e12598f2-3043-54ce-ab01-2a00bea6e1e5"
+    ],
+    "rationale": "The task, project and applicable period identify Orion supply terms 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "procurement:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "3e1b651c-078f-5d27-b58d-2740a9417a68"
+    ],
+    "rationale": "The task, project and applicable period identify Orion damaged delivery; the other workers own different tasks or years."
+  },
+  {
+    "id": "procurement:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "96e7860a-e8d6-5392-b94d-635741d0ebc9"
+    ],
+    "rationale": "The task, project and applicable period identify Orion supplier diligence; the other workers own different tasks or years."
+  },
+  {
+    "id": "procurement:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "960ea11b-0004-552d-aa36-b82e99a6b867"
+    ],
+    "rationale": "The task, project and applicable period identify Orion receiving slots; the other workers own different tasks or years."
+  },
+  {
+    "id": "procurement:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "2d0e93a8-8031-5908-bde1-8e43d2221739"
+    ],
+    "rationale": "The task, project and applicable period identify Orion supply terms 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "procurement:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e12598f2-3043-54ce-ab01-2a00bea6e1e5"
+    ],
+    "rationale": "The task, project and applicable period identify Orion supply terms 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "procurement:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "3e1b651c-078f-5d27-b58d-2740a9417a68",
+      "960ea11b-0004-552d-aa36-b82e99a6b867"
+    ],
+    "rationale": "The request requires both Orion damaged delivery and Orion receiving slots."
+  },
+  {
+    "id": "procurement:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "e12598f2-3043-54ce-ab01-2a00bea6e1e5",
+      "2d0e93a8-8031-5908-bde1-8e43d2221739"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Summit Works Orion; clarification is required before action."
+  },
+  {
+    "id": "procurement:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Summit Works Orion; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "procurement:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "96e7860a-e8d6-5392-b94d-635741d0ebc9"
+    ],
+    "rationale": "The supplied private reference belongs to Orion supplier diligence, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "logistics:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e5dcec5c-c62c-5c31-89cb-428fe6ddc17e"
+    ],
+    "rationale": "The task, project and applicable period identify Vega freight agreement 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "logistics:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "de30b085-b2bf-56bb-ad4e-692c35904f97"
+    ],
+    "rationale": "The task, project and applicable period identify Vega missing pallet; the other workers own different tasks or years."
+  },
+  {
+    "id": "logistics:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "c551f8c4-c29e-54f4-ab02-d0b2f27fdc20"
+    ],
+    "rationale": "The task, project and applicable period identify Vega customs documents; the other workers own different tasks or years."
+  },
+  {
+    "id": "logistics:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "a7d6373c-8a0d-5d9c-a683-63e1bdf6586e"
+    ],
+    "rationale": "The task, project and applicable period identify Vega dock roster; the other workers own different tasks or years."
+  },
+  {
+    "id": "logistics:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "99c6def0-5bb8-51ea-ad98-fce5205569fa"
+    ],
+    "rationale": "The task, project and applicable period identify Vega freight agreement 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "logistics:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e5dcec5c-c62c-5c31-89cb-428fe6ddc17e"
+    ],
+    "rationale": "The task, project and applicable period identify Vega freight agreement 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "logistics:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "de30b085-b2bf-56bb-ad4e-692c35904f97",
+      "a7d6373c-8a0d-5d9c-a683-63e1bdf6586e"
+    ],
+    "rationale": "The request requires both Vega missing pallet and Vega dock roster."
+  },
+  {
+    "id": "logistics:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "e5dcec5c-c62c-5c31-89cb-428fe6ddc17e",
+      "99c6def0-5bb8-51ea-ad98-fce5205569fa"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Bluewater Cargo Vega; clarification is required before action."
+  },
+  {
+    "id": "logistics:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Bluewater Cargo Vega; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "logistics:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "c551f8c4-c29e-54f4-ab02-d0b2f27fdc20"
+    ],
+    "rationale": "The supplied private reference belongs to Vega customs documents, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "design:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "198ec419-d537-5e13-91ec-4279a6775c78"
+    ],
+    "rationale": "The task, project and applicable period identify Prism design retainer 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "design:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "d5ddbdcf-28cc-5308-8d29-492545cb9b52"
+    ],
+    "rationale": "The task, project and applicable period identify Prism disputed revision fee; the other workers own different tasks or years."
+  },
+  {
+    "id": "design:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "3b0d973f-ed2d-5308-94ef-430b58c746df"
+    ],
+    "rationale": "The task, project and applicable period identify Prism contrast review; the other workers own different tasks or years."
+  },
+  {
+    "id": "design:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "3f763695-15ba-5ea3-a5e6-5da8bb70c55a"
+    ],
+    "rationale": "The task, project and applicable period identify Prism research bookings; the other workers own different tasks or years."
+  },
+  {
+    "id": "design:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "51b32b4e-5cf2-5630-a0c2-b9b76a4ad088"
+    ],
+    "rationale": "The task, project and applicable period identify Prism design retainer 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "design:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "198ec419-d537-5e13-91ec-4279a6775c78"
+    ],
+    "rationale": "The task, project and applicable period identify Prism design retainer 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "design:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "d5ddbdcf-28cc-5308-8d29-492545cb9b52",
+      "3f763695-15ba-5ea3-a5e6-5da8bb70c55a"
+    ],
+    "rationale": "The request requires both Prism disputed revision fee and Prism research bookings."
+  },
+  {
+    "id": "design:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "198ec419-d537-5e13-91ec-4279a6775c78",
+      "51b32b4e-5cf2-5630-a0c2-b9b76a4ad088"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Marigold Studio Prism; clarification is required before action."
+  },
+  {
+    "id": "design:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Marigold Studio Prism; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "design:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "3b0d973f-ed2d-5308-94ef-430b58c746df"
+    ],
+    "rationale": "The supplied private reference belongs to Prism contrast review, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "nonprofit:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "21e20db3-c7c5-58d4-a364-73d67c10f3e1"
+    ],
+    "rationale": "The task, project and applicable period identify Tern grant renewal 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "nonprofit:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e71fcb99-404f-5563-ad68-d4494b2bacb3"
+    ],
+    "rationale": "The task, project and applicable period identify Tern missing donation; the other workers own different tasks or years."
+  },
+  {
+    "id": "nonprofit:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "4c8f439a-9067-548d-bbc0-5f6155eadba5"
+    ],
+    "rationale": "The task, project and applicable period identify Tern safeguarding review; the other workers own different tasks or years."
+  },
+  {
+    "id": "nonprofit:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "c0a39d4f-594b-5736-b917-3eaaeef1bfde"
+    ],
+    "rationale": "The task, project and applicable period identify Tern volunteer shifts; the other workers own different tasks or years."
+  },
+  {
+    "id": "nonprofit:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "575f87e6-1c16-5213-88f6-4da006908362"
+    ],
+    "rationale": "The task, project and applicable period identify Tern grant renewal 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "nonprofit:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "21e20db3-c7c5-58d4-a364-73d67c10f3e1"
+    ],
+    "rationale": "The task, project and applicable period identify Tern grant renewal 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "nonprofit:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "e71fcb99-404f-5563-ad68-d4494b2bacb3",
+      "c0a39d4f-594b-5736-b917-3eaaeef1bfde"
+    ],
+    "rationale": "The request requires both Tern missing donation and Tern volunteer shifts."
+  },
+  {
+    "id": "nonprofit:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "21e20db3-c7c5-58d4-a364-73d67c10f3e1",
+      "575f87e6-1c16-5213-88f6-4da006908362"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Riverton Aid Tern; clarification is required before action."
+  },
+  {
+    "id": "nonprofit:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Riverton Aid Tern; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "nonprofit:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "4c8f439a-9067-548d-bbc0-5f6155eadba5"
+    ],
+    "rationale": "The supplied private reference belongs to Tern safeguarding review, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "property:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "27e1f175-995b-5b0c-8f29-80c55dfe029a"
+    ],
+    "rationale": "The task, project and applicable period identify Spruce service contract 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "property:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "d1f25813-6795-508b-8d5f-daf9496f6ff3"
+    ],
+    "rationale": "The task, project and applicable period identify Spruce incorrect service charge; the other workers own different tasks or years."
+  },
+  {
+    "id": "property:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "29f8403d-35fa-508a-bda9-205430a829f0"
+    ],
+    "rationale": "The task, project and applicable period identify Spruce fire-door review; the other workers own different tasks or years."
+  },
+  {
+    "id": "property:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "ac0bfc5c-2fc9-50a6-982d-fa3fd4cd05f1"
+    ],
+    "rationale": "The task, project and applicable period identify Spruce resident visits; the other workers own different tasks or years."
+  },
+  {
+    "id": "property:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "b85aae63-029c-547d-b259-6c28e650a00b"
+    ],
+    "rationale": "The task, project and applicable period identify Spruce service contract 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "property:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "27e1f175-995b-5b0c-8f29-80c55dfe029a"
+    ],
+    "rationale": "The task, project and applicable period identify Spruce service contract 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "property:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "d1f25813-6795-508b-8d5f-daf9496f6ff3",
+      "ac0bfc5c-2fc9-50a6-982d-fa3fd4cd05f1"
+    ],
+    "rationale": "The request requires both Spruce incorrect service charge and Spruce resident visits."
+  },
+  {
+    "id": "property:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "27e1f175-995b-5b0c-8f29-80c55dfe029a",
+      "b85aae63-029c-547d-b259-6c28e650a00b"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Elmstone Estates Spruce; clarification is required before action."
+  },
+  {
+    "id": "property:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Elmstone Estates Spruce; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "property:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "29f8403d-35fa-508a-bda9-205430a829f0"
+    ],
+    "rationale": "The supplied private reference belongs to Spruce fire-door review, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "manufacturing:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "a8a6866e-d6c6-5422-8e45-873fe2fc94dd"
+    ],
+    "rationale": "The task, project and applicable period identify Cobalt calibration contract 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "manufacturing:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "bf3c5fac-be87-5883-947a-c59d42814893"
+    ],
+    "rationale": "The task, project and applicable period identify Cobalt rejected batch; the other workers own different tasks or years."
+  },
+  {
+    "id": "manufacturing:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "3f67c716-38ac-5916-a778-ec4604f3660e"
+    ],
+    "rationale": "The task, project and applicable period identify Cobalt machine guarding; the other workers own different tasks or years."
+  },
+  {
+    "id": "manufacturing:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "85ecfea6-318a-5b03-b35a-a51256559083"
+    ],
+    "rationale": "The task, project and applicable period identify Cobalt shutdown calendar; the other workers own different tasks or years."
+  },
+  {
+    "id": "manufacturing:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "96b5edc8-6d12-531e-a758-7823854558af"
+    ],
+    "rationale": "The task, project and applicable period identify Cobalt calibration contract 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "manufacturing:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "a8a6866e-d6c6-5422-8e45-873fe2fc94dd"
+    ],
+    "rationale": "The task, project and applicable period identify Cobalt calibration contract 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "manufacturing:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "bf3c5fac-be87-5883-947a-c59d42814893",
+      "85ecfea6-318a-5b03-b35a-a51256559083"
+    ],
+    "rationale": "The request requires both Cobalt rejected batch and Cobalt shutdown calendar."
+  },
+  {
+    "id": "manufacturing:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "a8a6866e-d6c6-5422-8e45-873fe2fc94dd",
+      "96b5edc8-6d12-531e-a758-7823854558af"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Ironwood Tools Cobalt; clarification is required before action."
+  },
+  {
+    "id": "manufacturing:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Ironwood Tools Cobalt; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "manufacturing:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "3f67c716-38ac-5916-a778-ec4604f3660e"
+    ],
+    "rationale": "The supplied private reference belongs to Cobalt machine guarding, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "agriculture:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "920fb2a3-3986-54a3-97b5-e75e72130054"
+    ],
+    "rationale": "The task, project and applicable period identify Saffron water allocation 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "agriculture:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "23b840f5-5441-599b-8137-80e817efa266"
+    ],
+    "rationale": "The task, project and applicable period identify Saffron seed delivery claim; the other workers own different tasks or years."
+  },
+  {
+    "id": "agriculture:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "409c0bc2-de08-5c18-a052-76800def913a"
+    ],
+    "rationale": "The task, project and applicable period identify Saffron soil certification; the other workers own different tasks or years."
+  },
+  {
+    "id": "agriculture:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "80962964-dc89-524a-9ccf-f6c3b147ed7f"
+    ],
+    "rationale": "The task, project and applicable period identify Saffron harvest crews; the other workers own different tasks or years."
+  },
+  {
+    "id": "agriculture:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "89f73524-88ad-5eb3-a9b4-04586d2d2958"
+    ],
+    "rationale": "The task, project and applicable period identify Saffron water allocation 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "agriculture:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "920fb2a3-3986-54a3-97b5-e75e72130054"
+    ],
+    "rationale": "The task, project and applicable period identify Saffron water allocation 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "agriculture:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "23b840f5-5441-599b-8137-80e817efa266",
+      "80962964-dc89-524a-9ccf-f6c3b147ed7f"
+    ],
+    "rationale": "The request requires both Saffron seed delivery claim and Saffron harvest crews."
+  },
+  {
+    "id": "agriculture:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "920fb2a3-3986-54a3-97b5-e75e72130054",
+      "89f73524-88ad-5eb3-a9b4-04586d2d2958"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Meadowlark Farm Saffron; clarification is required before action."
+  },
+  {
+    "id": "agriculture:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Meadowlark Farm Saffron; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "agriculture:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "409c0bc2-de08-5c18-a052-76800def913a"
+    ],
+    "rationale": "The supplied private reference belongs to Saffron soil certification, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "publishing:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "6bcba024-b9dd-5ea2-8175-d5679140032f"
+    ],
+    "rationale": "The task, project and applicable period identify Horizon rights 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "publishing:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "ba5f1fff-1541-534f-a42b-2e7177350957"
+    ],
+    "rationale": "The task, project and applicable period identify Horizon royalty correction; the other workers own different tasks or years."
+  },
+  {
+    "id": "publishing:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e0ddc9a8-f250-51f8-9f87-e49e73c5c39b"
+    ],
+    "rationale": "The task, project and applicable period identify Horizon permissions audit; the other workers own different tasks or years."
+  },
+  {
+    "id": "publishing:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "660ab781-7d59-515e-9e88-1d51077962af"
+    ],
+    "rationale": "The task, project and applicable period identify Horizon proof timetable; the other workers own different tasks or years."
+  },
+  {
+    "id": "publishing:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "4a5d50b7-7ac2-56d7-8cb5-c706e03517e3"
+    ],
+    "rationale": "The task, project and applicable period identify Horizon rights 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "publishing:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "6bcba024-b9dd-5ea2-8175-d5679140032f"
+    ],
+    "rationale": "The task, project and applicable period identify Horizon rights 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "publishing:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "ba5f1fff-1541-534f-a42b-2e7177350957",
+      "660ab781-7d59-515e-9e88-1d51077962af"
+    ],
+    "rationale": "The request requires both Horizon royalty correction and Horizon proof timetable."
+  },
+  {
+    "id": "publishing:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "6bcba024-b9dd-5ea2-8175-d5679140032f",
+      "4a5d50b7-7ac2-56d7-8cb5-c706e03517e3"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Paperkite Press Horizon; clarification is required before action."
+  },
+  {
+    "id": "publishing:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Paperkite Press Horizon; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "publishing:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "e0ddc9a8-f250-51f8-9f87-e49e73c5c39b"
+    ],
+    "rationale": "The supplied private reference belongs to Horizon permissions audit, but its link is absent from every searchable field; diagnostic only."
+  },
+  {
+    "id": "security:exact_name",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "625bf43b-96da-5cc9-8390-0aa9fd2268c4"
+    ],
+    "rationale": "The task, project and applicable period identify Nimbus monitoring contract 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "security:description",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "4d9ce173-f0d4-581b-a874-cd14f6b71f7b"
+    ],
+    "rationale": "The task, project and applicable period identify Nimbus suspicious sign-in; the other workers own different tasks or years."
+  },
+  {
+    "id": "security:paraphrase",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "28656d82-90a7-5a47-9058-a6097b335828"
+    ],
+    "rationale": "The task, project and applicable period identify Nimbus restore exercise; the other workers own different tasks or years."
+  },
+  {
+    "id": "security:same_entity",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "8cd52456-afe0-5cda-bcc8-637eee735fc1"
+    ],
+    "rationale": "The task, project and applicable period identify Nimbus on-call coverage; the other workers own different tasks or years."
+  },
+  {
+    "id": "security:period_artifact",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "dac507f9-8a97-5e21-a2f9-bbb799de105f"
+    ],
+    "rationale": "The task, project and applicable period identify Nimbus monitoring contract 2027; the other workers own different tasks or years."
+  },
+  {
+    "id": "security:dormant",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "625bf43b-96da-5cc9-8390-0aa9fd2268c4"
+    ],
+    "rationale": "The task, project and applicable period identify Nimbus monitoring contract 2026; the other workers own different tasks or years."
+  },
+  {
+    "id": "security:multiple",
+    "kind": "multiple",
+    "relevant_worker_ids": [
+      "4d9ce173-f0d4-581b-a874-cd14f6b71f7b",
+      "8cd52456-afe0-5cda-bcc8-637eee735fc1"
+    ],
+    "rationale": "The request requires both Nimbus suspicious sign-in and Nimbus on-call coverage."
+  },
+  {
+    "id": "security:ambiguous",
+    "kind": "ambiguous",
+    "relevant_worker_ids": [
+      "625bf43b-96da-5cc9-8390-0aa9fd2268c4",
+      "dac507f9-8a97-5e21-a2f9-bbb799de105f"
+    ],
+    "rationale": "Both annual owners are relevant because the request omits the year within Stonebridge Systems Nimbus; clarification is required before action."
+  },
+  {
+    "id": "security:no_match",
+    "kind": "none",
+    "relevant_worker_ids": [],
+    "rationale": "No base worker owns the requested new task in Stonebridge Systems Nimbus; background workers have explicitly different project scopes."
+  },
+  {
+    "id": "security:insufficient_metadata",
+    "kind": "single",
+    "relevant_worker_ids": [
+      "28656d82-90a7-5a47-9058-a6097b335828"
+    ],
+    "rationale": "The supplied private reference belongs to Nimbus restore exercise, but its link is absent from every searchable field; diagnostic only."
+  }
+]

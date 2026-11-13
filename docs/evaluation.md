@@ -17,6 +17,7 @@ credentials from runtime data. See the CLI guides for output-directory rules.
 | Frontend history | `npm test --prefix web` | Chat-history handling under the frontend test runner |
 | Model-free baseline | `python evals/agent_overload/run.py` | Full-roster fixtures, telemetry availability, synthetic routing/effect plumbing |
 | Retrieval comparison | [Worker ranking commands](worker-ranking.md#comparison-commands) | Actual ranked/packed outputs, judged-owner recall, local lookup timing, and preparation allocation |
+| Varied discovery benchmark | [Discovery-quality v2](discovery-quality-benchmark.md) | 100 authored workers, 200 family-split requests, seven frozen catalogs and separate diagnostic/primary metrics; independent review pending |
 | Paired agent comparison | [Agent harness](../evals/agent_overload/README.md#phase-3-paired-comparison) | Legacy/bounded controls; scripted or live model decisions; Gmail effects remain fake |
 | Application checks | [Release checks](agent-overload-release-checks.md) | Scripted HTTP/proxy/rendering, callbacks, triggers, startup/shutdown, and clearing |
 | Community mechanism checks | `python -m unittest evals.community_catalog_poc.test_demo -v` | Numerical boundary recovery, deterministic selection, and comparison accounting; requires NumPy |
@@ -26,6 +27,14 @@ Live agent comparisons incur provider charges only when explicitly selected.
 Scripted checks are not live-model evidence. Community evaluation requires its
 separate model/database setup; numerical tests do not require either.
 
+## Discovery-v2 regression validation
+
+The discovery-v2 extension adds 12 backend checks; its 2026-11-12 isolated run
+passed **267 backend tests**. It introduces no frontend changes or new live-model
+evidence. Its [design and evidence](discovery-quality-benchmark.md) keep worker
+discovery measurements separate from the broader bounded release and historical
+release-check counts.
+
 ## Saved results
 
 | Evidence | Observed outcome and boundary |
@@ -33,6 +42,7 @@ separate model/database setup; numerical tests do not require either.
 | [Baseline](../evals/agent_overload/baseline/report.md) | Model-free control, not live quality/cost evidence |
 | [Legacy/bounded live comparison](agent-overload-comparison.md) | Both arms selected expected routing actions/owners in 6/6 selected scenarios at 100 workers. Original bounded draft effect failed; focused guidance recheck passed. Fake Gmail, small synthetic sample. |
 | [Ranking comparison](../evals/agent_overload/ranking_comparisons/2026-11-11/retrieval-report.md) | All three rankers tied: 94.44% mean owner recall@5 over nine judged evaluation queries, 100% top-1 over seven applicable queries. Same authored queries repeated at 100/1,000/10,000 workers. Default remains `heuristic_v1`. |
+| [Varied discovery v2](../evals/agent_overload/discovery_comparisons/2026-11-12/report.md) | 4,200 offline rows, no failures; 10,000-worker evaluation recall@5 is 92.92%/97.50%/98.75% for heuristic/IDF/BM25. Family-level uncertainty and per-draw results retained; independent review pending, no defaults promoted. |
 | [Scripted ranking agents](../evals/agent_overload/ranking_comparisons/2026-11-11/agent-report.md) | Six rows preserve routing/callback plumbing and exact fake draft effects; scripted choices do not measure live compliance. |
 | [Community routing](community-catalog.md#evaluation-and-results) | Five communities/three representatives match flat recall on both nine-request judged samples, with maximum 314/1,000 explicit comparisons. Confirmation is not independent; latency remains slower. |
 

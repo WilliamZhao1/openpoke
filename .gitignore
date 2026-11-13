@@ -58,6 +58,7 @@ evals/agent_overload/runs/
 !/docs/runtime-scope.md
 !/docs/worker-discovery.md
 !/docs/worker-ranking.md
+!/docs/discovery-quality-benchmark.md
 !/docs/context-budgets.md
 !/docs/content-capture.md
 !/docs/context-recovery.md

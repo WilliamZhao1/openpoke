@@ -26,6 +26,7 @@ in the [repository README](../README.md).
 | Guide or evidence | What it covers |
 | --- | --- |
 | [Evaluation guide](evaluation.md) | Test layers, reproduction commands, measured outcomes, and claim boundaries |
+| [Discovery-quality v2](discovery-quality-benchmark.md) | Varied worker benchmark, family-disjoint requests, three fixed distractor draws and offline measurements |
 | [Legacy/bounded comparison](agent-overload-comparison.md) | Historical live-model comparison with fake Gmail, initial failure, and focused recheck |
 | [Application release checks](agent-overload-release-checks.md) | Scripted HTTP/proxy/rendering checks, default promotion, and rollback |
 | [Community catalog experiment](community-catalog.md) | Standalone semantic retrieval design, frozen configuration, results, and limits |

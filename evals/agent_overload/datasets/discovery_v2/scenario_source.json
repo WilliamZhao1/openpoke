@@ -1,0 +1,942 @@
+[
+  {
+    "id": "vendor",
+    "split": "development",
+    "domain": "software procurement",
+    "organization": "Northstar",
+    "project": "Beacon",
+    "person": "Maya Chen",
+    "workers": [
+      [
+        "Beacon licenses 2026",
+        "Renew Northstar Beacon software licenses for 2026.",
+        "Maya Chen filed the 2026 subscription renewal and retained its pricing agreement."
+      ],
+      [
+        "Northstar / Beacon duplicate charge",
+        "Resolve the duplicate charge on the Beacon subscription at Northstar.",
+        "Compare the two invoices and obtain a refund for the extra payment."
+      ],
+      [
+        "Beacon vendor assurance",
+        "Complete the security assessment for Northstar Beacon software.",
+        "Review supplier controls and the questionnaire for Maya Chen."
+      ],
+      [
+        "Getting Beacon seats ready",
+        "Onboard Northstar staff to the Beacon software workspace.",
+        "Prepare invitations and seat allocations for the new team."
+      ],
+      [
+        "Beacon licenses 2027",
+        "Renew Northstar Beacon software licenses for 2027.",
+        "Collect next-year seat estimates and negotiate the 2027 subscription."
+      ]
+    ],
+    "queries": [
+      "Beacon licenses 2026",
+      "Who is handling the double payment for Northstar Beacon?",
+      "Find the owner checking whether the Beacon supplier at Northstar meets our protection requirements.",
+      "For Northstar Beacon, continue getting the new team onto the workspace rather than changing the subscription.",
+      "Pick up the Northstar Beacon license agreement for 2027, rather than the 2026 one.",
+      "Find the older Northstar Beacon 2026 subscription work that Maya Chen filed.",
+      "I need both the duplicate-invoice refund and the new-staff invitations for Northstar Beacon.",
+      "Which workers handle Northstar Beacon license renewals? I have not specified a year.",
+      "Start arranging an art auction for Northstar Beacon; which existing worker owns that?",
+      "Find the worker associated with private receipt QX-VENDOR-48."
+    ]
+  },
+  {
+    "id": "travel",
+    "split": "development",
+    "domain": "business travel",
+    "organization": "Brookhaven",
+    "project": "Meridian",
+    "person": "Omar Haddad",
+    "workers": [
+      [
+        "Meridian rail passes 2026",
+        "Book Brookhaven Meridian rail passes for the 2026 business trip.",
+        "Omar Haddad saved the earlier 2026 rail booking."
+      ],
+      [
+        "Meridian missed connection claim",
+        "Recover the cost of the missed train connection on Brookhaven Meridian.",
+        "Submit tickets and the delay certificate for reimbursement."
+      ],
+      [
+        "Accessible Meridian stays",
+        "Arrange step-free hotel accommodation for Brookhaven Meridian travelers.",
+        "Confirm accessible rooms and lift access with the hotel."
+      ],
+      [
+        "Meridian workshop rooms",
+        "Reserve meeting rooms for the Brookhaven Meridian workshop.",
+        "Check projector availability and the attendee seating plan."
+      ],
+      [
+        "Meridian rail passes 2027",
+        "Book Brookhaven Meridian rail passes for the 2027 business trip.",
+        "Request 2027 departure preferences and rail fares."
+      ]
+    ],
+    "queries": [
+      "Meridian rail passes 2026",
+      "Locate the Brookhaven Meridian train-delay reimbursement work.",
+      "Who was ensuring travelers on Brookhaven Meridian could reach their hotel rooms without stairs?",
+      "Continue the meeting-space arrangements for Brookhaven Meridian, not transport or lodging.",
+      "I mean the Brookhaven Meridian railway booking for 2027, not the previous year.",
+      "Reopen Omar Haddad’s older Brookhaven Meridian 2026 train-pass arrangement.",
+      "Bring back the Brookhaven Meridian missed-connection claim and workshop room booking.",
+      "Show the owners of Brookhaven Meridian train-pass bookings across the two years.",
+      "We need a new Brookhaven Meridian employee pension review; does any worker own it?",
+      "Locate the owner of confidential ticket QX-TRAVEL-51."
+    ]
+  },
+  {
+    "id": "legal",
+    "split": "development",
+    "domain": "legal administration",
+    "organization": "Harbor Legal",
+    "project": "Juniper",
+    "person": "Elena Rossi",
+    "workers": [
+      [
+        "Juniper lease — 2026",
+        "Renew the Harbor Legal Juniper office lease for 2026.",
+        "Elena Rossi kept the signed 2026 tenancy renewal."
+      ],
+      [
+        "Juniper deposit recovery",
+        "Recover the disputed deposit for the Harbor Legal Juniper office.",
+        "Reconcile the landlord deductions against the check-out inventory."
+      ],
+      [
+        "Juniper access terms",
+        "Review data-access clauses in the Harbor Legal Juniper supplier agreement.",
+        "Check confidentiality obligations and permitted disclosures."
+      ],
+      [
+        "Juniper signature appointment",
+        "Arrange the Harbor Legal Juniper document-signing appointment.",
+        "Coordinate signatories, witness availability and the appointment room."
+      ],
+      [
+        "Juniper lease — 2027",
+        "Renew the Harbor Legal Juniper office lease for 2027.",
+        "Review rent and break clauses for the 2027 tenancy."
+      ]
+    ],
+    "queries": [
+      "Juniper lease — 2026",
+      "Who has the Harbor Legal Juniper landlord-deposit dispute?",
+      "Find the Harbor Legal Juniper owner checking who may see confidential supplier information.",
+      "Harbor Legal Juniper needs the signing meeting coordinated, not another contract review.",
+      "Continue the Harbor Legal Juniper tenancy extension for 2027 specifically.",
+      "Find Elena Rossi’s archived Harbor Legal Juniper 2026 rental agreement work.",
+      "Get the deposit-recovery and signing-appointment workers for Harbor Legal Juniper.",
+      "Find the workers for Harbor Legal Juniper office-lease renewals without choosing a year.",
+      "Assign Harbor Legal Juniper a new aquarium-maintenance task; is there an existing owner?",
+      "Find the matter linked to sealed exhibit QX-LEGAL-73."
+    ]
+  },
+  {
+    "id": "research",
+    "split": "development",
+    "domain": "academic research",
+    "organization": "Cedar Institute",
+    "project": "Lumen",
+    "person": "Aiko Tanaka",
+    "workers": [
+      [
+        "Lumen 文献レビュー 2026",
+        "Update the Cedar Institute Lumen literature review for 2026.",
+        "Aiko Tanaka saved the 2026 annotated bibliography."
+      ],
+      [
+        "Lumen missing citations",
+        "Repair missing references in the Cedar Institute Lumen manuscript.",
+        "Track uncited tables and restore bibliography entries."
+      ],
+      [
+        "Lumen reproducibility audit",
+        "Check whether Cedar Institute Lumen experiments can be reproduced.",
+        "Verify the methods, environment records and analysis notebooks."
+      ],
+      [
+        "Lumen participant sessions",
+        "Schedule Cedar Institute Lumen study-participant interviews.",
+        "Confirm consent appointments and interview slots."
+      ],
+      [
+        "Lumen 文献レビュー 2027",
+        "Update the Cedar Institute Lumen literature review for 2027.",
+        "Collect papers for the 2027 evidence update."
+      ]
+    ],
+    "queries": [
+      "Lumen 文献レビュー 2026",
+      "Who is repairing the absent bibliography entries in the Cedar Institute Lumen paper?",
+      "For Cedar Institute Lumen, locate the person checking whether another lab can repeat our experiments.",
+      "Continue arranging participant interview times for Cedar Institute Lumen.",
+      "Find the Cedar Institute Lumen literature survey covering 2027 rather than 2026.",
+      "Locate Aiko Tanaka’s older Cedar Institute Lumen 2026 bibliography work.",
+      "Find both reference repair and participant scheduling for Cedar Institute Lumen.",
+      "Who owns Cedar Institute Lumen literature-review updates? The year is unspecified.",
+      "Start a new Cedar Institute Lumen fleet-insurance negotiation; is it already owned?",
+      "Which worker has restricted notebook QX-RESEARCH-36?"
+    ]
+  },
+  {
+    "id": "events",
+    "split": "development",
+    "domain": "event operations",
+    "organization": "Aster Collective",
+    "project": "Solstice",
+    "person": "Noah Williams",
+    "workers": [
+      [
+        "Solstice venue renewal 2026",
+        "Renew the Aster Collective Solstice venue agreement for 2026.",
+        "Noah Williams retained the signed 2026 hall agreement."
+      ],
+      [
+        "Solstice catering credit",
+        "Obtain a credit for the Aster Collective Solstice catering overcharge.",
+        "Compare the delivered meals with the caterer invoice."
+      ],
+      [
+        "Solstice crowd safety",
+        "Review crowd-management arrangements for Aster Collective Solstice.",
+        "Check evacuation routes and steward coverage."
+      ],
+      [
+        "Solstice speaker arrivals",
+        "Coordinate speaker arrivals for Aster Collective Solstice.",
+        "Collect arrival times and backstage contact details."
+      ],
+      [
+        "Solstice venue renewal 2027",
+        "Renew the Aster Collective Solstice venue agreement for 2027.",
+        "Negotiate the 2027 room dates and hire fee."
+      ]
+    ],
+    "queries": [
+      "Solstice venue renewal 2026",
+      "Find the Aster Collective Solstice caterer-overbilling refund owner.",
+      "Who checks that people can leave Aster Collective Solstice safely if an alarm sounds?",
+      "For Aster Collective Solstice, organize presenters arriving backstage rather than venue contracts.",
+      "Pick the Aster Collective Solstice hall agreement renewal for 2027.",
+      "Go back to Noah Williams’s old Aster Collective Solstice 2026 venue booking.",
+      "I need the catering-credit and speaker-arrival work for Aster Collective Solstice.",
+      "Which workers manage Aster Collective Solstice venue renewals in either year?",
+      "Create a new Aster Collective Solstice soil-analysis task; is it already assigned?",
+      "Find the file owner for confidential voucher QX-EVENTS-29."
+    ]
+  },
+  {
+    "id": "recruiting",
+    "split": "evaluation",
+    "domain": "recruiting",
+    "organization": "Copper Finch",
+    "project": "Kestrel",
+    "person": "Priya Nair",
+    "workers": [
+      [
+        "Kestrel hiring plan 2026",
+        "Approve the Copper Finch Kestrel hiring plan for 2026.",
+        "Priya Nair stored the earlier 2026 headcount approval."
+      ],
+      [
+        "Kestrel candidate expenses",
+        "Reimburse Copper Finch Kestrel applicants for interview travel.",
+        "Check receipts and transfer approved candidate expenses."
+      ],
+      [
+        "Kestrel interview fairness",
+        "Audit the Copper Finch Kestrel interview process for consistent assessment.",
+        "Compare scorecards and identify uneven candidate treatment."
+      ],
+      [
+        "Kestrel panel calendars",
+        "Book interview panels for Copper Finch Kestrel recruiting.",
+        "Collect interviewer availability and send invitations."
+      ],
+      [
+        "Kestrel hiring plan 2027",
+        "Approve the Copper Finch Kestrel hiring plan for 2027.",
+        "Align the 2027 recruitment budget and headcount."
+      ]
+    ],
+    "queries": [
+      "Kestrel hiring plan 2026",
+      "The Copper Finch Kestrel applicants are still owed their journey costs. Find that work.",
+      "Locate the Copper Finch Kestrel review of whether all applicants are being judged on the same basis.",
+      "Who coordinates the interviewer diaries on Copper Finch Kestrel?",
+      "I need the Copper Finch Kestrel staffing authorization for 2027, not last year’s plan.",
+      "Find Priya Nair’s long-finished Copper Finch Kestrel 2026 headcount approval.",
+      "Get both applicant travel repayments and panel scheduling for Copper Finch Kestrel.",
+      "Bring up the Copper Finch Kestrel hiring-plan owners; I have not picked 2026 or 2027.",
+      "Does anyone own a new Copper Finch Kestrel vineyard-irrigation redesign?",
+      "Identify the owner of private application token QX-RECRUITING-62."
+    ]
+  },
+  {
+    "id": "finance",
+    "split": "evaluation",
+    "domain": "financial administration",
+    "organization": "Redwood Partners",
+    "project": "Estuary",
+    "person": "Luis Ortega",
+    "workers": [
+      [
+        "Estuary budget 2026",
+        "Prepare the Redwood Partners Estuary operating budget for 2026.",
+        "Luis Ortega archived the approved 2026 operating forecast."
+      ],
+      [
+        "Estuary unmatched transfer",
+        "Investigate an unmatched bank transfer for Redwood Partners Estuary.",
+        "Trace the payment reference and reconcile the receiving ledger."
+      ],
+      [
+        "Estuary expense controls",
+        "Review expense-approval controls on Redwood Partners Estuary.",
+        "Check authorization thresholds and separation of duties."
+      ],
+      [
+        "Estuary close calendar",
+        "Coordinate month-end reporting dates for Redwood Partners Estuary.",
+        "Collect team deadlines and publish the closing timetable."
+      ],
+      [
+        "Estuary budget 2027",
+        "Prepare the Redwood Partners Estuary operating budget for 2027.",
+        "Gather the 2027 departmental forecasts."
+      ]
+    ],
+    "queries": [
+      "Estuary budget 2026",
+      "Find the Redwood Partners Estuary payment that never matched a ledger entry.",
+      "Who is checking that Redwood Partners Estuary spending is approved by the right people?",
+      "For Redwood Partners Estuary, continue coordinating when the month-end reports are due.",
+      "Use the Redwood Partners Estuary operating forecast for 2027 rather than 2026.",
+      "Look up Luis Ortega’s old Redwood Partners Estuary 2026 budget preparation.",
+      "I need the unmatched-transfer investigation plus the close timetable for Redwood Partners Estuary.",
+      "Locate both Redwood Partners Estuary annual-budget owners without assuming the year.",
+      "Who already handles a new Redwood Partners Estuary opera-costume fitting?",
+      "Find the worker linked to restricted ledger note QX-FINANCE-84."
+    ]
+  },
+  {
+    "id": "education",
+    "split": "evaluation",
+    "domain": "education administration",
+    "organization": "Oakridge College",
+    "project": "Atlas",
+    "person": "Grace Okafor",
+    "workers": [
+      [
+        "Atlas curriculum 2026",
+        "Renew the Oakridge College Atlas course curriculum for 2026.",
+        "Grace Okafor retained the approved 2026 syllabus."
+      ],
+      [
+        "Atlas tuition adjustment",
+        "Correct an Oakridge College Atlas tuition overpayment.",
+        "Reconcile the student account and authorize the refund."
+      ],
+      [
+        "Atlas assessment access",
+        "Review accessible assessment arrangements for Oakridge College Atlas.",
+        "Confirm reasonable adjustments and accessible examination formats."
+      ],
+      [
+        "Atlas tutorial timetable",
+        "Arrange tutorial sessions for Oakridge College Atlas students.",
+        "Match tutor availability to room and student schedules."
+      ],
+      [
+        "Atlas curriculum 2027",
+        "Renew the Oakridge College Atlas course curriculum for 2027.",
+        "Update the learning outcomes and reading list for 2027."
+      ]
+    ],
+    "queries": [
+      "Atlas curriculum 2026",
+      "Which worker corrects the extra tuition paid for Oakridge College Atlas?",
+      "Locate the Oakridge College Atlas work ensuring students with disabilities can take assessments.",
+      "Continue organizing tutor session times for Oakridge College Atlas.",
+      "I want the Oakridge College Atlas syllabus renewal for the 2027 academic year.",
+      "Find Grace Okafor’s older Oakridge College Atlas 2026 course-outline work.",
+      "Bring back both tuition repayment and tutorial scheduling for Oakridge College Atlas.",
+      "Show Oakridge College Atlas curriculum-renewal owners across the two academic years.",
+      "Start a new Oakridge College Atlas industrial-boiler inspection. Is it already owned?",
+      "Who is responsible for private assessment record QX-EDUCATION-17?"
+    ]
+  },
+  {
+    "id": "home",
+    "split": "evaluation",
+    "domain": "household administration",
+    "organization": "Willow Household",
+    "project": "Maple",
+    "person": "Sofia Berg",
+    "workers": [
+      [
+        "Maple cover 2026",
+        "Renew the Willow Household Maple home-insurance cover for 2026.",
+        "Sofia Berg saved the earlier 2026 policy schedule."
+      ],
+      [
+        "Maple water-damage claim",
+        "Handle the Willow Household Maple water-damage insurance claim.",
+        "Submit photographs and obtain the adjuster’s decision."
+      ],
+      [
+        "Maple electrical checks",
+        "Arrange an electrical safety review for Willow Household Maple.",
+        "Check inspection findings and required repairs."
+      ],
+      [
+        "Maple contractor visits",
+        "Schedule contractor access to Willow Household Maple.",
+        "Coordinate keys, access windows and resident availability."
+      ],
+      [
+        "Maple cover 2027",
+        "Renew the Willow Household Maple home-insurance cover for 2027.",
+        "Compare quotes for the 2027 policy period."
+      ]
+    ],
+    "queries": [
+      "Maple cover 2026",
+      "Who has the Willow Household Maple insurer’s response to the leak damage?",
+      "Find the Willow Household Maple work checking whether the wiring is safe.",
+      "Get the Willow Household Maple tradesperson-access appointments, not the insurance work.",
+      "Continue Willow Household Maple home coverage for 2027 specifically.",
+      "Retrieve Sofia Berg’s older Willow Household Maple 2026 property policy work.",
+      "I need the water-damage claim and contractor-access schedule for Willow Household Maple.",
+      "Which workers renew Willow Household Maple home policies? The policy year is unclear.",
+      "Is there an owner for a new Willow Household Maple satellite-launch permit?",
+      "Locate the owner of sealed household record QX-HOME-95."
+    ]
+  },
+  {
+    "id": "health_admin",
+    "split": "evaluation",
+    "domain": "healthcare administration",
+    "organization": "Lakeside Clinic",
+    "project": "Birch",
+    "person": "Daniel Kim",
+    "workers": [
+      [
+        "Birch equipment cover 2026",
+        "Renew the Lakeside Clinic Birch equipment-maintenance agreement for 2026.",
+        "Daniel Kim filed the signed 2026 service schedule."
+      ],
+      [
+        "Birch duplicate supplier bill",
+        "Dispute a duplicate supplier bill for Lakeside Clinic Birch.",
+        "Compare purchase orders and seek a credit note."
+      ],
+      [
+        "Birch records access review",
+        "Audit administrative record access for Lakeside Clinic Birch.",
+        "Check staff permissions and the access-request process."
+      ],
+      [
+        "Birch service visits",
+        "Arrange supplier maintenance visits for Lakeside Clinic Birch.",
+        "Coordinate equipment downtime with supplier availability."
+      ],
+      [
+        "Birch equipment cover 2027",
+        "Renew the Lakeside Clinic Birch equipment-maintenance agreement for 2027.",
+        "Negotiate 2027 preventive-service dates and fees."
+      ]
+    ],
+    "queries": [
+      "Birch equipment cover 2026",
+      "Find the Lakeside Clinic Birch work disputing a supplier charging us twice.",
+      "Who is checking which staff may see Lakeside Clinic Birch administrative records?",
+      "Continue booking the Lakeside Clinic Birch technician appointments.",
+      "Take the Lakeside Clinic Birch equipment-service agreement for 2027 rather than 2026.",
+      "Locate Daniel Kim’s long-inactive Lakeside Clinic Birch 2026 maintenance contract.",
+      "Find both the duplicate-bill dispute and maintenance-visit calendar for Lakeside Clinic Birch.",
+      "Show the Lakeside Clinic Birch maintenance-agreement renewal owners for either year.",
+      "Create Lakeside Clinic Birch’s first marine-freight charter task; is there an existing owner?",
+      "Find the owner of restricted administrative reference QX-HEALTH-43."
+    ]
+  },
+  {
+    "id": "opensource",
+    "split": "evaluation",
+    "domain": "open-source software",
+    "organization": "Helix Foundation",
+    "project": "Quasar",
+    "person": "Mateo Silva",
+    "workers": [
+      [
+        "Quasar release support 2026",
+        "Renew Helix Foundation Quasar release-support commitments for 2026.",
+        "Mateo Silva retained the completed 2026 support agreement."
+      ],
+      [
+        "Quasar broken build",
+        "Investigate a failing integration build in Helix Foundation Quasar.",
+        "Reproduce the failing tests and identify the regression."
+      ],
+      [
+        "Quasar dependency audit",
+        "Review third-party package licenses for Helix Foundation Quasar.",
+        "Check dependency notices and redistribution obligations."
+      ],
+      [
+        "Quasar maintainer rota",
+        "Coordinate maintainer coverage for Helix Foundation Quasar.",
+        "Collect availability and schedule issue-triage shifts."
+      ],
+      [
+        "Quasar release support 2027",
+        "Renew Helix Foundation Quasar release-support commitments for 2027.",
+        "Agree the 2027 supported versions and response window."
+      ]
+    ],
+    "queries": [
+      "Quasar release support 2026",
+      "Find the owner debugging Helix Foundation Quasar’s red integration pipeline.",
+      "Who is checking whether Helix Foundation Quasar can legally redistribute its external packages?",
+      "Continue organizing Helix Foundation Quasar maintainer shifts rather than investigating a build.",
+      "Choose Helix Foundation Quasar’s release-support renewal for 2027.",
+      "Find Mateo Silva’s old Helix Foundation Quasar 2026 support commitment.",
+      "I need the broken-build investigation and maintainer roster for Helix Foundation Quasar.",
+      "Which workers own Helix Foundation Quasar release-support renewals without a specified year?",
+      "Who already handles a new Helix Foundation Quasar livestock-vaccination schedule?",
+      "Find the worker bound to embargoed artifact QX-OPENSOURCE-57."
+    ]
+  },
+  {
+    "id": "procurement",
+    "split": "evaluation",
+    "domain": "equipment purchasing",
+    "organization": "Summit Works",
+    "project": "Orion",
+    "person": "Hana Novak",
+    "workers": [
+      [
+        "Orion supply terms 2026",
+        "Renew Summit Works Orion equipment-supply terms for 2026.",
+        "Hana Novak kept the signed 2026 supply framework."
+      ],
+      [
+        "Orion damaged delivery",
+        "Resolve damaged equipment delivered to Summit Works Orion.",
+        "Collect condition photographs and negotiate replacement units."
+      ],
+      [
+        "Orion supplier diligence",
+        "Assess supplier solvency for Summit Works Orion purchasing.",
+        "Review financial stability and continuity evidence."
+      ],
+      [
+        "Orion receiving slots",
+        "Coordinate equipment receiving appointments for Summit Works Orion.",
+        "Allocate loading-bay slots and warehouse staff."
+      ],
+      [
+        "Orion supply terms 2027",
+        "Renew Summit Works Orion equipment-supply terms for 2027.",
+        "Negotiate 2027 lead times and unit prices."
+      ]
+    ],
+    "queries": [
+      "Orion supply terms 2026",
+      "Who is sorting out the Summit Works Orion equipment that arrived broken?",
+      "Find the Summit Works Orion owner checking whether the vendor can stay in business.",
+      "Continue arranging Summit Works Orion loading-bay appointments.",
+      "I mean Summit Works Orion’s equipment purchasing framework for 2027.",
+      "Recover Hana Novak’s earlier Summit Works Orion 2026 supply-terms work.",
+      "Bring back the damaged-delivery and warehouse-slot workers for Summit Works Orion.",
+      "Find Summit Works Orion equipment-supply renewal owners across the two years.",
+      "Is a new Summit Works Orion film-festival submission already owned?",
+      "Find the worker for confidential purchase reference QX-PROCUREMENT-68."
+    ]
+  },
+  {
+    "id": "logistics",
+    "split": "evaluation",
+    "domain": "freight logistics",
+    "organization": "Bluewater Cargo",
+    "project": "Vega",
+    "person": "Amira Saleh",
+    "workers": [
+      [
+        "Vega freight agreement 2026",
+        "Renew the Bluewater Cargo Vega freight agreement for 2026.",
+        "Amira Saleh archived the signed 2026 carriage terms."
+      ],
+      [
+        "Vega missing pallet",
+        "Trace the missing pallet on the Bluewater Cargo Vega shipment.",
+        "Compare warehouse scans and carrier handover records."
+      ],
+      [
+        "Vega customs documents",
+        "Check customs-document completeness for Bluewater Cargo Vega.",
+        "Verify tariff declarations and country-of-origin paperwork."
+      ],
+      [
+        "Vega dock roster",
+        "Arrange dock staffing for Bluewater Cargo Vega arrivals.",
+        "Coordinate arrival windows and unloading teams."
+      ],
+      [
+        "Vega freight agreement 2027",
+        "Renew the Bluewater Cargo Vega freight agreement for 2027.",
+        "Discuss the 2027 lane rates and delivery service levels."
+      ]
+    ],
+    "queries": [
+      "Vega freight agreement 2026",
+      "Locate the Bluewater Cargo Vega consignment work about a pallet going missing.",
+      "Who is ensuring Bluewater Cargo Vega’s border-clearance paperwork is complete?",
+      "Continue organizing the unloading crew for Bluewater Cargo Vega.",
+      "Use Bluewater Cargo Vega’s carriage agreement renewal for 2027.",
+      "Look up Amira Saleh’s dormant Bluewater Cargo Vega 2026 freight-contract work.",
+      "I need the missing-pallet investigation and dock staffing for Bluewater Cargo Vega.",
+      "Find the Bluewater Cargo Vega freight-contract owners; the year has not been supplied.",
+      "Is anyone assigned a new Bluewater Cargo Vega choir-audition program?",
+      "Find the worker associated with sealed manifest QX-LOGISTICS-24."
+    ]
+  },
+  {
+    "id": "design",
+    "split": "evaluation",
+    "domain": "product design",
+    "organization": "Marigold Studio",
+    "project": "Prism",
+    "person": "Camille Dubois",
+    "workers": [
+      [
+        "Prism design retainer 2026",
+        "Renew the Marigold Studio Prism design retainer for 2026.",
+        "Camille Dubois saved the approved 2026 creative-services agreement."
+      ],
+      [
+        "Prism disputed revision fee",
+        "Resolve a disputed revision charge on Marigold Studio Prism.",
+        "Compare the agreed scope with the extra design invoice."
+      ],
+      [
+        "Prism contrast review",
+        "Audit visual accessibility for Marigold Studio Prism screens.",
+        "Check contrast, focus indicators and text scaling."
+      ],
+      [
+        "Prism research bookings",
+        "Schedule usability-study participants for Marigold Studio Prism.",
+        "Arrange sessions and send participant reminders."
+      ],
+      [
+        "Prism design retainer 2027",
+        "Renew the Marigold Studio Prism design retainer for 2027.",
+        "Agree the 2027 deliverables and monthly fee."
+      ]
+    ],
+    "queries": [
+      "Prism design retainer 2026",
+      "Find the Marigold Studio Prism argument about an extra iteration charge.",
+      "Who checks whether Marigold Studio Prism screens remain readable for people with low vision?",
+      "Continue arranging Marigold Studio Prism usability-test appointments.",
+      "Pick the Marigold Studio Prism creative-services retainer for 2027.",
+      "Find Camille Dubois’s old Marigold Studio Prism 2026 retainer work.",
+      "Get both the revision-fee dispute and user-study scheduling for Marigold Studio Prism.",
+      "Show Marigold Studio Prism design-retainer renewal owners without assuming the year.",
+      "Start a new Marigold Studio Prism archaeological excavation task; is there an owner?",
+      "Find the worker linked to private mockup QX-DESIGN-39."
+    ]
+  },
+  {
+    "id": "nonprofit",
+    "split": "evaluation",
+    "domain": "nonprofit operations",
+    "organization": "Riverton Aid",
+    "project": "Tern",
+    "person": "Kwame Mensah",
+    "workers": [
+      [
+        "Tern grant renewal 2026",
+        "Renew the Riverton Aid Tern community grant for 2026.",
+        "Kwame Mensah retained the approved 2026 funding agreement."
+      ],
+      [
+        "Tern missing donation",
+        "Investigate an uncredited donation to Riverton Aid Tern.",
+        "Trace the donor transfer and correct the acknowledgment ledger."
+      ],
+      [
+        "Tern safeguarding review",
+        "Review volunteer safeguarding procedures for Riverton Aid Tern.",
+        "Check training records and escalation arrangements."
+      ],
+      [
+        "Tern volunteer shifts",
+        "Coordinate volunteer shifts for Riverton Aid Tern distribution days.",
+        "Match volunteer availability with distribution slots."
+      ],
+      [
+        "Tern grant renewal 2027",
+        "Renew the Riverton Aid Tern community grant for 2027.",
+        "Prepare the 2027 funding application and outcomes forecast."
+      ]
+    ],
+    "queries": [
+      "Tern grant renewal 2026",
+      "Who is tracing the Riverton Aid Tern contribution that was never acknowledged?",
+      "Find the Riverton Aid Tern owner checking how volunteers protect vulnerable participants.",
+      "Continue arranging Riverton Aid Tern volunteer coverage on distribution days.",
+      "I want Riverton Aid Tern’s community-funding renewal for 2027.",
+      "Locate Kwame Mensah’s completed Riverton Aid Tern 2026 grant application work.",
+      "Get the uncredited-donation and volunteer-shift workers for Riverton Aid Tern.",
+      "Find the Riverton Aid Tern annual-grant owners for either funding year.",
+      "Is there an existing owner for a new Riverton Aid Tern semiconductor-fabrication review?",
+      "Find the owner of confidential donor receipt QX-NONPROFIT-76."
+    ]
+  },
+  {
+    "id": "property",
+    "split": "evaluation",
+    "domain": "property management",
+    "organization": "Elmstone Estates",
+    "project": "Spruce",
+    "person": "Isabel Costa",
+    "workers": [
+      [
+        "Spruce service contract 2026",
+        "Renew the Elmstone Estates Spruce building-service contract for 2026.",
+        "Isabel Costa filed the signed 2026 facilities agreement."
+      ],
+      [
+        "Spruce incorrect service charge",
+        "Resolve an incorrect Elmstone Estates Spruce tenant service charge.",
+        "Compare the apportionment with lease provisions and issue a correction."
+      ],
+      [
+        "Spruce fire-door review",
+        "Inspect fire-door compliance at Elmstone Estates Spruce.",
+        "Collect inspection findings and arrange necessary remedial work."
+      ],
+      [
+        "Spruce resident visits",
+        "Schedule resident access visits for Elmstone Estates Spruce inspections.",
+        "Coordinate appointments and send notices to residents."
+      ],
+      [
+        "Spruce service contract 2027",
+        "Renew the Elmstone Estates Spruce building-service contract for 2027.",
+        "Negotiate the 2027 maintenance scope and contractor fees."
+      ]
+    ],
+    "queries": [
+      "Spruce service contract 2026",
+      "Find the Elmstone Estates Spruce tenant bill that was apportioned incorrectly.",
+      "Who is checking whether Elmstone Estates Spruce’s corridor doors meet fire rules?",
+      "Continue arranging resident inspection appointments at Elmstone Estates Spruce.",
+      "Find Elmstone Estates Spruce’s facilities-service renewal for 2027.",
+      "Look up Isabel Costa’s older Elmstone Estates Spruce 2026 building-services agreement.",
+      "I need the tenant-charge correction and resident-visit schedule for Elmstone Estates Spruce.",
+      "Show both Elmstone Estates Spruce building-service renewal owners, with the year unresolved.",
+      "Does anyone own a new Elmstone Estates Spruce ballet-tour itinerary?",
+      "Find the worker for sealed tenancy document QX-PROPERTY-81."
+    ]
+  },
+  {
+    "id": "manufacturing",
+    "split": "evaluation",
+    "domain": "manufacturing operations",
+    "organization": "Ironwood Tools",
+    "project": "Cobalt",
+    "person": "Tomasz Zielinski",
+    "workers": [
+      [
+        "Cobalt calibration contract 2026",
+        "Renew the Ironwood Tools Cobalt calibration contract for 2026.",
+        "Tomasz Zielinski retained the completed 2026 calibration-service agreement."
+      ],
+      [
+        "Cobalt rejected batch",
+        "Investigate a rejected production batch at Ironwood Tools Cobalt.",
+        "Trace lot records and identify the out-of-tolerance operation."
+      ],
+      [
+        "Cobalt machine guarding",
+        "Review machine-guarding compliance at Ironwood Tools Cobalt.",
+        "Inspect interlocks, guards and operator access points."
+      ],
+      [
+        "Cobalt shutdown calendar",
+        "Schedule planned production shutdowns at Ironwood Tools Cobalt.",
+        "Coordinate maintenance windows with manufacturing orders."
+      ],
+      [
+        "Cobalt calibration contract 2027",
+        "Renew the Ironwood Tools Cobalt calibration contract for 2027.",
+        "Agree the 2027 instrument schedule and service fee."
+      ]
+    ],
+    "queries": [
+      "Cobalt calibration contract 2026",
+      "Locate the Ironwood Tools Cobalt work tracing why a production lot failed acceptance.",
+      "Who is checking that Ironwood Tools Cobalt operators cannot reach moving machinery?",
+      "Continue coordinating Ironwood Tools Cobalt’s planned downtime.",
+      "Pick Ironwood Tools Cobalt’s calibration-service contract for 2027.",
+      "Retrieve Tomasz Zielinski’s long-finished Ironwood Tools Cobalt 2026 calibration agreement.",
+      "Find both rejected-batch analysis and shutdown scheduling for Ironwood Tools Cobalt.",
+      "Which workers own Ironwood Tools Cobalt calibration renewals, without a year?",
+      "Is a new Ironwood Tools Cobalt coral-restoration project already assigned?",
+      "Find the worker linked to restricted lot certificate QX-MANUFACTURING-92."
+    ]
+  },
+  {
+    "id": "agriculture",
+    "split": "evaluation",
+    "domain": "agricultural operations",
+    "organization": "Meadowlark Farm",
+    "project": "Saffron",
+    "person": "Nadia Rahman",
+    "workers": [
+      [
+        "Saffron water allocation 2026",
+        "Renew Meadowlark Farm Saffron irrigation-water allocation for 2026.",
+        "Nadia Rahman archived the approved 2026 water entitlement."
+      ],
+      [
+        "Saffron seed delivery claim",
+        "Resolve an incomplete seed delivery to Meadowlark Farm Saffron.",
+        "Count missing bags and request replacement stock."
+      ],
+      [
+        "Saffron soil certification",
+        "Review soil-testing records for Meadowlark Farm Saffron certification.",
+        "Check sample coverage and organic-compliance documentation."
+      ],
+      [
+        "Saffron harvest crews",
+        "Schedule harvest crews for Meadowlark Farm Saffron.",
+        "Coordinate field readiness with crew availability."
+      ],
+      [
+        "Saffron water allocation 2027",
+        "Renew Meadowlark Farm Saffron irrigation-water allocation for 2027.",
+        "Prepare the 2027 water-use forecast and renewal papers."
+      ]
+    ],
+    "queries": [
+      "Saffron water allocation 2026",
+      "Find the Meadowlark Farm Saffron supplier claim about missing seed bags.",
+      "Who checks Meadowlark Farm Saffron’s earth-sample evidence for organic approval?",
+      "Continue arranging pickers for Meadowlark Farm Saffron harvest days.",
+      "I want Meadowlark Farm Saffron’s irrigation entitlement for 2027.",
+      "Find Nadia Rahman’s older Meadowlark Farm Saffron 2026 water-allocation application.",
+      "Get the seed-shortage claim and harvest-crew schedule for Meadowlark Farm Saffron.",
+      "Show the Meadowlark Farm Saffron water-allocation renewal owners across both years.",
+      "Does anyone own a new Meadowlark Farm Saffron mobile-app penetration test?",
+      "Find the worker associated with sealed field note QX-AGRICULTURE-65."
+    ]
+  },
+  {
+    "id": "publishing",
+    "split": "evaluation",
+    "domain": "publishing",
+    "organization": "Paperkite Press",
+    "project": "Horizon",
+    "person": "Lea Muller",
+    "workers": [
+      [
+        "Horizon rights 2026",
+        "Renew Paperkite Press Horizon translation rights for 2026.",
+        "Lea Muller kept the signed 2026 rights agreement."
+      ],
+      [
+        "Horizon royalty correction",
+        "Correct a disputed royalty statement for Paperkite Press Horizon.",
+        "Reconcile sales returns and author payments."
+      ],
+      [
+        "Horizon permissions audit",
+        "Review illustration permissions for Paperkite Press Horizon.",
+        "Check image licenses and required acknowledgments."
+      ],
+      [
+        "Horizon proof timetable",
+        "Coordinate proofreading deadlines for Paperkite Press Horizon.",
+        "Schedule author corrections and final-page signoff."
+      ],
+      [
+        "Horizon rights 2027",
+        "Renew Paperkite Press Horizon translation rights for 2027.",
+        "Negotiate 2027 territories, editions and license fees."
+      ]
+    ],
+    "queries": [
+      "Horizon rights 2026",
+      "Who is correcting the Paperkite Press Horizon author-payment statement?",
+      "Find the Paperkite Press Horizon owner checking whether the artwork can be reproduced.",
+      "Continue arranging Paperkite Press Horizon page-proof deadlines.",
+      "Choose Paperkite Press Horizon’s translation-rights renewal for 2027.",
+      "Locate Lea Muller’s old Paperkite Press Horizon 2026 foreign-language rights agreement.",
+      "I need royalty reconciliation and proof scheduling for Paperkite Press Horizon.",
+      "Which workers handle Paperkite Press Horizon translation-rights renewals, with no year supplied?",
+      "Start a new Paperkite Press Horizon turbine-overhaul task; is there an owner?",
+      "Find the worker for confidential manuscript reference QX-PUBLISHING-28."
+    ]
+  },
+  {
+    "id": "security",
+    "split": "evaluation",
+    "domain": "information security",
+    "organization": "Stonebridge Systems",
+    "project": "Nimbus",
+    "person": "Yuki Sato",
+    "workers": [
+      [
+        "Nimbus monitoring contract 2026",
+        "Renew Stonebridge Systems Nimbus security-monitoring services for 2026.",
+        "Yuki Sato saved the completed 2026 monitoring agreement."
+      ],
+      [
+        "Nimbus suspicious sign-in",
+        "Investigate suspicious sign-ins to Stonebridge Systems Nimbus.",
+        "Correlate authentication logs and confirm affected accounts."
+      ],
+      [
+        "Nimbus restore exercise",
+        "Review backup-restoration readiness for Stonebridge Systems Nimbus.",
+        "Test whether retained backups can restore the application."
+      ],
+      [
+        "Nimbus on-call coverage",
+        "Coordinate security on-call coverage for Stonebridge Systems Nimbus.",
+        "Collect responder availability and publish the escalation rota."
+      ],
+      [
+        "Nimbus monitoring contract 2027",
+        "Renew Stonebridge Systems Nimbus security-monitoring services for 2027.",
+        "Agree 2027 alert coverage and incident-response terms."
+      ]
+    ],
+    "queries": [
+      "Nimbus monitoring contract 2026",
+      "Find the Stonebridge Systems Nimbus investigation into unusual login attempts.",
+      "Who checks that Stonebridge Systems Nimbus can be recovered from saved copies after a failure?",
+      "Continue organizing Stonebridge Systems Nimbus responder shifts.",
+      "I mean Stonebridge Systems Nimbus’s monitoring-service renewal for 2027.",
+      "Find Yuki Sato’s dormant Stonebridge Systems Nimbus 2026 monitoring contract.",
+      "Get both the suspicious-login investigation and on-call rota for Stonebridge Systems Nimbus.",
+      "Show Stonebridge Systems Nimbus monitoring-renewal owners for the unspecified year.",
+      "Is anyone assigned a new Stonebridge Systems Nimbus orchard-pruning schedule?",
+      "Find the worker attached to embargoed incident token QX-SECURITY-46."
+    ]
+  }
+]

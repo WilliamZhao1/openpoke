@@ -105,6 +105,14 @@ used by these comparisons.
 
 ## Interfaces and configuration
 
+The later [discovery-quality v2 baseline](discovery-quality-benchmark.md#first-retained-baseline-2026-11-12)
+uses different, more varied synthetic inputs. At 10,000 workers its evaluation
+recall@5 is 92.92%/97.50%/98.75% for heuristic/IDF/BM25, with pending independent
+label review and no automatic promotion decision. These findings do not rewrite
+the 2026-11-11 v1 gate/results above; production remains heuristic_v1. All three
+return candidates for the new overlapping no-match requests, and the heuristic
+has higher v2 evaluation recall at 100 workers than either alternative.
+
 `server/services/execution/ranking.py` contains `WorkerRanker`, `RankedWorker`,
 `SearchCatalog`, the three independent implementations and a small selector.
 Call `rank_workers(ranker, query, catalog)` for validated, deterministic ordering;
