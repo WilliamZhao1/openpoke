@@ -50,6 +50,7 @@ This is the central register for known OpenPoke limitations, intentional runtime
 | [LIM-031](#lim-031) | Resolved | Provider draft ID confused with saved-content reference |
 | [LIM-032](#lim-032) | Resolved | Frontend decoded literal escape sequences twice |
 | [LIM-033](#lim-033) | Resolved | Trigger-store SQLite connections remained open |
+| [LIM-034](#lim-034) | Resolved | Cancelled background tasks could abort evaluation draining |
 
 ## Discovery and identity
 
@@ -433,6 +434,19 @@ Evidence: [release findings](agent-overload-release-checks.md), [history mapper]
 **Status: Resolved, 2026-11-09.** The connection context now closes in `finally`, including statement failure. Application/resource checks verify release of actual SQLite connections. This fixes connection lifetime, not distributed trigger execution or durable job replay.
 
 Evidence: [release findings](agent-overload-release-checks.md), [trigger store](../server/services/triggers/store.py), [application regressions](../server/tests/test_bounded_application.py).
+
+<a id="lim-034"></a>
+### LIM-034 — Cancelled background tasks could abort evaluation draining
+
+**Status: Resolved for the reproduced cancelled-child failure, 2026-11-12.** The evaluation task capture also records dependency tasks. Awaiting them with ordinary `asyncio.gather()` propagated a cancelled child's `CancelledError` out of the paired runner, whose `except Exception` does not catch cancellation. A user-reported live comparison stopped before saving its in-progress row; its exact cancelled task was not identified. A local, network-free reproducer confirmed the shared drain helper could abort solely because an already-cancelled background child was captured.
+
+**Fix and safeguards:** draining now collects child outcomes with `return_exceptions=True`, skips cancelled children, and re-raises actual task exceptions. Cancellation of the draining evaluation itself still propagates and cancels pending work; case deadlines still time out. Five isolated regressions cover cancelled children with continuing worker/callback work, a genuine failure alongside cancellation, evaluation cancellation/cleanup, timeout/cleanup, and an exception object returned as a value. These checks passed locally; no paid live recheck was made. Application grading and historical evidence are unchanged, and the broader live-evidence gap remains open under LIM-029.
+
+**Reopen when:** a captured child cancellation still aborts an otherwise completing evaluation, a genuine task failure or evaluation cancellation is suppressed, or another interrupted-run evidence path requires a separate fix.
+
+Evidence: [shared task capture/drain](../evals/agent_overload/engine.py), [cancellation regressions](../server/tests/test_agent_overload_tasks.py), [paired runner](../evals/agent_overload/comparison.py).
+
+Validation: `python server/tests/run_tests.py` passed all **272 backend tests** on 2026-11-12, including the five new cancellation regressions and retained scripted comparison/application checks. This is local regression evidence, not a new live-model comparison.
 
 ## Change record
 

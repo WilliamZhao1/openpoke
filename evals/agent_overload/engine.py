@@ -162,7 +162,16 @@ async def drain(tasks):
         index = len(tasks)
         if not current:
             return
-        await asyncio.gather(*current)
+        # The capture also sees dependency tasks, such as connection attempts
+        # cancelled by the HTTP client's task group. Drain their outcomes without
+        # treating child cancellation as cancellation of the whole evaluation.
+        # Cancelling this await still propagates and cancels pending children.
+        await asyncio.gather(*current, return_exceptions=True)
+        for task in current:
+            if not task.cancelled():
+                failure = task.exception()
+                if failure is not None:
+                    raise failure
     raise RuntimeError("Mock background work did not drain")
 
 
